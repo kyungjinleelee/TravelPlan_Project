@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="MyPageMapper">
+	<!--내가 찜한 일정 목록 -->
+ 	<select id="userLikeList" parameterType="string" resultType="UserLikeDTO">
+ 	   select *
+ 	   from user_like_list
+ 	   where userid =#{userid}
+ 	</select>
+ 	<!--내가 쓴 글 목록 목록 -->
+ 	<select id="writeList" parameterType="string" resultType="TravelDTO">
+ 	   select *
+ 	   from TRAVEL
+ 	   where userid =#{userid}
+ 	</select>
+</mapper>
