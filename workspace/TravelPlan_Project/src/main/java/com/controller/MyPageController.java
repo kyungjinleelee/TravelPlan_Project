@@ -8,36 +8,38 @@ import com.service.MyPageService;
 
 @Controller
 public class MyPageController {
-
+	
 	@Autowired
 	MyPageService service;
-
-	// È¸¿øÁ¤º¸¼öÁ¤
-	@GetMapping("/memberUpdate")
+	
+	// íšŒì›ì •ë³´ìˆ˜ì •
+	@GetMapping("/MemberUpdate")
 	public String memberUpdate() {
-
-		return "memberUpdate";//
+		
+		return "memberUpdate";
 	}
-
-	// ÀÏÁ¤ º¸°üÇÔ
-	@GetMapping("/myplan")
-	public String myplan() {
-
-		return "myplan";
+	
+	// ì¼ì •ë³´ê´€í•¨
+	@GetMapping("/MyPlan")
+	public String myPlan() {
+		
+		return "myPlan";
 	}
-
-	// ÁÁ¾Æ¿ä ¸ñ·Ï
-	@GetMapping("/likeList")
+	
+	// ì¢‹ì•„ìš” ëª©ë¡
+	@GetMapping("/LikeList")
 	public String likeList() {
 		
-		
-		
-		return "";
+		return "likeList";
 	}
-
-	// ³»°¡ ¾´ ±Û ¸ñ·Ï
-	@GetMapping("/writeList")
+	
+	// ë‚´ê°€ ì“´ ê¸€ ëª©ë¡
+	@GetMapping("/WriteList")
 	public String writeList() {
-		return "";
+		
+		return "writeList";
 	}
+	
+	
+
 }
