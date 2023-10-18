@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.net.URLDecoder"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,53 +64,55 @@
             color:red;
             margin-bottom: 20px;
         }
- 
+        
     </style>
     <title>회원가입</title>
 </head>
 <body>
-
-   <form action="/app/login.jsp" method="POST" onsubmit="return formCheck(this)"> <!-- 이벤트 등록, true일 때 -폼 전송, false일 때 - 폼 전송x -->
+<jsp:include page="common/top.jsp" flush="true" /><br>
+   <form action="/register" method="post" onsubmit="return formCheck(this)"><!-- 이벤트 설정, true면 submit false면 제출 x -->
     <div class="title">회원가입</div>
-    <div id="msg" class="msg"> </div> 
+    <div id="msg" class="msg"></div> 
+    
     <label for="">아이디</label>
-    <input class="input-field" type="text" name="userid" placeholder="8~12자리의 영대소문자와 숫자 조합" autofocus>
+    <input class="input-field" type="text" name="userID" placeholder="8자 이상의 문자" autofocus>
     <label for="">비밀번호</label>
-    <input class="input-field" type="text" name="passwd" placeholder="8~12자리의 영대소문자와 숫자 조합">
+    <input class="input-field" type="text" name="passwd" placeholder="8자 이상의 문자">
     <label for="">이름</label>
     <input class="input-field" type="text" name="name" placeholder="홍길동">
     <label for="">이메일</label>
-    <input class="input-field" type="text" name="email" placeholder="example@travel.co.kr"> 
-    <label for="">우편주소</label>
+    <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr"> 
+    <label for="">우편번호</label>
     <input class="input-field" type="text" name="post" placeholder="01645">
     <label for="">주소</label>
-    <input class="input-field" type="text" name="addr" placeholder="서울시 강남구">
+    <input class="input-field" type="text" name="addr" placeholder="주소">
     <label for="">전화번호</label>
     <input class="input-field" type="text" name="phone" placeholder="010-1234-5678">
     <button>회원 가입</button>
    </form> 
    <script>
        function formCheck(frm) {
-            var msg ='';
+            let msg ='';
 
-            if(frm.userid.value.length<4) {
-                setMessage('id의 길이는 4이상이어야 합니다.', frm.userid);
-                return false;
-            }
-            if(frm.passwd.value.length<4) {
-                setMessage('비밀번호의 길이는 4이상이어야 합니다.', frm.passwd);
+            if(frm.id.value.length<8) {
+                setMessage('id의 길이는 8자 이상이어야 합니다.', frm.userID);
                 return false;
             }
 
+            if(frm.pwd.value.length<8) {
+                setMessage('pwd의 길이는 8자 이상이어야 합니다.', frm.passwd);
+                return false;
+            }           
+           
            return true;
        }
 
        function setMessage(msg, element){
-            document.getElementById("msg").innerHTML = `<i class="fa fa-exclamation-circle"> ${msg}</i>`;
+            document.getElementById("msg").innerHTML = `<i class="fa fa-exclamation-circle"> ${'${msg}'}</i>`;
 
             if(element) {
-                element.select(); // 값이 잘못 입력됐을 때, 잘못된 값이 자동으로 선택
-            } 
+                element.select(); // 양식이 잘못되었을 때 자동 커서 위치
+            }
        }
    </script>
 </body>

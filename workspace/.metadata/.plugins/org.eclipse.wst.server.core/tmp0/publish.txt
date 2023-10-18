@@ -1,5 +1,5 @@
 #Tomcat publish data
-#Wed Oct 18 17:56:17 KST 2023
+#Wed Oct 18 22:40:34 KST 2023
 org.eclipse.jst.jee.server\:TravelPlan_Project=C\:\\spring_study\\apache-tomcat-9.0.78\\webapps\\TravelPlan_Project
 org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\dogli\\.m2\\repository\\org\\springframework\\spring-web\\5.2.25.RELEASE\\spring-web-5.2.25.RELEASE.jar=C\:\\spring_study\\apache-tomcat-9.0.78\\webapps\\TravelPlan_Project\\WEB-INF\\lib\\spring-web-5.2.25.RELEASE.jar
 org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\paouo\\.m2\\repository\\org\\springframework\\spring-web\\5.2.25.RELEASE\\spring-web-5.2.25.RELEASE.jar=C\:\\spring_study\\apache-tomcat-9.0.78\\webapps\\TravelPlan_Project\\WEB-INF\\lib\\spring-web-5.2.25.RELEASE.jar
