@@ -1,0 +1,53 @@
+package com.dto;
+
+import org.apache.ibatis.type.Alias;
+
+@Alias("CommentDTO")
+public class CommentDTO {
+	private String commentID;
+	private int contentNum;
+	private String userID;
+	private String commentdate;
+	private String comments;
+	
+	public CommentDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	public CommentDTO(String commentID, int contentnum, String userID, String commentdate, String comments) {
+		this.commentID = commentID;
+		this.contentnum = contentnum;
+		this.userID = userID;
+		this.commentdate = commentdate;
+		this.comments = comments;
+	}
+	public String getCommentID() {
+		return commentID;
+	}
+	public void setCommentID(String commentID) {
+		this.commentID = commentID;
+	}
+	public int getContentnum() {
+		return contentnum;
+	}
+	public void setContentnum(int contentnum) {
+		this.contentnum = contentnum;
+	}
+	public String getUserID() {
+		return userID;
+	}
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+	public String getCommentdate() {
+		return commentdate;
+	}
+	public void setCommentdate(String commentdate) {
+		this.commentdate = commentdate;
+	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+}

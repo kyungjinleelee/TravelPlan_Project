@@ -1,0 +1,5 @@
+package com.interceptor;
+
+public class LoginCheckHandlerInterceptor extends HandlerInterceptorAdapter  {
+
+}

@@ -1,0 +1,9 @@
+package com.dto;
+
+public class PlanDTO {
+	int planID;
+	int travelID;
+	int day_num;
+	String item;
+	String item_add;
+}

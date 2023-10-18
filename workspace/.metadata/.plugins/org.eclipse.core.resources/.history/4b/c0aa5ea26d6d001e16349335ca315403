@@ -1,0 +1,15 @@
+package com.service;
+
+import java.util.List;
+
+import com.dto.MemberDTO;
+
+public class MemberServiceImpl implements MemberService {
+
+	@Override
+	public List<MemberDTO> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
