@@ -1,0 +1,7 @@
+package com.interceptor;
+
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+public class LoginCheckHandlerInterceptor extends HandlerInterceptorAdapter  {
+	
+}

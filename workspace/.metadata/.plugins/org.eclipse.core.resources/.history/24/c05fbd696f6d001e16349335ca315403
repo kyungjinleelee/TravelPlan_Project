@@ -1,0 +1,28 @@
+package com.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.dto.MemberDTO;
+import com.service.MemberService;
+
+@Controller
+public class MemberController {
+	@Autowired
+	MemberService service;
+	
+	@GetMapping("/findAll")
+	public String findAll() {
+		System.out.println("Controller");
+		List<MemberDTO> list = service.findAll();
+		
+		for(MemberDTO dto : list) {
+			System.out.println(dto);
+		}
+		return "findAll";
+	}
+
+}
