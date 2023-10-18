@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="MyPageMapper">
+
+<!-- 수정할 회원 정보 가져오기 -->
+<select id="memberInfo" parameterType="string" resultType="MemberDTO">
+	select userID, passwd, name, email, post, addr1, addr2, phone
+	from member
+	where userID=#{userID} 
+</select>
+
+<!-- 회원 정보 수정 -->
+
+	
+</mapper>
