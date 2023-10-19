@@ -1,11 +1,14 @@
 package com.dao;
 
-<<<<<<< HEAD
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dto.MemberDTO;
+import com.dto.TravelDTO;
+import com.dto.UserLikeDTO;
 
 @Repository
 public class MyPageDAO {
@@ -21,33 +24,20 @@ public class MyPageDAO {
 	}
 	
 	//íšŒì›ì •ë³´ìˆ˜ì •
-//	public int memberUpdate(MemberDTO dto) {
-//		return session.update();
-//	}
+	//dtoì— ë‹´ê¸´ íŒŒë¼ë¯¸í„°ë“¤ì„ MyPageMapperì˜ ì•„ì´ë””ê°€ memberUpdateì¸ ì¿¼ë¦¬ì— ë„£ì–´ì¤€ë‹¤.
+	public void memberUpdate(MemberDTO dto) {
+		session.update("MyPageMapper.memberUpdate", dto);
+//		session.selectOne("MyPageMapper.memberUpdate", dto);
+	}
 	
-=======
-import java.util.List;
-import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.dto.TravelDTO;
-import com.dto.UserLikeDTO;
-
-public class MyPageDAO {
-// userLike, travelDTO, 
-//planDTO? ³»°¡ ÁÁ¾Æ¿äÇÑ ¸ñ·Ï user like list,  
-	@Autowired
-	SqlSessionTemplate session;
-	
-	// ³»°¡ ÂòÇÑ ÀÏÁ¤
-	public List<UserLikeDTO> userLikeList(String userid) {
-		return session.selectList("MyPageMapper.userLikeList", userid);
+	//ë‚´ê°€ ì°œ í•œ ê¸€ ëª©ë¡
+	public List<UserLikeDTO> userLikeList(String userID) {
+		return session.selectList("MyPageMapper.userLikeList", userID);
 	}
 
-	// ³»°¡ ¾´ ±Û ¸ñ·Ï
-	public List<TravelDTO> writeList(String userid) {
-		return session.selectList("MyPageMapper.writeList", userid);
+	//ì—¬í–‰ê³„íš (ë‚´ë³´ê´€í•¨) ëª©ë¡
+	public List<TravelDTO> writeList(String userID) {
+		return session.selectList("MyPageMapper.writeList", userID);
 	}
->>>>>>> 719129cae9a7203e96b3062c83fe67922753eb44
+	
 }

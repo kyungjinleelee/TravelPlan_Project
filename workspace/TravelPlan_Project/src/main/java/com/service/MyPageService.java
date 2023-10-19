@@ -2,16 +2,23 @@ package com.service;
 
 import java.util.List;
 
-
+import com.dto.MemberDTO;
 import com.dto.TravelDTO;
 import com.dto.UserLikeDTO;
 
 
 public interface MyPageService {
+	
+	//íšŒì› ì •ë³´ í™•ì¸
+	public MemberDTO memberInfo(String userID);
+	
+	//íšŒì› ì •ë³´ ìˆ˜ì •
+	public void memberUpdate(MemberDTO dto);
+	
+	//ì¢‹ì•„ìš” ëª©ë¡
+	public List<UserLikeDTO> userLikeList(String userid);
+	
+	//ë‚´ê°€ ì“´ ê¸€ ëª©ë¡
+	public List<TravelDTO> writeList(String userid);
 
-	public List<UserLikeDTO> userLikeList(String userid);// ³»°¡ ÂòÇÑ ÀÏÁ¤
-	public List<TravelDTO> writeList(String userid);// ³»°¡ ¾´ ±Û ¸ñ·Ï
 }
-
-
-

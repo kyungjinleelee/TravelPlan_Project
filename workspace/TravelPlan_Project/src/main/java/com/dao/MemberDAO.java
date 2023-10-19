@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository("dao")
 public class MemberDAO {
+	
 	@Autowired // SqlSessionTemplate 주입
 	SqlSessionTemplate session;
 	

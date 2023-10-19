@@ -1,11 +1,15 @@
 package com.service;
 
-<<<<<<< HEAD
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.dao.MyPageDAO;
 import com.dto.MemberDTO;
+import com.dto.TravelDTO;
+import com.dto.UserLikeDTO;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
@@ -13,43 +17,32 @@ public class MyPageServiceImpl implements MyPageService {
 	@Autowired
 	MyPageDAO dao;         //DAO 주입받기
 
-	//수정할 회원 정보 가져오기
+	//회원 정보 확인
 	@Override
 	public MemberDTO memberInfo(String userID) {
 		MemberDTO dto = dao.memberInfo(userID);
 		return dto;
 	}
 
-//	@Override
-//	public MemberDTO memberUpdate(String userID) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-=======
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.dao.MyPageDAO;
-import com.dto.TravelDTO;
-import com.dto.UserLikeDTO;
-
-public class MyPageServiceImpl implements MyPageService {
-	@Autowired
-	MyPageDAO dao;
+	//회원 정보 수정
+	@Override
+	public void memberUpdate(MemberDTO dto) {      //Controller에서 보내는 파라미터들을 memberUpdate(MemberDTO dto)로 받고
+		dao.memberUpdate(dto);    //받은 dto를 DAO로 보냄
+		
+	}
 	
-
+	//좋아요 목록
 	@Override
-	public List<UserLikeDTO> userLikeList(String userid) {
-		List<UserLikeDTO> list = dao.userLikeList(userid);
+	public List<UserLikeDTO> userLikeList(String userID) {
+		List<UserLikeDTO> list = dao.userLikeList(userID);
 		return list;
 	}
 
+	//내가 쓴 글 목록
 	@Override
-	public List<TravelDTO> writeList(String userid) {
-		List<TravelDTO> list = dao.writeList(userid);
+	public List<TravelDTO> writeList(String userID) {
+		List<TravelDTO> list = dao.writeList(userID);
 		return list;
 	}
->>>>>>> 719129cae9a7203e96b3062c83fe67922753eb44
-
+	
 }
