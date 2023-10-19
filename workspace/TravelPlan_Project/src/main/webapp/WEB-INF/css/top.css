@@ -13,29 +13,37 @@ ul {
     width: 100%;
     background-color: #FFFFFF;
     display: flex;
+    justify-content: space-between;
     
 }
 
 ul > li {
-    color: blue;
     height : 100%;
-    width:110px;
+    width:120px;
     display:flex;
     align-items: center;
-    margin-right: 30px;
-    margin-left: 30px;
 }
+ul > li:first-child {
+            margin-left: 10px;
+        }
 
+ul > li:last-child {
+            margin-right: 10px;
+        }
 
 ul > li > a {
     color: #3B3B3B;
     font-weight: bold;
-    margin:auto;
-    padding: 10px;
-    font-size:15px;
+    font-size:16px;
     align-items: center;
+    width: 250px;
 }
-
+ul > li > a:first-child{
+	margin-left: 200px;
+}
+ul > li > a:last-child{
+	margin-right: 200px;
+}
 ul > li > a:hover {
     color :navy;
     border-bottom: 3px solid rgb(209, 209, 209);
@@ -43,16 +51,21 @@ ul > li > a:hover {
 ul > li > button {
 	color: white;
     font-size:15px;
-    align-items: center;
     height: 30px;
     width: 80px;
-    float: right;
-    margin-right: 1px;
+    margin-right:10px;
+    margin-buttom:0;
 }
-
+ul > li > button:first-child{
+	margin-left:900px;
+	margin-right:0;
+}
+ul > li > button:last-child{
+	margin-left:1px;
+}
 #logo {
 	width: 110px;
-    padding-left:40px; 
-    margin-right:auto;
+    margin-left:10px; 
     display: flex;
 }
+ 
