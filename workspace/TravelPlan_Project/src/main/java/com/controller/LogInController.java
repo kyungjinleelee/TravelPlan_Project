@@ -28,19 +28,22 @@ public class LogInController {
 	public String login(@RequestParam HashMap<String, String> map, HttpSession session) {
 		
 		MemberDTO dto = service.login(map);
-		System.out.println(dto);
 		
 		if(dto!=null) { // 로그인 성공
 			session.setAttribute("loginInfo", dto); // 로그인정보 저장
-			return "main";			
+			return "redirect:main";			
 		}
 		else {
 			return "member/loginFail";
 		}
 	}
 	
-	@GetMapping("/logout")
-	public String logout() {
-		return "redirect:main";
+	@GetMapping("/loginCheck/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		return "redirect:/main";
 	}
+	
+
 }
