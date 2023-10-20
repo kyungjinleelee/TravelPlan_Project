@@ -29,13 +29,16 @@ public class LogInController {
 	}
 	
 	@PostMapping("/login")
-	public String login(@RequestParam HashMap<String, String> map, HttpSession session) {
+	public String login(@RequestParam HashMap<String, String> map, HttpSession session) throws Exception {
 		
 		MemberDTO dto = service.login(map);
 		
 		if(dto!=null) { // 로그인 성공
+			if(service.emailAuthFail(dto.getUserID()) != 1) { // 인증이 안된 경우
+				return "member/emailAuthFail";
+			}
 			session.setAttribute("loginInfo", dto); // 로그인정보 저장
-			return "redirect:main";			
+			return "redirect:main";	
 		}
 		else {
 			return "member/loginFail";
