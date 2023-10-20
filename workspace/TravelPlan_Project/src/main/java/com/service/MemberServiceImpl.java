@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int register(MemberDTO dto) {
 		int n = dao.register(dto);
-		return 0;
+		return n;
 	}
 	
 	//id 중복 체크

@@ -12,7 +12,7 @@ import com.info.Info;
 @Configuration
 public class MailConfig {
 	
-	private final Info info = new Info();
+private final Info info = new Info();
 
     @Bean
     public JavaMailSender javaMailSender() {

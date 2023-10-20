@@ -23,7 +23,7 @@
 	<span id="result" style="color:#C13D5F; font-weight:bold"></span><br>
     <label for="">아이디</label>
     <div class="input-group" style="margin-bottom: 6px;">
-    <input class="double" type="text" id="userID" name="userID" placeholder="7자 이상의 문자" autofocus>
+    <input class="double" type="text" id="userID" name="userID" placeholder="  7자 이상의 문자" autofocus>
     <button type="button" id="idDuplicatedcheck" class="check-button" style="margin-bottom: 18px;" >중복확인</button>
 	</div>
     <label for="">비밀번호</label>
@@ -34,8 +34,8 @@
     <input class="input-field" type="text" name="email" placeholder="example@naver.com"> 
     <label for="" style="margin-bottom: 2px;">우편번호</label>
     <div class="input-group">
-    <input class="double" type="text" name="post" id="sample4_postcode" placeholder="01265">
-    <input class="check-button" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+    <input class="double" type="text" name="post" id="sample4_postcode" placeholder="  01265">
+    <input class="check-button" type="button" onclick="sample4_execDaumPostcode()" value="우편번호찾기"><br>
 	</div>
 	<div style="margin-top: 10px;"></div>
 	<input class="input-field" type="text" name="addr1" id="sample4_roadAddress" placeholder="도로명주소">
