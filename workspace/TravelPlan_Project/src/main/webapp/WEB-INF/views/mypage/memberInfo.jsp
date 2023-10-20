@@ -91,34 +91,35 @@
 
         <div>
             <label for="userID">아이디</label>
-            <input class="input-field" type="text" name="userID" id="userID" value="${login.userID}" readonly>
+            <input class="input-field" type="text" name="userID" id="userID" value="${loginInfo.userID}" readonly>
         </div>
         <div>
             <label for="name">이름</label>
-            <input class="input-field" type="text" name="name" id="name" value="${login.name}" readonly>
+            <input class="input-field" type="text" name="name" id="name" value="${loginInfo.name}" readonly>
         </div>
         <div>
             <label for="email">이메일</label>
-            <input class="input-field" type="text" name="email" id="email" value="${login.email}" readonly>
+            <input class="input-field" type="text" name="email" id="email" value="${loginInfo.email}" readonly>
         </div>
         <div>
             <label for="phone">휴대전화</label>
-            <input class="input-field" type="text" name="phone" id="phone" value="${login.phone}" readonly>
+            <input class="input-field" type="text" name="phone" id="phone" value="${loginInfo.phone}" readonly>
         </div>
         <div>
             <label for="post">우편번호</label>
-            <input class="input-field" type="text" name="post" id="post" value="${login.post}" readonly>
+            <input class="input-field" type="text" name="post" id="post" value="${loginInfo.post}" readonly>
         </div>
         <div>
             <label for="addr1">주소</label>
-            <input class="input-field" type="text" name="addr1" id="addr1" value="${login.addr1}" readonly>
+            <input class="input-field" type="text" name="addr1" id="addr1" value="${loginInfo.addr1}" readonly>
         </div>
         <div>
             <label for="addr2">상세주소</label>
-            <input class="input-field" type="text" name="addr2" id="addr2" value="${login.addr2}" readonly>
+            <input class="input-field" type="text" name="addr2" id="addr2" value="${loginInfo.addr2}" readonly>
         </div>
 
-        <button onclick="location.href='memberUpdate.jsp'">수정하기</button>
+        <button type="button" onclick="location.href='MemberUpdateForm'">수정하기</button>
+        
 <!-- 수정버튼으로 해당 아이디를 가지고 수정하기 페이지로 연결 
 <button type="button" id="memberUpdatebtn" onclick="location.href='${contextPath}/member/memberUpdate?id=${login.userID}'">수정 &gt;</button> -->
 

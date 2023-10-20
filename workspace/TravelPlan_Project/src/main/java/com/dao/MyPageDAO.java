@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dto.MemberDTO;
+import com.dto.PlanDTO;
 import com.dto.TravelDTO;
 import com.dto.UserLikeDTO;
 
@@ -27,7 +28,11 @@ public class MyPageDAO {
 	//dto에 담긴 파라미터들을 MyPageMapper의 아이디가 memberUpdate인 쿼리에 넣어준다.
 	public void memberUpdate(MemberDTO dto) {
 		session.update("MyPageMapper.memberUpdate", dto);
-//		session.selectOne("MyPageMapper.memberUpdate", dto);
+	}
+	
+	//일정보관함
+	public List<PlanDTO> myPlan(String userID) {
+		return session.selectList("MyPageMapper.myPlan", userID);
 	}
 	
 	//내가 찜 한 글 목록

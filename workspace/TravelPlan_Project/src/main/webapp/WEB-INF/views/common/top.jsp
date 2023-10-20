@@ -15,7 +15,7 @@
 			location.href="memberUI";
 		});
 		$("#mypage").on("click", function(){
-			location.href="";
+			location.href="mypage";
 		});
 		$("#logout").on("click", function(){
 			location.href="loginCheck/logout";
