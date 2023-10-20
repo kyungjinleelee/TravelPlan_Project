@@ -38,7 +38,7 @@ ul > li > a {
     align-items: center;
     width: 250px;
 }
-ul > li > a:first-child{
+ul > li > a:nth-child(2){
 	margin-left: 200px;
 }
 ul > li > a:last-child{
@@ -55,6 +55,8 @@ ul > li > button {
     width: 80px;
     margin-right:10px;
     margin-buttom:0;
+    background-color: rgb(53,99,233);
+   	border: none;
 }
 ul > li > button:first-child{
 	margin-left:900px;
@@ -63,9 +65,9 @@ ul > li > button:first-child{
 ul > li > button:last-child{
 	margin-left:1px;
 }
+
 #logo {
 	width: 110px;
     margin-left:10px; 
     display: flex;
 }
- 

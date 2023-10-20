@@ -13,13 +13,16 @@ public class MemberDTO {
 	private String addr1;
 	private String addr2;
 	private String phone;
+	private int mail_auth;
+	private String mail_key;
 	
 	public MemberDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public MemberDTO(String userID, String passwd, String name, String email, String post, String addr1, String addr2,
-			String phone) {
+			String phone, int mail_auth, String mail_key) {
+		super();
 		this.userID = userID;
 		this.passwd = passwd;
 		this.name = name;
@@ -28,6 +31,8 @@ public class MemberDTO {
 		this.addr1 = addr1;
 		this.addr2 = addr2;
 		this.phone = phone;
+		this.mail_auth = mail_auth;
+		this.mail_key = mail_key;
 	}
 
 	public String getUserID() {
@@ -92,6 +97,22 @@ public class MemberDTO {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public int getMail_auth() {
+		return mail_auth;
+	}
+
+	public void setMail_auth(int mail_auth) {
+		this.mail_auth = mail_auth;
+	}
+
+	public String getMail_key() {
+		return mail_key;
+	}
+
+	public void setMail_key(String mail_key) {
+		this.mail_key = mail_key;
 	}
 
 	@Override
