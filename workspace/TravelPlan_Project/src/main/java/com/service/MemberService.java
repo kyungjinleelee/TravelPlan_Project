@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.dto.MemberDTO;
 
@@ -15,4 +16,7 @@ public interface MemberService {
 	public int updateMailKey(MemberDTO dto) throws Exception;
 	public int updateMailAuth(MemberDTO dto) throws Exception;
 	public int emailAuthFail(String userID) throws Exception;
+	
+	// 아이디 찾기
+	public List<MemberDTO> findId(MemberDTO dto);
 }

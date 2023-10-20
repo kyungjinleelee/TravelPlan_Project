@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -72,6 +73,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int emailAuthFail(String userID) throws Exception {
 		return dao.emailAuthFail(userID);
+	}
+
+	// 아이디 찾기
+	@Override
+	public List<MemberDTO> findId(MemberDTO dto) {
+		return dao.findId(dto);
 	}
 
 

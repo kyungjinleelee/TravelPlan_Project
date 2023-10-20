@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class MemberDAO {
 	// 로그인 시 인증 유무 체크
 	public int emailAuthFail(String userID) throws Exception {
 	    return session.selectOne("MemberMapper.emailAuthFail", userID);
+	}
+	
+	// 아이디 찾기
+	public List<MemberDTO> findId(MemberDTO dto) {
+		return session.selectList("MemberMapper.findId", dto);
 	}
 	
 }
