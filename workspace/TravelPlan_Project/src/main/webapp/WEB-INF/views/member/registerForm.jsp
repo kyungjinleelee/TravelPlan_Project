@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.net.URLDecoder"%>
+<link rel="stylesheet" href="<c:url value='/css/register.css'/>">
  <!-- jquery CDN -->   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <!DOCTYPE html>
@@ -10,109 +11,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-    <style>
-        * { box-sizing:border-box; }
-
-        form {
-            width:700px;
-            height:800px;
-            display : flex;
-            flex-direction: column;
-            align-items:center;
-            position : absolute;
-            top:50%;
-            left:50%;
-            transform: translate(-50%, -50%) ;
-            border: 1px solid rgb(89,117,196);
-            border-radius: 20px;
-        }
-        
-        .input-field {
-            width: 300px;
-            height: 250px;
-            border : 1px solid rgb(89,117,196);
-            border-radius:5px;
-            padding: 0 6px;
-            margin-bottom: 7px;
-        }
- 		.input-group {
-   			display: flex;
-    		justify-content: space-between;
-    		align-items: center;
-    		width: 300px;
-    		height: 30px;
-		}
-		.double{
-			width: 250px;
-            height: 35px;
-            border : 1px solid rgb(89,117,196);
-            border-radius:5px;
-       
-		}
-	
-		.check-button {
-    		background-color: #E2E2E2;
-    		color: #3A3A3A;
-    		width: 80px;
-    		height: 30px;
-    		font-size: 13px;
-    		border: 1px solid rgb(89,117,196);
-    		border-radius: 5px;
-    		margin-left: 10px;
-		}
-
-        label {
-            width:300px;
-            height:30px;
-            margin-top :4px;
-        }
-
-        button {
-            background-color: rgb(53,99,233);
-            color : white;
-            width:300px;
-            height:290px;
-            font-size: 17px;
-            border : none;
-            border-radius: 5px;
-            margin : 20px 0 50px 0;
-        }
-
-        .title {
-            font-size : 50px;
-            font-weight: bold;
-            margin: 40px 0 20px 0;
-        }
-
-        .msg {
-            height: 30px;
-            text-align:center;
-            font-size:14px;
-            color:red;
-            margin-bottom: 20px;
-        }
-        
-    </style>
+    
     <title>회원가입</title>
 </head>
 <body>
 
-   <form action="/app/register" method="POST" onsubmit="return formCheck(this)"><!-- 이벤트 설정, true면 submit false면 제출 x -->
+   <form action="/app/register" method="POST" name="frm" onsubmit="return formCheck(this)"><!-- 이벤트 설정, true면 submit false면 제출 x -->
     <div class="title">회원가입</div>
     <div id="msg" class="msg"></div> 
     
-	<span id="result"></span><br>
+	<span id="result" style="color:#C13D5F; font-weight:bold"></span><br>
     <label for="">아이디</label>
     <div class="input-group" style="margin-bottom: 6px;">
-    <input class="double" type="text" id="userID" name="userID" placeholder="8자 이상의 문자" autofocus>
-    <button id="idDuplicatedcheck" class="check-button" style="margin-bottom: 18px;" >중복확인</button>
+    <input class="double" type="text" id="userID" name="userID" placeholder="7자 이상의 문자" autofocus>
+    <button type="button" id="idDuplicatedcheck" class="check-button" style="margin-bottom: 18px;" >중복확인</button>
 	</div>
     <label for="">비밀번호</label>
-    <input class="input-field" type="text" name="passwd" placeholder="8자 이상의 문자">
+    <input class="input-field" type="text" name="passwd" placeholder="7자 이상의 문자">
     <label for="">이름</label>
     <input class="input-field" type="text" name="name" placeholder="홍길동">
     <label for="">이메일</label>
-    <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr"> 
+    <input class="input-field" type="text" name="email" placeholder="example@naver.com"> 
     <label for="" style="margin-bottom: 2px;">우편번호</label>
     <div class="input-group">
     <input class="double" type="text" name="post" id="sample4_postcode" placeholder="01265">
@@ -127,19 +46,42 @@
     <button type="submit">회원 가입</button>
    </form> 
    <script>
-       function formCheck(frm) {
+       function formCheck(frm) {  // 유효성 검사
             let msg ='';
 
-            if(frm.id.value.length<8) {
-                setMessage('id의 길이는 8자 이상이어야 합니다.', frm.userID);
+            if(frm.userID.value.length<7) {
+                setMessage('id의 길이는 7자 이상이어야 합니다.', frm.userID);
                 return false;
             }
 
-            if(frm.pwd.value.length<8) {
-                setMessage('pwd의 길이는 8자 이상이어야 합니다.', frm.passwd);
+            if(frm.passwd.value.length<7) {
+                setMessage('pwd의 길이는 7자 이상이어야 합니다.', frm.passwd);
                 return false;
-            }           
-           
+            }
+            if(frm.name.value.length ==0){
+            	setMessage('이름이 누락되었습니다.', frm.name);
+            	return false;
+            }
+            if(frm.email.value.length ==0){
+            	setMessage('이메일이 누락되었습니다.', frm.email);
+            	return false;
+            }
+            if(frm.email.value.indexOf('@') == -1){
+            	setMessage('올바른 이메일 형식이 아닙니다.', frm.passwd);
+            	return false;
+            }
+            if(frm.post.value.length ==0){
+            	setMessage('우편번호가 누락되었습니다.', frm.post);
+            	return false;
+            }
+            if(frm.phone.value.length ==0){
+            	setMessage('전화번호가 누락되었습니다.', frm.phone);
+            	return false;
+            }
+            if(isNaN(frm.phone.value)){
+            	setMessage('전화번호는 숫자만 입력가능합니다.', frm.phone);
+            	return false;
+            }
            return true;
        }
 
@@ -152,6 +94,7 @@
        }
        
        // 비번 일치/불일치 확인 작업
+       $(document).ready(function(){
        $("#passwd2").on("keyup", function(){
 			var passwd = $("#passwd").val();
 			var passwd2 = $("#passwd2").val();
@@ -171,7 +114,7 @@
                 type:"get",
                 url:"memberIdCheck", // get 방식으로 멤버아이디체크서블릿으로 넘어간다는 소리
                 data:{
-                  userid:$("#userID").val()
+                  userID:$("#userID").val()
                 },  // 요청코드
                 dataType:'text',  // 응답받은 데이터 타입
                 success:function(data, status, xhr){ // 그 문자열을 data에 저장
@@ -184,7 +127,7 @@
 
              });
 		});
-   });
+       });
    </script>
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>

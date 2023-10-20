@@ -26,10 +26,12 @@
 	<mvc:resources location="/WEB-INF/css/" mapping="/css/**" />
 	
 	<!-- interceptor 경로 지정 -->
+
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/MyPageServlet" /> <!-- 수정필요 -->
-			<ref bean="xxx" />
+			<mvc:mapping path="/loginCheck/*" />
+			<ref bean="loginCheckInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
+
 </beans>

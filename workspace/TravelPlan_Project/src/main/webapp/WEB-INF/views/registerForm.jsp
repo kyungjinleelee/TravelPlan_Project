@@ -8,7 +8,7 @@
 <title>회원가입</title>
 </head>
 <body>
-<jsp:include page="common/top2.jsp" flush="true" />
+<jsp:include page="common/top.jsp" flush="true" />
 <hr>
 <jsp:include page="member/registerForm.jsp" flush="true" />
 </body>
