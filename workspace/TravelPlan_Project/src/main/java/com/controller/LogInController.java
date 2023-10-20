@@ -20,7 +20,11 @@ public class LogInController {
 	MemberService service;
 	
 	@GetMapping("/loginForm")
-	public String loginForm() {
+	public String loginForm(HttpSession session) {
+		// 중복 로그인 방지
+		if(session.getAttribute("loginInfo")!=null) {
+			return "member/duplicateLoginWarning";
+		}
 		return "loginForm";
 	}
 	
