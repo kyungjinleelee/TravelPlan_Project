@@ -1,4 +1,4 @@
-package config;
+package com.config;
 
 import java.util.Properties;
 

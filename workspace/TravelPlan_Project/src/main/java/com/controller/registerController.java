@@ -2,7 +2,6 @@ package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,9 +25,16 @@ public class registerController {
 	
 	// 신규 회원 등록
 	@PostMapping("/register")
-	public String register(MemberDTO dto) {
-		int n = service.register(dto);
+	public String register(MemberDTO dto) throws Exception {
+		service.register(dto);
 		return "redirect:loginForm";
+	}
+	
+	// 회원가입시 이메일 인증
+	@GetMapping("/registerEmail")
+	public String emailConfirm(MemberDTO dto) throws Exception {
+		service.updateMailAuth(dto);
+		return "member/emailAuthSuccess";
 	}
 	
 	// 아이디 중복체크 (ajax 연동을 위해 의존성 추가 필요)

@@ -1,4 +1,4 @@
-package mail;
+package com.mail;
 
 import java.util.Random;
 

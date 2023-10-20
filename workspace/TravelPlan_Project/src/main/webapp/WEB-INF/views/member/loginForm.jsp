@@ -64,19 +64,19 @@
        <input type="password" name="passwd" placeholder="비밀번호">
        <button>로그인</button>
        <div>
-           <a href="">아이디 찾기</a> |
+           <a href="findIdForm">아이디 찾기</a> |
            <a href="">비밀번호 찾기</a> |
            <a href="memberUI">회원가입</a>
        </div>
        <script>
         function formCheck(frm) {
              let msg ='';
-             if(frm.id.value.length==0) {
-                 setMessage('아이디를 입력해주세요.', frm.id);
+             if(frm.userID.value.length==0) {
+                 setMessage('아이디를 입력해주세요.', frm.userID);
                  return false;
              }
-             if(frm.pwd.value.length==0) {
-                 setMessage('비밀번호를 입력해주세요.', frm.pwd);
+             if(frm.passwd.value.length==0) {
+                 setMessage('비밀번호를 입력해주세요.', frm.passwd);
                  return false;
              }
              return true;
