@@ -18,6 +18,13 @@
 			set name=#{name}, email=#{email}, post=#{post}, addr1=#{addr1}, addr2=#{addr2}, phone=#{phone}
 			where userID=#{userID}
 	</update>
+	
+<!-- 일정보관함 -->
+ 	<select id="myPlan" parameterType="string" resultType="PlanDTO">
+ 	   select *
+ 	   from plan
+ 	   where userID=#{userID}
+ 	</select>	
 
 <!--내가 찜한 일정 목록 -->
  	<select id="userLikeList" parameterType="string" resultType="UserLikeDTO">
@@ -26,7 +33,7 @@
  	   where userid =#{userid}
  	</select>
  	
- 	<!--내가 쓴 글 목록 목록 -->
+<!--내가 쓴 글 목록 목록 -->
  	<select id="writeList" parameterType="string" resultType="TravelDTO">
  	   select userid, sdate, edate, traveltitle, areacode
  	   from TRAVEL

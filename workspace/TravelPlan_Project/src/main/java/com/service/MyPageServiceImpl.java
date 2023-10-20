@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.dao.MyPageDAO;
 import com.dto.MemberDTO;
+import com.dto.PlanDTO;
 import com.dto.TravelDTO;
 import com.dto.UserLikeDTO;
 
@@ -28,7 +28,13 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public void memberUpdate(MemberDTO dto) {      //Controller에서 보내는 파라미터들을 memberUpdate(MemberDTO dto)로 받고
 		dao.memberUpdate(dto);    //받은 dto를 DAO로 보냄
-		
+	}
+	
+	//일정보관함
+	@Override
+	public List<PlanDTO> myPlan(String userID) {
+		List<PlanDTO> list = dao.myPlan(userID);
+		return list;
 	}
 	
 	//좋아요 목록
