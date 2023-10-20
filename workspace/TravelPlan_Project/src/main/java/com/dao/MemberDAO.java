@@ -10,6 +10,7 @@ import com.dto.MemberDTO;
 
 @Repository("dao")
 public class MemberDAO {
+	
 	@Autowired // SqlSessionTemplate 주입
 	SqlSessionTemplate session;
 	

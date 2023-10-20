@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="MyPageMapper">
+
+<!-- 회원 정보 확인 -->
+	<select id="memberInfo" parameterType="string" resultType="MemberDTO">
+		select userID, name, email, post, addr1, addr2, phone
+		from member
+		where userID=#{userID} 
+	</select>
+
+<!-- 회원 정보 수정 -->
+	<update id="memberUpdate">
+			update member 
+			set name=#{name}, email=#{email}, post=#{post}, addr1=#{addr1}, addr2=#{addr2}, phone=#{phone}
+			where userID=#{userID}
+	</update>
+
+<!--내가 찜한 일정 목록 -->
+ 	<select id="userLikeList" parameterType="string" resultType="UserLikeDTO">
+ 	   select *
+ 	   from user_like_list
+ 	   where userid =#{userid}
+ 	</select>
+ 	
+ 	<!--내가 쓴 글 목록 목록 -->
+ 	<select id="writeList" parameterType="string" resultType="TravelDTO">
+ 	   select userid, sdate, edate, traveltitle, areacode
+ 	   from TRAVEL
+ 	   where userid =#{userid}
+ 	</select>
+
+	
+</mapper>
