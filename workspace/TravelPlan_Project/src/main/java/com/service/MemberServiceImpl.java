@@ -20,12 +20,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	JavaMailSender mailSender;
 	
-	// 회원가입
 	@Override
-	public int register(MemberDTO dto) {
-		int n = dao.register(dto);
-		return n;
-	}
 	public void register(MemberDTO dto) throws Exception {
 		// 랜덤 문자열 생성 -> mail_key 컬럼에 넣기
 		String mail_key = new TempKey().getKey(30, false); // 랜덤 키 길이
