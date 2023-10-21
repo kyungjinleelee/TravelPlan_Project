@@ -65,34 +65,32 @@
 	<div id="info">
 		가입 시 입력한 이메일 주소가 같아야<br>인증 메일을 받을 수 있습니다.
 	</div>
-	<div id="msg">
-		<c:if test="${not empty param.msg}">
-			<i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
-		</c:if>
-	</div>
+	<div id="msg"></div>
 	<input type="text" name="userID" id="userID" placeholder="아이디를 입력해주세요.">
 	<input type="text" name="email" id="email" placeholder="이메일 형식으로 입력해주세요.">
 	<button>인증메일 받기</button>
-	
-	<script>
-		
-		function formCheck(frm) {
-			let msg ='';
-			if(frm.userID.value.length==0) {
-                setMessage('아이디를 입력해주세요.', frm.userID);
-                return false;
-            }
-			if(frm.email.value.length==0) {
-                setMessage('이메일을 입력해주세요.', frm.email);
-                return false;
-   			}
-			return true;
-		}
-		function setMessage(msg, element){
-			document.getElementById("msg").innerHTML = ` <i class='fa fa-exclamation-circle'> ${'${msg}'}`;
-			if(element) {
-			    element.select();
-			}
-		}
-	</script>
 </form>
+<script>
+$(document).ready(function(){
+	$("form").on("submit", function(){
+		var userID = $("#userID").val();
+		var email = $("#email").val();
+		var cmsg = "";
+		if(email.includes('@') == false){
+			event.preventDefault();
+			cmsg = "올바른 이메일 형식이 아닙니다.";
+        }
+		if(email.length == 0) {
+			event.preventDefault();
+			cmsg = "이메일을 입력해주세요.";
+		}
+		if(userID.length == 0) {
+			event.preventDefault();
+			cmsg = "아이디를 입력해주세요.";
+		}
+		if(cmsg.length != 0) {
+			$("#msg").html("<i class='fa fa-exclamation-circle'> "+cmsg);
+		}
+	});
+});
+</script>

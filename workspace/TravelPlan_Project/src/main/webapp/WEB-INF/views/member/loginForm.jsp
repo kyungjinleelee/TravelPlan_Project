@@ -10,7 +10,7 @@
    * { box-sizing:border-box; }
    a { text-decoration: none; }
     form {
-        width:400px;
+        width:600px;
         height:500px;
         display : flex;
         flex-direction: column;
@@ -42,7 +42,7 @@
     }
     #title {
         font-size : 50px;
-        margin: 40px 0 30px 0;
+        margin: 60px 0 30px 0;
     }
     #msg {
         height: 30px;
