@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
     <style>
-        * {
+                * {
             box-sizing: border-box;
         }
 
@@ -64,15 +63,16 @@
         .title {
             font-size: 40px;
             font-weight: bold;
-            text-align: center; 
+            text-align: center;  
+            align-items: center;
             margin: 20px 0;
         }
 
-/*         .msg {
+        .msg {
             font-size: 16px;
             color: red;
             margin-bottom: 20px;
-        } */
+        }
         
         /* 열 맞춤 스타일 추가 */
         div {
@@ -84,13 +84,39 @@
     </style>
 </head>
 <body>
-    <form>
-	안녕하세요, ${loginInfo.name}님!<br>
-	<h1>마이페이지</h1>
-	<button type="button" onclick="location.href='memberInfo'">회원 정보 수정</button>
-	<button type="button" onclick="location.href='myPlan'">일정보관함</button>
-	<button type="button" onclick="location.href='likeList'">좋아요 목록</button>
-	<button type="button" onclick="location.href='writeList'">내가 쓴 글 보기</button>
-	</form>
+<form action="memberUpdate" method="post">
+    <h1>회원 정보 수정</h1>
+
+        <div>
+            <label for="name">이름</label>
+            <input class="input-field" type="text" id="name" name="name" value="${loginInfo.name}" required>
+        </div>
+        <div>
+            <label for="email">이메일</label>
+            <input class="input-field" type="email" id="email" name="email" value="${loginInfo.email}" required>
+        </div>
+        <div>
+            <label for="phone">휴대전화</label>
+            <input class="input-field" type="tel" id="phone" name="phone" value="${loginInfo.phone}" required>
+        </div>
+        <div>
+            <label for="post">우편번호</label>
+            <input class="input-field" type="text" id="post" name="post" value="${loginInfo.post}" required>
+        </div>
+        <div>
+            <label for="addr1">주소</label>
+            <input class="input-field" type="text" id="addr1" name="addr1" value="${loginInfo.addr1}" required>
+        </div>
+        <div>
+            <label for="addr2">상세주소</label>
+            <input class="input-field" type="text" id="addr2" name="addr2" value="${loginInfo.addr2}" required>
+        </div>
+
+        <!-- 저장 버튼 -->
+		<button type="submit">저장</button>
+
+		<!-- 취소 버튼 (mypage.jsp로 이동) -->
+		<button type="button" onclick="location.href='mypage'">취소</button>
+    </form>
 </body>
 </html>

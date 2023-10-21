@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.dto.MemberDTO;
+import com.dto.PlanDTO;
 import com.dto.TravelDTO;
 import com.dto.UserLikeDTO;
 import com.service.MyPageService;
@@ -21,51 +22,48 @@ public class MyPageController {
 	@Autowired
 	MyPageService service;
 	
-// memberInfo.jsp로 잘 가는지 확인	
-//	@GetMapping("/aaa")
-//	public String aaa() {
-//	return "mypage/memberInfo";
-//}
-//	
-//// mypage.jsp로 잘 가는지 확인	
-//	@GetMapping("/bbb")
-//	public String bbb() {
-//		return "mypage";
-//	}
+
+	
+	// 마이페이지
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "mypage";
+	}
 	
 	// 회원 정보 확인
-	@GetMapping("/MemberInfo")
+	@GetMapping("/memberInfo")
 	public String memberInfo(HttpSession session) {
-		MemberDTO dto =
-				  (MemberDTO)session.getAttribute("login");
-		String userID = dto.getUserID();
-		MemberDTO memberInfo = service.memberInfo(userID);
-		session.setAttribute("login", memberInfo);
-		
+		MemberDTO dto = (MemberDTO)session.getAttribute("login");
+// 주석 처리 해야 NullException 발생안하고 실행됨 => 이유 찾는중		
+//		String userID = dto.getUserID();
+//		MemberDTO memberInfo = service.memberInfo(userID);
+//		session.setAttribute("login", memberInfo);
 		return "mypage/memberInfo";
 	}
 	
+	
 	// 회원 정보 수정 화면 요청
-//	@GetMapping("/MemberUpdateForm")
-//	public String memberUpdateForm(String userID, Model model) {
-//		//선택한 고객의 정보를 DB에서 조회해온 후
-//		//수정 화면에 출력할 수 있도록 Model에 담는다
-//		model.addAttribute("dto", service.memberInfo(userID));
-//		return "redirect:/mypage/memberUpdateForm";
-//	}
+	@GetMapping("/MemberUpdateForm")
+	public String memberUpdateForm() {
+		return "mypage/memberUpdateForm";
+	}
 	
 	// 회원 정보 수정
-	@PostMapping("/MemberUpdate")
-	public String memberUpdate(MemberDTO dto) {
+	@PostMapping("/memberUpdate")
+	public String memberUpdate(MemberDTO dto, HttpSession session) {
 		service.memberUpdate(dto);    //파라미터들을 service.memberUpdate(dto)에 넣어줘서 service로 보냄
 //		service.memberUpdate("userID", "model");
-		return "redirect:/mypage/memberUpdate";
+		return "redirect:mypage/memberUpdate";
 	}
 	
 	
 	// 일정보관함
-	@GetMapping("/MyPlan")
-	public String myPlan() {
+	@GetMapping("/myPlan")
+	public String myPlan(HttpSession session, Model m) {
+		MemberDTO dto = (MemberDTO)session.getAttribute("login");
+		String userID = dto.getUserID();
+		List<PlanDTO> planList = service.myPlan(userID);
+		m.addAttribute("planList", planList);
 		
 		return "myPlan";
 	}
