@@ -46,4 +46,31 @@
 		where name=#{name} and email=#{email} and phone=#{phone}
 	</select>
 	
+	<!-- 비밀번호 찾기 - 아이디, 이메일 일치 확인 -->
+	<select id="findPw_email" parameterType="MemberDTO" resultType="int">
+		select count(*)
+		from member
+		where userID = #{userID} and email = #{email}
+	</select>
+	
+	<!-- 인증키 일치 확인 -->
+	<select id="checkKey" parameterType="MemberDTO" resultType="int">
+		select count(*)
+		from member
+		where userID = #{userID} and email = #{email} and mail_key = #{mail_key}
+	</select>
+	
+	<!-- 비밀번호 재설정 -->
+	<update id="newPw" parameterType="MemberDTO">
+		update member
+		set passwd = #{passwd}
+		where userID = #{userID} and email = #{email}
+	</update>
+	
+	<!-- 인증키 초기화 -->
+	<update id="resetMailKey" parameterType="MemberDTO">
+		update member
+		set mail_key = null
+		where userID = #{userID} and email = #{email}
+	</update>
 </mapper>

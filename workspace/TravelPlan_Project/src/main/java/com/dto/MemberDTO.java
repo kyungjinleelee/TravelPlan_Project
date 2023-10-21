@@ -118,7 +118,8 @@ public class MemberDTO {
 	@Override
 	public String toString() {
 		return "MemberDTO [userID=" + userID + ", passwd=" + passwd + ", name=" + name + ", email=" + email + ", post="
-				+ post + ", addr1=" + addr1 + ", addr2=" + addr2 + ", phone=" + phone + "]";
+				+ post + ", addr1=" + addr1 + ", addr2=" + addr2 + ", phone=" + phone + ", mail_auth=" + mail_auth
+				+ ", mail_key=" + mail_key + "]";
 	}
 	
 }

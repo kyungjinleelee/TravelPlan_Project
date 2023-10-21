@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dto.MemberDTO;
 
-@Repository("dao")
+@Repository
 public class MemberDAO {
 	
 	@Autowired // SqlSessionTemplate 주입
@@ -48,6 +48,26 @@ public class MemberDAO {
 	// 아이디 찾기
 	public List<MemberDTO> findId(MemberDTO dto) {
 		return session.selectList("MemberMapper.findId", dto);
+	}
+	
+	// 비밀번호 찾기
+	public int findPw_email(MemberDTO dto) {
+		return session.selectOne("MemberMapper.findPw_email", dto);
+	}
+	
+	// 인증키 일치 확인
+	public int checkKey(MemberDTO dto) {
+		return session.selectOne("MemberMapper.checkKey", dto);
+	}
+	
+	// 비밀번호 재설정
+	public int newPw(MemberDTO dto) {
+		return session.update("MemberMapper.newPw", dto);
+	}
+	
+	// 인증키 초기화
+	public int resetMailKey(MemberDTO dto) {
+		return session.update("MemberMapper.resetMailKey", dto);
 	}
 	
 }
