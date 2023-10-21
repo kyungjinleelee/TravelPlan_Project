@@ -1,7 +1,0 @@
-INDEX VERSION 1.131
-C:\gitStudy\TravelPlan_MyProject\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4111008350.index
-\TravelPlan_Project\src\main\java
-C:\gitStudy\TravelPlan_MyProject\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1610713207.index
-\TravelPlan_Project\src\main\java
-C:\gitStudy\TravelPlan_MyProject\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3429167141.index
-\TravelPlan_Project\src\main\java
