@@ -1,11 +1,13 @@
-workspace/.metadata/
-workspace/Servers/
-
+workspace/TravelPlan_Project/src/main/java/com/info/
+workspace/TravelPlan_Project/src/main/webapp/META-INF/MANIFEST.MF
+workspace/TravelPlan_Project/src/main/webapp/META-INF/maven/com.myproject/app/pom.properties
+workspace/TravelPlan_Project/target/
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,java
 
 ### Eclipse ###
 .metadata
+Servers
 bin/
 tmp/
 *.tmp
@@ -16,6 +18,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+
 
 # External tool builders
 .externalToolBuilders/
@@ -95,5 +98,6 @@ local.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java
