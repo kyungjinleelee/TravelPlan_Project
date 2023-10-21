@@ -55,37 +55,33 @@
 
 <form action="login" method="post" onsubmit="return formCheck(this);">
     <h3 id="title">로그인</h3>
-    <div id="msg">
- <c:if test="${not empty param.msg}">
-<i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
- </c:if>
-</div>
-       <input type="text" name="userID" placeholder="아이디 " autofocus>
-       <input type="password" name="passwd" placeholder="비밀번호">
+    <div id="msg"></div>
+       <input type="text" name="userID" id="userID" placeholder="아이디 " autofocus>
+       <input type="password" name="passwd" id="passwd" placeholder="비밀번호">
        <button>로그인</button>
        <div>
            <a href="findIdForm">아이디 찾기</a> |
            <a href="findPwForm">비밀번호 찾기</a> |
            <a href="memberUI">회원가입</a>
        </div>
-       <script>
-        function formCheck(frm) {
-             let msg ='';
-             if(frm.userID.value.length==0) {
-                 setMessage('아이디를 입력해주세요.', frm.userID);
-                 return false;
-             }
-             if(frm.passwd.value.length==0) {
-                 setMessage('비밀번호를 입력해주세요.', frm.passwd);
-                 return false;
-             }
-             return true;
-        }
-        function setMessage(msg, element){
-             document.getElementById("msg").innerHTML = ` ${'${msg}'}`;
-             if(element) {
-                 element.select();
-             }
-        }
-    </script>
 </form>
+<script>
+	$(document).ready(function(){
+		$("form").on("submit", function(){
+			var userID = $("#userID").val();
+			var passwd = $("#passwd").val();
+			var cmsg = "";
+			if(passwd.length == 0) {
+				event.preventDefault();
+				cmsg = "비밀번호를 입력해주세요.";
+			}
+			if(userID.length == 0) {
+				event.preventDefault();
+				cmsg = "아이디를 입력해주세요.";
+			}
+			if(cmsg.length != 0) {
+				$("#msg").html("<i class='fa fa-exclamation-circle'> "+cmsg);
+			}
+		});
+	});
+</script>
