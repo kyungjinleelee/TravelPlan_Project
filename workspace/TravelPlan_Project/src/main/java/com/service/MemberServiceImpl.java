@@ -24,6 +24,7 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public void register(MemberDTO dto) throws Exception {
+		
 		// 랜덤 문자열 생성 -> mail_key 컬럼에 넣기
 		String mail_key = new TempKey().getKey(30, false); // 랜덤 키 길이
 		dto.setMail_key(mail_key);
@@ -46,6 +47,16 @@ public class MemberServiceImpl implements MemberService {
 		sendMail.setTo(dto.getEmail()); // 받는 사람
 		sendMail.send(); // 메일 보내기
 
+	}
+	
+	// 이메일당 가입된 아이디 개수
+	@Override
+	public int idPerEmailCount(String email) {
+		int num = dao.idPerEmailCount(email);
+		if(num >= 3) {
+			return 0;
+		}
+		return 1;
 	}
 	
 	//id 중복 체크
@@ -128,6 +139,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return 1;
 	}
+
 
 
 

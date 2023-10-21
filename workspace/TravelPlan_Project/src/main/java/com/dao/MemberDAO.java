@@ -45,6 +45,11 @@ public class MemberDAO {
 	    return session.selectOne("MemberMapper.emailAuthFail", userID);
 	}
 	
+	// 이메일당 가입된 아이디 개수
+	public int idPerEmailCount(String email) {
+		return session.selectOne("MemberMapper.idPerEmailCount", email);
+	}
+	
 	// 아이디 찾기
 	public List<MemberDTO> findId(MemberDTO dto) {
 		return session.selectList("MemberMapper.findId", dto);

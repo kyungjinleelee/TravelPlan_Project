@@ -17,6 +17,9 @@ public interface MemberService {
 	public int updateMailAuth(MemberDTO dto) throws Exception;
 	public int emailAuthFail(String userID) throws Exception;
 	
+	// 이메일당 가입된 아이디 개수
+	public int idPerEmailCount(String email);
+	
 	// 아이디 찾기
 	public List<MemberDTO> findId(MemberDTO dto);
 	
