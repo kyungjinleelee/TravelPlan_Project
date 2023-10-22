@@ -22,8 +22,6 @@ public class MyPageController {
 	@Autowired
 	MyPageService service;
 	
-
-	
 	// 마이페이지
 	@GetMapping("/mypage")
 	public String mypage() {
@@ -33,14 +31,14 @@ public class MyPageController {
 	// 회원 정보 확인
 	@GetMapping("/memberInfo")
 	public String memberInfo(HttpSession session) {
-		MemberDTO dto = (MemberDTO)session.getAttribute("login");
-// 주석 처리 해야 NullException 발생안하고 실행됨 => 이유 찾는중		
-//		String userID = dto.getUserID();
-//		MemberDTO memberInfo = service.memberInfo(userID);
-//		session.setAttribute("login", memberInfo);
-		return "mypage/memberInfo";
+	    MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+	    if (loginInfo != null) {
+	        String userID = loginInfo.getUserID();
+	        MemberDTO memberInfo = service.memberInfo(userID);
+	        session.setAttribute("loginInfo", memberInfo); // 업데이트된 정보로 세션 업데이트
+	    }
+	    return "mypage/memberInfo";
 	}
-	
 	
 	// 회원 정보 수정 화면 요청
 	@GetMapping("/MemberUpdateForm")
@@ -50,12 +48,13 @@ public class MyPageController {
 	
 	// 회원 정보 수정
 	@PostMapping("/memberUpdate")
-	public String memberUpdate(MemberDTO dto, HttpSession session) {
-		service.memberUpdate(dto);    //파라미터들을 service.memberUpdate(dto)에 넣어줘서 service로 보냄
-//		service.memberUpdate("userID", "model");
-		return "redirect:mypage/memberUpdate";
+	public String memberUpdate(HttpSession session, MemberDTO updatedDTO) {
+	  MemberDTO currentDTO = (MemberDTO) session.getAttribute("loginInfo"); //현재 로그인 정보 가져와 currentDTO에 저장
+	  updatedDTO.setUserID(currentDTO.getUserID());    //currentDTO에서 가져온 정보를 updatedDTO에 업데이트
+	  service.memberUpdate(updatedDTO); //updatedDTO를 사용하여 회원 정보 업데이트
+	  session.setAttribute("loginInfo", updatedDTO);   //수정된 정보를 세션에 다시 저장
+	  return "redirect:memberInfo"; // 수정 후 회원 정보 페이지로 이동해 업데이트 된 회원 정보 확인
 	}
-	
 	
 	// 일정보관함
 	@GetMapping("/myPlan")

@@ -17,14 +17,14 @@ public class MyPageDAO {
 	@Autowired
 	SqlSessionTemplate session;    //session 주입받기
 	
-	//수정할 회원 정보 가져오기
+	//회원 정보 확인
 	//userID에 해당하는 값들을 다뽑아내서 dto에 담고 반환
 	public MemberDTO memberInfo(String userID) {
 		MemberDTO dto = session.selectOne("MyPageMapper.memberInfo", userID);
 		return dto;
 	}
 	
-	//회원정보수정
+	//회원 정보 수정
 	//dto에 담긴 파라미터들을 MyPageMapper의 아이디가 memberUpdate인 쿼리에 넣어준다.
 	public void memberUpdate(MemberDTO dto) {
 		session.update("MyPageMapper.memberUpdate", dto);

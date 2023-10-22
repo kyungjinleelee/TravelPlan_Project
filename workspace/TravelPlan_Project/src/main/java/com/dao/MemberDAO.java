@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dto.MemberDTO;
 
-@Repository("dao")
+@Repository
 public class MemberDAO {
 	
 	@Autowired // SqlSessionTemplate 주입

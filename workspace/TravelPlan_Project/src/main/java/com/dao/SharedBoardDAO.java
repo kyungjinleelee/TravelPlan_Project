@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dto.MemberDTO;
 
-@Repository("dao")
+@Repository
 public class SharedBoardDAO {
 	
 	@Autowired // SqlSessionTemplate 주입
