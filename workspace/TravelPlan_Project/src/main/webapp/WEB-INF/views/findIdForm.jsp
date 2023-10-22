@@ -8,8 +8,14 @@
 <title>아이디 찾기</title>
 </head>
 <body>
-<jsp:include page="common/top.jsp" flush="true" /><br>
-<hr>
-<jsp:include page="member/findIdForm.jsp" flush="true" />
+<!-- header -->
+<jsp:include page="common/top.jsp" flush="true" />
+
+<!-- content -->
+<div id='wrapper'>
+  <div>
+    <jsp:include page="member/findIdForm.jsp" flush="true" />
+  </div>
+</div>
 </body>
 </html>

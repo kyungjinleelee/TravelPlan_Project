@@ -125,8 +125,13 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../common/top.jsp" flush="true" /><br>
-	<hr>
+
+<!-- header -->
+<jsp:include page="../common/top.jsp" flush="true" />
+
+<!-- content -->
+<div id='wrapper'>
+  <div>
 	<form action="pwAlert" method="post">
 		<h3 id="title">비밀번호 재설정</h3>
 		<div id="check1" class="msg"></div> 
@@ -141,5 +146,7 @@
 			<input type="submit" id="sbtn" value="비밀번호 재설정">
 		</div>
 	</form>
+  </div>
+</div>
 </body>
 </html>

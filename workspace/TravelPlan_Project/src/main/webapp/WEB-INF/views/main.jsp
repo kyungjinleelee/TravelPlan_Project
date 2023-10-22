@@ -6,17 +6,20 @@
 <link rel="stylesheet" href="<c:url value='/css/footer.css'/>">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>여담</title>
 </head>
 <body>
-<jsp:include page="common/top.jsp" flush="true" /><br>
-<hr>
+<!-- header -->
+<jsp:include page="common/top.jsp" flush="true" />
+
+<!-- content -->
 <div id='wrapper'>
   <div>
     <jsp:include page="common/main.jsp" flush="ture"/>
   </div>
 </div>
 
+<!-- footer -->
 <footer>
 <jsp:include page="common/footer.jsp" flush="ture"/>
 </footer>

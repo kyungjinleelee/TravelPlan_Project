@@ -8,8 +8,14 @@
 <title>비밀번호 찾기</title>
 </head>
 <body>
-<jsp:include page="common/top.jsp" flush="true" /><br>
-<hr>
-<jsp:include page="member/findPwForm.jsp" flush="true" />
+<!-- header -->
+<jsp:include page="common/top.jsp" flush="true" />
+
+<!-- content -->
+<div id='wrapper'>
+  <div>
+    <jsp:include page="member/findPwForm.jsp" flush="true" />
+  </div>
+</div>
 </body>
 </html>

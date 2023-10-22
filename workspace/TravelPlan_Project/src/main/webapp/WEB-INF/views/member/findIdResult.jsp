@@ -25,7 +25,7 @@
         border: 1px solid rgb(158,158,158);
         border-radius: 10px;
     }
-    button {
+    .class {
         background-color: rgb(53,99,233);
         color : white;
         width:150px;
@@ -58,8 +58,13 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../common/top.jsp" flush="true" /><br>
-	<hr>
+
+<!-- header -->
+<jsp:include page="../common/top.jsp" flush="true" />
+
+<!-- content -->
+<div id='wrapper'>
+  <div>
 	<div id="border">
 		<h3 id="title">아이디 찾기 결과입니다.</h3>
 		<div id="info">
@@ -76,9 +81,11 @@
 			</c:forEach>
 		</div>
 		<div id="btn">
-		<button type="button" onclick="location.href='loginForm'">로그인</button>
-		<button type="button" onclick="location.href='findPwForm'">비밀번호 찾기</button>
+			<button class="class" type="button" onclick="location.href='loginForm'">로그인</button>
+			<button class="class" type="button" onclick="location.href='findPwForm'">비밀번호 찾기</button>
 		</div>
 	</div>
+  </div>
+</div>
 </body>
 </html>
