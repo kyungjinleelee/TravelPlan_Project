@@ -12,7 +12,6 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>Headers · Bootstrap v5.2</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -77,10 +76,11 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+      
+      .menu a {
+      	color: black;
+      }
     </style>
-
-	<!-- <link rel="stylesheet" href="<c:url value='/css/top.css'/>"> -->
-	
 
 	<script>
 		$(document).ready(function(){
@@ -117,11 +117,11 @@
         <image class="bi" src="images/logo.png" style="width: 40; height: 32;"/> <!-- 로고 -->
       </a>
 
-      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="main" class="nav-link px-4 link-secondary">홈</a></li>
-        <li><a href="#" class="nav-link px-4 link-dark">일정만들기</a></li>
-        <li><a href="#" class="nav-link px-4 link-dark">일정보관함</a></li>
-        <li><a href="#" class="nav-link px-4 link-dark">게시판</a></li>
+      <ul class="menu nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="main" class="nav-link px-4">홈</a></li>
+        <li><a href="#" class="nav-link px-4">일정만들기</a></li>
+        <li><a href="#" class="nav-link px-4">일정보관함</a></li>
+        <li><a href="#" class="nav-link px-4">게시판</a></li>
       </ul>
 	
 		<!-- 로그인 X -->

@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-<title>비밀번호 재설정</title>
+<title>여담: 비밀번호 재설정</title>
 <style>
    * { box-sizing:border-box; }
    a { text-decoration: none; }

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="<c:url value='/css/footer.css'/>">
 <head>
 <meta charset="UTF-8">
-<title>여담</title>
+<title>여행을 담다, 여담</title>
 </head>
 <body>
 <!-- header -->

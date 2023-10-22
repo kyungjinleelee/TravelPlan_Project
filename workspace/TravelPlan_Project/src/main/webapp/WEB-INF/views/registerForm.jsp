@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>여담: 회원가입</title>
 </head>
 <body>
 <!-- header -->

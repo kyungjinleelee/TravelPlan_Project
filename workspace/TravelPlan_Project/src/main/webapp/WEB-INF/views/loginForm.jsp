@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="<c:url value='/css/footer.css'/>">
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>여담: 로그인</title>
 </head>
 <body>
 <!-- header -->

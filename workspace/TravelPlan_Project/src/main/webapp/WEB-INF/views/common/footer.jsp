@@ -8,7 +8,6 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.104.2">
-    <title>Footers · Bootstrap v5.2</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/footers/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -105,8 +104,8 @@
 
         <ul class="nav col-md-6 justify-content-end list-unstyled d-flex">
           <li class="ms-3"><a class="text-muted" href="/app/ready"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li> <!-- 트위터 -->
-          <li class="ms-3"><a class="text-muted" href="/common/ready.jsp"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li> <!-- 인스타 -->
-          <li class="ms-3"><a class="text-muted" href="/common/ready.jsp"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li> <!-- 페북 -->
+          <li class="ms-3"><a class="text-muted" href="/app/ready"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li> <!-- 인스타 -->
+          <li class="ms-3"><a class="text-muted" href="/app/ready"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li> <!-- 페북 -->
         </ul>
       </footer>
     </div>

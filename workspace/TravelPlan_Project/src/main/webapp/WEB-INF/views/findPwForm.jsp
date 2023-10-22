@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 찾기</title>
+<title>여담: 비밀번호 찾기</title>
 </head>
 <body>
 <!-- header -->
