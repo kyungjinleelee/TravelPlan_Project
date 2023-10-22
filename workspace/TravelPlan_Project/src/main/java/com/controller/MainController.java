@@ -11,4 +11,8 @@ public class MainController {
 		return "main";
 	}
 	
+	@GetMapping("/ready")
+	public String ready() {
+		return "common/ready";
+	}
 }

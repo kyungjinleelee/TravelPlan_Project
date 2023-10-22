@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="<c:url value='/css/footer.css'/>">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -10,6 +11,15 @@
 <body>
 <jsp:include page="common/top.jsp" flush="true" /><br>
 <hr>
-<h1>MAIN</h1>
+<div id='wrapper'>
+  <div>
+    <h1>MAIN</h1>
+  </div>
+</div>
+
+<footer>
+<jsp:include page="common/footer.jsp" flush="ture"/>
+</footer>
+
 </body>
 </html>
