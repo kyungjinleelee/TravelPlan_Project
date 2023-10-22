@@ -3,11 +3,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+ <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
                 * {
             box-sizing: border-box;
@@ -81,12 +82,13 @@
             flex-direction: column;
             align-items: flex-start;
         }
+        
+    }
     </style>
-</head>
+ </head>
 <body>
-<form action="memberUpdate" method="post">
+ <form action="memberUpdate" method="post">
     <h1>회원 정보 수정</h1>
-
         <div>
             <label for="name">이름</label>
             <input class="input-field" type="text" id="name" name="name" value="${loginInfo.name}" required>
@@ -113,10 +115,20 @@
         </div>
 
         <!-- 저장 버튼 -->
-		<button type="submit">저장</button>
+		<button id="saveButton" type="submit">저장</button>
+		
 
 		<!-- 취소 버튼 (mypage.jsp로 이동) -->
 		<button type="button" onclick="location.href='mypage'">취소</button>
-    </form>
+ </form>
+    
+	<script>
+         // 저장 버튼 클릭 시 실행
+        document.getElementById("saveButton").addEventListener("click", function() {
+            alert("회원 정보가 성공적으로 수정되었습니다.");   // 서버로 데이터 전송 후, 성공 시 알림 표시
+            window.location.href = "memberInfo"; // memberInfo.jsp로 리디렉션
+        }); 
+    </script>
+        
 </body>
 </html>

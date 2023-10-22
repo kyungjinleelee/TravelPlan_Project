@@ -53,6 +53,7 @@ public class MyPageController {
 	  updatedDTO.setUserID(currentDTO.getUserID());    //currentDTO에서 가져온 정보를 updatedDTO에 업데이트
 	  service.memberUpdate(updatedDTO); //updatedDTO를 사용하여 회원 정보 업데이트
 	  session.setAttribute("loginInfo", updatedDTO);   //수정된 정보를 세션에 다시 저장
+	  
 	  return "redirect:memberInfo"; // 수정 후 회원 정보 페이지로 이동해 업데이트 된 회원 정보 확인
 	}
 	
