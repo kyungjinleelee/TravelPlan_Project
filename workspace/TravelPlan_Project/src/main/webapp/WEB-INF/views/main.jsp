@@ -13,7 +13,7 @@
 <hr>
 <div id='wrapper'>
   <div>
-    <h1>MAIN</h1>
+    <jsp:include page="common/main.jsp" flush="ture"/>
   </div>
 </div>
 
