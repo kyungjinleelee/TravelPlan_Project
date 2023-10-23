@@ -2,6 +2,13 @@ package com.dto;
 
 import org.apache.ibatis.type.Alias;
 
+/*shared board title
+ *  travel dto write date , TCommentDTO  commentdate 등 
+ *  db 에서 date타입인 필드들 데이터형을 date, LocalTimeDate 등으로 바꾸어야 할 수 있음
+ *  cf) jackson, @JasonFormat
+ *  
+ */
+
 @Alias("TravelDTO")
 public class TravelDTO {
 	private int travelID;
@@ -10,18 +17,23 @@ public class TravelDTO {
 	private String EDate;
 	private String travelTitle;
 	private int areaCode;
+	private String writedate;
 	
 	public TravelDTO() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
-	public TravelDTO(int travelID, String userID, String sDate, String eDate, String travelTitle, int areaCode) {
+	public TravelDTO(int travelID, String userID, String sDate, String eDate, String travelTitle, int areaCode,
+			String writedate) {
+		super();
 		this.travelID = travelID;
 		this.userID = userID;
 		SDate = sDate;
 		EDate = eDate;
 		this.travelTitle = travelTitle;
 		this.areaCode = areaCode;
+		this.writedate = writedate;
 	}
+	
 	public int getTravelID() {
 		return travelID;
 	}
@@ -58,4 +70,13 @@ public class TravelDTO {
 	public void setAreaCode(int areaCode) {
 		this.areaCode = areaCode;
 	}
+	public String getWritedate() {
+		return writedate;
+	}
+	public void setWritedate(String writedate) {
+		this.writedate = writedate;
+	}
+	
+	
+	
 }

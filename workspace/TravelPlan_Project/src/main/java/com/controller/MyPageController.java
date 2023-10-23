@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.dto.BoardDTO;
 import com.dto.MemberDTO;
 import com.dto.PlanDTO;
 import com.dto.TravelDTO;
@@ -86,8 +87,8 @@ public class MyPageController {
 		public String writeList(HttpSession session ,Model m) {
 			MemberDTO dto = (MemberDTO)session.getAttribute("login");
 			String userid = dto.getUserID();
-			
-			List<TravelDTO> wDTOList = service.writeList(userid);
+			//List<TravelDTO> wDTOList = service.writeList(userid); //이건 여행계획
+			List<BoardDTO> wDTOList = service.writeList(userid);
 			//모델저장
 			m.addAttribute("wDTOList",wDTOList);
 			
