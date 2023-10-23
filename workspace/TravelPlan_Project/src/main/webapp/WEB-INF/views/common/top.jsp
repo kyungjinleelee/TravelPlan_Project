@@ -28,7 +28,7 @@
 	<ul>
     <li><a href="main"><img src="images/logo.png" id="logo" alt="logo"></a></li>
     <li><a href="<c:url value='/'/>">일정 만들기</a></li>
-    <li><a href="<c:url value='/'/>">일정 보관함</a></li>
+    <li><a href="<c:url value='/myPlan'/>">일정 보관함</a></li>
     <li><a href="<c:url value='/'/>">게시판</a></li>
     <li><button class="btn" id="signup">회원가입</button></li>
     <li><button class="btn" id="signin">로그인</button></li>
@@ -41,7 +41,7 @@
 	<ul>
     <li><a href="main"><img src="images/logo.png" id="logo" alt="logo"></a></li>
     <li><a href="<c:url value='/'/>">일정 만들기</a></li>
-    <li><a href="<c:url value='/'/>">일정 보관함</a></li>
+    <li><a href="<c:url value='/myPlan'/>">일정 보관함</a></li>
     <li><a href="<c:url value='/'/>">게시판</a></li>
     <li><button class="btn" id="mypage">마이페이지</button></li>
     <li><button class="btn" id="logout">로그아웃</button></li>
