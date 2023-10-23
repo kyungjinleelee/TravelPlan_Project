@@ -41,6 +41,7 @@
 				<value>com.dto.TCommentDTO</value>
 				<value>com.dto.TravelDTO</value>
 				<value>com.dto.UserLikeDTO</value>
+				<value>com.dto.ApiDTO</value>
 			</list>
 		</property>
 	</bean>
