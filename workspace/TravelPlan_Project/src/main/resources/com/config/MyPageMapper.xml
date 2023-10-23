@@ -34,11 +34,12 @@
  	</select>
  	
 <!--내가 쓴 글 목록 목록 -->
- 	<select id="writeList" parameterType="string" resultType="TravelDTO">
- 	   select userid, sdate, edate, traveltitle, areacode
- 	   from TRAVEL
+ 	<select id="writeList" parameterType="string" resultType="BoardDTO">
+ 	   select contentNum, userid, title, boarddate, views, maintext, likecontent
+ 	   from Board
  	   where userid =#{userid}
  	</select>
-
+<!-- select userid, sdate, edate, traveltitle, areacode
+ 	   from TRAVEL -->
 	
 </mapper>

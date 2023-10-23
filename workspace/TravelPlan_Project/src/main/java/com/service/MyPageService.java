@@ -2,6 +2,7 @@ package com.service;
 
 import java.util.List;
 
+import com.dto.BoardDTO;
 import com.dto.MemberDTO;
 import com.dto.PlanDTO;
 import com.dto.TravelDTO;
@@ -23,6 +24,6 @@ public interface MyPageService {
 	public List<UserLikeDTO> userLikeList(String userid);
 	
 	//내가 쓴 글 목록
-	public List<TravelDTO> writeList(String userid);
+	public List<BoardDTO> writeList(String userid);
 
 }

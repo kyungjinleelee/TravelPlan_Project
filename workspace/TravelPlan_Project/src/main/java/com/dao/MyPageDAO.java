@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dto.BoardDTO;
 import com.dto.MemberDTO;
 import com.dto.PlanDTO;
 import com.dto.TravelDTO;
@@ -13,7 +14,7 @@ import com.dto.UserLikeDTO;
 
 @Repository
 public class MyPageDAO {
-	
+	//, 일정보관함 plandto 맞나? 아님 나중에 수정하기
 	@Autowired
 	SqlSessionTemplate session;    //session 주입받기
 	
@@ -41,8 +42,10 @@ public class MyPageDAO {
 	}
 
 	//여행계획 (내보관함) 목록
-	public List<TravelDTO> writeList(String userID) {
+	//10 23내가 쓴 글 목록
+	public List<BoardDTO> writeList(String userID) {
 		return session.selectList("MyPageMapper.writeList", userID);
 	}
+	
 	
 }

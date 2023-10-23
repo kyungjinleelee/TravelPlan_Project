@@ -3,10 +3,10 @@ package com.dto;
 import org.apache.ibatis.type.Alias;
 
 /*shared board title
- *  travel dto write date , TCommentDTO  commentdate 등
+ *  travel dto write date , TCommentDTO  commentdate 등 
  *  db 에서 date타입인 필드들 데이터형을 date, LocalTimeDate 등으로 바꾸어야 할 수 있음
  *  cf) jackson, @JasonFormat
- *  또한 이 dto와 연계해서 mapper 확인해야 함
+ *  
  */
 
 @Alias("TravelDTO")
