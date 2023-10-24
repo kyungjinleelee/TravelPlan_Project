@@ -42,6 +42,7 @@
 				<value>com.dto.TravelDTO</value>
 				<value>com.dto.UserLikeDTO</value>
 				<value>com.dto.ApiDTO</value>
+				<value>com.dto.ApiDTO2</value>
 			</list>
 		</property>
 	</bean>
