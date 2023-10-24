@@ -40,7 +40,8 @@
 					<th>공유게시글 아이디(tContentID)</th>
 					<th>여행ID(travelID)</th>
 					<th>작성자(userID)</th>
-					<th>공유게시글 아이디(views)</th>
+					<th>제목(title)</th>
+					<th>조회수(views)</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -49,6 +50,7 @@
 						<td>${DTO.tContentID}</td>
 						<td>${DTO.travelID}</td>
 						<td>${DTO.userID}</td>
+						<td>${DTO.title}</td>
 						<td>${DTO.views}</td>
 						<td><a href="delete?no=${list.no}">삭제(지금 클릭하면 에러 날 것)</a></td>
 					</tr>
