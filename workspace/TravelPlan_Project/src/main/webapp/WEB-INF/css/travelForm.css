@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'SUIT-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* travel-title (header) */
+.travel-title{
+	width: 100%;
+	border-bottom: 2px solid #3563E9;
+	height: 65px;
+	position: relative;
+}
+
+.travel-title_submit{
+	width: 75px;
+	height: 35px;
+	position: absolute;
+	top: 15px;
+	right: 140px;
+	cursor: pointer;
+	background-color: #3563E9;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 3px;
+	font-size: 20px;
+	font-family: 'SUIT-Bold';
+}
+
+.travel-title_close{
+	width: 75px;
+	height: 35px;
+	position: absolute;
+	top: 15px;
+	right: 40px;
+	cursor: pointer;
+	background: #FFFFFF;
+	color: #3563E9;
+	border: 1px solid #3563E9;
+	border-radius: 3px;
+	font-size: 20px;
+	font-family: 'SUIT-Bold';
+}
+/* 날짜0 받아오기 */
+#days{
+	width: 30px;
+	height: 30px;
+	left: 930px;
+	position: absolute;
+	top: 13px;
+}
+ 
+.calendar{
+	right:1100px;
+	top: 0px
+}
+.calendar_sdate{
+	position:absolute;
+	left:400px;
+	top:20px;
+	font-family: 'SUIT-Bold';
+}
+.calendar_edate{
+	position:absolute;
+	left:682px;
+	top:20px;
+	font-family: 'SUIT-Bold';
+}
+#SDate{
+	position:absolute;
+	width: 100px;
+    height: 35px;
+    left:500px;
+    top:10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom : 1px solid black;
+    text-align: center;
+    }
+#EDate{
+	position:absolute;
+	width: 100px;
+    height: 35px;
+    left:786px;
+    top:10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom : 1px solid black;
+    text-align: center;
+    }
+    
+td button{
+	background-color: #B7E1F5;
+    border: none;
+    cursor: pointer;
+    padding: 25px 0;
+    font-size: 22px;
+    border-bottom: 1px solid white;
+    width: 100%;
+    margin-bottom: 0px;
+    color: #0c3b54;
+    font-family: 'SUIT-Bold';
+}
+
+td button:hover{
+	background-color: #3563E9;
+}
+    
+#myTable{
+	margin: 0;
+	width: 100%;
+}
+    
+#travelTitle{
+	position:absolute;
+	width: 250px;
+    height: 34px;
+    left:110px;
+    top:10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom : 1px solid black;
+    font-family: 'SUIT-Medium';
+    padding-left: 14px;
+}
+.title{
+	position:absolute;
+	width: 70px;
+    height: 50px;
+    top:20px;
+    left:27px;
+    font-family: 'SUIT-Bold';
+}
+.wave{
+	position:absolute;
+	width: 50px;
+    height: 50px;
+    left:635px;
+    top:5px;
+}
+
+/* travel-title (header) 끝 */

@@ -19,7 +19,7 @@
 
         form {
             width:700px;
-            height:900px;
+            height:850px;
             display : flex;
             flex-direction: column;
             align-items:center;
@@ -130,7 +130,7 @@
     <label for="">아이디</label>
     <div class="input-group" style="margin-bottom: 6px;">
     <div class="container row">
-	    <input class="col" type="text" id="userID" name="userID" placeholder="  7자 이상의 문자" autofocus>
+	    <input class="col" type="text" id="userID" name="userID" placeholder="7자 이상의 문자" autofocus>
 	    <button class="col" type="button" id="idDuplicatedcheck" style="margin-bottom: 18px;" >중복확인</button>
     </div>
 	</div>
@@ -143,7 +143,7 @@
     <label for="" style="margin-bottom: 2px;">우편번호</label>
     <div class="input-group">
     <div class="container row">
-    <input type="text" class="col" name="post" id="sample4_postcode" placeholder="  01265">
+    <input type="text" class="col" name="post" id="sample4_postcode" placeholder="01265">
     <input type="button" class="col" id="postcodeBtn" onclick="sample4_execDaumPostcode()" value="우편번호찾기"><br>
 	</div>
 	</div>
