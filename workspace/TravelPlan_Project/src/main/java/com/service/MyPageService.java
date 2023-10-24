@@ -18,7 +18,7 @@ public interface MyPageService {
 	public void memberUpdate(MemberDTO dto);
 	
 	//일정보관함
-	public List<PlanDTO> myPlan(String userID);
+	public List<TravelDTO> travel(String userID);
 	
 	//좋아요 목록
 	public List<UserLikeDTO> userLikeList(String userid);

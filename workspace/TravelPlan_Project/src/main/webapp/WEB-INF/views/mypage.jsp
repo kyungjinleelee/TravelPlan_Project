@@ -88,7 +88,7 @@
 	안녕하세요, ${loginInfo.name}님!<br>
 	<h1>마이페이지</h1>
 	<button type="button" onclick="location.href='memberInfo'">회원 정보 수정</button>
-	<button type="button" onclick="location.href='myPlan'">일정보관함</button>
+	<button type="button" onclick="location.href='travelList'">일정보관함</button>
 	<button type="button" onclick="location.href='likeList'">좋아요 목록</button>
 	<button type="button" onclick="location.href='writeList'">내가 쓴 글 보기</button>
 	</form>

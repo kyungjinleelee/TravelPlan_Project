@@ -14,7 +14,7 @@ import com.dto.UserLikeDTO;
 
 @Repository
 public class MyPageDAO {
-	//, 일정보관함 plandto 맞나? 아님 나중에 수정하기
+	
 	@Autowired
 	SqlSessionTemplate session;    //session 주입받기
 	
@@ -32,8 +32,8 @@ public class MyPageDAO {
 	}
 	
 	//일정보관함
-	public List<PlanDTO> myPlan(String userID) {
-		return session.selectList("MyPageMapper.myPlan", userID);
+	public List<TravelDTO> travel(String userID) {
+		return session.selectList("MyPageMapper.travel", userID);
 	}
 	
 	//내가 찜 한 글 목록
