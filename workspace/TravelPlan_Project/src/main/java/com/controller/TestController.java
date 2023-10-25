@@ -72,7 +72,8 @@ public class TestController {
 	}
 	
 	@GetMapping("/test")
-	public String test() {
+	public String test(HttpSession session) {
+		session.setAttribute("client_id", "9269fw92x6");
 		return "test";
 	}
 }
