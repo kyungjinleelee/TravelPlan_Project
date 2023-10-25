@@ -20,9 +20,9 @@
 	</update>
 	
 <!-- 일정보관함 -->
- 	<select id="myPlan" parameterType="string" resultType="PlanDTO">
+ 	<select id="travel" parameterType="string" resultType="TravelDTO">
  	   select *
- 	   from plan
+ 	   from Travel
  	   where userID=#{userID}
  	</select>	
 

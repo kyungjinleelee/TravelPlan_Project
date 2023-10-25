@@ -33,9 +33,9 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	//일정보관함
 	@Override
-	public List<PlanDTO> myPlan(String userID) {
-		List<PlanDTO> list = dao.myPlan(userID);
-		return list;
+	public List<TravelDTO> travel(String userID) {
+		List<TravelDTO> list = dao.travel(userID);
+		return null;
 	}
 	
 	//좋아요 목록
@@ -51,5 +51,6 @@ public class MyPageServiceImpl implements MyPageService {
 		List<BoardDTO> list = dao.writeList(userID);
 		return list;
 	}
+
 	
 }

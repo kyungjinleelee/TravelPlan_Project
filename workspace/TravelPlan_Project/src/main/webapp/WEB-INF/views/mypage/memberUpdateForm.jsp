@@ -7,8 +7,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
                 * {
             box-sizing: border-box;
@@ -126,7 +124,7 @@
          // 저장 버튼 클릭 시 실행
         document.getElementById("saveButton").addEventListener("click", function() {
             alert("회원 정보가 성공적으로 수정되었습니다.");   // 서버로 데이터 전송 후, 성공 시 알림 표시
-            window.location.href = "memberInfo"; // memberInfo.jsp로 리디렉션
+            window.location.href = "mypage"; // memberInfo.jsp로 리디렉션
         }); 
     </script>
         
