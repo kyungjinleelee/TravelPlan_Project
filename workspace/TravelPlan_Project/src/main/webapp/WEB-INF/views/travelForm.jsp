@@ -35,6 +35,20 @@
 			<label class="calendar_edate">여행 종료일 : </label>
 			<input class="input-date" type="date" id="EDate" value="EDate" min="<%= sdf.format(nowTime) %>">
 		</div>
+		<div>
+			<select name="area" class="select">
+				<option value="1">서울</option>
+				<option value="2">인천</option>
+				<option value="3">대전</option>
+				<option value="4">대구</option>
+				<option value="5">광주</option>				
+				<option value="6">부산</option>				
+				<option value="7">울산</option>				
+				<option value="8">세종</option>				
+				<option value="31">경기</option>				
+				<option value="32">강원</option>				
+			</select>
+		</div>
 		<button class="travel-title_submit" onclick="save()">저장</button>
 		<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) history.back(); else alert('닫기 취소')">닫기</button>
 	</div>

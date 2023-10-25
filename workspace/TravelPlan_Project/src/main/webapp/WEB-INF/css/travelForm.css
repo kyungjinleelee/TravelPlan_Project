@@ -26,7 +26,7 @@
 	color: #FFFFFF;
 	border: none;
 	border-radius: 3px;
-	font-size: 20px;
+	font-size: 17px;
 	font-family: 'SUIT-Bold';
 }
 
@@ -41,10 +41,10 @@
 	color: #3563E9;
 	border: 1px solid #3563E9;
 	border-radius: 3px;
-	font-size: 20px;
+	font-size: 17px;
 	font-family: 'SUIT-Bold';
 }
-/* 날짜0 받아오기 */
+/* 날짜 받아오기 */
 #days{
 	width: 30px;
 	height: 30px;
@@ -143,6 +143,20 @@ td button:hover{
     height: 50px;
     left:635px;
     top:5px;
+}
+.select{
+	position: absolute;
+	width: 150px;
+	height: 35px;
+	top: 12px;
+	right: 700px;
+	font-size: 20px;
+	color: #3563E9;
+	font-family: 'SUIT-Bold';
+}
+.select option{
+	background: #C9D7F6;
+	color: black;
 }
 
 /* travel-title (header) 끝 */
