@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,7 @@
 <script type="text/javascript">
 	function go_list() {
 		//현재는 기능 없음.
-		//location.href="SharedTravelBoard";
+		location.href = "SharedBoard";
 	}
 </script>
 </head>
@@ -28,29 +29,30 @@
 		<form class="form-horizontal" action="update" method="post">
 			<div class="form-group">
 				<div class="col-sm-10">
-					<h2 class="text-center">(공유)일정 자세히 보기 화면(if 공유, title,view x)</h2>
+					<h2 class="text-center">(공유)일정 자세히 보기 화면(if 공유, title,view x
+						Ui 개선 필수!)</h2>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="title" class="col-sm-2 control-label">여행 id</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="no"
-						value="${Travel.travelid}" readonly="readonly">
+						value="${TravelDTO.travelID}" readonly="readonly">
 				</div>
 				<label for="title" class="col-sm-2 control-label">작성자</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="no"
-						value="${Travel.userid}" readonly="readonly">
+						value="${TravelDTO.userID}" readonly="readonly">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="title" class="col-sm-2 control-label">일정 제목</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="title"
-						value="${Travel.traveltitle}">
+						value="${TravelDTO.travelTitle}">
 				</div>
 			</div>
-<!-- travel -->
+			<!-- travel -->
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -62,16 +64,16 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>${Travel.sdate}</td>
-						<td>${Travel.edate}</td>
-						<td>${Travel.areacode}</td>
-						<td>${Travel.writedate}</td>
+						<td>${TravelDTO.SDate}</td>
+						<td>${TravelDTO.EDate}</td>
+						<td>${TravelDTO.areaCode}</td>
+						<td>${TravelDTO.writedate}</td>
 						<td><a href="delete?no=${list.no}">삭제(지금 클릭하면 에러 날 것)</a></td>
 					</tr>
 
 				</tbody>
 			</table>
-<!-- 모델에서 list<PlanDTO> 넣어줘야 함-->
+			<!-- 모델에서 list<PlanDTO> 넣어줘야 함-->
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -83,14 +85,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="PlanDTOlist" items="${PlanDTO}">
+					<c:forEach var="DTO" items="${PlanDTOList}">
 						<tr>
-							<td>${PlanDTO.planid}</td>
-							<td>${PlanDTO.traveliD}</td>
-							<td>${PlanDTO.day_num}</td>
-							<td>${PlanDTO.item}</td>
-							<td>${PlanDTO.item_add}</td>
-							
+							<td>${DTO.planID}</td>
+							<td>${DTO.travelID}</td>
+							<td>${DTO.day_num}</td>
+							<td>${DTO.item}</td>
+							<td>${DTO.item_add}</td>
+
 						</tr>
 					</c:forEach>
 				</tbody>
