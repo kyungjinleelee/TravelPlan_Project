@@ -12,18 +12,17 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.ApiDTO2;
+import com.info.Info;
 
 @Controller
 public class TestController {
 	private String serviceKey = "%2BZ2oseaIvHt%2BFFNkhvJA2vGpTcpF%2FydeQrkUsMt7W7SPky11jcfHaJ0HnB4VAR%2Bv3zvDnuyQRhL4zupPemFCAA%3D%3D";
+	private Info info = new Info();
 	
 	@Autowired
 	
@@ -67,13 +66,13 @@ public class TestController {
 	
 	@GetMapping("/map")
 	public String map(HttpSession session) {
-		session.setAttribute("client_id", "9269fw92x6");
+		session.setAttribute("client_id", info.getKakaoMapId());
 		return "map/mapTest";
 	}
 	
 	@GetMapping("/test")
 	public String test(HttpSession session) {
-		session.setAttribute("client_id", "9269fw92x6");
+		session.setAttribute("client_id", info.getKakaoMapId());
 		return "test";
 	}
 }

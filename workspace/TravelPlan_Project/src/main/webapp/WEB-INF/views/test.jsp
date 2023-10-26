@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>일정 만들기</title>
 <!-- Map API -->
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${client_id}"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${client_id}&libraries=services"></script>
 	
 <!-- travelForm -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -232,8 +232,9 @@
       <div class="d-flex align-items-center flex-shrink-0 p-4 border-bottom justify-content-center">
         <span class="fs-5 fw-semibold">검색</span>
       </div>
-
-      <!-- 검색창 -->
+	  
+      <!-- 검색창-kakao -->
+	  <div id="menu_wrap">
       <div class="d-flex align-items-center flex-shrink-0 p-4 border-bottom justify-content-center row">
         <div class="row">
           <button class="col m-1 small">숙박</button>
@@ -241,11 +242,21 @@
           <button class="col m-1 small">관광</button>
         </div>
         <div class="row">
-          <input class="col-8 m-1" type="text" style="font-size: small;" placeholder="검색어를 입력하세요.">
-          <button class="col-3 m-1 btn-primary" >검색</button>
+          <form onsubmit="searchPlaces(); return false;">
+	          <input type="text" id="keyword" class="col-8 m-1" value="서울 맛집" style="font-size: small;" placeholder="검색어를 입력하세요.">
+	          <button type="submit" id="searchBtn" class="col-3 m-1 btn-primary" >검색</button>
+          </form>
         </div>
       </div>
-
+      
+      <!-- 검색결과-kakao -->
+	  <div>
+	  	<ul id="placesList"></ul>
+        <div id="pagination"></div>
+	  </div>
+	  
+	  </div>
+	  
       <!-- 검색 결과 : c:foreach 사용하기 -->
       <div class="list-group list-group-flush border-bottom scrollarea">
 
@@ -273,47 +284,8 @@
     <!-- 지도 -->
 	<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 100%;">
 		<!-- 지도API -->
-		<div id="map" style="width:100%;height:100%;"></div> <!-- 지도 DOM 요소 지정 -->
-		<script>
-			// JSON 받기
-			var str;
-			$.ajax({
-				url:'api', // 요청 url
-				type:"get", // get/post
-				dataType:"json", // 응답받을 데이터 타임
-				success:function(data,status,xhr){ // 성공시 
-					str = JSON.stringify(data); // JSON을 String으로 변경하는 함수 (list에 저장?)
-					console.log("str: "+str);
-					
-					// 마커 - 지도생성
-					var map = new naver.maps.Map('map', {
-					    center: new naver.maps.LatLng(37.3595704, 127.105399),
-					    zoom: 10
-					});
-					
-					$.each(data, function(idx,ele){
-						console.log(ele);
-						console.log(ele.mapx+" "+ele.mapy);
-						
-						// 좌표에 마커 등록
-						var marker = new naver.maps.Marker({
-						    position: new naver.maps.LatLng(ele.mapy, ele.mapx),
-						    map: map
-						});
-						
-					});
-					
-				},
-				error:function(xhr, status, error){ // 에러 발생시
-				}
-			});
-			
-			// 지도 옵션 설정 : 지도 생성시 지도 속성 초기화, 객체 리터럴로 만듦 
-			var mapOptions = {
-			    center: new naver.maps.LatLng(37.541, 126.986),
-			    zoom: 10
-			};
-		</script>
+		<div id="map" style="width:100%;height:100%;"></div>
+		<script src="js/kakaoMap.js"></script>
 	</div>
   </main>
 </div>
