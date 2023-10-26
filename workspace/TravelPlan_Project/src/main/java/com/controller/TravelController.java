@@ -17,4 +17,7 @@ public class TravelController {
 	public String travelUI() {
 		return "travelForm";
 	}
+	
+	// 데이터 삽입
+	
 }

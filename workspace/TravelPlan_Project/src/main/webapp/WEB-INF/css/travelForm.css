@@ -160,3 +160,25 @@ td button:hover{
 }
 
 /* travel-title (header) 끝 */
+
+ /* DAYS box */
+.plan-daysbox{
+	width: 120px;
+	height: 99%;
+	position: absolute;
+	left: 0px;
+	top: 67px;
+	background: #EFF3FD;
+}
+
+.plan-daysboxtitle{
+	height: 85px;
+	border-bottom: 1px solid #3563E9;
+	color: #3563E9;
+	font-size: 20px;
+	text-align: center;
+	line-height: 80px;
+	font-weight: bold;
+}
+
+/* DAYS box */
