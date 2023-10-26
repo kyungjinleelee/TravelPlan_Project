@@ -29,7 +29,7 @@ public class SharedBoardController {
 	public String SharedBoard(HttpSession session, Model m) {
 		List<SharedBoardDTO> SbDTOList = service.SharedBoard();
 		m.addAttribute("SbDTOList", SbDTOList);
-		return "SharedTravelBoard";
+		return "SharedBoard/SharedTravelBoard";
 	}
 
 	// 일정 공유 게시판 자세히보기
@@ -55,7 +55,7 @@ public class SharedBoardController {
 		List<PlanDTO> planDto = service.selectPlanList(TravelID);//리퀘스트에 travelid 어떻게 넣을 건가
 		m.addAttribute("TravelDTO", dto);//dto
 		m.addAttribute("PlanDTOList", planDto);//dto
-		return "SharedTravelRetrieve";
+		return "SharedBoard/SharedTravelRetrieve";
 	}
 
 	// 여행계획(내 보관함)

@@ -31,25 +31,15 @@
 			<thead>
 			<!-- 유난히 게시판이랑 헷갈리는데 ui고치고 아마 제목 작성일시 조회수 정도만 출력 -->
 				<tr>
-					<th>게시글 번호(contentNum)</th>
-					<th>작성자(userid)</th>
 					<th>제목(title)</th>
 					<th>작성일시(boardDate)</th>
-					<th>조회수(views)</th>
-					<th>본문(mainText)</th>
-					<th>좋아요 수(likeContent)</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="DTOlist" items="${DTO}">
+				<c:forEach var="DTO" items="${DTOlist}">
 					<tr>
-						<td>${DTO.contentNum}</td>
-						<td>${DTO.userid}</td>
-						<td>${DTO.title}</td>
+						<td><a href="BoardRetrieve?contentNum=${DTO.contentNum}">${DTO.title}</a></td>
 						<td>${DTO.boardDate}</td>
-						<td>${DTO.views}</td>
-						<td>${DTO.mainText}</td>
-						<td>${DTO.likeContent}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

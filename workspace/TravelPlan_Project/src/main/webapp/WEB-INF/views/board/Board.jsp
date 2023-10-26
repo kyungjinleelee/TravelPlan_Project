@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공유 일정 상세보기 화면</title>
+<title>게시판 화면</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -24,8 +24,8 @@
 </script>
 </head>
 <body>
-	<jsp:include page="common/top.jsp" flush="true" /><br>
-	<h1>내가 찜한 글(여행계획(내보관함)) 화면입니다</h1>
+	<jsp:include page="../common/top.jsp" flush="true" /><br>
+	<h1>게시판입니다.</h1>
 	<!--
 	아직 만드는중 
 	go_list 수정 /writeui 구현하거나 삭제
@@ -34,27 +34,29 @@
 	<c:set var="DTO" value="${SbDTOList}" /> <!--{SbDTOList}from model ==> SbDTOList  -->
 
 	<div class="container">
-		<h2 class="text-center">공유된 일정 목록(목록. 일정아님)</h2>
+		<h2 class="text-center">게시판 화면</h2>
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>공유게시글 아이디(tContentID)</th>
-					
-					<th>여행ID(travelID)</th>
+					<th></th>
 					<th>작성자(userID)</th>
 					<th>제목(title)</th>
-					<th>조회수(views)</th>
+					<th>좋아요</th>
+					<th>조회수</th>
+					<th>작성일</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="DTO" items="${SbDTOList}"><!--  -->
+				<c:forEach var="DTO" items="${content}"><!--  -->
 					<tr>
-						<td>${DTO.tContentID}</td>
-						<td>${DTO.travelID}</td>
+						<td>${DTO.contentNum}</td>
 						<td>${DTO.userID}</td>
-						<td><a href="retrieve?TravelID=${DTO.travelID}">${DTO.title}</a></td>
+						<td><a href="BoardRetrieve?contentNum=${DTO.contentNum}">${DTO.title}</a></td>
+						<td>${DTO.likeContent}</td>
 						<td>${DTO.views}</td>
-						<td><a href="delete?no=${list.no}">삭제(지금 클릭하면 에러 날 것)</a></td>
+						<td>${DTO.boardDate}</td>
+						<td><a href="delete?no=${list.no}">수정</a></td>
+						<td><a href="delete?no=${list.no}">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

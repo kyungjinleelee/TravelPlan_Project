@@ -24,7 +24,7 @@
 </script>
 </head>
 <body>
-	<jsp:include page="common/top.jsp" flush="true" /><br>
+	<jsp:include page="../common/top.jsp" flush="true" /><br>
 	<div class="container">
 		<form class="form-horizontal" action="update" method="post">
 			<div class="form-group">

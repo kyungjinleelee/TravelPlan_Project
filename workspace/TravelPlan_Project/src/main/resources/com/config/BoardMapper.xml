@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardMapper">
+	<!--게시글 목록 -->
+	<select id="findAll" resultType="BoardDTO">
+		select *
+		from Board
+		order by contentNum DESC
+	</select>
+
+	<!--게시글 및 댓글 자세히 보기 -->
+	<select id="findOne" parameterType="int" resultType="BoardDTO">
+		select *
+		from Board
+		where contentNum=#{contentNum}
+	</select>
+	<select id="selectCommentList" parameterType="int" resultType="CommentDTO">
+		select *
+		from Comments
+		where contentNum=#{contentNum}
+	</select>
+
+	<!--게시글 수정 -->
+	<select id="update" parameterType="BoardDTO">
+		update Board
+		set title=#{title}, mainText=#{mainText} 
+		where contentNum=#{contentNum}
+	</select>
+	<!-- select userid, sdate, edate, traveltitle, areacode from TRAVEL Tcontentid, 
+		travelid, userid, title, views -->
+
+	<!-- 내가 좋아요 한 여행 목록 -->
+</mapper>
