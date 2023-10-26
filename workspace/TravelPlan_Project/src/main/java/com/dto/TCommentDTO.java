@@ -10,6 +10,7 @@ public class TCommentDTO {
 	private String commentdate;
 	private String comments;
 	
+	
 	public TCommentDTO() {
 		// TODO Auto-generated constructor stub
 	}

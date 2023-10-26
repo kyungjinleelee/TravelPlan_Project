@@ -35,11 +35,12 @@
  	
 <!--내가 쓴 글 목록 목록 -->
  	<select id="writeList" parameterType="string" resultType="BoardDTO">
- 	   select contentNum, userid, title, boarddate, views, maintext, likecontent
+ 	   select title, boarddate 
  	   from Board
  	   where userid =#{userid}
  	</select>
 <!-- select userid, sdate, edate, traveltitle, areacode
  	   from TRAVEL -->
-	
+
+<!-- 내가 좋아요 한 여행 목록 -->
 </mapper>

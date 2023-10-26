@@ -84,19 +84,27 @@ public class MyPageController {
 		}
 	
 	// 내가 쓴 글 목록
-		@GetMapping("/WriteList")
+		@GetMapping("/writeList")
 		public String writeList(HttpSession session ,Model m) {
-			MemberDTO dto = (MemberDTO)session.getAttribute("login");
-			String userid = dto.getUserID();
+			//MemberDTO dto = (MemberDTO)session.getAttribute("login");
+			//String userid = dto.getUserID();
+			MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+			String userid = ((MemberDTO) session.getAttribute("loginInfo")).getUserID();
+			
+			System.out.println(userid);
+			System.out.println("===========================");
+			if (userid==null) {
+				System.out.println("로그인 안돼서 그럼");
+				}
 			//List<TravelDTO> wDTOList = service.writeList(userid); //이건 여행계획
 			List<BoardDTO> wDTOList = service.writeList(userid);
 			//모델저장
 			m.addAttribute("wDTOList",wDTOList);
 			
-			return "writeList";
+			return "mypage/writeList";
 		}
 		
-	
+		
 		/*
 		 * // 세션을 생성하기 전에 기존의 세션 파기
 	        httpServletRequest.getSession().invalidate();
