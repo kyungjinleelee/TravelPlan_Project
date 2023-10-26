@@ -32,9 +32,9 @@ public class MyPageDAO {
 	}
 	
 	//일정보관함
-	public List<TravelDTO> travel(String userID) {
-		return session.selectList("MyPageMapper.travel", userID);
-	}
+//	public List<TravelDTO> travel(String userID) {
+//		return session.selectList("MyPageMapper.travel", userID);
+//	}
 	
 	//내가 찜 한 글 목록
 	public List<UserLikeDTO> userLikeList(String userID) {
@@ -46,6 +46,5 @@ public class MyPageDAO {
 	public List<BoardDTO> writeList(String userID) {
 		return session.selectList("MyPageMapper.writeList", userID);
 	}
-	
-	
+
 }

@@ -30,6 +30,7 @@
 			<list>
 				<value>classpath:com/config/MemberMapper.xml</value> <!-- 수정필요 -->
 				<value>classpath:com/config/MyPageMapper.xml</value> 
+				<value>classpath:com/config/TravelMapper.xml</value> 
 			</list>
 		</property>
 		<property name="typeAliases"> <!-- type설정(Alias는 DTO에서 설정) -->

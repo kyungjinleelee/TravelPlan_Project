@@ -32,11 +32,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	//일정보관함
-	@Override
-	public List<TravelDTO> travel(String userID) {
-		List<TravelDTO> list = dao.travel(userID);
-		return null;
-	}
+//	@Override
+//	public List<TravelDTO> travel(String userID) {
+//		List<TravelDTO> list = dao.travel(userID);
+//		return list;
+//	}
 	
 	//좋아요 목록
 	@Override
@@ -52,5 +52,4 @@ public class MyPageServiceImpl implements MyPageService {
 		return list;
 	}
 
-	
 }
