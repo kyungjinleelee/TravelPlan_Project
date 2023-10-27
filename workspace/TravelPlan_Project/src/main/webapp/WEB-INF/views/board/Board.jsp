@@ -17,9 +17,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-	function go_list() {
-		//현재는 기능 없음.
-		//location.href="SharedTravelBoard";
+	function go_write() {
+		location.href = "WriteRequest?";
 	}
 </script>
 </head>
@@ -31,7 +30,39 @@
 	go_list 수정 /writeui 구현하거나 삭제
 	SbDTOList
 	 -->
-	<c:set var="DTO" value="${SbDTOList}" /> <!--{SbDTOList}from model ==> SbDTOList  -->
+	<script type="text/javascript">
+		function askYesNo(no) {
+			var userConfirmed = confirm("Yes/No로 답해주세요. 계속하시겠습니까?");
+
+			if (userConfirmed) {
+				//var Num = parseInt(no, 10);
+				
+				location.href="delete?contentNum="+no;
+				//location.href="delete?contentNum=no";
+				alert("사용자가 '예'를 선택했습니다."+no);
+			} else {
+				alert("사용자가 '아니오'를 선택했습니다.");
+			}
+		}
+		
+		function go_update() {
+			//if(userid == null){
+			//	alert("로그아웃 상태")
+			//	userid = " ";
+			//	}
+			//var baseUrl = "UpdateRequest";
+        	//var queryParams = "contentNum=" + encodeURIComponent(no) + "&userid=" + encodeURIComponent(userid);
+        	//var url = baseUrl + "?" + queryParams;
+        	
+			//location.href="update?contentNum="+no;
+			//alert(url);
+			//location.href = "UpdateRequest?contentNum="+no+"&userid="+userid;
+			//location.href="UpdateRequest?contentNum="+no+"&userid="+userid;
+			location.href = "UpdateRequest?contentNum=${DTO.contentNum}"+"&userid=${DTO.userID}";
+		}
+	</script>
+	<c:set var="DTO" value="${SbDTOList}" />
+	<!--{SbDTOList}from model ==> SbDTOList  -->
 
 	<div class="container">
 		<h2 class="text-center">게시판 화면</h2>
@@ -47,7 +78,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="DTO" items="${content}"><!--  -->
+				<c:forEach var="DTO" items="${content}">
+					<!--  -->
 					<tr>
 						<td>${DTO.contentNum}</td>
 						<td>${DTO.userID}</td>
@@ -55,13 +87,16 @@
 						<td>${DTO.likeContent}</td>
 						<td>${DTO.views}</td>
 						<td>${DTO.boardDate}</td>
-						<td><a href="delete?no=${list.no}">수정</a></td>
-						<td><a href="delete?no=${list.no}">삭제</a></td>
+						
+						<td><a onclick="go_update()" > 수정</a></td>
+						<!-- ${DTO.contentNum} ${DTO.userID}->
+						<!-- <td><a href="delete?no=${list.no}">삭제</a></td> -->
+						<td><a onclick="askYesNo(${DTO.contentNum})" >삭제</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<button onclick="writeui()">글쓰기(기능안함)</button>
+		<button onclick="go_write()">글쓰기</button>
 	</div>
 </body>
 </html>

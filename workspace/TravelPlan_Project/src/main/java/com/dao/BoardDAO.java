@@ -33,4 +33,14 @@ public class BoardDAO {
 		int n = session.update("BoardMapper.update", dto);
 		return n;
 	}
+
+	public int write(BoardDTO dto) {
+		int n = session.insert("BoardMapper.write", dto);
+		return n;
+	}
+
+	public int delete(int contentNum) {
+		return session.delete("BoardMapper.delete",contentNum);
+		
+	}
 }
