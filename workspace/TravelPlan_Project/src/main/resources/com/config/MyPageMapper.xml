@@ -25,6 +25,23 @@
  	   from Travel
  	   where userID=#{userID}
  	</select> 
+ 	
+<!-- 비밀번호 변경 시 유효성 검사 -->	
+	<select id="pwCheck" resultType="String">
+		select passwd
+		from member
+		where userID=#{userID}
+	</select>
+	
+<!-- 비밀번호 변경 시 유효성 검사 -->	
+	<select id="pwUpdate" resultType="String">
+		update passwd2
+		set passwd=#{passwd2}
+		where userID=#{userID}
+	</select>
+	
+	
+
  		
 <!--내가 찜한 일정 목록 -->
  	<select id="userLikeList" parameterType="string" resultType="UserLikeDTO">
