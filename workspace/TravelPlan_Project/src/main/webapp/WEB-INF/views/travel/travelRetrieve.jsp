@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
     <title>일정 상세 보기</title>
 </head>
 <body>
+	<c:set var="travel" value="${travel.travelID}" />
     <div class="container">
         <h1>여행 계획 상세 정보</h1>
         <c:out value="${travel.SDate}" /><br>

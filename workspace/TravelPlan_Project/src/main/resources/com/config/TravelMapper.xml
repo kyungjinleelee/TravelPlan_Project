@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="TravelMapper">
+
+<!-- 일정보관함 -->
+ 	<select id="travel" parameterType="string" resultType="TravelDTO">
+ 	   select *
+ 	   from travel
+ 	   where userID=#{userID}
+ 	</select>
+
+<!-- 일정 상세보기 -->
+ 	<select id="travelRetrieve" parameterType="int" resultType="TravelDTO">
+ 	   select *
+ 	   from travel
+ 	   where travelID=#{travelID}
+ 	</select>	
+
+<!-- 일정 삭제하기 -->
+	<delete id="travelDel" parameterType="int" >
+		delete from travel
+		where travelID = #{travelID}
+	</delete>
+	
+</mapper>

@@ -55,20 +55,20 @@ public class MyPageController {
 	  updatedDTO.setUserID(currentDTO.getUserID());    //currentDTO에서 가져온 정보를 updatedDTO에 업데이트
 	  service.memberUpdate(updatedDTO); //updatedDTO를 사용하여 회원 정보 업데이트
 	  session.setAttribute("loginInfo", updatedDTO);   //수정된 정보를 세션에 다시 저장
-	  return "redirect:memberInfo"; // 수정 후 회원 정보 페이지로 이동해 업데이트 된 회원 정보 확인
+	  return "redirect:mypage"; // 수정 후 회원 정보 페이지로 이동해 업데이트 된 회원 정보 확인
 	}
 	
 	// 일정보관함
-	@GetMapping("/travelList")
-	public String myPlan(HttpSession session, Model m) {
-		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
-		if (dto != null) { // Null 체크를 수행
-			String userID = ((MemberDTO) session.getAttribute("loginInfo")).getUserID();
-		    List<TravelDTO> travelList = service.travel(userID);
-		    m.addAttribute("travelList", travelList);
-		}
-	    return "mypage/travelList";
-	}	
+//	@GetMapping("/travelList")
+//	public String myPlan(HttpSession session, Model m) {
+//		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
+//		if (dto != null) { // Null 체크를 수행
+//			String userID = ((MemberDTO) session.getAttribute("loginInfo")).getUserID();
+//		    List<TravelDTO> travelList = service.travel(userID);
+//		    m.addAttribute("travelList", travelList);
+//		}
+//	    return "mypage/travelList";
+//	}	
 	
 	// 좋아요 목록
 		@GetMapping("/LikeList")

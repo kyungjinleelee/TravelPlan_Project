@@ -21,11 +21,11 @@
 	
 <!-- 일정보관함 -->
  	<select id="travel" parameterType="string" resultType="TravelDTO">
- 	   select *
+ 	   select travelTitle, areaCode
  	   from Travel
  	   where userID=#{userID}
- 	</select>	
-
+ 	</select> 
+ 		
 <!--내가 찜한 일정 목록 -->
  	<select id="userLikeList" parameterType="string" resultType="UserLikeDTO">
  	   select *
