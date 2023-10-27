@@ -13,6 +13,14 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<style>
+
+
+.right-button {
+    margin-right: auto;
+}	
+</style>
+
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
@@ -83,10 +91,8 @@
 
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-
-					<input type="button" value="글수정" class="btn btn-default"
-						onclick="go_update()"> <input type="button" value="목록"
-						class="btn btn-default" onclick="go_list()">
+					<input type="button" value="글수정" class="btn btn-default" onclick="go_update()"> 
+					<input type="button" value="목록" class="btn btn-default" onclick="go_list()">
 				</div>
 			</div>
 		</form>
@@ -94,27 +100,34 @@
 			<thead>
 				<tr>
 					<th>작성자ID(userID)</th>
-					<th>작성일지(commentdate)</th>
 					<th>(comments)</th>
+					<th>작성일지(commentdate)</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${comment}">
 					<tr>
 						<td>${dto.userID}</td>
-						<td>${dto.commentdate}</td>
 						<td>${dto.comments}</td>
+						<td>${dto.commentdate}</td>
 
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<div class="form-group">
-			<label for="content" class="col-sm-2 control-label">댓글 작성하기</label>
-			<div class="col-sm-10">
-				<textarea class="form-control" rows="3" name="content">${content.mainText }</textarea>
+			<label  class="col-sm-2 control-label">댓글 작성하기</label>
+			<div class="col-sm-15">
+				<textarea class="form-control col-sm-3" id ="comment" name ="comment"></textarea>
+				
 			</div>
+			
+			<div class="col-sm-offset-2 col-sm-15">
+				<button type = "submit" class="right-button">댓글 작성</button> 	
+			</div>
+		
 		</div>
+		
 	</div>
 </body>
 </html>
