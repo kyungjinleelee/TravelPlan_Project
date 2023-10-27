@@ -31,6 +31,17 @@
 	</select>
 	<!-- select userid, sdate, edate, traveltitle, areacode from TRAVEL Tcontentid, 
 		travelid, userid, title, views -->
-
+	
+	<!--게시글 작성 -->
+	<insert id="write" parameterType="BoardDTO">
+		insert into board (CONTENTNUM,userid ,TITLE,MAINTEXT)
+		values (board_seq.nextval,#{userID}, #{title}, #{mainText} )
+	</insert>
+	
+	<!--게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from board
+		where contentnum=#{contentNum}
+	</delete>
 	<!-- 내가 좋아요 한 여행 목록 -->
 </mapper>

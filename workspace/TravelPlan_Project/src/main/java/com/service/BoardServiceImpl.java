@@ -31,9 +31,20 @@ public class BoardServiceImpl implements BoardService {
 		List<BoardDTO>dto =  dao.selectList();
 		return dto;
 	}
-
+	@Override
 	public int update(BoardDTO dto) {
 		return dao.update(dto);
+	}
+	
+	@Override
+	public int write(BoardDTO dto) {
+		
+		return dao.write(dto);
+	}
+
+	public int delete(int contentNum) {
+		dao.delete(contentNum);
+		return 0;
 	}
 
 }
