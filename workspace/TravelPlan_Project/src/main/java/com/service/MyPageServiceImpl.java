@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.MyPageDAO;
+import com.dto.BoardDTO;
 import com.dto.MemberDTO;
 import com.dto.PlanDTO;
-import com.dto.TravelDTO;
+import com.dto.TravelListDTO;
 import com.dto.UserLikeDTO;
 
 @Service
@@ -31,11 +32,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	//일정보관함
-	@Override
-	public List<PlanDTO> myPlan(String userID) {
-		List<PlanDTO> list = dao.myPlan(userID);
-		return list;
-	}
+//	@Override
+//	public List<TravelDTO> travel(String userID) {
+//		List<TravelDTO> list = dao.travel(userID);
+//		return list;
+//	}
 	
 	//좋아요 목록
 	@Override
@@ -46,9 +47,9 @@ public class MyPageServiceImpl implements MyPageService {
 
 	//내가 쓴 글 목록
 	@Override
-	public List<TravelDTO> writeList(String userID) {
-		List<TravelDTO> list = dao.writeList(userID);
+	public List<BoardDTO> writeList(String userID) {
+		List<BoardDTO> list = dao.writeList(userID);
 		return list;
 	}
-	
+
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SharedBoardMapper">
+	<!--공유 일정 목록 -->
+	<select id="selectAll" resultType="SharedBoardDTO">
+		select *
+		from SharedTravel
+		order by Tcontentid DESC
+	</select>
+
+	<!--공유 일정 및 여행일정 자세히 보기 -->
+	<select id="findOne" parameterType="int" resultType="TravelDTO">
+		select *
+		from travel
+		where travelid=#{TravelID}
+	</select>
+	<select id="selectPlanList" parameterType="int" resultType="PlanDTO">
+		select *
+		from plan
+		where travelid=#{TravelID}
+	</select>
+
+
+	<!-- 일정보관함 -->
+	<select id="myPlan" parameterType="string" resultType="PlanDTO">
+		select *
+		from plan
+		where userID=#{userID}
+	</select>
+
+	<!--내가 찜한 일정 목록 -->
+	<select id="userLikeList" parameterType="string"
+		resultType="UserLikeDTO">
+		select *
+		from user_like_list
+		where userid =#{userid}
+	</select>
+	
+
+	<!-- select userid, sdate, edate, traveltitle, areacode from TRAVEL Tcontentid, 
+		travelid, userid, title, views -->
+
+	<!-- 내가 좋아요 한 여행 목록 -->
+</mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,41 +15,44 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-	
+
 <script type="text/javascript">
-	function go_list(){
+	function go_list() {
 		//현재는 기능 없음.
 		//location.href="SharedTravelBoard";
 	}
-</script>	
+</script>
 </head>
 <body>
-<jsp:include page="common/top.jsp" flush="true" /><br>
+	<jsp:include page="../common/top.jsp" flush="true" /><br>
 	<h1>내가 찜한 글(여행계획(내보관함)) 화면입니다</h1>
 	<!--
 	아직 만드는중 
 	go_list 수정 /writeui 구현하거나 삭제
-	
+	SbDTOList
 	 -->
-	<c:set var="DTOlist" value="${SharedBoardDTO}" />
-	<!-- 아직 컨트롤러 구현 안했는데, model에 DTO리스트 넣어줘야함 -->
+	<c:set var="DTO" value="${SbDTOList}" /> <!--{SbDTOList}from model ==> SbDTOList  -->
+
 	<div class="container">
 		<h2 class="text-center">공유된 일정 목록(목록. 일정아님)</h2>
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>공유게시글 아이디(tContentID)</th>
+					
 					<th>여행ID(travelID)</th>
 					<th>작성자(userID)</th>
-					<th>공유게시글 아이디(views)</th>
+					<th>제목(title)</th>
+					<th>조회수(views)</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="DTOlist" items="${DTO}">
+				<c:forEach var="DTO" items="${SbDTOList}"><!--  -->
 					<tr>
 						<td>${DTO.tContentID}</td>
 						<td>${DTO.travelID}</td>
 						<td>${DTO.userID}</td>
+						<td><a href="retrieve?TravelID=${DTO.travelID}">${DTO.title}</a></td>
 						<td>${DTO.views}</td>
 						<td><a href="delete?no=${list.no}">삭제(지금 클릭하면 에러 날 것)</a></td>
 					</tr>

@@ -20,12 +20,12 @@
 	</update>
 	
 <!-- 일정보관함 -->
- 	<select id="myPlan" parameterType="string" resultType="PlanDTO">
- 	   select *
- 	   from plan
+ 	<select id="travel" parameterType="string" resultType="TravelDTO">
+ 	   select travelTitle, areaCode
+ 	   from Travel
  	   where userID=#{userID}
- 	</select>	
-
+ 	</select> 
+ 		
 <!--내가 찜한 일정 목록 -->
  	<select id="userLikeList" parameterType="string" resultType="UserLikeDTO">
  	   select *
@@ -34,11 +34,13 @@
  	</select>
  	
 <!--내가 쓴 글 목록 목록 -->
- 	<select id="writeList" parameterType="string" resultType="TravelDTO">
- 	   select userid, sdate, edate, traveltitle, areacode
- 	   from TRAVEL
+ 	<select id="writeList" parameterType="string" resultType="BoardDTO">
+ 	   select title, boarddate 
+ 	   from Board
  	   where userid =#{userid}
  	</select>
+<!-- select userid, sdate, edate, traveltitle, areacode
+ 	   from TRAVEL -->
 
-	
+<!-- 내가 좋아요 한 여행 목록 -->
 </mapper>
