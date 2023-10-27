@@ -45,7 +45,8 @@
 			}
 		}
 		
-		function go_update() {
+		function go_update(no,userid) {
+			
 			//if(userid == null){
 			//	alert("로그아웃 상태")
 			//	userid = " ";
@@ -56,9 +57,8 @@
         	
 			//location.href="update?contentNum="+no;
 			//alert(url);
-			//location.href = "UpdateRequest?contentNum="+no+"&userid="+userid;
-			//location.href="UpdateRequest?contentNum="+no+"&userid="+userid;
-			location.href = "UpdateRequest?contentNum=${DTO.contentNum}"+"&userid=${DTO.userID}";
+			
+			location.href = "UpdateRequest?contentNum="+no+"&userid="+userid;
 		}
 	</script>
 	<c:set var="DTO" value="${SbDTOList}" />
@@ -88,7 +88,7 @@
 						<td>${DTO.views}</td>
 						<td>${DTO.boardDate}</td>
 						
-						<td><a onclick="go_update()" > 수정</a></td>
+						<td><a onclick="go_update(${DTO.contentNum},'${DTO.userID}')">수정3</a></td>
 						<!-- ${DTO.contentNum} ${DTO.userID}->
 						<!-- <td><a href="delete?no=${list.no}">삭제</a></td> -->
 						<td><a onclick="askYesNo(${DTO.contentNum})" >삭제</a></td>

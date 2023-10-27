@@ -52,7 +52,6 @@ public class BoardController {
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");//로그인 아이디 확인.
 		System.out.println("작성자 아이디"+ userid);
 		System.out.println("로그인 아이디");//이건 로그인 없으면 아예 출력도 안됨.
-		System.out.println(loginInfo.getUserID());
 		if (userid != null && loginInfo != null && userid.equals(loginInfo.getUserID())) {
 			System.out.println("아이디 일치 확인");
 			BoardDTO dto = service.findOne(contentNum);
