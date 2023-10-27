@@ -1,12 +1,3 @@
-// 검색 키워드 가져오기 
-//var searchKeyword;
-//$(document).ready(function(){
-//	$("#searchBtn").on("click", function(){
-//		event.preventDefault();
-//		searchKeyword = $("#keyword").val();
-//	});
-//});
-
 //마커를 담을 배열입니다
 var markers = [];
 
@@ -130,26 +121,51 @@ function displayPlaces(places) {
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
 
-    var el = document.createElement('li'),
+    var el = document.createElement('div'),
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                 '<div class="info">' +
-                '   <h5>' + places.place_name + '</h5>';
+                '  <div class="d-flex w-100 align-items-center justify-content-between">' + 
+                '    <strong class="mb-1">' + places.place_name + '</strong>' +
+                '  </div>';
 
     if (places.road_address_name) {
-        itemStr += '    <span>' + places.road_address_name + '</span>' +
-                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
+        itemStr += '    <div class="col-10 mb-1 small">' + places.road_address_name + '</div>' +
+                    '   <div class="jibun gray col-10 mb-1 small">' +  places.address_name  + '</div>';
     } else {
-        itemStr += '    <span>' +  places.address_name  + '</span>'; 
+        itemStr += '    <div class="col-10 mb-1 small">' +  places.address_name  + '</div>'; 
     }
                  
-      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                '</div>';           
+      itemStr += '  <div class="tel col-10 mb-1 small">' + places.phone  + '</div>' +
+                '<button class="btn btn-primary" id="addBtn" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">추가</button></div>';
 
     el.innerHTML = itemStr;
-    el.className = 'item';
+    el.className = 'item list-group-item py-3 lh-sm';
 
     return el;
 }
+//// 검색결과 항목을 Element로 반환하는 함수입니다 - 원본
+//function getListItem(index, places) {
+//	
+//	var el = document.createElement('li'),
+//	itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
+//	'<div class="info">' +
+//	'   <h5>' + places.place_name + '</h5>';
+//	
+//	if (places.road_address_name) {
+//		itemStr += '    <span>' + places.road_address_name + '</span>' +
+//		'   <span class="jibun gray">' +  places.address_name  + '</span>';
+//	} else {
+//		itemStr += '    <span>' +  places.address_name  + '</span>'; 
+//	}
+//	
+//	itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+//	'</div>';           
+//	
+//	el.innerHTML = itemStr;
+//	el.className = 'item';
+//	
+//	return el;
+//}
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {

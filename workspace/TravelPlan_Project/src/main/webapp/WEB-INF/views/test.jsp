@@ -135,7 +135,7 @@
 	<div class="calendar">
 		<label class="calendar_sdate">여행 시작일 : </label>
 		<input class="input-date" type="date" name="SDate" id="SDate" value="" min="<%= sdf.format(nowTime) %>">
-		<p class="wave"> ~  </p>
+		<p class="wave">~</p>
 		<label class="calendar_edate">여행 종료일 : </label>
 		<input class="input-date" type="date" id="EDate" value="EDate" min="<%= sdf.format(nowTime) %>">
 	</div>
@@ -156,6 +156,7 @@
 	<button class="travel-title_submit" onclick="save()">저장</button>
 	<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) history.back(); else alert('닫기 취소')">닫기</button>
 </div>
+<!-- header - tramvelForm 끝 -->
 
 <!-- content -->
 <div id='wrapper'>
@@ -188,6 +189,24 @@
       </ul>
 
     </div>
+    <!-- DAYS box-수정전 -->
+<!-- 		<div class="plan-daysbox"> -->
+<!-- 			<div class="plan-daysboxtitle">일정</div> -->
+ 			<!-- 사용자 입력을 받은 만큼 반복문 사용  (days) -->
+<!-- 			<div class="select-job-items1"> -->
+<!-- 				<div style="text-align: -webkit-center;"> -->
+<!-- 					<table id="myTable" class="table"> -->
+<!-- 						<thead> -->
+<!-- 						</thead> -->
+<!-- 						<tbody id="tbody"></tbody> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+	
+<!-- 			<input type="hidden" id="day_hidden" value="0"> -->
+	
+<!-- 		</div> -->
+	<!-- DAYS box 끝 -->
 
     <div class="b-example-divider b-example-vr"></div>
 
