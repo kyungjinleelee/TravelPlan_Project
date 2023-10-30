@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.ApiDTO2;
 import com.info.Info;
+import com.service.ApiService;
 import com.service.TravelService;
 
 @Controller
@@ -26,6 +27,9 @@ public class TravelController {
 	
 	@Autowired
 	TravelService service;
+	
+	@Autowired
+	ApiService apiService;
 	
 	// 메인UI
 	@GetMapping("/travelUI")
@@ -45,7 +49,7 @@ public class TravelController {
 		ArrayList<ApiDTO2> list = new ArrayList<ApiDTO2>();
 		//http://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=%2BZ2oseaIvHt%2BFFNkhvJA2vGpTcpF%2FydeQrkUsMt7W7SPky11jcfHaJ0HnB4VAR%2Bv3zvDnuyQRhL4zupPemFCAA%3D%3D&pageNo=1&numOfRows=7901&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39
 		URL url = new URL("http://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=" + info.getTourAPIKey() +
-		   "&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39");
+		   "&pageNo=2&numOfRows=500&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39");
 		BufferedReader bf;
 		bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 		result = bf.readLine();
@@ -64,9 +68,12 @@ public class TravelController {
 			JSONObject tmp = (JSONObject)infoArr.get(i);
 			       
 			ApiDTO2 dto=new ApiDTO2((String)tmp.get("title"),(String)tmp.get("addr1"),(String)tmp.get("addr2"),(String)tmp.get("mapx"),(String)tmp.get("mapy"),(String)tmp.get("areacode"),(String)tmp.get("contenttypeid"));
-			list.add(dto);
-			System.out.println(dto);
+			//System.out.println(dto);
+			if(dto!=null) {
+				list.add(dto);
+			}
 		}
+		apiService.insertApi(list);
 		return list;
 	}
 	
