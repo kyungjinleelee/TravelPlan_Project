@@ -10,12 +10,20 @@ import com.dto.ApiDTO2;
 
 @Repository
 public class ApiDAO {
+	
+	@Autowired // SqlSessionTemplate 주입
+	SqlSessionTemplate session;
 
-	@Autowired
-	SqlSessionTemplate session;    //session 주입받기
-
-	// api 데이터 삽입
-		public int insertApi(List<ApiDTO2> list) {
-			return session.insert("ApiMapper.insertApi", list);
-		}
+	
+	// 데이터 삽입
+	public int insertApi(List<ApiDTO2> list) {
+		System.out.println(list);
+		return session.insert("ApiMapper.insertApi", list);
+	}
+	
+	// 중복 데이터 삭제
+	public int deleteDuplication(List<ApiDTO2> list) {
+		return session.delete("ApiMapper.deleteDuplication", list);
+	}
+	
 }
