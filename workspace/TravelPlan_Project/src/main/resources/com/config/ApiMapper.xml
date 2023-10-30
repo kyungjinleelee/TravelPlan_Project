@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ApiMapper">
+
+    <!-- api 데이터 삽입  -->
+    <insert id="insertApi" parameterType="ApiDTO2">
+    insert all 
+    <foreach item="item" collection="list">
+   		 into spot(title, addr1, addr2, mapx, mapy, areaCode, contentTypeid)
+    values
+     (
+     #{spot.title},#{spot.addr1},#{spot.addr2},#{spot.mapx},#{spot.mapy},#{spot.areaCode},#{spot.contentTypeid}
+     )  
+    </foreach>
+    select * from dual
+    </insert>
+    
+    
+</mapper>

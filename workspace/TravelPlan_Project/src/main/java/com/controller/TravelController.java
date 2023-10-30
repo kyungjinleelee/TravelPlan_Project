@@ -45,7 +45,7 @@ public class TravelController {
 		ArrayList<ApiDTO2> list = new ArrayList<ApiDTO2>();
 		//http://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=%2BZ2oseaIvHt%2BFFNkhvJA2vGpTcpF%2FydeQrkUsMt7W7SPky11jcfHaJ0HnB4VAR%2Bv3zvDnuyQRhL4zupPemFCAA%3D%3D&pageNo=1&numOfRows=7901&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39
 		URL url = new URL("http://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=" + info.getTourAPIKey() +
-		   "&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39");
+		   "&pageNo=1&numOfRows=500&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39");
 		BufferedReader bf;
 		bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 		result = bf.readLine();
@@ -70,16 +70,4 @@ public class TravelController {
 		return list;
 	}
 	
-	// mapTest용
-	@GetMapping("/map")
-	public String map(HttpSession session) {
-		session.setAttribute("client_id", info.getKakaoMapId());
-		return "map/mapTest";
-	}
-	
-	@GetMapping("/test")
-	public String test(HttpSession session) {
-		session.setAttribute("client_id", info.getKakaoMapId());
-		return "test";
-	}
 }
