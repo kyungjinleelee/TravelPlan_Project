@@ -20,9 +20,6 @@ public class TravelListController {
 	@Autowired
 	TravelListService service;
 	
-	// 일정 만들기
-	
-	
 	// 일정보관함
 	@GetMapping("/travelList")
 	public String myPlan(HttpSession session, Model m) {

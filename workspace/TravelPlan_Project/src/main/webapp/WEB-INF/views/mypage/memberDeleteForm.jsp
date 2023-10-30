@@ -1,16 +1,15 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.net.URLDecoder" %>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+ <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <style>
-        * {
+                * {
             box-sizing: border-box;
         }
 
@@ -83,46 +82,82 @@
             align-items: flex-start;
         }
     </style>
-</head>
-<body>
-    <form>
-        <div class="title">회원 정보</div>
-        <div class="msg">${msg}</div>
+  </head>
+ 
 
+
+<body>
+<section id="container">
+ <form action="memberDelete" method="post" id="memberDelete">
+    <h1>회원 탈퇴하기</h1>
         <div>
             <label for="userID">아이디</label>
             <input class="input-field" type="text" name="userID" id="userID" value="${loginInfo.userID}" readonly>
         </div>
         <div>
-            <label for="name">이름</label>
-            <input class="input-field" type="text" name="name" id="name" value="${loginInfo.name}" readonly>
+            <label for="passwd">비밀번호</label>
+            <input class="input-field" type="password" id="passwd" name="passwd" required>
         </div>
-        <div>
-            <label for="email">이메일</label>
-            <input class="input-field" type="text" name="email" id="email" value="${loginInfo.email}" readonly>
-        </div>
-        <div>
-            <label for="phone">휴대전화</label>
-            <input class="input-field" type="text" name="phone" id="phone" value="${loginInfo.phone}" readonly>
-        </div>
-        <div>
-            <label for="post">우편번호</label>
-            <input class="input-field" type="text" name="post" id="post" value="${loginInfo.post}" readonly>
-        </div>
-        <div>
-            <label for="addr1">주소</label>
-            <input class="input-field" type="text" name="addr1" id="addr1" value="${loginInfo.addr1}" readonly>
-        </div>
-        <div>
-            <label for="addr2">상세주소</label>
-            <input class="input-field" type="text" name="addr2" id="addr2" value="${loginInfo.addr2}" readonly>
-        </div>
-
-        <button type="button" onclick="location.href='MemberUpdateForm'">수정하기</button>
         
-    </form>
+        <!-- 탈퇴 버튼 -->
+		<button id="deleteBtn" class="btn" type="submit">탈퇴하기</button>
+		
+		<!-- 취소 버튼 (mypage.jsp로 이동) -->
+		<button type="button" onclick="location.href='mypage'">취소</button>
+        <div>
+		 	<c:if test="${msg == false}">
+		 		비밀번호가 맞지 않습니다. 다시 확인해주세요.
+		 	</c:if>
+	 	</div>     
+  </form>
+ </section>
+
+
+
+  <script type="text/javascript">
+ 	$(document).ready(function(){
+ 		//탈퇴하기
+ 		$("#deleteBtn").on("click", function(){
+ 			var passwd = $("#passwd").val();
+ 			//if($("#passwd").val() == ""){
+ 			  if(passwd == "") {	
+ 				alert("비밀번호를 입력해주세요.");
+ 				$("#passwd").focus();
+ 				return false;
+ 			}
+ 			
+ 			$.ajax({
+ 				url : "/checkPw",
+ 				type : "POST",
+ 				dataType : "json",
+ 				data : $("#memberDelete").serializeArray(),
+ 				success : function(data){
+ 					
+ 					if(data==0){
+ 						alert("비밀번호가 틀렸습니다.");
+ 						return;
+ 					}else{
+ 						if(confirm("정말 탈퇴하시겠습니까?")){
+ 							$("#memberDelete").submit();
+ 							}
+ 						}
+ 					}
+ 				});
+ 		
+ 			
+ 			
+ 		 });	
+ 
+	 });
+ </script>  
 </body>
 </html>
-    
-   
- 
+
+ <!--	<script>
+         // 저장 버튼 클릭 시 실행
+ //       document.getElementById("deleteBtn").addEventListener("click", function() {
+ //           alert("회원 정보가 성공적으로 수정되었습니다.");   // 서버로 데이터 전송 후, 성공 시 알림 표시
+ //           window.location.href = "mypage"; // memberInfo.jsp로 리디렉션
+ //       }); 
+    </script> -->
+        

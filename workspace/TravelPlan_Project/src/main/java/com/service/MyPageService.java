@@ -25,5 +25,10 @@ public interface MyPageService {
 	
 	//내가 쓴 글 목록
 	public List<BoardDTO> writeList(String userid);
+	
+	//회원 탈퇴하기
+	public void memberDelete(MemberDTO dto);
 
+	//비밀번호 체크
+	public int checkPw(MemberDTO dto);
 }

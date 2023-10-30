@@ -9,8 +9,8 @@
 <title>마이페이지</title>
 </head>
 <body>
-<%-- <jsp:include page="common/top.jsp" flush="true" /><br>
-<hr> --%>
+<jsp:include page="common/top.jsp" flush="true" /><br>
+<hr> 
 <jsp:include page="mypage/mypage.jsp" flush="true" />
 </body>
 </html>
