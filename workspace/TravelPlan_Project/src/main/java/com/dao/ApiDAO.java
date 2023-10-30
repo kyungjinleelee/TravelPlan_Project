@@ -21,4 +21,9 @@ public class ApiDAO {
 		return session.insert("ApiMapper.insertApi", list);
 	}
 	
+	// 중복 데이터 삭제
+	public int deleteDuplication(List<ApiDTO2> list) {
+		return session.delete("ApiMapper.deleteDuplication", list);
+	}
+	
 }

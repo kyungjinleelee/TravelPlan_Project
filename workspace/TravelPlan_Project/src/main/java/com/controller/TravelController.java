@@ -42,14 +42,14 @@ public class TravelController {
 	
 	
 	// tourAPI json형식으로 jsp로 보냄
-	@RequestMapping("/api")
+	@RequestMapping("/data_download")
 	@ResponseBody
 	public ArrayList<ApiDTO2> load_save(HttpSession session) throws Exception {
 		String result = "";
 		ArrayList<ApiDTO2> list = new ArrayList<ApiDTO2>();
 		//http://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=%2BZ2oseaIvHt%2BFFNkhvJA2vGpTcpF%2FydeQrkUsMt7W7SPky11jcfHaJ0HnB4VAR%2Bv3zvDnuyQRhL4zupPemFCAA%3D%3D&pageNo=1&numOfRows=7901&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39
 		URL url = new URL("http://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=" + info.getTourAPIKey() +
-		   "&pageNo=2&numOfRows=500&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39");
+		   "&pageNo=3&numOfRows=1000&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39");
 		BufferedReader bf;
 		bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 		result = bf.readLine();
@@ -61,7 +61,7 @@ public class TravelController {
 		JSONObject items = (JSONObject)body.get("items");
 		   
 		JSONArray infoArr = (JSONArray) items.get("item");
-		System.out.println("infoArr: "+infoArr);
+		//System.out.println("infoArr: "+infoArr);
 		   
 		   
 		for(int i=0;i<infoArr.size();i++){

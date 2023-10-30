@@ -4,15 +4,24 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ApiMapper">
+
 	 <!-- api 데이터 삽입  -->
-
-<insert id="insertApi" parameterType="arraylist">
-	insert all
-	<foreach item="item" collection="list">
-		into spot (title, addr1, addr2, mapx, mapy, areaCode, contentTypeid)
-  	        values (#{item.title},#{item.addr1},#{item.addr2},#{item.mapx},#{item.mapy},#{item.areaCode},#{item.contentTypeid})
-	</foreach>
-	select * from dual
-</insert>
-
+	<insert id="insertApi" parameterType="arraylist">
+		insert all
+		<foreach item="item" collection="list">
+			into spot (title, addr1, addr2, mapx, mapy, areaCode, contentTypeid)
+	  	        values (#{item.title},#{item.addr1},#{item.addr2},#{item.mapx},#{item.mapy},#{item.areaCode},#{item.contentTypeid})
+		</foreach>
+		select * from dual
+	</insert>
+	
+	<!-- 중복 데이터 삭제 -->
+	<delete id="deleteDuplication" parameterType="arraylist">
+		delete from spot
+		<where>
+			<foreach item="item" collection="list" separator="or">
+				title=#{item.title} and mapx like #{item.mapx}||'%' and mapy like #{item.mapy}||'%'
+			</foreach>
+		</where>
+	</delete>
 </mapper>
