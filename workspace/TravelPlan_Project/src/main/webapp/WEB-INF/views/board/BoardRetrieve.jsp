@@ -40,7 +40,31 @@
 	}
 	
 	function go_insert(){
-		alert('click')
+		var textAreaContent = document.getElementById("comment").value;
+		//${content.contentNum}
+		alert('click' + textAreaContent)
+		location.href = "comment?contentNum=${content.contentNum}"+ "&comment=textAreaContent";
+	}
+	
+	function sendPostRequest() {
+		var textAreaContent = document.getElementById("comment").value;
+		alert('click' + textAreaContent)
+	    $.ajax({
+	        url: "comment",
+	        type: "POST",
+	        data: {
+	        	contentNum: "${content.contentNum}",
+	        	comment: textAreaContent
+	        },
+	        success: function (response) {
+	        	alert('댓글 등록이 완료되었습니다.');
+	            console.log(response);
+	        },
+	        error: function (xhr, status, error) {
+	            
+	        	alert('통신실패');
+	        },
+	    });
 	}
 </script>
 </head>
@@ -128,7 +152,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<form action="update" method="post">
+		<form method="post">
 			<div class="form-group">
 				<label class="col-sm-5 control-label">댓글 작성하기</label>
 				<div class="col-sm-15 col-sm-10">
@@ -136,8 +160,7 @@
 				</div>
 			</div>
 			<div class="col-sm-offset-11 col-sm-5 ">
-				<!--  col-sm-10 이 세로 -->
-				<input type="button" id="writeComment" value="댓글작성"><!-- class right-button -->
+				<input type="button" id="writeComment" value="댓글작성" onclick="sendPostRequest()"><!-- class right-button -->
 			</div>
 		</form>
 	</div>
