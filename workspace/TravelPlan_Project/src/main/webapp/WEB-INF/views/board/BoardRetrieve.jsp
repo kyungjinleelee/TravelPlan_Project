@@ -13,24 +13,34 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+
+
+
 <style>
-
-
 .right-button {
-    margin-right: auto;
-}	
+	margin-right: auto;
+}
 </style>
-
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="../../js/Board.js"></script>
 
 <script type="text/javascript">
+	var target = document.getElementById('writeComment');
+	
+	target.addEventListener('click', go_insert);
+
 	function go_list() {
 		location.href = "Board";
 	}
 
 	function go_update() {//파라미터를 아예 안넣었는데?
-		location.href = "UpdateRequest?contentNum=${content.contentNum}"+"&userid=${content.userID}";
+		location.href = "UpdateRequest?contentNum=${content.contentNum}"
+				+ "&userid=${content.userID}";
+	}
+	
+	function go_insert(){
+		alert('click')
 	}
 </script>
 </head>
@@ -83,16 +93,19 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="content" class="col-sm-2 control-label">내용</label>
-				<div class="col-sm-10">
-					<textarea class="form-control" rows="3" name="content">${content.mainText }</textarea>
+				<!-- <label for="content" class="col-sm-2 control-label">내용</label>  -->
+				<div class="col-sm-12">
+					<!-- col 1이  생각보다 크다. -->
+					<textarea class="form-control" rows="3" name="content">${content.mainText}</textarea>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<input type="button" value="글수정" class="btn btn-default" onclick="go_update()"> 
-					<input type="button" value="목록" class="btn btn-default" onclick="go_list()">
+				<div class="col-sm-offset-10">
+					<!-- class="col-sm-offset-2 col-sm-10" -->
+					<input type="button" value="글수정" class="btn btn-default"
+						onclick="go_update()"> <input type="button" value="목록"
+						class="btn btn-default" onclick="go_list()">
 				</div>
 			</div>
 		</form>
@@ -115,19 +128,18 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="form-group">
-			<label  class="col-sm-2 control-label">댓글 작성하기</label>
-			<div class="col-sm-15">
-				<textarea class="form-control col-sm-3" id ="comment" name ="comment"></textarea>
-				
+		<form action="update" method="post">
+			<div class="form-group">
+				<label class="col-sm-5 control-label">댓글 작성하기</label>
+				<div class="col-sm-15 col-sm-10">
+					<textarea class="form-control col-sm-3" id="comment" name="comment"></textarea>
+				</div>
 			</div>
-			
-			<div class="col-sm-offset-2 col-sm-15">
-				<button type = "submit" class="right-button">댓글 작성</button> 	
+			<div class="col-sm-offset-11 col-sm-5 ">
+				<!--  col-sm-10 이 세로 -->
+				<input type="button" id="writeComment" value="댓글작성"><!-- class right-button -->
 			</div>
-		
-		</div>
-		
+		</form>
 	</div>
 </body>
 </html>

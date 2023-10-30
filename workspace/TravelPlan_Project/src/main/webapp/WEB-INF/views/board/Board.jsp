@@ -88,10 +88,10 @@
 						<td>${DTO.views}</td>
 						<td>${DTO.boardDate}</td>
 						
-						<td><a onclick="go_update(${DTO.contentNum},'${DTO.userID}')">수정3</a></td>
+						<td><button onclick="go_update(${DTO.contentNum},'${DTO.userID}')">수정3</button></td>
 						<!-- ${DTO.contentNum} ${DTO.userID}->
 						<!-- <td><a href="delete?no=${list.no}">삭제</a></td> -->
-						<td><a onclick="askYesNo(${DTO.contentNum})" >삭제</a></td>
+						<td><button onclick= "askYesNo(${DTO.contentNum})"> 삭제</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
