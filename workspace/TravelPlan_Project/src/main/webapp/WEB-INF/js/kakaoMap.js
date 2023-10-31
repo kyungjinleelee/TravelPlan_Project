@@ -125,18 +125,18 @@ function getListItem(index, places) {
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                 '<div class="info">' +
                 '  <div class="d-flex w-100 align-items-center justify-content-between">' + 
-                '    <strong class="mb-1">' + places.place_name + '</strong>' +
+                '    <strong class="mb-1" id="place_name' + (index+1) + '">' + places.place_name + '</strong>' +
                 '  </div>';
 
     if (places.road_address_name) {
-        itemStr += '    <div class="col-10 mb-1 small">' + places.road_address_name + '</div>' +
-                    '   <div class="jibun gray col-10 mb-1 small">' +  places.address_name  + '</div>';
+        itemStr += '    <div class="col-10 mb-1 small" id="road_address_name' + (index+1) + '">' + places.road_address_name + '</div>' +
+                    '   <div class="jibun gray col-10 mb-1 small" id="address_name' + (index+1) + '">' +  places.address_name  + '</div>';
     } else {
-        itemStr += '    <div class="col-10 mb-1 small">' +  places.address_name  + '</div>'; 
+        itemStr += '    <div class="col-10 mb-1 small" id="address_name' + (index+1) + '">' +  places.address_name  + '</div>'; 
     }
                  
       itemStr += '  <div class="tel col-10 mb-1 small">' + places.phone  + '</div>' +
-                '<button class="btn btn-primary" id="addBtn" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">추가</button></div>';
+                '<button class="addBtn btn btn-primary" data-idx="' + (index+1) + '" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">추가</button></div>';
 
     el.innerHTML = itemStr;
     el.className = 'item list-group-item py-3 lh-sm';

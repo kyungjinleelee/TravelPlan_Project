@@ -110,6 +110,10 @@ td button{
 td button:hover{
 	background-color: #3563E9;
 }
+
+.btn-active {
+	background-color: #3563E9;
+}
     
 #myTable{
 	margin: 0;

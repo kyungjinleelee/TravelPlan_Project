@@ -4,7 +4,6 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("PlanDTO")
 public class PlanDTO {
-	private int planID;
 	private int travelID;
 	private int day_num;
 	private String item;
@@ -13,18 +12,11 @@ public class PlanDTO {
 	public PlanDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	public PlanDTO(int planID, int travelID, int day_num, String item, String item_add) {
-		this.planID = planID;
+	public PlanDTO(int travelID, int day_num, String item, String item_add) {
 		this.travelID = travelID;
 		this.day_num = day_num;
 		this.item = item;
 		this.item_add = item_add;
-	}
-	public int getPlanID() {
-		return planID;
-	}
-	public void setPlanID(int planID) {
-		this.planID = planID;
 	}
 	public int getTravelID() {
 		return travelID;

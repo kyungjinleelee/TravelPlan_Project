@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,6 +25,11 @@ public class ApiDAO {
 	// 중복 데이터 삭제
 	public int deleteDuplication(List<ApiDTO2> list) {
 		return session.delete("ApiMapper.deleteDuplication", list);
+	}
+	
+	// 장소 찾기
+	public List<ApiDTO2> findSpot(HashMap<String, String> map) {
+		return session.selectList("ApiMapper.findSpot", map);
 	}
 	
 }

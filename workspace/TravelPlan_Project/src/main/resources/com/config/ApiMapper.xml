@@ -24,4 +24,11 @@
 			</foreach>
 		</where>
 	</delete>
+	
+	<!-- 장소 찾기 -->
+	<select id="findSpot" parameterType="map" resultType="ApiDTO2">
+		select *
+		from spot
+		where title=#{title}
+	</select>
 </mapper>

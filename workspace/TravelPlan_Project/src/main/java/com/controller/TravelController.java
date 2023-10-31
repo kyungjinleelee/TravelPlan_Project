@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.ApiDTO2;
@@ -74,6 +77,15 @@ public class TravelController {
 			}
 		}
 		apiService.insertApi(list);
+		return list;
+	}
+	
+	// 세부 일정에 추가
+	@GetMapping("/scheduleList")
+	@ResponseBody
+	public List<ApiDTO2> scheduleList(@RequestParam HashMap<String, String> map) {
+		List<ApiDTO2> list = apiService.findSpot(map);
+		
 		return list;
 	}
 	
