@@ -91,6 +91,7 @@
 	<button type="button" onclick="location.href='travelList'">일정보관함</button>
 	<button type="button" onclick="location.href='likeList'">좋아요 목록</button>
 	<button type="button" onclick="location.href='writeList'">내가 쓴 글 보기</button>
+	<button type="button" onclick="location.href='memberDeleteForm'">회원 탈퇴하기</button>
 	</form>
 </body>
 </html>

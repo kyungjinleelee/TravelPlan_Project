@@ -13,12 +13,12 @@
  	</select>
 
 <!-- 일정 상세보기 -->
- 	<select id="travelRetrieve" parameterType="int" resultType="TravelDTO">
+  	<select id="travelRetrieve" parameterType="int" resultType="TravelDTO">
  	   select *
  	   from travel
  	   where travelID=#{travelID}
  	</select>	
-
+ 
 <!-- 일정 삭제하기 -->
 	<delete id="travelDel" parameterType="int" >
 		delete from travel

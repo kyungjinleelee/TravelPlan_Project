@@ -14,8 +14,6 @@ import com.dto.TravelListDTO;
 	@Autowired
 	TravelListDAO dao;
 	
-	// 일정 만들기
-	
 	//일정보관함
 	@Override
 	public List<TravelListDTO> travel(String userID) {
