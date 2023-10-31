@@ -1,9 +1,6 @@
 package com.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,7 +132,7 @@ public class MyPageController {
 		        }
 		    } else {
 		        // loginInfo 세션 속성이 존재하지 않거나 null일 때 처리
-		        return "redirect:/loginForm"; // 로그인 페이지로 리다이렉트
+		        return "redirect:loginForm"; // 로그인 페이지로 리다이렉트
 		    }
 		}
 		
