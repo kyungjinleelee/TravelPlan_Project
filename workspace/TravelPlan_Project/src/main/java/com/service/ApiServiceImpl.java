@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,12 @@ public class ApiServiceImpl implements ApiService {
 		dao.insertApi(list);
 		
 		return 1;
+	}
+
+	// 장소 찾기
+	@Override
+	public List<ApiDTO2> findSpot(HashMap<String, String> map) {
+		return dao.findSpot(map);
 	}
 
 }

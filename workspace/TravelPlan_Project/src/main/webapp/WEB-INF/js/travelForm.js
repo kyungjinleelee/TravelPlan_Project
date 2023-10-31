@@ -53,9 +53,10 @@ function rowAdd() {
 		////////////////////////////////////////////////////////////////////
 		var innerHtml = '<tr><td style="text-align:center;">';
 		innerHtml += '<button class="bttn list-bttn" id="daybtn' + trCnt + '" ';
-		innerHtml += 'value="'
+		innerHtml += 'value="daybtn'
 				+ trCnt
-				+ '"  onclick="javascript: writeDay(value); addPlan(value); day_filter(value);">DAY'
+//				+ '"  onclick="javascript: writeDay(value); addPlan(value); day_filter(value);">DAY'
+				+ '"  onclick="javascript: day_filter(value);">DAY'
 				+ trCnt + '</button></td></tr>';
 		console.log("innerHtml>>>>>>>>>>>", innerHtml);
 		////////////////////////////////////////////////////////////////////
@@ -65,6 +66,9 @@ function rowAdd() {
 		return false;
 	}
 }//end rowAdd
+
+
+/*//////////////////////// 보류 ///////////////////////////
 function addPlan(value) {
 	//		     	console.log(value);
 	document.getElementById("day_hidden").value = value;
@@ -83,6 +87,8 @@ function addPlan(value) {
 
 	console.log(t.value);
 }//end addPlan
+///////////////////////////////////////////////////////*/
+
 
 // 일 수 계산해서 day 생성
 var SDate;
@@ -122,7 +128,8 @@ $("#EDate").on("change", function() {
 	call(); // call 호출해야 동작됨.
 });
 
-function day_filter(value) {
+/*///////////////// schedule.js에서 구현 ///////////////////
+function day_filter(value) { 
 	var value, target, item, i;
 
 	value = value;
@@ -145,6 +152,7 @@ function day_filter(value) {
 	}
 
 }
+///////////////////////////////////////////////////////*/
 
 // 날짜 초기화
 function dayDelete() {

@@ -4,8 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
-<html>
+<html lang="en" data-bs-theme="auto" style="height: 100%">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,8 +35,17 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+<!-- onclick 테스트 -->
+<script>
+// function btnclick() {
+// 	alert("Hello World");
+// }
+</script>
+<!-- 테스트 끝 -->
+
 </head>
-<body>
+<body style="height: 100%">
 <!-- 비행기 아이콘 -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="plain" viewBox="0 0 16 16"> <!-- 비행기 아이콘 -->
@@ -72,8 +80,8 @@
 	
 	
 <!-- content -->
-<div id='wrapper'>
-	<main class="d-flex flex-nowrap">
+<div id='wrapper' style="height: 100%">
+	<main class="d-flex flex-nowrap" style="height: 100%">
 <!-- DAYS box -->
 	<div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 120px;">
 		<div class="plan-daysbox nav nav-pills nav-flush flex-column mb-auto text-center">
@@ -106,24 +114,18 @@
 		  </div>
 		
 		  <!-- 세부 일정 : c:foreach 사용하기 -->
-		  <div class="list-group list-group-flush border-bottom scrollarea">
-		
-		    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
-		      <div class="d-flex w-100 align-items-center justify-content-between">
-		        <strong class="mb-1">List group item heading</strong>
-		        <small class="text-body-secondary">Mon</small>
-		      </div>
-		      <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
-		    </a>
-		
-		    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-		      <div class="d-flex w-100 align-items-center justify-content-between">
-		        <strong class="mb-1">List group item heading</strong>
-		        <small class="text-body-secondary">Tues</small>
-		      </div>
-		      <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
-		    </a>
-		
+		  <div class="scheduleList list-group list-group-flush border-bottom scrollarea">
+		    
+<!-- 세부일정 항목 양식 -->
+<!-- 		    <div class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true"> -->
+<!-- 		      <div class="d-flex w-100 align-items-center justify-content-between"> -->
+<!-- 		        <strong class="mb-1">List group item heading</strong> -->
+<!-- 		        <input type="text" class="time_text small" style="width: 45px;" placeholder="12:00">  -->
+<!-- 		      </div> -->
+<!-- 		      <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div> -->
+<!-- 			  <button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button> -->
+<!-- 		    </div> -->
+		    
 		  </div>
 		</div>
 
@@ -131,7 +133,7 @@
 		<div class="b-example-divider b-example-vr"></div>
 
 <!-- 검색 -->
-    	<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 300px;">
+    	<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 300px; overflow-y: scroll;">
 
 	      <!-- 타이틀 -->
 	      <div class="d-flex align-items-center flex-shrink-0 p-4 border-bottom justify-content-center">
@@ -148,8 +150,8 @@
 		        </div>
 		        <div class="row">
 		          <form onsubmit="searchPlaces(); return false;">
-			          <input type="text" id="keyword" class="col-7 m-1" value="서울 맛집" style="font-size: small;" placeholder="검색어를 입력하세요.">
-			          <button type="submit" id="searchBtn" class="col-3 m-1 btn btn-light border-dark">검색</button>
+			          <input type="text" id="keyword" class="col-7 m-1" value="" style="font-size: small;" placeholder="검색어를 입력하세요.">
+			          <button id="searchBtn" class="col-3 m-1 btn btn-light border-dark">검색</button>
 		          </form>
 		        </div>
 		      </div>
@@ -167,13 +169,12 @@
 		<div class="b-example-divider b-example-vr"></div>
 		
 <!-- 지도 -->
-	<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 54%;">
+	<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary col">
 		<!-- 지도API -->
 		<div id="map" style="width:100%;height:100%;"></div>
 		<script src="js/kakaoMap.js"></script>
     </div>
 <!-- 지도 끝 -->
-
 
   </main>
 </div>
@@ -184,5 +185,6 @@
 
 	<!-- Custom JS -->
 	<script src="js/travelForm.js"></script> <!-- DAY? 만들기 -->
+	<script src="js/schedule.js"></script> <!-- 세부 일정 추가 -->
 </body>
 </html>
