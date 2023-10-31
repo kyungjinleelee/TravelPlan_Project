@@ -119,7 +119,7 @@
 
       <ul class="menu nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="main" class="nav-link px-4">홈</a></li>
-        <li><a href="#" class="nav-link px-4">일정만들기</a></li>
+        <li><a href="loginCheck/pickLocation" class="nav-link px-4">일정만들기</a></li> 
         <li><a href="#" class="nav-link px-4">일정보관함</a></li>
         <li><a href="#" class="nav-link px-4">게시판</a></li>
       </ul>

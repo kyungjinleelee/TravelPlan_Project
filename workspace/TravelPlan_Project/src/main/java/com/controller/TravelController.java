@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.ApiDTO2;
+import com.dto.MemberDTO;
 import com.info.Info;
 import com.service.ApiService;
 import com.service.TravelService;
@@ -38,7 +39,12 @@ public class TravelController {
 		return "travelForm";
 	}
 	
-	// 데이터 삽입
+	// 일정 만들기
+	@GetMapping("/loginCheck/pickLocation")
+	public String pickLocation() {
+		
+		return "pickLocation";
+	}
 	
 	
 	// tourAPI json형식으로 jsp로 보냄

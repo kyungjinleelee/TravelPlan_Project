@@ -59,18 +59,7 @@
 			</div>
 		</div>
 		<div class="div_title col-2">
-			<select name="area" class="select" aria-label="Default select example">
-				<option value="1">서울</option>
-				<option value="2">인천</option>
-				<option value="3">대전</option>
-				<option value="4">대구</option>
-				<option value="5">광주</option>				
-				<option value="6">부산</option>				
-				<option value="7">울산</option>				
-				<option value="8">세종</option>				
-				<option value="31">경기</option>				
-				<option value="32">강원</option>				
-			</select>
+			<jsp:include page="travel/region.jsp" flush="false" />
 		</div>
 		<div class="div_title col-1">
 			<button class="travel-title_submit" onclick="save()">저장</button>
@@ -81,22 +70,7 @@
 <!-- header - tramvelForm 끝 -->
 	
 	
-	<%-- <!-- 일정 만들기 맛집 리스트 -->
-	<div>
-		<ul class="plan-searchbox-ul">
-			<c:forEach var="foodList" items="${foodList }">
-				<li class="item" onmouseover="this.style.background='#F1F1F1'" onmouseout="this.style.background=''">
-					<img src="${foodList.image2 }" class="tourListImg" width="110px" height="86px">
-					<div class="info">
-						<h5 class="item-name">${foodList.title }</h5>
-						<span class="item-addr">${foodList.addr1 }</span>
-					</div>
-					<!-- 일정 추가하기 버튼 -->
-				</li>
-			</c:forEach>
-		</ul>
-	</div> --%>
-
+	
 <!-- content -->
 <div id='wrapper'>
 	<main class="d-flex flex-nowrap">
@@ -200,26 +174,7 @@
     </div>
 <!-- 지도 끝 -->
 
-<!-- 숙박 클릭 시 리스트 -->
-	<!-- (c:forEach 사용한 검색결과 -->
-	<div>
-		<ul class="plan-searchbox-ul">
-			<c:forEach var="hotelList" items="${hotelList }">
-				<li class="item" onmouseover="this.style.background='#F1F1F1'"
-					onmouseout="this.style.background=''"><img
-					src="${hotelList.image2 }" class="tourListImg" width="110px"
-					height="86px">
-					<div class="info">
-						<h5 class="item-name">${hotelList.title }</h5>
-						<span class="item-addr">${hotelList.addr1 }</span>
-					</div> <!-- 일정 추가하기 버튼 -->
-					<div class="col-10 mb-1 small">
-						<button class="btn-primary">추가</button>
-					</div></li>
-			</c:forEach>
-		</ul>
-	</div>
-<!-- 숙박 클릭 시 리스트 끝 -->
+
   </main>
 </div>
 <!-- content 끝 -->

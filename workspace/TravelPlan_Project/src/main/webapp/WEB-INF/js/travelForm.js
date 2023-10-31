@@ -33,7 +33,7 @@ function call() {
 	var dif = da2 - da1;
 	var cDay = 24 * 60 * 60 * 1000;
 	var days = parseInt(dif / cDay);
-	alert("days:" + days);
+//	alert("days:" + days);
 	//	if(sdd && edd){
 	//		document.getElementById('days').value = days;  
 	//	}
