@@ -13,6 +13,69 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places();  
 
+////////////////////////////////test(완)////////////////////////////////
+var points;
+// 장소별 초기 위치 변경
+if(window.location.search == "?region=seoul"){
+	points = new kakao.maps.LatLng(37.566662, 126.978372); // 지도의 중심좌표
+	var bounds = new kakao.maps.LatLngBounds();
+	bounds.extend(points);
+	map.setBounds(bounds);
+}
+else if(window.location.search == "?region=incheon"){
+	points = new kakao.maps.LatLng(37.456191, 126.705243); // 지도의 중심좌표
+	var bounds = new kakao.maps.LatLngBounds();
+	bounds.extend(points);
+	map.setBounds(bounds);
+}
+else if(window.location.search == "?region=daejeon"){
+	points = new kakao.maps.LatLng(36.350411, 127.384547); // 지도의 중심좌표
+	var bounds = new kakao.maps.LatLngBounds();
+	bounds.extend(points);
+	map.setBounds(bounds);
+}
+else if(window.location.search == "?region=daegu"){
+	points = new kakao.maps.LatLng(35.8714354, 128.601445); // 지도의 중심좌표
+	var bounds = new kakao.maps.LatLngBounds();
+	bounds.extend(points);
+	map.setBounds(bounds);
+}
+else if(window.location.search == "?region=gwangju"){
+	points = new kakao.maps.LatLng(35.159545, 126.852601); // 지도의 중심좌표
+	var bounds = new kakao.maps.LatLngBounds();
+	bounds.extend(points);
+	map.setBounds(bounds);
+}
+else if(window.location.search == "?region=busan"){
+	points = new kakao.maps.LatLng(35.153233, 129.118306); // 지도의 중심좌표
+	var bounds = new kakao.maps.LatLngBounds();
+	bounds.extend(points);
+	map.setBounds(bounds);
+}
+else if(window.location.search == "?region=ulsan"){
+	points = new kakao.maps.LatLng(35.539613, 129.311533); // 지도의 중심좌표
+	var bounds = new kakao.maps.LatLngBounds();
+	bounds.extend(points);
+	map.setBounds(bounds);
+}
+else if(window.location.search == "?region=gangwon"){
+	points = new kakao.maps.LatLng(37.751853, 128.876057); // 지도의 중심좌표
+	var bounds = new kakao.maps.LatLngBounds();
+	bounds.extend(points);
+	map.setBounds(bounds);
+}
+else if(window.location.search == "?region=jeju"){
+	points = new kakao.maps.LatLng(33.499621, 126.531188); // 지도의 중심좌표
+	var bounds = new kakao.maps.LatLngBounds();
+	bounds.extend(points);
+	map.setBounds(bounds);
+}
+else {
+	alert("장소를 다시 선택해주세요.");
+	location.href="/app/main";
+}
+//////////////////////////////////test/////////////////////////////////
+
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
