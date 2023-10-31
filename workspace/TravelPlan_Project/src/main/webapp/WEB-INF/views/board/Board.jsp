@@ -78,7 +78,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="DTO" items="${content}">
+				<c:forEach var="DTO" items="${content.list}">
 					<!--  -->
 					<tr>
 						<td>${DTO.contentNum}</td>
@@ -87,16 +87,42 @@
 						<td>${DTO.likeContent}</td>
 						<td>${DTO.views}</td>
 						<td>${DTO.boardDate}</td>
-						
-						<td><button onclick="go_update(${DTO.contentNum},'${DTO.userID}')">수정3</button></td>
+
+						<td><button
+								onclick="go_update(${DTO.contentNum},'${DTO.userID}')">수정3</button></td>
 						<!-- ${DTO.contentNum} ${DTO.userID}->
 						<!-- <td><a href="delete?no=${list.no}">삭제</a></td> -->
-						<td><button onclick= "askYesNo(${DTO.contentNum})"> 삭제</button></td>
+						<td><button onclick="askYesNo(${DTO.contentNum})">
+								삭제</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<button onclick="go_write()">글쓰기</button>
+
+		<table>
+			<c:set var="perPage" value="${content.perPage}" />
+			<c:set var="curPage" value="${content.curPage}" />
+			<c:set var="totalCount" value="${content.totalCount}" />
+			<c:set var="totalNum" value="${totalCount / perPage}" />
+
+			<c:if test="${totalCount % perPage != 0}">
+				<c:set var="totalNum" value="${totalNum+1}" />
+			</c:if>
+
+			<tr>
+				<td colspan="6">
+					<c:forEach var="i" begin="1" end="${totalNum}">
+						<c:if test="${curPage == i}">
+						${i}
+						</c:if>
+						<c:if test="${curPage != i}">
+							<a href=" <c:url value='Board?curPage=${i}'/> "> ${i} </a>
+						</c:if>
+					</c:forEach>
+				</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>

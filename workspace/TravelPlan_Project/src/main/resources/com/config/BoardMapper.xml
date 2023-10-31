@@ -35,7 +35,7 @@
 	<!--게시글 작성 -->
 	<insert id="write" parameterType="BoardDTO">
 		insert into board (CONTENTNUM,userid ,TITLE,MAINTEXT)
-		values (board_seq.nextval,#{userID}, #{title}, #{mainText} )
+		values (board_seq.nextval,#{userID}, #{title}, #{mainText})
 	</insert>
 	
 	<!--게시글 삭제 -->
@@ -43,5 +43,19 @@
 		delete from board
 		where contentnum=#{contentNum}
 	</delete>
+	
+	<!--댓글 작성 -->
+	<insert id="writeComment" parameterType="CommentDTO">
+		insert into comments (commentid, contentnum, userid, commentdate, comments)
+		values (comment_seq.nextval, #{contentNum}, #{userID}, TO_DATE(#{commentdate},'yyyy-MM-dd HH24:MI:ss') , #{comments})
+	</insert>
+	
+	<!--게시글 갯수 세기 -->
+	<select id="totalCnt" resultType="int">
+		select count(*)
+		from board
+	</select>
+	
+	
 	<!-- 내가 좋아요 한 여행 목록 -->
 </mapper>

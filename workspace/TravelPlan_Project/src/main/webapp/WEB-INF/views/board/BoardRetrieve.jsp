@@ -21,14 +21,15 @@
 	margin-right: auto;
 }
 </style>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="../../js/Board.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
 
 <script type="text/javascript">
-	var target = document.getElementById('writeComment');
-	
-	target.addEventListener('click', go_insert);
+	//var target = document.getElementById('writeComment');
+
+	//target.addEventListener('click', go_insert);
 
 	function go_list() {
 		location.href = "Board";
@@ -38,34 +39,15 @@
 		location.href = "UpdateRequest?contentNum=${content.contentNum}"
 				+ "&userid=${content.userID}";
 	}
-	
-	function go_insert(){
+
+	function go_insert() {
 		var textAreaContent = document.getElementById("comment").value;
-		//${content.contentNum}
-		alert('click' + textAreaContent)
-		location.href = "comment?contentNum=${content.contentNum}"+ "&comment=textAreaContent";
+		//alert('click' + textAreaContent)
+		location.href = "comment?contentNum=${content.contentNum}"
+				+ "&comment="+textAreaContent;
 	}
+
 	
-	function sendPostRequest() {
-		var textAreaContent = document.getElementById("comment").value;
-		alert('click' + textAreaContent)
-	    $.ajax({
-	        url: "comment",
-	        type: "POST",
-	        data: {
-	        	contentNum: "${content.contentNum}",
-	        	comment: textAreaContent
-	        },
-	        success: function (response) {
-	        	alert('댓글 등록이 완료되었습니다.');
-	            console.log(response);
-	        },
-	        error: function (xhr, status, error) {
-	            
-	        	alert('통신실패');
-	        },
-	    });
-	}
 </script>
 </head>
 <body>
@@ -152,7 +134,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<form method="post">
+		<form action = "comment" method="post">
 			<div class="form-group">
 				<label class="col-sm-5 control-label">댓글 작성하기</label>
 				<div class="col-sm-15 col-sm-10">
@@ -160,7 +142,8 @@
 				</div>
 			</div>
 			<div class="col-sm-offset-11 col-sm-5 ">
-				<input type="button" id="writeComment" value="댓글작성" onclick="sendPostRequest()"><!-- class right-button -->
+				<input type="button" id="writeComment" onclick ="go_insert()" value="댓글작성">
+				<!-- class right-button -->
 			</div>
 		</form>
 	</div>

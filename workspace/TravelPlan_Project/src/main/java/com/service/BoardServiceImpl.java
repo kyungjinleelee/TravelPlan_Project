@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.dao.BoardDAO;
 import com.dto.BoardDTO;
 import com.dto.CommentDTO;
+import com.dto.PageDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -27,8 +28,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardDTO> selectList() {
-		List<BoardDTO>dto =  dao.selectList();
+	public PageDTO selectList(int curPage) {
+		PageDTO dto =  dao.list(curPage);
 		return dto;
 	}
 	@Override
@@ -41,10 +42,16 @@ public class BoardServiceImpl implements BoardService {
 		
 		return dao.write(dto);
 	}
-
+	@Override
 	public int delete(int contentNum) {
 		dao.delete(contentNum);
 		return 0;
+	}
+
+	@Override
+	public int insertComment(CommentDTO dto) {
+		
+		return dao.writeComment(dto);
 	}
 
 }

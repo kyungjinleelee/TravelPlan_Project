@@ -1,19 +1,25 @@
 package com.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.MemberDTO;
+import com.dto.PageDTO;
 import com.service.BoardServiceImpl;
 import com.service.MyPageServiceImpl;
 import com.service.SharedBoardService;
@@ -38,8 +44,19 @@ public class BoardController {
 	
 	}
 	@GetMapping("/Board")
-	public String selectList(Model m) {
-		List<BoardDTO> Dto = service.selectList();
+	public String selectList(HttpServletRequest request, Model m) {
+		String curPage = request.getParameter("curPage");
+		//int로 바꾸는게 더 나을수도 있음.
+		if(curPage == null) {
+			curPage = "1";
+		}
+		
+		PageDTO Dto = service.selectList(Integer.parseInt(curPage));
+		//m.addAttribute("PageDTO", pageDTO);
+		
+		
+		//List<BoardDTO> Dto = service.selectList();
+		
 		m.addAttribute("content", Dto);
 		return "board/Board";
 	
@@ -103,5 +120,55 @@ public class BoardController {
 	
 	}
 	
+	//insertComment
+	@GetMapping("/comment")
+	public String comment(HttpSession session, CommentDTO Dto, 
+			@RequestParam int contentNum, @RequestParam(value= "comment") String text) {
+		System.out.println("호출됨.");
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		if (loginInfo != null) {
+	        String userID = loginInfo.getUserID();
+	        Dto.setUserID(userID);
+	        Dto.setContentNum(contentNum);
+	        Dto.setComments(text);
+	        //comment date 구하는 코드
+	        LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	        String formattedTime = now.format(formatter);
+	        Dto.setCommentdate(formattedTime);
+	        System.out.println(Dto.getCommentdate());
+	    }else {//현재는 로그인 안했으면 댓글 작성 불가. (유동 할지 생각중)
+	    	return "board/accessDenied";
+	    }
+		service.insertComment(Dto);
+		return "redirect:BoardRetrieve?contentNum="+Dto.getContentNum();
+	}
 	
+	
+	public ResponseEntity<String> createComment(HttpSession session, @RequestBody CommentDTO Dto) {
+        // commentData 객체에 contentNum과 comment 데이터가 매핑됩니다
+        int contentNum = Dto.getContentNum();
+        String comment = Dto.getComments();
+
+        // 여기에서 contentNum과 comment 데이터를 사용하여 작업을 수행합니다
+
+        
+        System.out.println("호출됨.");
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		if (loginInfo != null) {
+	        String userID = loginInfo.getUserID();
+	        Dto.setUserID(userID);
+	        //comment date 구하는 코드
+	        LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	        String formattedTime = now.format(formatter);
+	        Dto.setCommentdate(formattedTime);
+	    }else {//현재는 로그인 안했으면 댓글 작성 불가. (유동 할지 생각중)
+	    	//return "board/accessDenied";
+	    }
+		//service.insertComment(Dto);
+		///return "redirect:Board";
+		// 성공적인 응답을 반환
+        return null;
+    }
 }
