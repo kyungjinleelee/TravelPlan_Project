@@ -4,7 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="auto" style="height: 100%">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,7 +45,7 @@
 <!-- 테스트 끝 -->
 
 </head>
-<body>
+<body style="height: 100%">
 <!-- 비행기 아이콘 -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="plain" viewBox="0 0 16 16"> <!-- 비행기 아이콘 -->
@@ -106,8 +106,8 @@
 	</div> --%>
 
 <!-- content -->
-<div id='wrapper'>
-	<main class="d-flex flex-nowrap">
+<div id='wrapper' style="height: 100%">
+	<main class="d-flex flex-nowrap" style="height: 100%">
 <!-- DAYS box -->
 	<div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 120px;">
 		<div class="plan-daysbox nav nav-pills nav-flush flex-column mb-auto text-center">
@@ -159,7 +159,7 @@
 		<div class="b-example-divider b-example-vr"></div>
 
 <!-- 검색 -->
-    	<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 300px;">
+    	<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 300px; overflow-y: scroll;">
 
 	      <!-- 타이틀 -->
 	      <div class="d-flex align-items-center flex-shrink-0 p-4 border-bottom justify-content-center">
@@ -176,8 +176,8 @@
 		        </div>
 		        <div class="row">
 		          <form onsubmit="searchPlaces(); return false;">
-			          <input type="text" id="keyword" class="col-7 m-1" value="제주 맛집" style="font-size: small;" placeholder="검색어를 입력하세요.">
-			          <button type="submit" id="searchBtn" class="col-3 m-1 btn btn-light border-dark">검색</button>
+			          <input type="text" id="keyword" class="col-7 m-1" value="" style="font-size: small;" placeholder="검색어를 입력하세요.">
+			          <button id="searchBtn" class="col-3 m-1 btn btn-light border-dark">검색</button>
 		          </form>
 		        </div>
 		      </div>
@@ -195,7 +195,7 @@
 		<div class="b-example-divider b-example-vr"></div>
 		
 <!-- 지도 -->
-	<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 54%;">
+	<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary col">
 		<!-- 지도API -->
 		<div id="map" style="width:100%;height:100%;"></div>
 		<script src="js/kakaoMap.js"></script>
