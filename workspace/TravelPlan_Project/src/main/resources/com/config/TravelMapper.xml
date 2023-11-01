@@ -9,14 +9,14 @@
  	<select id="travel" parameterType="string" resultType="TravelDTO">
  	   select *
  	   from travel
- 	   where userID=#{userID}
+ 	   where userID = #{userID}
  	</select>
 
 <!-- 일정 상세보기 -->
   	<select id="travelRetrieve" parameterType="int" resultType="TravelDTO">
  	   select *
  	   from travel
- 	   where travelID=#{travelID}
+ 	   where travelID = #{travelID}
  	</select>	
  
 <!-- 일정 삭제하기 -->
