@@ -8,15 +8,16 @@ public class PlanDTO {
 	private int day_num;
 	private String item;
 	private String item_add;
+	private String time;
 	
 	public PlanDTO() {
-		// TODO Auto-generated constructor stub
 	}
-	public PlanDTO(int travelID, int day_num, String item, String item_add) {
+	public PlanDTO(int travelID, int day_num, String item, String item_add, String time) {
 		this.travelID = travelID;
 		this.day_num = day_num;
 		this.item = item;
 		this.item_add = item_add;
+		this.time = time;
 	}
 	public int getTravelID() {
 		return travelID;
@@ -42,4 +43,16 @@ public class PlanDTO {
 	public void setItem_add(String item_add) {
 		this.item_add = item_add;
 	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	@Override
+	public String toString() {
+		return "PlanDTO [travelID=" + travelID + ", day_num=" + day_num + ", item=" + item + ", item_add=" + item_add
+				+ ", time=" + time + "]";
+	}
+	
 }

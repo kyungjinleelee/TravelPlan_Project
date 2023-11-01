@@ -42,9 +42,40 @@ function call() {
 	}
 }//end call
 
+// ------------------------- 저장버튼 ------------------------- //
 function save() {
-	// 저장버튼 구현 
-}//end saveClick
+	// 저장버튼 -> 상세일정 데이터 넘어감
+	list = [];
+	for(var i=0; i<$('.scheduleList').children().length; i++) {
+//		console.log($('.currentBtn_hidden').eq(i).val());
+//		console.log($('.stitle').eq(i).text());
+//		console.log($('.time_text').eq(i).val());
+//		console.log($('.saddr1').eq(i).text());
+		list.push({"day_num":$('.currentBtn_hidden').eq(i).val().substr(6,1),
+				   "item":$('.stitle').eq(i).text(),
+				   "time_text":$('.time_text').eq(i).val(),
+				   "item_add":$('.saddr1').eq(i).text()})
+	}
+	console.log(JSON.stringify(list));
+	
+	$.ajax({
+        // 요청코드
+        type:"get",
+        url:"saveScheduleData",
+        data:{
+        	scheduleList:JSON.stringify(list)
+        },
+
+        // 응답코드
+        success:function(data, satatus, xhr) { 
+        	console.log("성공");
+        },
+        error:function(xhr, status, error) {
+            console.log("에러발생");
+        }
+    });
+}
+// -------------------------------------------------------- //
 
 // 일 수 만큼 버튼 생성
 function rowAdd() {
@@ -164,24 +195,29 @@ function dayDelete() {
 	}
 }
 ///////////////////////////////////////////////
-// 저장 버튼 이벤트
-$(document).ready(function(){
-	// 저장 버튼 클릭 시
-    $('.travel-title_submit').click(function(){
-        // 아이디(타이틀)이 공백이라면 오류 출력
-        if($('#travelTitle').val()==''){
-            alert("여행 제목을 채워주세요 :)");
-            // 타이틀에 포커스
-            $('#travelTitle').focus();
-        //    else if(isNaN($('#SDate').val()) || isNaN($('#EDate').val())){ // 여행 시작, 종료일이 공백이라면
-        //        alert("여행 시작일과 종료일을 지정해주세요 :)");
-        //        $('#SDate').focus();}
-        }
-         else{
-         $('#savePlan').submit();
-         }
-});
-});
+//// 저장 버튼 이벤트
+//$(document).ready(function(){
+//	// 저장 버튼 클릭 시
+//    $('.travel-title_submit').click(function(){
+//    	console.log($('#SDate').val());
+//        // 아이디(타이틀)이 공백이라면 오류 출력
+//        if($('#travelTitle').val()==''){
+//            alert("여행 제목을 채워주세요 :)");
+//            // 타이틀에 포커스
+//            $('#travelTitle').focus();
+//        //    else if(isNaN($('#SDate').val()) || isNaN($('#EDate').val())){ // 여행 시작, 종료일이 공백이라면
+//        //        alert("여행 시작일과 종료일을 지정해주세요 :)");
+//        //        $('#SDate').focus();}
+//        }
+//        if($('#SDate').val() == '' || $('#EDate').val() == '') {
+//        	alert("여행 시작일과 종료일을 입력해주세요.");
+//        	$('#SDate').focus();
+//        }
+//         else{
+////         $('#savePlan').submit();
+//         }
+//});
+//});
 
 // 숙박 버튼
 function hotelBtnclick() {

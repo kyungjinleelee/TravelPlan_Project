@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.ApiDTO2;
-import com.dto.MemberDTO;
+import com.dto.PlanDTO;
 import com.info.Info;
 import com.service.ApiService;
 import com.service.TravelService;
@@ -185,5 +186,33 @@ public class TravelController {
 	public String test(HttpSession session) {
 		session.setAttribute("client_id", info.getKakaoMapId());
 		return "test";
+	}
+	
+	@GetMapping("/saveScheduleData")
+	@ResponseBody
+	public void saveScheduleData(@RequestParam("scheduleList") String schedule) throws ParseException {
+		// json -> string 변환시켜 받아온 변수 schedule
+		// parser로 파싱작업
+		JSONParser jsonParser = new JSONParser();
+		JSONArray jsonArray = (JSONArray)jsonParser.parse(schedule);
+		
+		ArrayList<PlanDTO> list = new ArrayList<PlanDTO>();
+		   
+		for(int i=0;i<jsonArray.size();i++){
+			JSONObject ele = (JSONObject)jsonArray.get(i);
+			       
+			System.out.println(ele.get("day_num"));
+			System.out.println(ele.get("item"));
+			System.out.println(ele.get("time_text"));
+			System.out.println(ele.get("item_add"));
+			PlanDTO dto = new PlanDTO(i, Integer.parseInt((String)ele.get("day_num")), (String)ele.get("item"), (String)ele.get("item_add"), (String)ele.get("time_text"));
+			if(dto!=null) {
+				list.add(dto);
+			}
+		}
+		System.out.println(list);
+		// dto 담은 리스트 저장 완료
+		
+		
 	}
 }

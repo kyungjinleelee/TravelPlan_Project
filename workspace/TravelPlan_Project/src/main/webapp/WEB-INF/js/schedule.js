@@ -58,12 +58,12 @@ $(document).on("click", ".addBtn", function(){
 // 수정 : 버튼값 보내주기 위해 input hidden 추가 / day 버튼별 리스트 출력하기 위해 클래스 수정(scList추가) + dataset추가
 function getScheduleList(title, addr1) {
 	var inHtml ='<div class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
-					'<input type="hidden" value="'+currentBtn.id+'">' +
+					'<input type="hidden" class="currentBtn_hidden" value="'+currentBtn.id+'">' +
 					'<div class="d-flex w-100 align-items-center justify-content-between">' +
-					'  <strong class="mb-1">'+title+'</strong>' + 
+					'  <strong class="sTitle mb-1">'+title+'</strong>' + 
 					'  <input type="text" class="time_text small" style="width: 45px;" placeholder="12:00">' +
 					'</div>' +
-					'<div class="col-10 mb-1 small">'+addr1+'</div>'+
+					'<div class="saddr1 col-10 mb-1 small">'+addr1+'</div>'+
 					'<button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
 				'</div>';
 
