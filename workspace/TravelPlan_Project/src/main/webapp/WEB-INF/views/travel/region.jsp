@@ -8,7 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
+<script>
+
+</script>
 <body>
 	<c:set var="region" value="${param.region }" />
 	<c:if test="${region eq'seoul' }">
@@ -19,7 +23,7 @@
 		<label class="region">인천</label>
 	</c:if>
 	<c:set var="region" value="${param.region }" />
-	<c:if test="${region eq'daegeon' }">
+	<c:if test="${region eq'daejeon' }">
 		<label class="region">대전</label>
 	</c:if>
 	<c:set var="region" value="${param.region }" />

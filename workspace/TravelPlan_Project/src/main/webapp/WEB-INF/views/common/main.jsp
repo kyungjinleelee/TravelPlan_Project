@@ -10,6 +10,7 @@
   <meta name="generator" content="Hugo 0.104.2">
   <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"><!-- 게시판디자인 -->
 <!-- Favicons -->
 <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -170,6 +171,7 @@
       
       
       
+      
       <!-- 여행만들기 -->
       <div class="album py-5 bg-white">
         <div class="container">
@@ -303,11 +305,37 @@
           </div>
         </div>
       </div>
+      
+  <!-- 게시판 -->
+      <div class="container mt-4">
+  <h3>지금 많이 담고 있는 여담</h3>
 
+  <div class="row">
+    <div class="col-md-8">
+      <!-- 게시물 목록 -->
+      <div class="card">
+        <div class="card-header">
+          게시물 목록
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <!-- 가상 데이터를 이용한 게시물 목록 -->
+            <a href="#" class="list-group-item list-group-item-action">첫 번째 게시물 - 작성자: 유저1 - 조회수: 100 - 좋아요: 20</a>
+            <a href="#" class="list-group-item list-group-item-action">두 번째 게시물 - 작성자: 유저2 - 조회수: 85 - 좋아요: 15</a>
+            <a href="#" class="list-group-item list-group-item-action">세 번째 게시물 - 작성자: 유저3 - 조회수: 120 - 좋아요: 25</a>
+            <!-- 여러 게시물이 있을 수 있음 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+ <!-- 게시판 끝 -->
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- 게시판디자인 -->
       
   </body>
 </html>

@@ -3,12 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!-- jquery CDN -->   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto" style="height: 100%">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>여담: 일정 만들기</title>
+	
 	
 	<!-- kakao Map API -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${client_id}&libraries=services"></script>
@@ -66,7 +69,7 @@
 				<input class="input-date" type="date" id="EDate" value="EDate" min="<%= sdf.format(nowTime) %>">
 			</div>
 		</div>
-		<div class="div_title col-2">
+  		<div class="region div_title col-2">
 			<jsp:include page="travel/region.jsp" flush="false" />
 		</div>
 		<div class="div_title col-1">
@@ -166,6 +169,12 @@
 		  
 	    </div>
 <!-- 검색 끝 -->
+		<div>
+			<form action="" id="savePlan">
+				<input type="hidden" class="hidden_input">
+			</form>
+		</div>
+		
 		<div class="b-example-divider b-example-vr"></div>
 		
 <!-- 지도 -->

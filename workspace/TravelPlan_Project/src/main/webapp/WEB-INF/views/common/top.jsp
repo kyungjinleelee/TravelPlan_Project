@@ -26,6 +26,12 @@
 <meta name="theme-color" content="#712cf9">
 
 <style>
+@font-face {
+    font-family: 'SUIT-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -79,6 +85,11 @@
       
       .menu a {
       	color: black;
+      	font-family: 'SUIT-Medium';
+      }
+      
+      .btn{
+      font-family: 'SUIT-Medium';
       }
     </style>
 
@@ -94,7 +105,7 @@
 				location.href="mypage";
 			});
 			$("#logout").on("click", function(){
-				location.href="loginCheck/logout";
+				location.href="logout";
 			});
 		});
 	</script>

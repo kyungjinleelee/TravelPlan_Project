@@ -44,6 +44,12 @@
 	font-size: 17px;
 	font-family: 'SUIT-Bold';
 }
+.region{
+	margin-bottom: 0;
+	color: #3563E9;
+	font-size: 22px;
+	font-family: 'SUIT-Bold';
+}
 /* 날짜 받아오기 */
 #days{
 	width: 30px;
@@ -167,7 +173,7 @@ td button:hover{
 
  /* DAYS box */
 .plan-daysbox{
-	width: 120px;
+	width: 140px;
 	height: 100%;
 	position: absolute;
 	left: 0px;

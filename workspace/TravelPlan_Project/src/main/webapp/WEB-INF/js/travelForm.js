@@ -163,3 +163,28 @@ function dayDelete() {
 		return false;
 	}
 }
+
+/////////////////////////////////////////////////////
+// 저장 버튼
+function save(){
+	var item, target, item;
+	
+}
+// 저장 버튼 이벤트
+$(document).ready(function(){
+	// 저장 버튼 클릭 시
+	$('.travel-title_submit').click(function(){
+		// 아이디(타이틀)이 공백이라면 오류 출력
+		if($('#travelTitle').val()==''){
+			alert("여행 제목을 채워주세요 :)");
+			// 타이틀에 포커스
+			$('#travelTitle').focus();
+		}
+	//	else if(isNaN($('#SDate').val()) || isNaN($('#EDate').val())){ // 여행 시작, 종료일이 공백이라면
+	//		alert("여행 시작일과 종료일을 지정해주세요 :)");
+	//		$('#SDate').focus();}
+		else{
+			$('#savePlan').submit();
+		}
+	});
+});
