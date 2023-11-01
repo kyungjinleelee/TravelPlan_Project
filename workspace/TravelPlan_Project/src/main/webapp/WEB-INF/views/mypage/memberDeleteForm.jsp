@@ -88,7 +88,7 @@
 
 <body>
 <section id="container">
- <form action="memberDelete" method="post" id="memberDelete">
+ <form action="memberDelete" method="post" id="delForm">
     <h1>회원 탈퇴하기</h1>
         <div>
             <label for="userID">아이디</label>
@@ -100,15 +100,18 @@
         </div>
         
         <!-- 탈퇴 버튼 -->
-		<button id="deleteBtn" class="btn" type="submit">탈퇴하기</button>
+		<button id="deleteBtn" class="btn" type="button">탈퇴하기</button>
 		
 		<!-- 취소 버튼 (mypage.jsp로 이동) -->
 		<button type="button" onclick="location.href='mypage'">취소</button>
-        <div>
+		 <div id="errorMessage" style="color: red;"></div>
+       
+       
+       <%--  <div>
 		 	<c:if test="${msg == false}">
-		 		비밀번호가 맞지 않습니다. 다시 확인해주세요.
+		 		<span style="color: red;">비밀번호를 다시 확인해주세요. (7자 이상의 조합)</span>
 		 	</c:if>
-	 	</div>     
+	 	</div>      --%>
   </form>
  </section>
 
@@ -118,46 +121,38 @@
  	$(document).ready(function(){
  		//탈퇴하기
  		$("#deleteBtn").on("click", function(){
- 			var passwd = $("#passwd").val();
- 			//if($("#passwd").val() == ""){
- 			  if(passwd == "") {	
+ 			if($("#passwd").val() == ""){
  				alert("비밀번호를 입력해주세요.");
  				$("#passwd").focus();
  				return false;
  			}
  			
  			$.ajax({
- 				url : "/checkPw",
+ 				url : "http://localhost:8091/app/checkPw",
  				type : "POST",
  				dataType : "json",
- 				data : $("#memberDelete").serializeArray(),
+ 				data : $("#delForm").serializeArray(),
  				success : function(data){
  					
  					if(data==0){
  						alert("비밀번호가 틀렸습니다.");
+ 						$("#errorMessage").text("비밀번호를 다시 확인해주세요. (7자 이상의 조합)");
  						return;
  					}else{
  						if(confirm("정말 탈퇴하시겠습니까?")){
- 							$("#memberDelete").submit();
- 							}
+ 							$("#delForm").submit();
+ 							} else{ window.location.href="mypage"; 
+ 								 }
  						}
- 					}
- 				});
- 		
+ 					},
+ 					error: function (xhr, status, error) {
+ 		                console.log("오류 발생! 다시 시도해주세요 ");
+ 		                return;
+ 		            }
+ 		        });
  			
- 			
- 		 });	
- 
-	 });
- </script>  
+ 		    });
+ 		});
+  </script>  
 </body>
 </html>
-
- <!--	<script>
-         // 저장 버튼 클릭 시 실행
- //       document.getElementById("deleteBtn").addEventListener("click", function() {
- //           alert("회원 정보가 성공적으로 수정되었습니다.");   // 서버로 데이터 전송 후, 성공 시 알림 표시
- //           window.location.href = "mypage"; // memberInfo.jsp로 리디렉션
- //       }); 
-    </script> -->
-        
