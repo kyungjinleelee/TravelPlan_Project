@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dto.ApiDTO2;
+import com.dto.TravelListDTO;
 
 @Repository
 public class ApiDAO {
@@ -40,5 +41,10 @@ public class ApiDAO {
 	// 지역별 관광시설 찾기
 	public List<ApiDTO2> findSightseeing(HashMap<String, Object> map) {
 		return session.selectList("ApiMapper.findSightseeing", map);
+	}
+	
+	// 일정만들기(TravelDTO) 저장
+	public int saveTravel(TravelListDTO dto) {
+		return session.insert("ApiMapper.saveTravel", dto);
 	}
 }

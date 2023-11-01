@@ -20,20 +20,14 @@ public class TravelListDTO {
 	private String writedate;
 	
 	public TravelListDTO() {
-		super();
 	}
-	public TravelListDTO(int travelID, String userID, String sDate, String eDate, String travelTitle, int areaCode,
-			String writedate) {
-		super();
-		this.travelID = travelID;
+	public TravelListDTO(String userID, String sDate, String eDate, String travelTitle, int areaCode) {
 		this.userID = userID;
 		SDate = sDate;
 		EDate = eDate;
 		this.travelTitle = travelTitle;
 		this.areaCode = areaCode;
-		this.writedate = writedate;
 	}
-	
 	public int getTravelID() {
 		return travelID;
 	}
