@@ -74,7 +74,8 @@
 		</div>
 		<div class="div_title col-1">
 			<button class="travel-title_submit" onclick="save()">저장</button>
-			<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) history.back(); else alert('닫기 취소')">닫기</button>
+<!-- 			<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) history.back(); else alert('닫기 취소')">닫기</button> -->
+			<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) location.href='/app/main'; else alert('닫기 취소')">닫기</button>
 		</div>
 	</div>
 </div>
@@ -147,9 +148,9 @@
 		  <div id="menu_wrap">
 		      <div class="d-flex align-items-center flex-shrink-0 p-1 border-bottom justify-content-center row">
 		        <div class="row">
-		          <button class="col m-1 small btn btn-light">숙박</button>
-		          <button class="col m-1 small btn btn-light">음식</button>
-		          <button class="col m-1 small btn btn-light">관광</button>
+		          <button class="col m-1 small btn btn-light" onclick="hotelBtnclick()">숙박</button>
+		          <button class="col m-1 small btn btn-light" onclick="foodBtnclick()">음식</button>
+		          <button class="col m-1 small btn btn-light" onclick="sightseeingBtnclick()">관광</button>
 		        </div>
 		        <div class="row">
 		          <form onsubmit="searchPlaces(); return false;">
