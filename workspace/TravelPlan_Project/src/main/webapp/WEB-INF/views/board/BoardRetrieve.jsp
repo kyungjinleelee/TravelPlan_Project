@@ -16,11 +16,36 @@
 
 
 
-<style>
-.right-button {
-	margin-right: auto;
-}
-</style>
+	<style>
+		.right-button {
+			margin-right: auto;
+		}
+		
+		textarea{
+		    height: 6.25em;
+		    width: 100%;
+		    resize: none;
+		  }
+		
+		.article-info{
+			
+			display: flex;
+   			justify-content: space-between;
+			margin-bottom : 10px;
+			
+		}
+		article-info article-info-section{
+			float:right;
+		}
+		article-info member-info-section{
+			float:left;
+		}
+		
+		.title{
+		font-size:18px;
+		}
+		  	
+	</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
@@ -58,94 +83,100 @@
 					<h2 class="text-center">게시판 자세히 보기 화면</h2>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="title" class="col-sm-2 control-label">글번호</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="no"
-						value="${content.contentNum}" readonly="readonly">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<tbody>
+					<tr>
+						<td class="title" colspan="5" align="left" >${content.title }</td>
+						
+					</tr>
+					<!--<tr>  -->
+					<!--<td align="left">${content.contentNum}</td>
+						<td align="left">작성자</td>
+						<td align="left">${content.userID }</td>  -->
+						
+				</tbody>
+			</table>
+			<div class = "article-info">
+				<div class = "article-info member-info-section"> 
+					<span>작성자</span>
+					<span>&nbsp;</span>
+					<span>${content.userID }</span>
 				</div>
-				<label for="title" class="col-sm-2 control-label">조회수</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="no"
-						value="${content.views}" readonly="readonly">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="title" class="col-sm-2 control-label">제목</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="title"
-						value="${content.title }" readonly="readonly">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="author" class="col-sm-2 control-label">작성자</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="author"
-						value="${content.userID }" readonly="readonly">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="author" class="col-sm-2 control-label">작성일</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="date"
-						value="${content.boardDate }" readonly="readonly">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="content" class="col-sm-2 control-label">좋아요</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" name="likeContent"
-						value="${content.likeContent }" readonly="readonly">
-				</div>
+				<div class = "article-info article-info-section"> 
+					<span >좋아요</span>
+					<span>&nbsp;</span>
+					<span>${content.likeContent}</span>
+					<span class="sep">│</span>
+					<span >조회수</span>
+					<span>&nbsp;</span>
+					<span>${content.views}</span>
+					<span class="sep">│</span>
+					<span >작성일</span>
+					<span>&nbsp;</span>
+					<span>${content.boardDate}</span>
+				</div>	
+			
 			</div>
 			<div class="form-group">
 				<!-- <label for="content" class="col-sm-2 control-label">내용</label>  -->
 				<div class="col-sm-12">
 					<!-- col 1이  생각보다 크다. -->
-					<textarea class="form-control" rows="3" name="content">${content.mainText}</textarea>
+					<textarea class="form-control" rows="10" name="content">${content.mainText}</textarea>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<div class="col-sm-offset-10">
-					<!-- class="col-sm-offset-2 col-sm-10" -->
-					<input type="button" value="글수정" class="btn btn-default"
-						onclick="go_update()"> <input type="button" value="목록"
-						class="btn btn-default" onclick="go_list()">
+				<div ><!-- class="col-sm-offset-1" -->
+					<!-- class="col-sm-offset-2 col-sm-10"
+					<input type="button" value="글수정" class="btn btn-default col-sm-1" onclick="go_update()"> 
+					<input type="button" value="목록" class="btn btn-default col-sm-1" onclick="go_list()">
+					 -->
 				</div>
+				<span><input type="button" value="좋아요(찜)하기" class=" btn-default col-sm-2 btn col-sm-offset-5" ></span>
+				<span><input type="button" value="글수정" class="btn btn-default col-sm-1 btn col-sm-offset-3" onclick="go_update()"></span>
+				<span><input type="button" value="목록" class="btn btn-default col-sm-1"  onclick="go_list()"></span>
+				
 			</div>
 		</form>
-		<table class="table table-striped table-bordered table-hover">
-			<thead>
-				<tr>
-					<th>작성자ID(userID)</th>
-					<th>(comments)</th>
-					<th>작성일지(commentdate)</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="dto" items="${comment}">
-					<tr>
-						<td>${dto.userID}</td>
-						<td>${dto.comments}</td>
-						<td>${dto.commentdate}</td>
-
-					</tr>
-				</c:forEach>
-			</tbody>
+		<!--<table class="table table-striped table-bordered table-hover"> ulList_seq -->
+			
+		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+			<tr>
+				<td align="left" colspan="2" bgcolor="beige">댓글</td>
+			</tr>
 		</table>
-		<form action = "comment" method="post">
-			<div class="form-group">
-				<label class="col-sm-5 control-label">댓글 작성하기</label>
-				<div class="col-sm-15 col-sm-10">
-					<textarea class="form-control col-sm-3" id="comment" name="comment"></textarea>
+		<c:forEach var="dto" items="${comment}">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<tbody>
+					<tr>
+						<td align="left">${dto.userID}</td>
+						<td align="right">${dto.commentdate} </td>
+					</tr>
+					<tr>
+						<td colspan="5" align="left">${dto.comments}</td>
+						
+					</tr>
+					
+				</tbody>
+			</table>
+		</c:forEach>
+			
+		<div>
+			<form action = "comment" method="post">
+				<div class="form-group">
+					<label class="col-sm-5 control-label">댓글 작성하기</label>
+					<!--  <div class="col-sm-15 col-sm-10"> <label for="comment">댓글 내용:</label> class="form-control col-sm-3"   -->
+					<div class="form-group">
+           		 	
+						<textarea  rows="4" cols="100" id="comment" name="comment" placeholder='타인을 배려하는 댓글을 작성해 주세요' required></textarea>
+					</div>
 				</div>
-			</div>
-			<div class="col-sm-offset-11 col-sm-5 ">
-				<input type="button" id="writeComment" onclick ="go_insert()" value="댓글작성">
-				<!-- class right-button -->
-			</div>
-		</form>
+				<div class="col-sm-offset-11 col-sm-5 ">
+					<input type="button" class="btn btn-default" id="writeComment" onclick ="go_insert()" value="댓글작성">
+					<!-- class right-button -->
+				</div>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

@@ -77,7 +77,7 @@ public class MyPageController {
 //	}	
 	
 	// 좋아요 목록
-		@GetMapping("/LikeList")
+		@GetMapping("/likeList")
 		public String likeList(HttpSession session ,Model m) {
 			MemberDTO dto = (MemberDTO)session.getAttribute("login");
 			String userid = dto.getUserID();
@@ -86,7 +86,7 @@ public class MyPageController {
 			//모델저장
 			m.addAttribute("ulDTOList",ulDTOList);
 			
-			return "likeList";
+			return "mypage/likeList";
 		}
 	
 	// 내가 쓴 글 목록

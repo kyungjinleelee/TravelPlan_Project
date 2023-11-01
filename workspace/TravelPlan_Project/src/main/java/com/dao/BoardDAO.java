@@ -51,6 +51,17 @@ public class BoardDAO {
 		return n;
 	}
 	
+// 조회수 증가
+	public int viewCntUp(int contentNum) {
+		return session.update("BoardMapper.viewCntUp", contentNum);
+	}
+		
+// 좋아요 수 증가
+	public int likeCntUp(int contentNum) {
+		return session.update("BoardMapper.likeCntUp", contentNum);
+	}
+	
+	
 	//페이징 처리
 	public PageDTO list(int curPage) {
 		PageDTO pageDTO = new PageDTO();
@@ -66,5 +77,10 @@ public class BoardDAO {
 		pageDTO.setTotalCount(totalCount);
 
 		return pageDTO;
+	}
+	
+	//좋아요 리스트에 추가
+	public int likeOne(int contentNum) {
+		return session.update("BoardMapper.likeCntUp", contentNum);
 	}
 }

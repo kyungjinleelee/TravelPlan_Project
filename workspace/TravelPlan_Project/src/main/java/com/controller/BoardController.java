@@ -144,6 +144,16 @@ public class BoardController {
 		return "redirect:BoardRetrieve?contentNum="+Dto.getContentNum();
 	}
 	
+	//좋아요 처리
+	@GetMapping("/UserLike")
+	public String UserLike(HttpSession session, @RequestParam int contentNum) {
+		//service.delete(contentNum);
+		//service.findOne(contentNum);
+		service.likeOne(contentNum);
+		System.out.println("좋아요 처리 시작.");
+		return "redirect:BoardRetrieve?contentNum="+contentNum;
+	
+	}
 	
 	public ResponseEntity<String> createComment(HttpSession session, @RequestBody CommentDTO Dto) {
         // commentData 객체에 contentNum과 comment 데이터가 매핑됩니다

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.BoardDAO;
 import com.dto.BoardDTO;
@@ -15,9 +16,11 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired //dao
 	BoardDAO dao;
 	
-	@Override
+	@Override //글 자세히보기
+	@Transactional
 	public BoardDTO findOne(int contentNum) {
 		BoardDTO dto = dao.findOne(contentNum);
+		int n = dao.viewCntUp(contentNum);
 		return dto;
 	}
 
@@ -52,6 +55,15 @@ public class BoardServiceImpl implements BoardService {
 	public int insertComment(CommentDTO dto) {
 		
 		return dao.writeComment(dto);
+	}
+
+	@Override //좋아요 처리
+	@Transactional
+	public int likeOne(int contentNum) {
+		dao.likeOne(contentNum);
+		//dao.likeCntUp()
+		
+		return 0;
 	}
 
 }

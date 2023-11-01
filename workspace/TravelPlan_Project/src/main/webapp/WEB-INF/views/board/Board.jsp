@@ -16,6 +16,18 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+
+<style>
+	.paging-table{
+    width: 100%; /* 테이블이 부모 컨테이너의 100% 가로폭을 차지하도록 설정 */
+	}
+	.paging{
+		text-align: center; /* 셀 내의 텍스트를 수평 가운데 정렬 */
+		font-size: 14px;
+	}
+
+</style>
+
 <script type="text/javascript">
 	function go_write() {
 		location.href = "WriteRequest?";
@@ -100,7 +112,7 @@
 		</table>
 		<button onclick="go_write()">글쓰기</button>
 
-		<table>
+		<table class="paging-table" >
 			<c:set var="perPage" value="${content.perPage}" />
 			<c:set var="curPage" value="${content.curPage}" />
 			<c:set var="totalCount" value="${content.totalCount}" />
@@ -110,8 +122,8 @@
 				<c:set var="totalNum" value="${totalNum+1}" />
 			</c:if>
 
-			<tr>
-				<td colspan="6">
+			<tr >
+				<td colspan="6" class = "paging">
 					<c:forEach var="i" begin="1" end="${totalNum}">
 						<c:if test="${curPage == i}">
 						${i}

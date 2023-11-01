@@ -33,6 +33,9 @@ public interface BoardService {
 	//댓글 작성
 	public int insertComment(CommentDTO dto );
 	
+	//좋아요 처리
+	public int likeOne(int contentNum);
+	
 	/*
 	//좋아요 목록
 	public List<UserLikeDTO> userLikeList(String userid);
