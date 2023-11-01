@@ -309,7 +309,7 @@ function getSearchList(index, value) {
                 '  <div class="d-flex w-100 align-items-center justify-content-between">' + 
                 '    <strong class="mb-1" id="place_name' + (index+1) + '">' + value.title + '</strong>' +
                 '  </div>' +
-        		'    <div class="col-10 mb-1 small" id="road_address_name' + (index+1) + '">' + value.addr1 + '</div>' +
+        		'    <div class="col-10 mb-1 small" id="address_name' + (index+1) + '">' + value.addr1 + '</div>' +
 //                '  <div class="tel col-10 mb-1 small">' + places.phone  + '</div>' +
                 '<button class="addBtn btn btn-primary" data-idx="' + (index+1) + '" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">추가</button></div>';
 
