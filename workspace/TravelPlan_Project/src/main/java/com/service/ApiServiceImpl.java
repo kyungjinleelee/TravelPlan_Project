@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.ApiDAO;
 import com.dto.ApiDTO2;
+import com.dto.TravelListDTO;
 
 @Service
 public class ApiServiceImpl implements ApiService {
@@ -43,6 +44,11 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public List<ApiDTO2> findSightseeing(HashMap<String, Object> map) {
 		return dao.findSightseeing(map);
+	}
+
+	@Override
+	public int saveTravel(TravelListDTO dto) {
+		return dao.saveTravel(dto);
 	}
 
 }

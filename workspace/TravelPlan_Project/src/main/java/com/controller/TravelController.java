@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.ApiDTO2;
+import com.dto.MemberDTO;
 import com.dto.PlanDTO;
+import com.dto.TravelListDTO;
 import com.info.Info;
 import com.service.ApiService;
 import com.service.TravelService;
@@ -100,34 +102,8 @@ public class TravelController {
 	@GetMapping("/searchBtn")
 	@ResponseBody
 	public List<ApiDTO2> searchBtn(@RequestParam("region") String region, @RequestParam("contentTypeid") String contentTypeid) {
-		int areaCode = 0;
-		if(region.equals("seoul")) {
-			areaCode = 1;
-		}
-		else if (region.equals("incheon")) {
-			areaCode = 2;
-		}
-		else if (region.equals("daejeon")) {
-			areaCode = 3;
-		}
-		else if (region.equals("daegu")) {
-			areaCode = 4;
-		}
-		else if (region.equals("gwangju")) {
-			areaCode = 5;
-		}
-		else if (region.equals("busan")) {
-			areaCode = 6;
-		}
-		else if (region.equals("ulsan")) {
-			areaCode = 7;
-		}
-		else if (region.equals("gangwon")) {
-			areaCode = 32;
-		}
-		else if (region.equals("jeju")) {
-			areaCode = 39;
-		}
+		int areaCode = getAreaCode(region);
+		
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		map.put("areaCode", areaCode);
 		map.put("contentTypeid", contentTypeid);
@@ -141,34 +117,7 @@ public class TravelController {
 	@ResponseBody
 	public List<ApiDTO2> searchBtn2(@RequestParam("region") String region, @RequestParam HashMap<String, Object> map) {
 		map.remove("region");
-		int areaCode = 0;
-		if(region.equals("seoul")) {
-			areaCode = 1;
-		}
-		else if (region.equals("incheon")) {
-			areaCode = 2;
-		}
-		else if (region.equals("daejeon")) {
-			areaCode = 3;
-		}
-		else if (region.equals("daegu")) {
-			areaCode = 4;
-		}
-		else if (region.equals("gwangju")) {
-			areaCode = 5;
-		}
-		else if (region.equals("busan")) {
-			areaCode = 6;
-		}
-		else if (region.equals("ulsan")) {
-			areaCode = 7;
-		}
-		else if (region.equals("gangwon")) {
-			areaCode = 32;
-		}
-		else if (region.equals("jeju")) {
-			areaCode = 39;
-		}
+		int areaCode = getAreaCode(region);
 		
 		map.put("areaCode", areaCode);
 		List<ApiDTO2> list = apiService.findSightseeing(map);
@@ -210,9 +159,62 @@ public class TravelController {
 				list.add(dto);
 			}
 		}
-		System.out.println(list);
+//		System.out.println(list);
 		// dto 담은 리스트 저장 완료
+	}
+	
+	@GetMapping("/saveBtn")
+	public String saveBtn(@RequestParam HashMap<String, String> map, HttpSession session) {
+		// userid, sdate, edate, traveltitle, areacode
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("loginInfo");
+		String userID = memberDTO.getUserID();
+		int areaCode = getAreaCode(map.get("areaCode"));
 		
+		// TravelListDTO 저장
+		TravelListDTO travelListDTO = new TravelListDTO(userID, map.get("SDate"), map.get("EDate"), map.get("travelTitle"), areaCode);
+		int num = apiService.saveTravel(travelListDTO);
 		
+		if(num==0) {
+			return "travel/travelSaveFail";
+		}
+		if(num!=0) { // 일정만들기 저장 성공
+			// 세부일정 저장
+//			List<PlanDTO> list = saveScheduleData();
+		}
+		
+		return "main";
+	}
+	
+	public int getAreaCode(String region) {
+		int areaCode = 0;
+		if(region.equals("seoul")) {
+			areaCode = 1;
+		}
+		else if (region.equals("incheon")) {
+			areaCode = 2;
+		}
+		else if (region.equals("daejeon")) {
+			areaCode = 3;
+		}
+		else if (region.equals("daegu")) {
+			areaCode = 4;
+		}
+		else if (region.equals("gwangju")) {
+			areaCode = 5;
+		}
+		else if (region.equals("busan")) {
+			areaCode = 6;
+		}
+		else if (region.equals("ulsan")) {
+			areaCode = 7;
+		}
+		else if (region.equals("gangwon")) {
+			areaCode = 32;
+		}
+		else if (region.equals("jeju")) {
+			areaCode = 39;
+		}
+		
+		return areaCode;
 	}
 }

@@ -44,20 +44,26 @@ function call() {
 
 // ------------------------- 저장버튼 ------------------------- //
 function save() {
+	var region = getRegion();
+	$("#areaCode").val(region);
 	// 아이디(타이틀)이 공백이라면 오류 출력
 	if($('#travelTitle').val()==''){
+		event.preventDefault();
 		alert("여행 제목을 채워주세요 :)");
 		$('#travelTitle').focus();
 	}
 	if($('#SDate').val() == '') {
+		event.preventDefault();
 		alert("여행 시작일을 입력해주세요.");
 		$('#SDate').focus();
 	}
 	if($('#EDate').val() == '') {
+		event.preventDefault();
 		alert("여행  종료일을 입력해주세요.");
 		$('#EDate').focus();
 	}
 	else{
+		$('#savePlan').submit();
 		// 저장버튼 -> 상세일정 데이터 넘어감
 		list = [];
 		for(var i=0; i<$('.scheduleList').children().length; i++) {
@@ -88,7 +94,8 @@ function save() {
 	            console.log("에러발생");
 	        }
 	    });
-//        $('#savePlan').submit();
+		
+        
 	}
 	
 	
@@ -217,9 +224,10 @@ function dayDelete() {
 
 // 숙박 버튼
 function hotelBtnclick() {
-	var query = window.location.search;
-	var param = new URLSearchParams(query);
-	var region = param.get('region'); // 파라미터값
+	var region = getRegion();
+//	var query = window.location.search;
+//	var param = new URLSearchParams(query);
+//	var region = param.get('region'); // 파라미터값
 	
 	$.ajax({
         // 요청코드
@@ -242,9 +250,10 @@ function hotelBtnclick() {
 
 // 음식 버튼
 function foodBtnclick() {
-	var query = window.location.search;
-	var param = new URLSearchParams(query);
-	var region = param.get('region'); // 파라미터값
+	var region = getRegion();
+//	var query = window.location.search;
+//	var param = new URLSearchParams(query);
+//	var region = param.get('region'); // 파라미터값
 	
 	$.ajax({
 		// 요청코드
@@ -267,9 +276,10 @@ function foodBtnclick() {
 
 // 관광 버튼
 function sightseeingBtnclick() {
-	var query = window.location.search;
-	var param = new URLSearchParams(query);
-	var region = param.get('region'); // 파라미터값
+	var region = getRegion();
+//	var query = window.location.search;
+//	var param = new URLSearchParams(query);
+//	var region = param.get('region'); // 파라미터값
 	
 	$.ajax({
 		// 요청코드
@@ -368,4 +378,13 @@ function getSearchList(index, value) {
     el.className = 'item list-group-item py-3 lh-sm';
 
     return el;
+}
+
+// input에 region값 저장하기 위함
+function getRegion() {
+	var query = window.location.search;
+	var param = new URLSearchParams(query);
+	var region = param.get('region');
+	
+	return region;
 }

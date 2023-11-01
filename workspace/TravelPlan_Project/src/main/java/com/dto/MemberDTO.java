@@ -22,7 +22,6 @@ public class MemberDTO {
 
 	public MemberDTO(String userID, String passwd, String name, String email, String post, String addr1, String addr2,
 			String phone, int mail_auth, String mail_key) {
-		super();
 		this.userID = userID;
 		this.passwd = passwd;
 		this.name = name;

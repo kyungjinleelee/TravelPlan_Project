@@ -47,4 +47,10 @@
 <!-- 		where areaCode=#{areaCode} and (contentTypeid=#{contentTypeid1} or contentTypeid=#{contentTypeid2} or contentTypeid=#{contentTypeid3} or contentTypeid=#{contentTypeid4} or contentTypeid=#{contentTypeid5}) -->
 	</select>
 	
+	<!-- 일정만들기 저장 - travelListDTO -->
+	<insert id="saveTravel" parameterType="TravelDTO">
+		insert into travel(travelID, userID, SDate, EDate, travelTitle, areaCode, writedate)
+	    values (TRAVEL_TRAVELID_SEQ.NEXTVAL, #{userID}, #{SDate}, #{EDate}, #{travelTitle}, #{areaCode}, SYSDATE)
+	</insert>
+	
 </mapper>
