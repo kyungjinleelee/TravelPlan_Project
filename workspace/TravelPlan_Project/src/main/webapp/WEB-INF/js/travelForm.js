@@ -42,7 +42,7 @@ function call() {
 	}
 }//end call
 
-function saveClick() {
+function save() {
 	// 저장버튼 구현 
 }//end saveClick
 
@@ -162,4 +162,159 @@ function dayDelete() {
 	} else {
 		return false;
 	}
+}
+
+// 숙박 버튼
+function hotelBtnclick() {
+	var query = window.location.search;
+	var param = new URLSearchParams(query);
+	var region = param.get('region'); // 파라미터값
+	
+	$.ajax({
+        // 요청코드
+        type:"get", // hotelBtn으로 doget방식으로 url넘겨줌
+        url:"searchBtn", // 버튼 눌렀을 때 이동할 곳 정하기
+        data:{ // hotelBtn 으로 넘겨줄 값
+        	region:region,
+        	contentTypeid:32
+        },
+
+        // 응답코드
+        success:function(data, satatus, xhr) { 
+        	displayPlaces_btn(data)
+        },
+        error:function(xhr, status, error) {
+            console.log("에러발생");
+        }
+    });
+}
+
+// 음식 버튼
+function foodBtnclick() {
+	var query = window.location.search;
+	var param = new URLSearchParams(query);
+	var region = param.get('region'); // 파라미터값
+	
+	$.ajax({
+		// 요청코드
+		type:"get", // hotelBtn으로 doget방식으로 url넘겨줌
+		url:"searchBtn", // 버튼 눌렀을 때 이동할 곳 정하기
+		data:{ // hotelBtn 으로 넘겨줄 값
+			region:region,
+			contentTypeid:39
+		},
+		
+		// 응답코드
+		success:function(data, satatus, xhr) { 
+			displayPlaces_btn(data)
+		},
+		error:function(xhr, status, error) {
+			console.log("에러발생");
+		}
+	});
+}
+
+// 관광 버튼
+function sightseeingBtnclick() {
+	var query = window.location.search;
+	var param = new URLSearchParams(query);
+	var region = param.get('region'); // 파라미터값
+	
+	$.ajax({
+		// 요청코드
+		type:"get", // hotelBtn으로 doget방식으로 url넘겨줌
+		url:"searchBtn2", // 버튼 눌렀을 때 이동할 곳 정하기
+		data:{ // hotelBtn 으로 넘겨줄 값
+			region:region,
+			contentTypeid1:12,
+			contentTypeid2:14,
+			contentTypeid3:15,
+			contentTypeid4:28,
+			contentTypeid5:38,
+		},
+		
+		// 응답코드
+		success:function(data, satatus, xhr) { 
+			displayPlaces_btn(data)
+		},
+		error:function(xhr, status, error) {
+			console.log("에러발생");
+		}
+	});
+}
+
+//검색 결과 목록과 마커를 표출하는 함수입니다
+function displayPlaces_btn(value, pagination) {
+
+    var listEl = document.getElementById('placesList'), 
+    menuEl = document.getElementById('menu_wrap'),
+    fragment = document.createDocumentFragment(), 
+    bounds = new kakao.maps.LatLngBounds(), 
+    listStr = '';
+    
+    // 검색 결과 목록에 추가된 항목들을 제거합니다
+    removeAllChildNods(listEl);
+
+    // 지도에 표시되고 있는 마커를 제거합니다
+    removeMarker();
+    
+    for ( var i=0; i<value.length; i++ ) {
+
+        // 마커를 생성하고 지도에 표시합니다
+        var placePosition = new kakao.maps.LatLng(value[i].mapy, value[i].mapx),
+            marker = addMarker(placePosition, i), 
+            itemEl = getSearchList(i, value[i]); // 검색 결과 항목 Element를 생성합니다
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        bounds.extend(placePosition);
+
+        // 마커와 검색결과 항목에 mouseover 했을때
+        // 해당 장소에 인포윈도우에 장소명을 표시합니다
+        // mouseout 했을 때는 인포윈도우를 닫습니다
+        (function(marker, title) {
+            kakao.maps.event.addListener(marker, 'mouseover', function() {
+                displayInfowindow(marker, title);
+            });
+
+            kakao.maps.event.addListener(marker, 'mouseout', function() {
+                infowindow.close();
+            });
+
+            itemEl.onmouseover =  function () {
+                displayInfowindow(marker, title);
+            };
+
+            itemEl.onmouseout =  function () {
+                infowindow.close();
+            };
+        })(marker, value[i].title);
+
+        fragment.appendChild(itemEl);
+    }
+
+    // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+    listEl.appendChild(fragment);
+    menuEl.scrollTop = 0;
+
+    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+    map.setBounds(bounds);
+}
+
+// 검색결과 항목을 Element로 반환하는 함수입니다
+function getSearchList(index, value) {
+	var el = document.createElement('div'),
+    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
+                '<div class="info">' +
+                '  <div class="d-flex w-100 align-items-center justify-content-between">' + 
+                '    <strong class="mb-1" id="place_name' + (index+1) + '">' + value.title + '</strong>' +
+                '  </div>' +
+        		'    <div class="col-10 mb-1 small" id="road_address_name' + (index+1) + '">' + value.addr1 + '</div>' +
+//                '  <div class="tel col-10 mb-1 small">' + places.phone  + '</div>' +
+                '<button class="addBtn btn btn-primary" data-idx="' + (index+1) + '" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">추가</button></div>';
+
+    el.innerHTML = itemStr;
+    el.className = 'item list-group-item py-3 lh-sm';
+
+    return el;
 }

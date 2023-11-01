@@ -31,4 +31,20 @@
 		from spot
 		where title=#{title}
 	</select>
+	
+	<!-- 지역별 숙박/음식 시설 찾기 -->
+	<select id="findHotelandFood" parameterType="map" resultType="ApiDTO2">
+		select *
+		from spot
+		where areaCode=#{areaCode} and contentTypeid=#{contentTypeid}
+	</select>
+	
+	<!-- 관광정보 찾기 -->
+	<select id="findSightseeing" parameterType="map" resultType="ApiDTO2">
+		select *
+		from spot
+		where areaCode=#{areaCode} and contentTypeid=#{contentTypeid3}
+<!-- 		where areaCode=#{areaCode} and (contentTypeid=#{contentTypeid1} or contentTypeid=#{contentTypeid2} or contentTypeid=#{contentTypeid3} or contentTypeid=#{contentTypeid4} or contentTypeid=#{contentTypeid5}) -->
+	</select>
+	
 </mapper>

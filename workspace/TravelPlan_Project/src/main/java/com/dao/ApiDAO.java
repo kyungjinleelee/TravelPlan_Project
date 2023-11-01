@@ -32,4 +32,13 @@ public class ApiDAO {
 		return session.selectList("ApiMapper.findSpot", map);
 	}
 	
+	// 지역별 숙박/음식 시설 찾기
+	public List<ApiDTO2> findHotelandFood(HashMap<String, Object> map) {
+		return session.selectList("ApiMapper.findHotelandFood", map);
+	}
+	
+	// 지역별 관광시설 찾기
+	public List<ApiDTO2> findSightseeing(HashMap<String, Object> map) {
+		return session.selectList("ApiMapper.findSightseeing", map);
+	}
 }
