@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,6 +103,14 @@ public class BoardDAO {
 		pageDTO.setTotalCount(totalCount);
 		
 		return pageDTO;
+	}
+
+	//좋아요 중복 확인
+	public int likeDuplicateCheck(String userID, int contentNum) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userID", userID);
+		map.put("contentNum", contentNum);
+		return session.selectOne("BoardMapper.likeDuplicateCheck", map);
 	}
 
 	 

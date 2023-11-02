@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.BoardDTO;
 import com.dto.CommentDTO;
@@ -157,7 +158,7 @@ public class BoardController {
 		return "redirect:BoardRetrieve?contentNum="+Dto.getContentNum();
 	}
 	
-	//좋아요 처리
+	//좋아요 처리 post로 바꿀 것
 	@GetMapping("/UserLike")
 	public String UserLike(HttpSession session, @RequestParam int contentNum) {
 		//service.findOne(contentNum);
@@ -186,6 +187,32 @@ public class BoardController {
 		m.addAttribute("content", Dto);
 		return "board/user_like_list";
 	}
+	
+	//좋아요 중복 확인
+	@GetMapping("/likeDupCheck")
+	@ResponseBody
+	public int likeDupCheck(HttpSession session,@RequestParam int contentNum) {
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");//로그인 아이디 확인.
+		int n=0;
+		System.out.println("좋아요 중복 확인 처리 :");
+		if (loginInfo != null) {
+			String userID = loginInfo.getUserID();
+			n =service.likeDuplicateCheck(userID, contentNum);
+	        //m.addAttribute("return", n);
+	        //return "redirect:BoardRetrieve?contentNum="+contentNum;
+	        System.out.println("로그인 상태, n 값");
+	        System.out.println(n);
+	        return n;
+	    }else {//현재는 로그인 안했으면 글 작성 불가. (유동 할지 생각중)
+	    	//return "board/accessDenied";
+	    	System.out.println("로그인 안한 상태 n 값,무관하게 404 리턴할 것.");
+	        System.out.println(n);
+	    	return 404;
+	    }
+		
+		
+	}
+	
 	
 	public ResponseEntity<String> createComment(HttpSession session, @RequestBody CommentDTO Dto) {
         // commentData 객체에 contentNum과 comment 데이터가 매핑됩니다

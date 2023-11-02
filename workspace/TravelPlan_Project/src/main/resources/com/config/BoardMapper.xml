@@ -98,4 +98,13 @@
 		from user_like_list
 		where user_like_list.userid =#{userID}
 	</select>
+	
+	
+	<!-- 좋아요 중복 확인 -->
+	
+	<select id="likeDuplicateCheck" resultType="int">
+		select count(tcontentid)
+		from user_like_list
+		where user_like_list.userID =#{userID} and user_like_list.tcontentid =#{contentNum}
+	</select>
 </mapper>

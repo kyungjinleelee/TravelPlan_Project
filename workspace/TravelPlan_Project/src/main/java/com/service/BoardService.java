@@ -39,6 +39,8 @@ public interface BoardService {
 	//좋아요 목록 처리
 	public PageDTO selectUserLikeList(int curPage, String userID);
 	
+	//좋아요 중복 체크
+	public int likeDuplicateCheck(String userID, int contentNum);
 	
 	//좋아요 한 글 저장
 	/*

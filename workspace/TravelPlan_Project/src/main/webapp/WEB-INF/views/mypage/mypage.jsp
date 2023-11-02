@@ -22,7 +22,7 @@
 	<br>
 	<button type="button" onclick="location.href='memberInfo'">회원 정보 수정</button>
 	<button type="button" onclick="location.href='travelList'">일정보관함</button>
-	<button type="button" onclick="location.href='likeList'">좋아요 목록</button>
+	<button type="button" onclick="location.href='UlList'">좋아요 목록</button>
 	<button type="button" onclick="location.href='writeList'">내가 쓴 글 보기</button>
 	<button type="button" onclick="location.href='memberDeleteForm'" class="btn btn-danger" style="font-size: 20px;">회원 탈퇴하기</button>
 	</form>

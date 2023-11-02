@@ -72,9 +72,47 @@
 				+ "&comment="+textAreaContent;
 	}
 	
+	
+	//사용하지 않음
+	function likeDupCheck(){//비동기 요청이기 때문에 이 함수 호출이후 값을 받아오기 전 like() 내부의 코드가 별도로 계속 도는듯한 모습이 보임. 
+		//체크하기
+		$.get('likeDupCheck?contentNum=${content.contentNum}').done(function(data){
+  			console.log('likeDupCheck get 이후 data 출력(리턴 전)' + data)
+  			//console.log(data['return'])
+  			return data;
+		});
+			
+		
+	}
+	
 	function like() {
+		//좋아요 버튼을 눌렀을 때 실행, 요청한 유저의 보관함에 해당 글이 있는지 조회 
+		//
+		//
+		console.log('like에서 - 함수 실행 직후');
+		//그 유저의 보관함에 그 글이 몇개 있는지 확인
+		$.get('likeDupCheck?contentNum=${content.contentNum}').done(function(data){
+  			console.log('get 이후 data 출력(조건 체크 전)' + data)
+  			
+  			if(data >= 1 ){//요청한 유저가 이미 보관함에 이 글을 보관했을 시 
+  				alert('이미 좋아요 한 게시물입니다.')
+  			}else if(data==404){//로그인 하지 않은 상황에서 요청 시 => 컨트롤러에서 404 반환, 여기로 옴
+  				alert('로그인 한 유저만 사용할 수 있는기능입니다.')
+  			}else{
+  				//요청 - 이 글을 유저의 보관함에 저장
+  				$.get('UserLike?contentNum=${content.contentNum}').done(function(data){
+  		  			console.log('아마도 성공')
+  				});
+			};
+			console.log('like에서 - 실행이후');
+		
+		
+		//var isDuplicated=likeDupCheck();
+		
+		//console.log('like에서 - isDuplicated 값 : '+isDuplicated+' isDuplicated typeof 값: '+typeof isDuplicated);
+		//console.log(daisDuplicatedta);
 		//alert('click' + ${content.contentNum})
-		location.href = "UserLike?contentNum=${content.contentNum}";
+		});
 	}
 
 	

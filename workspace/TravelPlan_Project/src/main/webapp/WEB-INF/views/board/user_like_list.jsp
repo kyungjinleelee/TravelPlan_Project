@@ -6,12 +6,25 @@
 <head>
 <meta charset="UTF-8">
 <title>내가 좋아요 한 게시글</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+<style>
+	.paging-table{
+    width: 100%; /* 테이블이 부모 컨테이너의 100% 가로폭을 차지하도록 설정 */
+	}
+	.paging{
+		text-align: center; /* 셀 내의 텍스트를 수평 가운데 정렬 */
+		font-size: 14px;
+	}
+
+</style>
+
 </head>
 <body>
 <jsp:include page="../common/top.jsp" flush="true" /><br>
@@ -62,7 +75,7 @@
 						${i}
 						</c:if>
 						<c:if test="${curPage != i}">
-							<a href=" <c:url value='Board?curPage=${i}'/> "> ${i} </a>
+							<a href=" <c:url value='UlList?curPage=${i}'/> "> ${i} </a>
 						</c:if>
 					</c:forEach>
 				</td>

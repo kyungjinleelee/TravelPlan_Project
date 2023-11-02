@@ -77,4 +77,11 @@ public class BoardServiceImpl implements BoardService {
 		return dao.selectUserLikeList(curPage, userID);
 	}
 
+	//좋아요 중복 확인
+	@Override
+	public int likeDuplicateCheck(String userID, int contentNum) {
+		
+		return dao.likeDuplicateCheck(userID,contentNum);
+	}
+
 }
