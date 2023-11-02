@@ -10,7 +10,15 @@
  	   select *
  	   from travel
  	   where userID = #{userID}
+ 	   order by travelID DESC 
  	</select>
+
+<!-- 일정 갯수 세기 --> 	
+	<select id="totalCount" parameterType="string" resultType="int">
+		select count(*)
+		from travel
+		where userID = #{userID}
+	</select>
 
 <!-- 일정 상세보기 -->
   	<select id="travelRetrieve" parameterType="int" resultType="TravelDTO">
@@ -18,6 +26,12 @@
  	   from travel
  	   where travelID = #{travelID}
  	</select>	
+ 	
+ 	<select id="planRetreieve" parameterType="int" resultType="PlanDTO" >
+ 	   select *
+ 	   from plan
+ 	   where travelID = #{travelID}
+ 	</select>
  
 <!-- 일정 삭제하기 -->
 	<delete id="travelDel" parameterType="int" >
