@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -97,6 +99,8 @@ public class BoardController {
 		        String userID = loginInfo.getUserID();
 		        Dto.setUserID(userID);
 		        //session.setAttribute("loginInfo", memberInfo);
+		       
+		        System.out.println(Dto.getBoardDate());
 		        m.addAttribute("content", Dto);
 		    }else {//현재는 로그인 안했으면 글 작성 불가. (유동 할지 생각중)
 		    	return "board/accessDenied";
@@ -106,8 +110,15 @@ public class BoardController {
 	}
 	
 	@PostMapping("/write")
-	public String write(BoardDTO dto) {
+	public String write(BoardDTO dto, Model m) {
+		 ZoneId zid = ZoneId.of("Asia/Seoul");
+        ZonedDateTime krTime = ZonedDateTime.now().withZoneSameInstant(zid);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = krTime.format(formatter);
+        dto.setBoardDate(formattedTime);
+		System.out.println(dto.getBoardDate());
 		service.write(dto);
+		
 		return "redirect:Board";
 	
 	}
@@ -133,8 +144,10 @@ public class BoardController {
 	        Dto.setComments(text);
 	        //comment date 구하는 코드
 	        LocalDateTime now = LocalDateTime.now();
+	        ZoneId zid = ZoneId.of("Asia/Seoul");
+	        ZonedDateTime krTime = ZonedDateTime.now().withZoneSameInstant(zid);
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	        String formattedTime = now.format(formatter);
+	        String formattedTime = krTime.format(formatter);
 	        Dto.setCommentdate(formattedTime);
 	        System.out.println(Dto.getCommentdate());
 	    }else {//현재는 로그인 안했으면 댓글 작성 불가. (유동 할지 생각중)
@@ -147,12 +160,31 @@ public class BoardController {
 	//좋아요 처리
 	@GetMapping("/UserLike")
 	public String UserLike(HttpSession session, @RequestParam int contentNum) {
-		//service.delete(contentNum);
 		//service.findOne(contentNum);
-		service.likeOne(contentNum);
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		System.out.println("좋아요 처리 시작.");
+		if (loginInfo != null) {
+			System.out.println("로그인 상태임");
+			//System.out.println(contentNum + loginInfo.getUserID());
+			service.likeOne(contentNum, loginInfo.getUserID());
+		}else {
+			System.out.println("아이디와 불일치");
+			return "board/UpdateAccessDenied";
+		}
 		return "redirect:BoardRetrieve?contentNum="+contentNum;
+	}
 	
+	//내가 좋아요 한 게시판 처리
+	@GetMapping("/UlList")
+	public String UlList(HttpServletRequest request, HttpSession session, Model m) {
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");//로그인 아이디 확인.
+		String curPage = request.getParameter("curPage");
+		if(curPage == null) {
+			curPage = "1";
+		}
+		PageDTO Dto =service.selectUserLikeList(Integer.parseInt(curPage),loginInfo.getUserID());
+		m.addAttribute("content", Dto);
+		return "board/user_like_list";
 	}
 	
 	public ResponseEntity<String> createComment(HttpSession session, @RequestBody CommentDTO Dto) {

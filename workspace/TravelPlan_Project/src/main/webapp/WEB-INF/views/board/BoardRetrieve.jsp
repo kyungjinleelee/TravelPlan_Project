@@ -71,11 +71,18 @@
 		location.href = "comment?contentNum=${content.contentNum}"
 				+ "&comment="+textAreaContent;
 	}
+	
+	function like() {
+		//alert('click' + ${content.contentNum})
+		location.href = "UserLike?contentNum=${content.contentNum}";
+	}
 
 	
 </script>
 </head>
 <body>
+<jsp:include page="../common/top.jsp" flush="true" /><br>
+
 	<div class="container">
 		<form class="form-horizontal" action="update" method="post">
 			<div class="form-group">
@@ -132,7 +139,7 @@
 					<input type="button" value="목록" class="btn btn-default col-sm-1" onclick="go_list()">
 					 -->
 				</div>
-				<span><input type="button" value="좋아요(찜)하기" class=" btn-default col-sm-2 btn col-sm-offset-5" ></span>
+				<span><input type="button" value="좋아요(찜)하기" class=" btn-default col-sm-2 btn col-sm-offset-5" onclick="like()" ></span>
 				<span><input type="button" value="글수정" class="btn btn-default col-sm-1 btn col-sm-offset-3" onclick="go_update()"></span>
 				<span><input type="button" value="목록" class="btn btn-default col-sm-1"  onclick="go_list()"></span>
 				

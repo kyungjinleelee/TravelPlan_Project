@@ -34,8 +34,13 @@ public interface BoardService {
 	public int insertComment(CommentDTO dto );
 	
 	//좋아요 처리
-	public int likeOne(int contentNum);
+	public int likeOne(int contentNum, String userID);
+
+	//좋아요 목록 처리
+	public PageDTO selectUserLikeList(int curPage, String userID);
 	
+	
+	//좋아요 한 글 저장
 	/*
 	//좋아요 목록
 	public List<UserLikeDTO> userLikeList(String userid);

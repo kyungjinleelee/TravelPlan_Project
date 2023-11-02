@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -56,10 +57,7 @@ public class BoardDAO {
 		return session.update("BoardMapper.viewCntUp", contentNum);
 	}
 		
-// 좋아요 수 증가
-	public int likeCntUp(int contentNum) {
-		return session.update("BoardMapper.likeCntUp", contentNum);
-	}
+
 	
 	
 	//페이징 처리
@@ -78,9 +76,33 @@ public class BoardDAO {
 
 		return pageDTO;
 	}
-	
-	//좋아요 리스트에 추가
-	public int likeOne(int contentNum) {
+	// 좋아요 수 증가
+	public int likeCntUp(int contentNum) {
 		return session.update("BoardMapper.likeCntUp", contentNum);
 	}
+	
+	//좋아요 리스트에 추가
+	public int likeOne(Map map) {
+		
+		return session.insert("BoardMapper.likeOne", map);
+	}
+	
+	//좋아요 리스트 페이징 처리
+	public PageDTO selectUserLikeList(int curPage, String userID){
+		PageDTO pageDTO = new PageDTO();
+	
+		int offset = (curPage-1)*pageDTO.getPerPage();
+		int limit = pageDTO.getPerPage();
+		
+		List<BoardDTO> list = session.selectList("BoardMapper.findAllUserLike", userID, new RowBounds(offset, limit));
+
+		pageDTO.setList(list);
+		pageDTO.setCurPage(curPage);
+		int totalCount = session.selectOne("BoardMapper.UserLiketotalCnt",userID);//좋아요 한 게시판의 스큐엘문 넣고 저장할 것.
+		pageDTO.setTotalCount(totalCount);
+		
+		return pageDTO;
+	}
+
+	 
 }

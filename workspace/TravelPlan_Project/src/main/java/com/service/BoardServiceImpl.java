@@ -1,6 +1,8 @@
 package com.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,12 +60,21 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override //좋아요 처리
-	@Transactional
-	public int likeOne(int contentNum) {
-		dao.likeOne(contentNum);
-		//dao.likeCntUp()
-		
-		return 0;
+	@Transactional //서비스 까지는 int string dao 에서는 map이 패러미터임. 헷갈릴 수 있음
+	public int likeOne(int contentNum, String userID) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("Num", contentNum); //가져온 데이터에 키와 벨류값을 지정
+		map.put("Id", userID);
+		System.out.println("다오에서 처리된 값");
+		System.out.println(map.get("Num"));
+		System.out.println(map.get("userID"));
+		dao.likeOne(map);
+		return dao.likeCntUp(contentNum);
+	}
+
+	@Override   //좋아요 목록 처리
+	public PageDTO selectUserLikeList(int curPage, String userID) {
+		return dao.selectUserLikeList(curPage, userID);
 	}
 
 }
