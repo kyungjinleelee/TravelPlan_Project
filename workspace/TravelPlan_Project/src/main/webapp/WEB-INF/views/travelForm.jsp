@@ -39,14 +39,43 @@
 	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-<!-- region 저장 -->
+<!-- 페이지 나가면 초기화 -->
 <script>
+// 새로고침 방지 (메뉴와 도구모음에서 새로고침하는 것은 원천적으로는 막을 수 없음 => 키보드로 새로고침 하는 것은 막아둠)
+function doNotReload(){
+    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
+        event.keyCode = 0;
+        event.cancelBubble = true;
+        event.returnValue = false;
+    } 
+}
+document.onkeydown = doNotReload;
+
+// 페이지 벗어나면 travel 데이터 삭제
+window.onbeforeunload = function (event) {
+	alert("test");
+    event.preventDefault();
+    
+    // ajax로 DB 데이터 삭제 처리
+    $.ajax({
+		// 요청코드
+		type:"get",
+		url:"dropPage",
+		
+		// 응답코드
+		success:function(data, satatus, xhr) { 
+			console.log("성공");
+		},
+		error:function(xhr, status, error) {
+			console.log("에러발생");
+		}
+	});
+}
 
 </script>
-<!-- 테스트 끝 -->
 
 </head>
-<body style="height: 100%">
+<body style="height: 100%" oncontextmenu="return false">
 <c:set var="areaCode" value="getRegion()"/>
 <!-- 비행기 아이콘 -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -61,22 +90,23 @@
 		<div class="div_title col-9">
 			<label class="title">여행 제목 : </label>
 			<input type="hidden" id="areaCode" name="areaCode" value="">
-			<input class="text" name="travelTitle" id="travelTitle">
+			<input type="hidden" id="travelID" name="travelID" value="${travelID}">
+			<input class="text" name="travelTitle" id="travelTitle" value="${dto.travelTitle}">
 			<div class="calendar">
 				<label class="calendar_sdate">여행 시작일 : </label>
-				<input class="input-date" type="date" name="SDate" id="SDate" value="" min="<%= sdf.format(nowTime) %>">
+				<input class="input-date" type="date" name="SDate" id="SDate" value="${dto.SDate}" min="<%= sdf.format(nowTime) %>">
 				<p class="wave">~</p>
 				<label class="calendar_edate">여행 종료일 : </label>
-				<input class="input-date" type="date" name="EDate" id="EDate" value="" min="<%= sdf.format(nowTime) %>">
+				<input class="input-date" type="date" name="EDate" id="EDate" value="${dto.EDate}" min="<%= sdf.format(nowTime) %>">
 			</div>
 		</div>
-  		<div class="region div_title col-2">
+  		<div class="region div_title col-2" style="white-space:nowrap;">
 			<jsp:include page="travel/region.jsp" flush="false" />
 		</div>
 		<div class="div_title col-1">
 			<button class="travel-title_submit" onclick="save()">저장</button>
 <!-- 			<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) history.back(); else alert('닫기 취소')">닫기</button> -->
-			<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) location.href='/app/main'; else alert('닫기 취소')">닫기</button>
+			<button class="travel-title_close" onclick="event.preventDefault(); if(confirm('그만 만드시겠어요?')) location.href='/app/main'; else alert('닫기 취소')">닫기</button>
 		</div>
 		</form>
 	</div>
@@ -89,24 +119,24 @@
 <div id='wrapper' style="height: 100%">
 	<main class="d-flex flex-nowrap" style="height: 100%">
 <!-- DAYS box -->
-	<div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 120px;">
-		<div class="plan-daysbox nav nav-pills nav-flush flex-column mb-auto text-center">
-			<div class="plan-daysboxtitle">일정</div>
-			<!-- 사용자 입력을 받은 만큼 반복문 사용  (days) -->
-			<div class="select-job-items1 nav-item">
-				<div style="text-align: -webkit-center;">
-					<table id="myTable" class="table">
-						<thead>
-						</thead>
-						<tbody id="tbody"></tbody>
-					</table>
+		<div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 140px;">
+			<div class="plan-daysbox nav nav-pills nav-flush flex-column mb-auto text-center">
+				<div class="plan-daysboxtitle">일정</div>
+				<!-- 사용자 입력을 받은 만큼 반복문 사용  (days) -->
+				<div class="select-job-items1 nav-item">
+					<div style="text-align: -webkit-center;">
+						<table id="myTable" class="table">
+							<thead>
+							</thead>
+							<tbody id="tbody"></tbody>
+						</table>
+					</div>
 				</div>
+		
+				<input type="hidden" id="day_hidden" value="0">
+		
 			</div>
-	
-			<input type="hidden" id="day_hidden" value="0">
-	
 		</div>
-	</div>
 <!-- DAYS box 끝 -->
 
 		<div class="b-example-divider b-example-vr"></div>

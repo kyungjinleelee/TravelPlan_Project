@@ -80,7 +80,7 @@
 }
 #SDate{
 	position:absolute;
-	width: 100px;
+	width: 110px;
     height: 35px;
     left:500px;
     top:10px;
@@ -92,7 +92,7 @@
     }
 #EDate{
 	position:absolute;
-	width: 100px;
+	width: 110px;
     height: 35px;
     left:786px;
     top:10px;

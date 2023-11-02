@@ -18,10 +18,19 @@ public class TravelListDTO {
 	private String travelTitle;
 	private int areaCode;
 	private String writedate;
+	private String save;
 	
 	public TravelListDTO() {
 	}
 	public TravelListDTO(String userID, String sDate, String eDate, String travelTitle, int areaCode) {
+		this.userID = userID;
+		SDate = sDate;
+		EDate = eDate;
+		this.travelTitle = travelTitle;
+		this.areaCode = areaCode;
+	}
+	public TravelListDTO(int travelID, String userID, String sDate, String eDate, String travelTitle, int areaCode) {
+		this.travelID = travelID;
 		this.userID = userID;
 		SDate = sDate;
 		EDate = eDate;
@@ -70,7 +79,17 @@ public class TravelListDTO {
 	public void setWritedate(String writedate) {
 		this.writedate = writedate;
 	}
+	public String getSave() {
+		return save;
+	}
+	public void setSave(String save) {
+		this.save = save;
+	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "TravelListDTO [travelID=" + travelID + ", userID=" + userID + ", SDate=" + SDate + ", EDate=" + EDate
+				+ ", travelTitle=" + travelTitle + ", areaCode=" + areaCode + ", writedate=" + writedate + ", save="
+				+ save + "]";
+	}
 }

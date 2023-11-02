@@ -38,7 +38,10 @@ function call() {
 	//		document.getElementById('days').value = days;  
 	//	}
 	if (days <= 0) {
-		alert("여행 종료일이 시작일보다 이전입니다."), location.reload();
+		alert("여행 종료일이 시작일보다 이전입니다.");
+		$('#EDate').val('');
+		$('#SDate').val('');
+		return;
 	}
 }//end call
 
@@ -78,12 +81,14 @@ function save() {
 		}
 		console.log(JSON.stringify(list));
 		
+		var travelID = $('#travelID').val();
 		$.ajax({
 	        // 요청코드
 	        type:"get",
 	        url:"saveScheduleData",
 	        data:{
-	        	scheduleList:JSON.stringify(list)
+	        	scheduleList:JSON.stringify(list),
+	        	travelID:travelID
 	        },
 
 	        // 응답코드
@@ -97,9 +102,6 @@ function save() {
 		
         
 	}
-	
-	
-	
 	
 }
 // -------------------------------------------------------- //
@@ -116,7 +118,7 @@ function rowAdd() {
 //				+ '"  onclick="javascript: writeDay(value); addPlan(value); day_filter(value);">DAY'
 				+ '"  onclick="javascript: day_filter(value);">DAY'
 				+ trCnt + '</button></td></tr>';
-		console.log("innerHtml>>>>>>>>>>>", innerHtml);
+//		console.log("innerHtml>>>>>>>>>>>", innerHtml);
 		////////////////////////////////////////////////////////////////////
 		$('#myTable > tbody:last').append(innerHtml);
 	} else {
@@ -126,58 +128,76 @@ function rowAdd() {
 }//end rowAdd
 
 
-/*//////////////////////// 보류 ///////////////////////////
-function addPlan(value) {
-	//		     	console.log(value);
-	document.getElementById("day_hidden").value = value;
-
-	let ex = document.getElementById('li1');
-	let ex1 = document.getElementById('text');
-	let memo = document.getElementsByClassName('memo');
-
-	if (ex == null) {
-		return false;
-	}
-	console.log(ex);
-	console.log(ex.innerText); // li 태그 안 관광지 이름 받아오기
-
-	let t = document.getElementById('memo1');
-
-	console.log(t.value);
-}//end addPlan
-///////////////////////////////////////////////////////*/
-
-
 // 일 수 계산해서 day 생성
 var SDate;
 var EDate;
 var curTime = 24 * 60 * 60 * 1000;
 var diff;
 var day;
-$("#SDate").on("change", function() {
-//  		alert("hello1");
-	var currentSDate = $(this).val();
-	if (currentSDate == SDate) {
-		return;
-	}
-	SDate = new Date(currentSDate);
 
+$(document).ready(function() {
+	var currentSDate = $("#SDate").val();
+	var currentEDate = $("#EDate").val();
+	
+	SDate = new Date(currentSDate);
+	EDate = new Date(currentEDate);
+	
 	diff = EDate - SDate;
-	day = (parseInt(diff / curTime));
+	day = (parseInt(diff / curTime))+1;
 	for (var i = 1; i <= day; i++) {
 		rowAdd();
 	}
+	call();
+});
 
+$("#SDate").on("change", function() {
+//  		alert("hello1");
+	$("#tbody").children().remove();
+//	var currentSDate = $(this).val();
+//	if (currentSDate == SDate) {
+//		return;
+//	}
+//	SDate = new Date(currentSDate);
+//
+//	diff = EDate - SDate;
+//	day = (parseInt(diff / curTime))+1;
+//	for (var i = 1; i <= day; i++) {
+//		rowAdd();
+//	}
+	var currentSDate = $("#SDate").val();
+	var currentEDate = $("#EDate").val();
+	
+	SDate = new Date(currentSDate);
+	EDate = new Date(currentEDate);
+	
+	diff = EDate - SDate;
+	day = (parseInt(diff / curTime))+1;
+	for (var i = 1; i <= day; i++) {
+		rowAdd();
+	}
+	call();
 });
 
 $("#EDate").on("change", function() {
 	// 				alert("hello2");
-	var currentEDate = $(this).val();
-	if (currentEDate == EDate) {
-		return;
-	}
+	$("#tbody").children().remove();
+//	var currentEDate = $(this).val();
+//	if (currentEDate == EDate) {
+//		return;
+//	}
+//	EDate = new Date(currentEDate);
+//
+//	diff = EDate - SDate;
+//	day = (parseInt(diff / curTime))+1;
+//	for (var i = 1; i <= day; i++) {
+//		rowAdd();
+//	}
+	var currentSDate = $("#SDate").val();
+	var currentEDate = $("#EDate").val();
+	
+	SDate = new Date(currentSDate);
 	EDate = new Date(currentEDate);
-
+	
 	diff = EDate - SDate;
 	day = (parseInt(diff / curTime))+1;
 	for (var i = 1; i <= day; i++) {
@@ -231,9 +251,9 @@ function hotelBtnclick() {
 	
 	$.ajax({
         // 요청코드
-        type:"get", // hotelBtn으로 doget방식으로 url넘겨줌
+        type:"get", // searchBtn으로 doget방식으로 url넘겨줌
         url:"searchBtn", // 버튼 눌렀을 때 이동할 곳 정하기
-        data:{ // hotelBtn 으로 넘겨줄 값
+        data:{ // searchBtn 으로 넘겨줄 값
         	region:region,
         	contentTypeid:32
         },
