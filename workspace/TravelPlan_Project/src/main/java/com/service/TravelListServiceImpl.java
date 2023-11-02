@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.TravelListDAO;
+import com.dto.PageDTO2;
+import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 
 	@Service
@@ -21,12 +24,27 @@ import com.dto.TravelListDTO;
 		return list;
 	}
 	
-	// 일정 상세보기
+	// 페이징 처리
+	@Override
+	public PageDTO2 list(int curPage, String userID) {
+		PageDTO2 dto = dao.list(curPage, userID);
+		return dto;
+	}
+	
+	// 일정 상세보기 -> 트랜잭션 맞는지 확신 x
+//	@Transactional
 	@Override
 	public TravelListDTO travelRetrieve(int travelID) {
 		TravelListDTO dto = dao.travelRetrieve(travelID);
 		return dto;
 	}
+	
+	@Override
+	public PlanDTO planRetrieve(int travelID) {
+		PlanDTO dto = dao.planRetrieve(travelID);
+		return dto;
+	}
+
 
 	// 일정 삭제하기
 	@Override
@@ -35,4 +53,5 @@ import com.dto.TravelListDTO;
 		return n;
 	}
 
+	
 }
