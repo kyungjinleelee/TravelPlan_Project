@@ -16,6 +16,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +40,7 @@ public class TravelController {
 	ApiService apiService;
 	
 	// 메인UI
-	@GetMapping("/travelUI")
+	@PostMapping("/travelUI")
 	public String travelUI(HttpSession session) {
 		session.setAttribute("client_id", info.getKakaoMapId());
 		return "travelForm";
