@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dto.ApiDTO2;
+import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 
 @Repository
@@ -46,5 +47,25 @@ public class ApiDAO {
 	// 일정만들기(TravelDTO) 저장
 	public int saveTravel(TravelListDTO dto) {
 		return session.insert("ApiMapper.saveTravel", dto);
+	}
+	
+	// travel 테이블id 조회
+	public int selectTravelId(TravelListDTO dto) {
+		return session.selectOne("ApiMapper.selectTravelId", dto);
+	}
+	
+	// 여행 계획 제목/날짜 수정 및 저장완료
+	public int travelSaveAndUpdate(TravelListDTO dto) {
+		return session.update("ApiMapper.travelSaveAndUpdate", dto);
+	}
+	
+	// 상세 일정 저장
+	public int saveSchedule(List<PlanDTO> list) {
+		return session.insert("ApiMapper.saveSchedule", list);
+	}
+	
+	// 일정 만들기 페이지에서 벗어날 경우 travel 테이블에 저장해놓은 데이터 삭제
+	public int deleteTravelData(int travelID) {
+		return session.delete("ApiMapper.deleteTravelData", travelID);
 	}
 }

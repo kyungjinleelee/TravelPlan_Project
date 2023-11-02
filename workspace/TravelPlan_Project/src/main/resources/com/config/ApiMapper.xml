@@ -47,10 +47,39 @@
 <!-- 		where areaCode=#{areaCode} and (contentTypeid=#{contentTypeid1} or contentTypeid=#{contentTypeid2} or contentTypeid=#{contentTypeid3} or contentTypeid=#{contentTypeid4} or contentTypeid=#{contentTypeid5}) -->
 	</select>
 	
-	<!-- 일정만들기 저장 - travelListDTO -->
+	<!-- 일정만들기 저장 - travel테이블 -->
 	<insert id="saveTravel" parameterType="TravelDTO">
-		insert into travel(travelID, userID, SDate, EDate, travelTitle, areaCode, writedate)
-	    values (TRAVEL_TRAVELID_SEQ.NEXTVAL, #{userID}, #{SDate}, #{EDate}, #{travelTitle}, #{areaCode}, SYSDATE)
+		insert into travel(travelID, userID, SDate, EDate, travelTitle, areaCode, writedate, save)
+	    values (TRAVEL_TRAVELID_SEQ.NEXTVAL, #{userID}, #{SDate}, #{EDate}, #{travelTitle}, #{areaCode}, SYSDATE, 'n')
 	</insert>
 	
+	<!-- 테이블id 조회 -->
+	<select id="selectTravelId" parameterType="TravelDTO" resultType="int">
+		select travelID
+		from travel
+		where userID=#{userID} and SDate=#{SDate} and EDate=#{EDate} and travelTitle=#{travelTitle} and areaCode=#{areaCode} and save='n'
+	</select>
+	
+	<!-- 일정 제목/날짜 수정 & 저장완료 -->
+	<update id="travelSaveAndUpdate" parameterType="TravelDTO">
+		update travel 
+		set SDate=#{SDate}, EDate=#{EDate}, travelTitle=#{travelTitle}, save='y'
+		where travelID=#{travelID}
+	</update>
+	
+	<!-- 세부일정 저장 -->
+	<insert id="saveSchedule" parameterType="arraylist">
+		insert all
+		<foreach item="item" collection="list">
+			into plan (travelID, day_num, item, item_add, time)
+	  	        values (#{item.travelID},#{item.day_num},#{item.item},#{item.item_add},#{item.time})
+		</foreach>
+		select * from dual
+	</insert>
+	
+	<!-- 일정 만들기 페이지에서 벗어날 경우 travel save값을 n에서 y로 변경 -->
+	<delete id="deleteTravelData" parameterType="int">
+		delete from travel
+		where travelID=#{travelID}
+	</delete>
 </mapper>

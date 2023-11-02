@@ -142,7 +142,7 @@
 		    padding-left: 14px;
 		}
 		#SDate{
-			width: 100px;
+			width: 110px;
 		    height: 35px;
 		    left:500px;
 		    top:10px;
@@ -153,7 +153,7 @@
 		    text-align: center;
 	    }
 		#EDate{
-			width: 100px;
+			width: 110px;
 		    height: 35px;
 		    left:786px;
 		    top:10px;
@@ -371,6 +371,26 @@ function save() {
 		$('#EDate').focus();
 		return;
 	}
+	
+	// 종료일이 시작일 이전일 때
+	var sdd = document.getElementById("SDate").value;
+	var edd = document.getElementById("EDate").value;
+	console.log("sdd:", sdd);
+	console.log("edd:", edd);
+	var ar1 = sdd.split('-');
+	var ar2 = edd.split('-');
+	var da1 = new Date(ar1[0], ar1[1], ar1[2]);
+	var da2 = new Date(ar2[0], ar2[1], ar2[2]);
+	var dif = da2 - da1;
+	var cDay = 24 * 60 * 60 * 1000;
+	var days = parseInt(dif / cDay);
+	
+	if (days <= 0) {
+		event.preventDefault();
+		alert("여행 종료일이 시작일보다 이전입니다.");
+		$('#EDate').focus();
+	}
+	
 	$('#saveBtn').submit();
 }
 </script>

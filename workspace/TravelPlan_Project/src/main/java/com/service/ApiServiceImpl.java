@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.ApiDAO;
 import com.dto.ApiDTO2;
+import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 
 @Service
@@ -46,9 +47,32 @@ public class ApiServiceImpl implements ApiService {
 		return dao.findSightseeing(map);
 	}
 
+	// 일정만들기(TravelDTO) 저장
 	@Override
 	public int saveTravel(TravelListDTO dto) {
 		return dao.saveTravel(dto);
+	}
+
+	// Travel 테이블 ID 조회
+	@Override
+	public int selectTravelId(TravelListDTO dto) {
+		return dao.selectTravelId(dto);
+	}
+
+	// 여행 계획 제목/날짜 수정 및 저장완료
+	@Override
+	public int travelSaveAndUpdate(TravelListDTO dto) {
+		return dao.travelSaveAndUpdate(dto);
+	}
+
+	@Override
+	public int saveSchedule(List<PlanDTO> list) {
+		return dao.saveSchedule(list);
+	}
+
+	@Override
+	public int deleteTravelData(int travelID) {
+		return dao.deleteTravelData(travelID);
 	}
 
 }
