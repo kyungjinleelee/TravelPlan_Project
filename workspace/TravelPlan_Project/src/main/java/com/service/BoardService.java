@@ -5,6 +5,7 @@ import java.util.List;
 import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.MemberDTO;
+import com.dto.PageDTO;
 import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 import com.dto.UserLikeDTO;
@@ -12,7 +13,7 @@ import com.dto.UserLikeDTO;
 
 public interface BoardService {
 	//게시판 조회
-	public List<BoardDTO> selectList();
+	public PageDTO selectList(int curPage);
 	
 	//게시글 상세 조회
 	public BoardDTO findOne(int contentNum);
@@ -29,6 +30,19 @@ public interface BoardService {
 	//삭제
 	public int delete(int contentNum);
 	
+	//댓글 작성
+	public int insertComment(CommentDTO dto );
+	
+	//좋아요 처리
+	public int likeOne(int contentNum, String userID);
+
+	//좋아요 목록 처리
+	public PageDTO selectUserLikeList(int curPage, String userID);
+	
+	//좋아요 중복 체크
+	public int likeDuplicateCheck(String userID, int contentNum);
+	
+	//좋아요 한 글 저장
 	/*
 	//좋아요 목록
 	public List<UserLikeDTO> userLikeList(String userid);

@@ -34,8 +34,8 @@
 	
 	<!--게시글 작성 -->
 	<insert id="write" parameterType="BoardDTO">
-		insert into board (CONTENTNUM,userid ,TITLE,MAINTEXT)
-		values (board_seq.nextval,#{userID}, #{title}, #{mainText} )
+		insert into board (CONTENTNUM,userid ,TITLE,MAINTEXT, boarddate )
+		values (board_seq.nextval,#{userID}, #{title}, #{mainText}, TO_DATE(#{boardDate},'yyyy-MM-dd HH24:MI:ss') )
 	</insert>
 	
 	<!--게시글 삭제 -->
@@ -43,5 +43,68 @@
 		delete from board
 		where contentnum=#{contentNum}
 	</delete>
-	<!-- 내가 좋아요 한 여행 목록 -->
+	
+	<!--댓글 작성 -->
+	<insert id="writeComment" parameterType="CommentDTO">
+		insert into comments (commentid, contentnum, userid, commentdate, comments)
+		values (comment_seq.nextval, #{contentNum}, #{userID}, TO_DATE(#{commentdate},'yyyy-MM-dd HH24:MI:ss') , #{comments})
+	</insert>
+	
+	<!--게시글 갯수 세기 -->
+	<select id="totalCnt" resultType="int">
+		select count(*)
+		from board
+	</select>
+	
+	<!--게시글 조회수 올리기 -->
+	<update id="viewCntUp" parameterType="int">
+		update board
+		set views = views+1
+		where contentNum=#{contentNum}
+	</update>
+	
+	<!--게시글 좋아요 수 올리기 -->
+	<update id="likeCntUp" parameterType="int">
+		update board
+		set likeContent = likeContent+1
+		where contentNum=#{contentNum}
+	</update>
+	
+	<!--좋아요 한 게시글 테이블에 저장 -->
+	<insert id="likeOne" parameterType="HashMap">
+		insert into user_like_list (like_list_id, userid, tcontentid)
+		values(ulList_seq.nextval ,#{Id}, #{Num} )
+	</insert>
+	
+	<!--내 일정 공유 -->
+	
+	<!-- 내가 좋아요 한 여행 목록
+	tcontentid_seq.nextval
+	및 갯수 세기
+	 -->
+	 <select id="findAllUserLike" resultType="BoardDTO">
+		
+		SELECT *
+		FROM board
+		WHERE board.contentNum IN (
+	    SELECT user_like_list.Tcontentid
+	    FROM user_like_list
+	    WHERE user_like_list.userid = #{userID})
+	    order by contentNum DESC
+	</select>
+	
+	<select id="UserLiketotalCnt" resultType="int">
+		select count(*)
+		from user_like_list
+		where user_like_list.userid =#{userID}
+	</select>
+	
+	
+	<!-- 좋아요 중복 확인 -->
+	
+	<select id="likeDuplicateCheck" resultType="int">
+		select count(tcontentid)
+		from user_like_list
+		where user_like_list.userID =#{userID} and user_like_list.tcontentid =#{contentNum}
+	</select>
 </mapper>

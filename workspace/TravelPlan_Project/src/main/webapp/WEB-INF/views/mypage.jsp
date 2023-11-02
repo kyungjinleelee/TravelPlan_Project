@@ -9,8 +9,19 @@
 <title>마이페이지</title>
 </head>
 <body>
-<%-- <jsp:include page="common/top.jsp" flush="true" /><br>
-<hr> --%>
-<jsp:include page="mypage/mypage.jsp" flush="true" />
+<!-- 헤더 안먹음!!!!!!!!!!! 확인하삼 -->
+<!-- header -->
+<jsp:include page="common/top.jsp" flush="true" />
+
+<!-- content -->
+<div id='wrapper'>
+  <div>
+    <jsp:include page="mypage/mypage.jsp" flush="true" />
+  </div>
+</div>
+
+<%--  <jsp:include page="common/top.jsp" flush="true" /><br>  --%>
+<!-- <hr>  -->
+<%-- <jsp:include page="mypage/mypage.jsp" flush="true" /> --%>
 </body>
 </html>

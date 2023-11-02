@@ -6,15 +6,27 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 화면</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+
+<style>
+	.paging-table{
+    width: 100%; /* 테이블이 부모 컨테이너의 100% 가로폭을 차지하도록 설정 */
+	}
+	.paging{
+		text-align: center; /* 셀 내의 텍스트를 수평 가운데 정렬 */
+		font-size: 14px;
+	}
+
+</style>
 
 <script type="text/javascript">
 	function go_write() {
@@ -78,7 +90,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="DTO" items="${content}">
+				<c:forEach var="DTO" items="${content.list}">
 					<!--  -->
 					<tr>
 						<td>${DTO.contentNum}</td>
@@ -87,16 +99,42 @@
 						<td>${DTO.likeContent}</td>
 						<td>${DTO.views}</td>
 						<td>${DTO.boardDate}</td>
-						
-						<td><a onclick="go_update(${DTO.contentNum},'${DTO.userID}')">수정3</a></td>
+
+						<td><button
+								onclick="go_update(${DTO.contentNum},'${DTO.userID}')">수정3</button></td>
 						<!-- ${DTO.contentNum} ${DTO.userID}->
 						<!-- <td><a href="delete?no=${list.no}">삭제</a></td> -->
-						<td><a onclick="askYesNo(${DTO.contentNum})" >삭제</a></td>
+						<td><button onclick="askYesNo(${DTO.contentNum})">
+								삭제</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<button onclick="go_write()">글쓰기</button>
+
+		<table class="paging-table" >
+			<c:set var="perPage" value="${content.perPage}" />
+			<c:set var="curPage" value="${content.curPage}" />
+			<c:set var="totalCount" value="${content.totalCount}" />
+			<c:set var="totalNum" value="${totalCount / perPage}" />
+
+			<c:if test="${totalCount % perPage != 0}">
+				<c:set var="totalNum" value="${totalNum+1}" />
+			</c:if>
+
+			<tr >
+				<td colspan="6" class = "paging">
+					<c:forEach var="i" begin="1" end="${totalNum}">
+						<c:if test="${curPage == i}">
+						${i}
+						</c:if>
+						<c:if test="${curPage != i}">
+							<a href=" <c:url value='Board?curPage=${i}'/> "> ${i} </a>
+						</c:if>
+					</c:forEach>
+				</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>

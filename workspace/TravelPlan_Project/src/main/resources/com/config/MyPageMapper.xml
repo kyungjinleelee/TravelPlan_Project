@@ -26,23 +26,6 @@
  	   where userID=#{userID}
  	</select> 
  	
-<!-- 비밀번호 변경 시 유효성 검사 -->	
-	<select id="pwCheck" resultType="String">
-		select passwd
-		from member
-		where userID=#{userID}
-	</select>
-	
-<!-- 비밀번호 변경 시 유효성 검사 -->	
-	<select id="pwUpdate" resultType="String">
-		update passwd2
-		set passwd=#{passwd2}
-		where userID=#{userID}
-	</select>
-	
-	
-
- 		
 <!--내가 찜한 일정 목록 -->
  	<select id="userLikeList" parameterType="string" resultType="UserLikeDTO">
  	   select *
@@ -60,4 +43,64 @@
  	   from TRAVEL -->
 
 <!-- 내가 좋아요 한 여행 목록 -->
+
+
+<!-- 회원 탈퇴하기 (트랜잭션) -->
+	<delete id="memberDelete">
+		delete
+		from member
+		where userID=#{userID} and passwd=#{passwd}
+	</delete>
+	
+	<!-- 여행 일정 함께 삭제 -->
+	<delete id="deleteTravelRecordsByUserId">
+		delete
+		from travel
+		where userID=#{userID}
+	</delete>
+	
+	<!-- 내가 쓴 글 함께 삭제 -->
+	<delete id="deleteBoardRecordsByUserId">
+		delete
+		from board
+		where userID=#{userID}
+	</delete>
+	
+	<!-- 내가 쓴 댓글 함께 삭제 -->
+	<delete id="deleteCommentsRecordsByUserId">
+		delete
+		from comments
+		where userID=#{userID}
+	</delete>
+	
+	<!-- 공유 여행 게시글 함께 삭제 -->
+	<delete id="deleteSharedTravelRecordsByUserId">
+		delete
+		from sharedTravel
+		where userID=#{userID}
+	</delete>
+	
+	<!-- 공유 여행 게시판 댓글 함께 삭제 -->
+	<delete id="deleteCommentsOfTravelRecordsByUserId">
+		delete
+		from commentsOfTravel
+		where userID=#{userID}
+	</delete>
+	
+	<!--  좋아요 목록 함께 삭제  -->
+	<delete id="deleteUserLikeRecordsByUserId">
+		delete
+		from user_like_list
+		where userID=#{userID}
+	</delete> 
+	
+	
+<!-- 회원 탈퇴를 위한 비밀번호 체크 -->
+	<select id="checkPw" resultType="int">
+		select count(*)
+		from member
+		where userID=#{userID} and passwd=#{passwd}
+	</select>
+
+
 </mapper>
