@@ -390,6 +390,10 @@ function save() {
 		alert("여행 종료일이 시작일보다 이전입니다.");
 		$('#EDate').focus();
 	}
+	if (days >= 9) {
+		event.preventDefault();
+		alert("최대 9일까지만 생성 가능합니다.");
+	}
 	
 	$('#saveBtn').submit();
 }
