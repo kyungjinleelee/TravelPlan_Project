@@ -28,6 +28,31 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">    
 	<!-- ------------------------------------------------------------------------------------------------------------- -->
 	
+	<!-- day 버튼 이벤트-->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // JavaScript로 클릭 이벤트를 처리
+        $(document).ready(function () {
+            // 버튼을 클릭하면 해당 day_num에 해당하는 아이템을 출력
+            $("#day").click(function () {
+            	var dayNum = parseInt($("#dayNumInput").val());
+                var item = $("#planDTO_item").text(); // 해당 아이템 값 가져오기
+
+                // item목록 가져오기
+                var itemList = fetchItemList(item);
+                
+                
+               
+                }
+            });
+        });
+    </script>
+	
+	
+	
+	
+	
+	
 </head>
 <body>
 
@@ -37,15 +62,15 @@
 	<div class="row">
 		<div class="div_title col-9">
 			<label class="title">여행 제목 : </label>
-			<input class="text" name="travelTitle" id="travelTitle" value="${TravelListDTO.travelTitle}" style="font-weight: bold;" disabled>
+			<input class="text" name="travelTitle" id="travelTitle" value="${travelListDTO.travelTitle}" style="font-weight: bold;" disabled>
 			<div class="calendar">
 				<label class="calendar_sdate">여행 시작일 : </label>
-				<input class="input-date" name="SDate" id="SDate" value="${TravelListDTO.SDate}"  disabled>
-				<%-- <input class="input-date" type="date" name="SDate" id="SDate" value="${TravelListDTO.SDate}"> --%>
+				<input class="input-date" name="SDate" id="SDate" value="${travelListDTO.SDate}"  disabled>
+				<%-- <input class="input-date" type="date" name="SDate" id="SDate" value="${TravelListDTO.SDate}">  --%>
 				<p class="wave">~</p>
 				<label class="calendar_edate">여행 종료일 : </label>
-				<input class="input-date" name="EDate" id="EDate" value="${TravelListDTO.EDate}"  disabled>
-				<%-- <input class="input-date" type="date" id="EDate" value="EDate" min="<%= sdf.format(nowTime) %>"> --%>
+				<input class="input-date" name="EDate" id="EDate" value="${travelListDTO.EDate}"  disabled>
+				<%-- <input class="input-date" type="date" id="EDate" value="EDate" min="<%= sdf.format(nowTime) %>"> --%> 
 			</div>
 		</div>
 		<div class="div_title col-1">
@@ -62,6 +87,12 @@
 	<div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 120px;">
 		<div class="plan-daysbox nav nav-pills nav-flush flex-column mb-auto text-center">
 			<div class="plan-daysboxtitle">일정</div>
+			
+			<!-- 유저가 저장한 만큼 day 버튼 나오게 하려고 했는데 안나옴 -->
+			<%-- <c:forEach var="planDTO" items="${planDTO}"> --%>		
+		    	<button id="day" class="btn btn-primary">${planDTO.day_num}</button>
+			<%-- </c:forEach> --%>
+			
 				<div class="select-job-items1 nav-item">
 					<div style="text-align: -webkit-center;">
 						<table id="myTable" class="table">
@@ -92,19 +123,19 @@
 		
 		    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
 		      <div class="d-flex w-100 align-items-center justify-content-between">
-		        <strong class="mb-1">명동교자 본점</strong>
+		       <p> <strong class="mb-1">${planDTO.item} </strong> </p>
 		        <small class="text-body-secondary">Mon</small>
 		      </div>
 		      <div class="col-10 mb-1 small">존맛탱</div>
 		    </a>
 		
-		    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+		    <!-- <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
 		      <div class="d-flex w-100 align-items-center justify-content-between">
 		        <strong class="mb-1">진옥화할매원조닭한마리 본점</strong>
 		        <small class="text-body-secondary">Tues</small>
 		      </div>
 		      <div class="col-10 mb-1 small">서울 종로구 종로40가길 18</div>
-		    </a>
+		    </a> -->
 		
 		  </div>
 		</div>
@@ -120,41 +151,7 @@
 	    </div>
 	<!-- 지도 끝 -->		
 		
-		  
+</main>
+</div>  
 </body>
 </html>		  
-		  
-	
-	
-	
-	
-	
-	
-		
-		
- <%-- 	    <c:if test="${not empty TravelListDTO}">
-	        <table>
-	            <tr>
-	                <th>travelID</th>
-	                <th>userID</th>
-	                <th>SDate</th>
-	                <th>EDate</th>
-	                <th>travelTitle</th>
-	                <!-- 여기에서 표시할 필드 추가 -->
-	            </tr>
-	            <tr>
-	                <td>${TravelListDTO.travelID}</td>
-	                <td>${TravelListDTO.userID}</td>
-	                <td>${TravelListDTO.SDate}</td>
-	                <td>${TravelListDTO.EDate}</td>
-	                <td>${TravelListDTO.travelTitle}</td>
-	                <!-- 다른 필드 추가 -->
-	            </tr>
-	        </table>
-	    </c:if> --%>
-
-
-
-
-
-

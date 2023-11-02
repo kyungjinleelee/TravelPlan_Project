@@ -77,6 +77,10 @@ public class TravelListDTO {
 		this.writedate = writedate;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "TravelListDTO [travelID=" + travelID + ", userID=" + userID + ", SDate=" + SDate + ", EDate=" + EDate
+				+ ", travelTitle=" + travelTitle + ", areaCode=" + areaCode + ", writedate=" + writedate + "]";
+	}
 	
 }

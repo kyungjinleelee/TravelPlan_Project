@@ -51,9 +51,9 @@ public class TravelListDAO {
 		return session.selectOne("TravelMapper.travelRetrieve", travelID);
 	}
 	
-//	public PlanDTO planRetrieve(int travelID) {
-//		return session.selectOne("TravelMapper.planRetrieve", travelID);
-//	}
+	public PlanDTO planRetrieve(int travelID) {
+		return session.selectOne("TravelMapper.planRetrieve", travelID);
+	}
 	
 	// 일정 삭제하기
 	public int travelDel(int travelID) {
