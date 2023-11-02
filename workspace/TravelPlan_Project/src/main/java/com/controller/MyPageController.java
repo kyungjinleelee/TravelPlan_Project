@@ -30,7 +30,7 @@ public class MyPageController {
 	// 마이페이지
 	@GetMapping("/mypage")
 	public String mypage() {
-		return "mypage";
+		return "mypage/mypage";
 	}
 	
 	// 회원 정보 확인
@@ -107,32 +107,32 @@ public class MyPageController {
 			return "mypage/writeList";
 		}
 		
-	//탈퇴페이지 요청
+	// 탈퇴페이지 요청
 		@GetMapping("/memberDeleteForm")
 		public String delMemberView() {
 			return "mypage/memberDeleteForm";
 		}
 	
+	// 회원 탈퇴
 		@PostMapping("/memberDelete")
 		public String memberDelete(MemberDTO dto, HttpSession session, RedirectAttributes rttr) throws Exception {
 			MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");   //세션에 있는 loginInfo 정보를 가져와 loginInfo변수에 넣어줌
-			
-			// loginInfo 객체가 null인지 확인
+			//loginInfo 객체가 null인지 확인
 		    if (loginInfo != null) {
 				String sessionPasswd = loginInfo.getPasswd();  //세션에 있는 비밀번호
 				String dtoPasswd = dto.getPasswd();  //dto로 들어오는 비밀번호
 			
-				if (!sessionPasswd.equals(dtoPasswd)) { // 두 개의 비밀번호를 비교
-		            rttr.addFlashAttribute("msg", false); // 일치하지 않으면 msg에 false 값을 넣어서 form에 전달
+				if (!sessionPasswd.equals(dtoPasswd)) { //두 개의 비밀번호를 비교
+		            rttr.addFlashAttribute("msg", false); //일치하지 않으면 msg에 false 값을 넣어서 form에 전달
 		            return "redirect:memberDeleteForm";
 		        } else {
-		            service.memberDelete(dto); // 일치할 경우 회원 삭제
-		            session.invalidate(); // 세션 무효화
+		            service.memberDelete(dto); //일치할 경우 회원 삭제
+		            session.invalidate(); //세션 무효화
 		            return "redirect:main";
 		        }
 		    } else {
-		        // loginInfo 세션 속성이 존재하지 않거나 null일 때 처리
-		        return "redirect:loginForm"; // 로그인 페이지로 리다이렉트
+		        //loginInfo 세션 속성이 존재하지 않거나 null일 때 처리
+		        return "redirect:loginForm"; //로그인 페이지로 리다이렉트
 		    }
 		}
 		

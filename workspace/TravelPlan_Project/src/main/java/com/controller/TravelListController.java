@@ -36,7 +36,7 @@ public class TravelListController {
 	@GetMapping("/travelRetrieve")
 	public String travelRetrieve(@RequestParam int travelID, Model m) {
 		TravelListDTO dto = service.travelRetrieve(travelID);
-		m.addAttribute("TravelDTO", dto);
+		m.addAttribute("TravelListDTO", dto);
 		return "travel/travelRetrieve";
 	}	
 	
