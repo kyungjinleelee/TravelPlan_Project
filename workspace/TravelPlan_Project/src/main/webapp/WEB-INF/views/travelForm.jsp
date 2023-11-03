@@ -21,7 +21,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
+	<!-- 이모티콘 코드 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- 참조  css, js 코드 -->
 	<link rel="stylesheet" href="<c:url value='/css/travelForm.css'/>">
 	
@@ -180,9 +181,9 @@ document.onkeydown = doNotReload;
 		  <div id="menu_wrap">
 		      <div class="d-flex align-items-center flex-shrink-0 p-1 border-bottom justify-content-center row">
 		        <div class="row">
-		          <button class="col m-1 small btn btn-light" onclick="hotelBtnclick()">숙박</button>
-		          <button class="col m-1 small btn btn-light" onclick="foodBtnclick()">음식</button>
-		          <button class="col m-1 small btn btn-light" onclick="sightseeingBtnclick()">관광</button>
+		          <button class="col m-1 small btn btn-light" onclick="hotelBtnclick()">숙박 <i class="fa-solid fa-hotel"></i></button>
+		          <button class="col m-1 small btn btn-light" onclick="foodBtnclick()">음식 <i class="fa-solid fa-utensils"></i></button>
+		          <button class="col m-1 small btn btn-light" onclick="sightseeingBtnclick()">관광 <i class="fa-solid fa-mountain-sun"></i></button>
 		        </div>
 		        <div class="row">
 		          <form onsubmit="searchPlaces(); return false;">

@@ -23,6 +23,7 @@ import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.MemberDTO;
 import com.dto.PageDTO;
+import com.dto.SearchCondition;
 import com.service.BoardServiceImpl;
 import com.service.MyPageServiceImpl;
 import com.service.SharedBoardService;
@@ -47,19 +48,19 @@ public class BoardController {
 	
 	}
 	@GetMapping("/Board")
-	public String selectList(HttpServletRequest request, Model m) {
+	public String selectList(SearchCondition sc, HttpServletRequest request, Model m) { 
+		System.out.println(sc); 
 		String curPage = request.getParameter("curPage");
 		//int로 바꾸는게 더 나을수도 있음.
 		if(curPage == null) {
 			curPage = "1";
 		}
 		
-		PageDTO Dto = service.selectList(Integer.parseInt(curPage));
+		PageDTO Dto = service.selectList(Integer.parseInt(curPage), sc);
 		//m.addAttribute("PageDTO", pageDTO);
 		
 		
 		//List<BoardDTO> Dto = service.selectList();
-		
 		m.addAttribute("content", Dto);
 		return "board/Board";
 	
@@ -189,6 +190,10 @@ public class BoardController {
 	}
 	
 	//좋아요 중복 확인
+	//세션에서 로그인 조회 -> 로그인 여부 확인
+	//n <<< 그 아이디가 현재 글을 좋아요 한 횟수, 원래라면 1을 넘길 수 없는데 contentNum이 DB 주식별자가 아니어서 
+	//0,1 이외의 수도 가능
+	//로그인 여부에, n값에 따라 다른 값 jsp로 리턴, 리턴값에 따른 조건문 처리는 뷰에서 함
 	@GetMapping("/likeDupCheck")
 	@ResponseBody
 	public int likeDupCheck(HttpSession session,@RequestParam int contentNum) {
@@ -198,22 +203,20 @@ public class BoardController {
 		if (loginInfo != null) {
 			String userID = loginInfo.getUserID();
 			n =service.likeDuplicateCheck(userID, contentNum);
-	        //m.addAttribute("return", n);
-	        //return "redirect:BoardRetrieve?contentNum="+contentNum;
 	        System.out.println("로그인 상태, n 값");
 	        System.out.println(n);
-	        return n;
+	        if(n>0) { return 1;}//이미 좋아요를 한 상태
+	        else{ return 0;}//좋아요를 안 한 상태
+	       
 	    }else {//현재는 로그인 안했으면 글 작성 불가. (유동 할지 생각중)
-	    	//return "board/accessDenied";
 	    	System.out.println("로그인 안한 상태 n 값,무관하게 404 리턴할 것.");
-	        System.out.println(n);
-	    	return 404;
+	    	return 404;//로그인 안한 상태값
 	    }
 		
 		
 	}
 	
-	
+	//댓글작성 RESTful 하게 처리하다가 만 코드. 나중에 재활용 할 수 있음.
 	public ResponseEntity<String> createComment(HttpSession session, @RequestBody CommentDTO Dto) {
         // commentData 객체에 contentNum과 comment 데이터가 매핑됩니다
         int contentNum = Dto.getContentNum();

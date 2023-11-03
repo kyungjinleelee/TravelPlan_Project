@@ -17,16 +17,20 @@
 
 
 	<style>
+	
+		.container{
+			width: 100%;
+			font-size: 14px;
+		}
+		
 		.right-button {
 			margin-right: auto;
 		}
 		
 		textarea{
-		    height: 6.25em;
-		    width: 100%;
-		    resize: none;
-		  }
-		
+		font-size: 20px;
+		}
+		/* height: 6.25em; */
 		.article-info{
 			
 			display: flex;
@@ -43,7 +47,18 @@
 		
 		.title{
 		font-size:18px;
+		color:#3563E9;
 		}
+		
+		.btn-default{
+			color:#3563E9;
+			
+		}
+		
+		.writeComment{
+		color:#3563E9;
+		}
+		
 		  	
 	</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -86,19 +101,20 @@
 	}
 	
 	function like() {
-		//좋아요 버튼을 눌렀을 때 실행, 요청한 유저의 보관함에 해당 글이 있는지 조회 
-		//
-		//
+		//좋아요 버튼을 눌렀을 때 실행, 요청한 유저의 보관함에 해당 글이 있는지 조회(좋아요 중복방지) 
+		//중복이 아니면, 찜 한 보관함으로 보냄
+		//개발단계에선 n이 1보다 클 수 있었으므로 1보다 크면 이미 좋아요 얼러트 한다 - 404일 경우에도 그 분기점에서 코드 실행함
+		//컨트롤러에서 좋아요 한 횟수 n을 리턴하고, 상태값으로 처리하는 것 보다는 컨트롤러에서 상태값을 리턴하는 것으로
 		console.log('like에서 - 함수 실행 직후');
 		//그 유저의 보관함에 그 글이 몇개 있는지 확인
 		$.get('likeDupCheck?contentNum=${content.contentNum}').done(function(data){
   			console.log('get 이후 data 출력(조건 체크 전)' + data)
   			
-  			if(data >= 1 ){//요청한 유저가 이미 보관함에 이 글을 보관했을 시 
+  			if(data == 1 ){//요청한 유저가 이미 보관함에 이 글을 보관했을 시 
   				alert('이미 좋아요 한 게시물입니다.')
   			}else if(data==404){//로그인 하지 않은 상황에서 요청 시 => 컨트롤러에서 404 반환, 여기로 옴
   				alert('로그인 한 유저만 사용할 수 있는기능입니다.')
-  			}else{
+  			}else{//문제가 없다면 0일 경우
   				//요청 - 이 글을 유저의 보관함에 저장
   				$.get('UserLike?contentNum=${content.contentNum}').done(function(data){
   		  			console.log('아마도 성공')

@@ -7,13 +7,14 @@ import com.dto.CommentDTO;
 import com.dto.MemberDTO;
 import com.dto.PageDTO;
 import com.dto.PlanDTO;
+import com.dto.SearchCondition;
 import com.dto.TravelListDTO;
 import com.dto.UserLikeDTO;
 
 
 public interface BoardService {
 	//게시판 조회
-	public PageDTO selectList(int curPage);
+	public PageDTO selectList(int curPage, SearchCondition sc);
 	
 	//게시글 상세 조회
 	public BoardDTO findOne(int contentNum);
@@ -50,4 +51,8 @@ public interface BoardService {
 	//내가 쓴 글 목록
 	public List<BoardDTO> writeList(String userid);
 	*/
+	
+	//검색
+	public List<BoardDTO> searchSelectPage(SearchCondition sc) throws Exception;
+	public int searchResultCnt(SearchCondition sc) throws Exception;
 }
