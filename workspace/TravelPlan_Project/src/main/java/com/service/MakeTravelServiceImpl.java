@@ -7,20 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dao.ApiDAO;
-import com.dto.ApiDTO2;
+import com.dao.MakeTravelDAO;
+import com.dto.SpotDTO;
 import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 
 @Service
-public class ApiServiceImpl implements ApiService {
+public class MakeTravelServiceImpl implements MakeTravelService {
 	
 	@Autowired //dao
-	ApiDAO dao;
+	MakeTravelDAO dao;
 	
 	@Override
 	@Transactional
-	public int insertApi(List<ApiDTO2> list) {
+	public int insertApi(List<SpotDTO> list) {
 		// 중복 제거
 		dao.deleteDuplication(list);
 		// 데이터 삽입
@@ -31,19 +31,19 @@ public class ApiServiceImpl implements ApiService {
 
 	// 장소 찾기
 	@Override
-	public List<ApiDTO2> findSpot(HashMap<String, String> map) {
+	public List<SpotDTO> findSpot(HashMap<String, String> map) {
 		return dao.findSpot(map);
 	}
 
 	// 지역별 숙박시설 찾기
 	@Override
-	public List<ApiDTO2> findHotelandFood(HashMap<String, Object> map) {
+	public List<SpotDTO> findHotelandFood(HashMap<String, Object> map) {
 		return dao.findHotelandFood(map);
 	}
 
 	// 지역별 관광시설 찾기
 	@Override
-	public List<ApiDTO2> findSightseeing(HashMap<String, Object> map) {
+	public List<SpotDTO> findSightseeing(HashMap<String, Object> map) {
 		return dao.findSightseeing(map);
 	}
 
@@ -64,12 +64,14 @@ public class ApiServiceImpl implements ApiService {
 	public int travelSaveAndUpdate(TravelListDTO dto) {
 		return dao.travelSaveAndUpdate(dto);
 	}
-
+	
+	// 상세 일정 저장
 	@Override
 	public int saveSchedule(List<PlanDTO> list) {
 		return dao.saveSchedule(list);
 	}
 
+	// 일정 만들기 페이지에서 벗어날 경우 travel 테이블에 저장해놓은 데이터 삭제
 	@Override
 	public int deleteTravelData(int travelID) {
 		return dao.deleteTravelData(travelID);
