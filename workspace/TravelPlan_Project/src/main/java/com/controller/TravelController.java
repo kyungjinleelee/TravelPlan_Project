@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dto.ApiDTO2;
+import com.dto.SpotDTO;
 import com.dto.MemberDTO;
 import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 import com.info.Info;
-import com.service.ApiService;
+import com.service.MakeTravelService;
 import com.service.TravelService;
 
 @Controller
@@ -37,7 +37,7 @@ public class TravelController {
 	TravelService service;
 	
 	@Autowired
-	ApiService apiService;
+	MakeTravelService MTService;
 	
 	// 메인UI
 	@PostMapping("/travelUI")
@@ -51,10 +51,15 @@ public class TravelController {
 		
 //		// TravelListDTO 저장
 		TravelListDTO travelListDTO = new TravelListDTO(userID, map.get("SDate"), map.get("EDate"), map.get("travelTitle"), areaCode);
-		int num = apiService.saveTravel(travelListDTO);
+		int num = MTService.saveTravel(travelListDTO);
+		
+		// 저장 실패시 이동할 경로
+		if(num==0) {
+			return "travel/travelSaveFail";
+		}
 		
 		// 저장한 테이블 id 가져오기
-		int travelID = apiService.selectTravelId(travelListDTO);
+		int travelID = MTService.selectTravelId(travelListDTO);
 		
 		session.setAttribute("dto", travelListDTO);
 		session.setAttribute("travelID", travelID);
@@ -73,9 +78,9 @@ public class TravelController {
 	// tourAPI json형식으로 jsp로 보냄
 	@RequestMapping("/data_download")
 	@ResponseBody
-	public ArrayList<ApiDTO2> load_save(HttpSession session) throws Exception {
+	public ArrayList<SpotDTO> load_save(HttpSession session) throws Exception {
 		String result = "";
-		ArrayList<ApiDTO2> list = new ArrayList<ApiDTO2>();
+		ArrayList<SpotDTO> list = new ArrayList<SpotDTO>();
 		//http://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=%2BZ2oseaIvHt%2BFFNkhvJA2vGpTcpF%2FydeQrkUsMt7W7SPky11jcfHaJ0HnB4VAR%2Bv3zvDnuyQRhL4zupPemFCAA%3D%3D&pageNo=1&numOfRows=7901&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39
 		URL url = new URL("http://apis.data.go.kr/B551011/KorService1/areaBasedList1?serviceKey=" + info.getTourAPIKey() +
 		   "&pageNo=3&numOfRows=1000&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=39");
@@ -96,21 +101,21 @@ public class TravelController {
 		for(int i=0;i<infoArr.size();i++){
 			JSONObject tmp = (JSONObject)infoArr.get(i);
 			       
-			ApiDTO2 dto=new ApiDTO2((String)tmp.get("title"),(String)tmp.get("addr1"),(String)tmp.get("addr2"),(String)tmp.get("mapx"),(String)tmp.get("mapy"),(String)tmp.get("areacode"),(String)tmp.get("contenttypeid"));
+			SpotDTO dto=new SpotDTO((String)tmp.get("title"),(String)tmp.get("addr1"),(String)tmp.get("addr2"),(String)tmp.get("mapx"),(String)tmp.get("mapy"),(String)tmp.get("areacode"),(String)tmp.get("contenttypeid"));
 			//System.out.println(dto);
 			if(dto!=null) {
 				list.add(dto);
 			}
 		}
-		apiService.insertApi(list);
+		MTService.insertApi(list);
 		return list;
 	}
 	
-	// 세부 일정에 추가
+	// 검색 항목 중 DB에 해당 항목이 있을 경우 세부 일정에 추가
 	@GetMapping("/scheduleList")
 	@ResponseBody
-	public List<ApiDTO2> scheduleList(@RequestParam HashMap<String, String> map) {
-		List<ApiDTO2> list = apiService.findSpot(map);
+	public List<SpotDTO> scheduleList(@RequestParam HashMap<String, String> map) {
+		List<SpotDTO> list = MTService.findSpot(map);
 		
 		return list;
 	}
@@ -118,45 +123,34 @@ public class TravelController {
 	// 숙박/음식 버튼
 	@GetMapping("/searchBtn")
 	@ResponseBody
-	public List<ApiDTO2> searchBtn(@RequestParam("region") String region, @RequestParam("contentTypeid") String contentTypeid) {
+	public List<SpotDTO> searchBtn(@RequestParam("region") String region, @RequestParam("contentTypeid") String contentTypeid) {
 		int areaCode = getAreaCode(region);
 		
 		HashMap<String,Object> map = new HashMap<String, Object>();
 		map.put("areaCode", areaCode);
 		map.put("contentTypeid", contentTypeid);
 		
-		List<ApiDTO2> list = apiService.findHotelandFood(map);
+		List<SpotDTO> list = MTService.findHotelandFood(map);
 		return list;
 	}
 	
 	// 관광 버튼
 	@GetMapping("/searchBtn2")
 	@ResponseBody
-	public List<ApiDTO2> searchBtn2(@RequestParam("region") String region, @RequestParam HashMap<String, Object> map) {
+	public List<SpotDTO> searchBtn2(@RequestParam("region") String region, @RequestParam HashMap<String, Object> map) {
 		map.remove("region");
 		int areaCode = getAreaCode(region);
 		
 		map.put("areaCode", areaCode);
-		List<ApiDTO2> list = apiService.findSightseeing(map);
+		List<SpotDTO> list = MTService.findSightseeing(map);
 		return list;
 	}
 	
-	// mapTest용
-	@GetMapping("/map")
-	public String map(HttpSession session) {
-		session.setAttribute("client_id", info.getKakaoMapId());
-		return "map/mapTest";
-	}
-	
-	@GetMapping("/test")
-	public String test(HttpSession session) {
-		session.setAttribute("client_id", info.getKakaoMapId());
-		return "test";
-	}
-	
+	// travelForm.jsp에서 저장 버튼 클릭시 세부일정 저장
 	@GetMapping("/saveScheduleData")
 	@ResponseBody
 	public void saveScheduleData(@RequestParam("scheduleList") String schedule, @RequestParam("travelID") String travelID) throws ParseException {
+//		System.out.println("saveScheduleData");
 		// json -> string 변환시켜 받아온 변수 schedule
 		// parser로 파싱작업
 		JSONParser jsonParser = new JSONParser();
@@ -164,29 +158,32 @@ public class TravelController {
 		
 		ArrayList<PlanDTO> list = new ArrayList<PlanDTO>();
 		   
+		//------------------------------------------------------------ idx값 수정 필요 ------------------------------------------------------------//
 		for(int i=0;i<jsonArray.size();i++){
 			JSONObject ele = (JSONObject)jsonArray.get(i);
 			       
-			System.out.println(ele.get("day_num"));
-			System.out.println(ele.get("item"));
-			System.out.println(ele.get("time_text"));
-			System.out.println(ele.get("item_add"));
-			PlanDTO dto = new PlanDTO(Integer.parseInt(travelID), Integer.parseInt((String)ele.get("day_num")), (String)ele.get("item"), (String)ele.get("item_add"), (String)ele.get("time_text"));
+//			System.out.println(ele.get("day_num"));
+//			System.out.println(ele.get("item"));
+//			System.out.println(ele.get("time_text"));
+//			System.out.println(ele.get("item_add"));
+//			System.out.println(Float.parseFloat((String)ele.get("mapx")));
+			PlanDTO dto = new PlanDTO(Integer.parseInt(travelID), Integer.parseInt((String)ele.get("day_num")), (String)ele.get("item"), (String)ele.get("item_add"), (String)ele.get("time_text"),Float.parseFloat((String)ele.get("mapx")), Float.parseFloat((String)ele.get("mapy")), 0);
 			if(dto!=null) {
 				list.add(dto);
 			}
 		}
-		System.out.println("여행 세부 일정");
-		System.out.println(list);
+//		System.out.println("여행 세부 일정");
+//		System.out.println(list);
 		// dto 담은 리스트 저장 완료
 		
 		// 세부 일정 저장
-		apiService.saveSchedule(list);
+		MTService.saveSchedule(list);
 	}
 	
+	// travelForm.jsp에서 저장 버튼 클릭시 일정 정보 변경사항 업데이트
 	@GetMapping("/saveBtn")
 	public String saveBtn(@RequestParam HashMap<String, String> map, HttpSession session) {
-		System.out.println("saveBtn");
+//		System.out.println("saveBtn");
 		
 		// userid, sdate, edate, traveltitle, areacode
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("loginInfo");
@@ -195,7 +192,9 @@ public class TravelController {
 		
 		// TravelListDTO 저장
 		TravelListDTO travelListDTO = new TravelListDTO(Integer.parseInt(map.get("travelID")),userID, map.get("SDate"), map.get("EDate"), map.get("travelTitle"), areaCode);
-		int num = apiService.travelSaveAndUpdate(travelListDTO);
+		
+		// 일정 정보(여행제목, 날짜 등) 업데이트
+		int num = MTService.travelSaveAndUpdate(travelListDTO);
 		
 		if(num==0) {
 			return "travel/travelSaveFail";
@@ -203,6 +202,7 @@ public class TravelController {
 		
 		session.removeAttribute("dto");
 		session.removeAttribute("travelID");
+		session.removeAttribute("client_id");
 		
 		return "redirect:/main";
 	}
@@ -213,13 +213,15 @@ public class TravelController {
 	public void dropPage(HttpSession session) {
 		
 		// travel 데이터 삭제
-		apiService.deleteTravelData((int)session.getAttribute("travelID"));
+		MTService.deleteTravelData((int)session.getAttribute("travelID"));
 		
 		// 세션 초기화
 		session.removeAttribute("dto");
 		session.removeAttribute("travelID");
+		session.removeAttribute("client_id");
 	}
 	
+	// url로 받아온 region값 areaCode로 변경시키는 함수
 	public int getAreaCode(String region) {
 		int areaCode = 0;
 		if(region.equals("seoul")) {

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ApiMapper">
+<mapper namespace="MakeTravelMapper">
 
 	 <!-- api 데이터 삽입  -->
 	<insert id="insertApi" parameterType="arraylist">
@@ -26,21 +26,21 @@
 	</delete>
 	
 	<!-- 장소 찾기 -->
-	<select id="findSpot" parameterType="map" resultType="ApiDTO2">
+	<select id="findSpot" parameterType="map" resultType="SpotDTO">
 		select *
 		from spot
 		where title=#{title}
 	</select>
 	
 	<!-- 지역별 숙박/음식 시설 찾기 -->
-	<select id="findHotelandFood" parameterType="map" resultType="ApiDTO2">
+	<select id="findHotelandFood" parameterType="map" resultType="SpotDTO">
 		select *
 		from spot
 		where areaCode=#{areaCode} and contentTypeid=#{contentTypeid}
 	</select>
 	
 	<!-- 관광정보 찾기 -->
-	<select id="findSightseeing" parameterType="map" resultType="ApiDTO2">
+	<select id="findSightseeing" parameterType="map" resultType="SpotDTO">
 		select *
 		from spot
 		where areaCode=#{areaCode} and contentTypeid=#{contentTypeid3}
@@ -71,8 +71,8 @@
 	<insert id="saveSchedule" parameterType="arraylist">
 		insert all
 		<foreach item="item" collection="list">
-			into plan (travelID, day_num, item, item_add, time)
-	  	        values (#{item.travelID},#{item.day_num},#{item.item},#{item.item_add},#{item.time})
+			into plan (travelID, day_num, item, item_add, time, mapx, mapy)
+	  	        values (#{item.travelID},#{item.day_num},#{item.item},#{item.item_add},#{item.time},#{item.mapx},#{item.mapy})
 		</foreach>
 		select * from dual
 	</insert>

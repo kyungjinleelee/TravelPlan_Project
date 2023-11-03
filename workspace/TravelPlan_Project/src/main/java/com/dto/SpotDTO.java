@@ -2,8 +2,8 @@ package com.dto;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("ApiDTO2")
-public class ApiDTO2 {
+@Alias("SpotDTO")
+public class SpotDTO {
 	String title;
 	String addr1;
 	String addr2;
@@ -12,7 +12,7 @@ public class ApiDTO2 {
 	String areaCode;
 	String contentTypeid;
 	
-	public ApiDTO2(String title, String addr1, String addr2, String mapx, String mapy, String areaCode,
+	public SpotDTO(String title, String addr1, String addr2, String mapx, String mapy, String areaCode,
 			String contentTypeid) {
 		this.title = title;
 		this.addr1 = addr1;
@@ -24,7 +24,7 @@ public class ApiDTO2 {
 	}
 
 
-	public ApiDTO2() {
+	public SpotDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	

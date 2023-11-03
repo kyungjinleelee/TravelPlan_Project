@@ -2,15 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.dto.PlanDTO" %>
+
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
 <head>
 	<meta charset="utf-8">
 	    <title>Travel Details</title>
 	    
 	<!-- ------------------------------------------------------------------------------------------------------------- -->
 	<!-- kakao Map API -->
-	<!-- ${client_id}가 맞나?????? 추후 수정하기 -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${client_id}&libraries=services"></script>
 	
 	<!-- 부트스트랩 코드 넣기 -->
@@ -31,22 +33,24 @@
 	<!-- day 버튼 이벤트-->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // JavaScript로 클릭 이벤트를 처리
-        $(document).ready(function () {
-            // 버튼을 클릭하면 해당 day_num에 해당하는 아이템을 출력
-            $("#day").click(function () {
-            	var dayNum = parseInt($("#dayNumInput").val());
-                var item = $("#planDTO_item").text(); // 해당 아이템 값 가져오기
+    function createButtons(dayNum) {
+        for (var trCnt = 1; trCnt <= dayNum; trCnt++) {
+            if (trCnt < 10) {
+                var innerHtml = '<tr><td style="text-align:center;">';
+                innerHtml += '<button class="bttn list-bttn" id="daybtn' + trCnt + '" ';
+                innerHtml += 'value="daybtn' + trCnt + '"  onclick="javascript: day_filter(value);">DAY' + trCnt + '</button></td></tr>';
+                $('#myTable > tbody:last').append(innerHtml);
+            } else {
+                alert("최대 9일까지만 생성 가능합니다.");
+                return false;
+            }
+        }
+    }
 
-                // item목록 가져오기
-                var itemList = fetchItemList(item);
-                
-                
-               
-                }
-            });
-        });
-    </script>
+    // PlanDTO의 day_num 값을 가져와서 버튼을 생성
+    var dayNum = ${planDTO.day_num}; // PlanDTO의 day_num 값
+    createButtons(dayNum);
+	</script>
 	
 	
 	
@@ -54,7 +58,7 @@
 	
 	
 </head>
-<body>
+<body style="height: 100%">
 
 <!-- ------------------------------------------------------------------------------------------------------------- -->	    
 <!-- header - travelForm -->
@@ -81,18 +85,22 @@
 <!-- header - tramvelForm 끝 -->
 <!-- ------------------------------------------------------------------------------------------------------------- -->		
 <!-- content -->
-<div id='wrapper'>
-	<main class="d-flex flex-nowrap">
+<div id='wrapper' style="height: 100%">
+	<main class="d-flex flex-nowrap" style="height: 100%">
 	<!-- DAYS box : 유저가 저장한 만큼 나오게 수정하기 / day마다 클릭하면 저장된 세부일정 나오게 수정하기 -->
-	<div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 120px;">
+	<div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 140px;">
 		<div class="plan-daysbox nav nav-pills nav-flush flex-column mb-auto text-center">
 			<div class="plan-daysboxtitle">일정</div>
 			
-			<!-- 유저가 저장한 만큼 day 버튼 나오게 하려고 했는데 안나옴 -->
-			<%-- <c:forEach var="planDTO" items="${planDTO}"> --%>		
-		    	<button id="day" class="btn btn-primary">${planDTO.day_num}</button>
-			<%-- </c:forEach> --%>
-			
+			<!-- 유저가 저장한 만큼 day 버튼 나오게 해라 -->
+			 <%-- <c:forEach var="day" begin="1" end="${planDTO.day_num}"> 
+       			 <button type="button" class="btn btn-primary">Day ${day}</button>
+       		</c:forEach> --%>		
+       		<c:forEach var="day" begin="1" end="${planDTO.day_num}">
+            	<button class="btn btn-primary" onclick="day_filter(${day})">DAY ${day}</button>
+       		 </c:forEach>
+       		
+       		
 				<div class="select-job-items1 nav-item">
 					<div style="text-align: -webkit-center;">
 						<table id="myTable" class="table">
@@ -118,24 +126,22 @@
 		    <span class="fs-5 fw-semibold">세부 일정</span>
 		  </div>
 		  
+
+		      
 		  <!-- 세부 일정 : c:foreach 사용하기  : 일정만들기 토대로 추후 다시 수정 / 일정마다 누르면 지도 표시되게 수정하기 -->
 		  <div class="list-group list-group-flush border-bottom scrollarea">
-		
 		    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
 		      <div class="d-flex w-100 align-items-center justify-content-between">
-		       <p> <strong class="mb-1">${planDTO.item} </strong> </p>
-		        <small class="text-body-secondary">Mon</small>
+		      
+		      
+		       <p> <strong class="mb-1">${planDTO.item}</strong> </p>
+		        
+		        <small class="text-body-secondary">${planDTO.time}</small>
 		      </div>
-		      <div class="col-10 mb-1 small">존맛탱</div>
+		      <div class="col-10 mb-1 small">${planDTO.item_add}</div>
 		    </a>
 		
-		    <!-- <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-		      <div class="d-flex w-100 align-items-center justify-content-between">
-		        <strong class="mb-1">진옥화할매원조닭한마리 본점</strong>
-		        <small class="text-body-secondary">Tues</small>
-		      </div>
-		      <div class="col-10 mb-1 small">서울 종로구 종로40가길 18</div>
-		    </a> -->
+		   
 		
 		  </div>
 		</div>
@@ -147,7 +153,7 @@
 		<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 78%;">
 			<!-- 지도API -->
 			<div id="map" style="width:100%;height:100%;"></div>
-			<script src="js/kakaoMap.js"></script>
+			<script src="js/kakaoMap2.js"></script>
 	    </div>
 	<!-- 지도 끝 -->		
 		

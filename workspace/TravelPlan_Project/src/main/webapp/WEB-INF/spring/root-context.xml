@@ -33,7 +33,7 @@
 				<value>classpath:com/config/TravelMapper.xml</value> 
 				<value>classpath:com/config/SharedBoardMapper.xml</value> 
 				<value>classpath:com/config/BoardMapper.xml</value> 
-				<value>classpath:com/config/ApiMapper.xml</value> 
+				<value>classpath:com/config/MakeTravelMapper.xml</value> 
 			</list>
 		</property>
 		<property name="typeAliases"> <!-- type설정(Alias는 DTO에서 설정) -->
@@ -46,8 +46,7 @@
 				<value>com.dto.TCommentDTO</value>
 				<value>com.dto.TravelListDTO</value>
 				<value>com.dto.UserLikeDTO</value>
-				<value>com.dto.ApiDTO</value>
-				<value>com.dto.ApiDTO2</value>
+				<value>com.dto.SpotDTO</value>
 			</list>
 		</property>
 	</bean>

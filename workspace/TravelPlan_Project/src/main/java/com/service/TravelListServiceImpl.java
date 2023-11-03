@@ -40,11 +40,16 @@ import com.dto.TravelListDTO;
 	}
 	
 	@Override
-	public PlanDTO planRetrieve(int travelID) {
-		PlanDTO dto = dao.planRetrieve(travelID);
+	public List<PlanDTO> planList(int travelID) {
+		List<PlanDTO> list = dao.planList(travelID);
+		return list;
+	}
+	
+	@Override
+	public PlanDTO plan(int travelID) {
+		PlanDTO dto = dao.plan(travelID);
 		return dto;
 	}
-
 
 	// 일정 삭제하기
 	@Override
@@ -52,6 +57,5 @@ import com.dto.TravelListDTO;
 		int n = dao.travelDel(travelID);
 		return n;
 	}
-
 	
 }

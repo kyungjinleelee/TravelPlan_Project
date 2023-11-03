@@ -104,10 +104,10 @@
 				location.href="memberUI";
 			});
 			$("#mypage").on("click", function(){
-				location.href="mypage";
+				location.href="/app/loginCheck/mypage";
 			});
 			$("#logout").on("click", function(){
-				location.href="logout";
+				location.href="/app/loginCheck/logout";
 			});
 		});
 	</script>
@@ -131,10 +131,10 @@
       </a>
 
       <ul class="menu nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="main" class="nav-link px-4">홈</a></li>
-        <li><a href="loginCheck/pickLocation" class="nav-link px-4">일정만들기</a></li> 
-        <li><a href="#" class="nav-link px-4">일정보관함</a></li>
-        <li><a href="#" class="nav-link px-4">게시판</a></li>
+        <li><a href="/app/main" class="nav-link px-4">홈</a></li>
+        <li><a href="/app/loginCheck/pickLocation" class="nav-link px-4">일정만들기</a></li> 
+        <li><a href="/app/travelList" class="nav-link px-4">일정보관함</a></li>
+        <li><a href="/app/Board" class="nav-link px-4">게시판</a></li>
       </ul>
 	
 		<!-- 로그인 X -->

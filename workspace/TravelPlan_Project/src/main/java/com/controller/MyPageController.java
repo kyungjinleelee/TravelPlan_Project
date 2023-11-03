@@ -30,7 +30,7 @@ public class MyPageController {
 	// 마이페이지
 	@GetMapping("/loginCheck/mypage")
 	public String mypage() {
-		return "mypage/mypage";
+		return "mypage";
 	}
 	
 	// 회원 정보 확인

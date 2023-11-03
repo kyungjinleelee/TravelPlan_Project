@@ -27,7 +27,7 @@
  	   where travelID = #{travelID}
  	</select>	
  	
- 	<select id="planRetreieve" parameterType="int" resultType="PlanDTO" >
+ 	<select id="planRetrieve" parameterType="int" resultType="PlanDTO" >
  	   select *
  	   from plan
  	   where travelID = #{travelID}

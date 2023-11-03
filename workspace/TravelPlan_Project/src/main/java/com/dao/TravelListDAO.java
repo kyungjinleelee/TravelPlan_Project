@@ -51,7 +51,11 @@ public class TravelListDAO {
 		return session.selectOne("TravelMapper.travelRetrieve", travelID);
 	}
 	
-	public PlanDTO planRetrieve(int travelID) {
+	public List<PlanDTO> planList(int travelID) {
+		return session.selectList("TravelMapper.planRetrieve", travelID);
+	}
+	
+	public PlanDTO plan(int travelID) {
 		return session.selectOne("TravelMapper.planRetrieve", travelID);
 	}
 	

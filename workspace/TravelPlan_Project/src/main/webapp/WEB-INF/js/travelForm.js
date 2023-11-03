@@ -74,10 +74,14 @@ function save() {
 //			console.log($('.stitle').eq(i).text());
 //			console.log($('.time_text').eq(i).val());
 //			console.log($('.saddr1').eq(i).text());
+//			alert($('.smapx').eq(i).val());
+//			alert($('.smapy').eq(i).val());
 			list.push({"day_num":$('.currentBtn_hidden').eq(i).val().substr(6,1),
 					   "item":$('.stitle').eq(i).text(),
 					   "time_text":$('.time_text').eq(i).val(),
-					   "item_add":$('.saddr1').eq(i).text()})
+					   "item_add":$('.saddr1').eq(i).text(),
+					   "mapx":$('.smapx').eq(i).val(),
+					   "mapy":$('.smapy').eq(i).val()})
 		}
 		console.log(JSON.stringify(list));
 		
