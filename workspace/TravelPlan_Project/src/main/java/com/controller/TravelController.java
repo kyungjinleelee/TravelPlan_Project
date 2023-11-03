@@ -53,6 +53,11 @@ public class TravelController {
 		TravelListDTO travelListDTO = new TravelListDTO(userID, map.get("SDate"), map.get("EDate"), map.get("travelTitle"), areaCode);
 		int num = MTService.saveTravel(travelListDTO);
 		
+		// 저장 실패시 이동할 경로
+		if(num==0) {
+			return "travel/travelSaveFail";
+		}
+		
 		// 저장한 테이블 id 가져오기
 		int travelID = MTService.selectTravelId(travelListDTO);
 		
@@ -145,6 +150,7 @@ public class TravelController {
 	@GetMapping("/saveScheduleData")
 	@ResponseBody
 	public void saveScheduleData(@RequestParam("scheduleList") String schedule, @RequestParam("travelID") String travelID) throws ParseException {
+//		System.out.println("saveScheduleData");
 		// json -> string 변환시켜 받아온 변수 schedule
 		// parser로 파싱작업
 		JSONParser jsonParser = new JSONParser();
@@ -152,6 +158,7 @@ public class TravelController {
 		
 		ArrayList<PlanDTO> list = new ArrayList<PlanDTO>();
 		   
+		//------------------------------------------------------------ idx값 수정 필요 ------------------------------------------------------------//
 		for(int i=0;i<jsonArray.size();i++){
 			JSONObject ele = (JSONObject)jsonArray.get(i);
 			       
@@ -159,15 +166,14 @@ public class TravelController {
 //			System.out.println(ele.get("item"));
 //			System.out.println(ele.get("time_text"));
 //			System.out.println(ele.get("item_add"));
-			System.out.println("saveScheduleData");
-			System.out.println(Float.parseFloat((String)ele.get("mapx"))); 
-			PlanDTO dto = new PlanDTO(Integer.parseInt(travelID), Integer.parseInt((String)ele.get("day_num")), (String)ele.get("item"), (String)ele.get("item_add"), (String)ele.get("time_text"),Float.parseFloat((String)ele.get("mapx")), Float.parseFloat((String)ele.get("mapy")));
+//			System.out.println(Float.parseFloat((String)ele.get("mapx")));
+			PlanDTO dto = new PlanDTO(Integer.parseInt(travelID), Integer.parseInt((String)ele.get("day_num")), (String)ele.get("item"), (String)ele.get("item_add"), (String)ele.get("time_text"),Float.parseFloat((String)ele.get("mapx")), Float.parseFloat((String)ele.get("mapy")), 0);
 			if(dto!=null) {
 				list.add(dto);
 			}
 		}
-		System.out.println("여행 세부 일정");
-		System.out.println(list);
+//		System.out.println("여행 세부 일정");
+//		System.out.println(list);
 		// dto 담은 리스트 저장 완료
 		
 		// 세부 일정 저장
@@ -196,6 +202,7 @@ public class TravelController {
 		
 		session.removeAttribute("dto");
 		session.removeAttribute("travelID");
+		session.removeAttribute("client_id");
 		
 		return "redirect:/main";
 	}
@@ -211,6 +218,7 @@ public class TravelController {
 		// 세션 초기화
 		session.removeAttribute("dto");
 		session.removeAttribute("travelID");
+		session.removeAttribute("client_id");
 	}
 	
 	// url로 받아온 region값 areaCode로 변경시키는 함수

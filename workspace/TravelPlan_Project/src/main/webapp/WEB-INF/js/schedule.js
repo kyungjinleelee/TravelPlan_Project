@@ -64,7 +64,7 @@ $(document).on("click", ".addBtn", function(){
 });
 
 //------------------------ 세부일정 마커 start ------------------------//
-// 세부 일정 마커 표시를 위해 position 리스트에 title과 좌표 정보 저장
+// 세부 일정 마커 표시하는 함수
 function setScheduleMarker(stitle, smapx, smapy) { // setScheduleMarker start
 	var mapx = smapx;
 	var mapy = smapy;

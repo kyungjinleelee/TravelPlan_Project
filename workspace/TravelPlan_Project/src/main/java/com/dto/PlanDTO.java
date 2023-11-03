@@ -11,10 +11,11 @@ public class PlanDTO {
 	private String time;
 	private float mapx;
 	private float mapy;
+	private int idx;
 	
 	public PlanDTO() {
 	}
-	public PlanDTO(int travelID, int day_num, String item, String item_add, String time, float mapx, float mapy) {
+	public PlanDTO(int travelID, int day_num, String item, String item_add, String time, float mapx, float mapy, int idx) {
 		this.travelID = travelID;
 		this.day_num = day_num;
 		this.item = item;
@@ -22,6 +23,7 @@ public class PlanDTO {
 		this.time = time;
 		this.mapx = mapx;
 		this.mapy = mapy;
+		this.idx = idx;
 	}
 	public int getTravelID() {
 		return travelID;
@@ -65,10 +67,16 @@ public class PlanDTO {
 	public void setMapy(float mapy) {
 		this.mapy = mapy;
 	}
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	@Override
 	public String toString() {
 		return "PlanDTO [travelID=" + travelID + ", day_num=" + day_num + ", item=" + item + ", item_add=" + item_add
-				+ ", time=" + time + ", mapx=" + mapx + ", mapy=" + mapy + "]";
+				+ ", time=" + time + ", mapx=" + mapx + ", mapy=" + mapy + ", idx=" + idx + "]";
 	}
 	
 }
