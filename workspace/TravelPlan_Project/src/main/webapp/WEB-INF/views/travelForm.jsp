@@ -52,25 +52,25 @@ function doNotReload(){
 document.onkeydown = doNotReload;
 
 // 페이지 벗어나면 travel 데이터 삭제
-window.onbeforeunload = function (event) {
-	alert("test");
-    event.preventDefault();
+// window.onbeforeunload = function (event) {
+// 	alert("test");
+//     event.preventDefault();
     
-    // ajax로 DB 데이터 삭제 처리
-    $.ajax({
-		// 요청코드
-		type:"get",
-		url:"dropPage",
+//     // ajax로 DB 데이터 삭제 처리
+//     $.ajax({
+// 		// 요청코드
+// 		type:"get",
+// 		url:"dropPage",
 		
-		// 응답코드
-		success:function(data, satatus, xhr) { 
-			console.log("성공");
-		},
-		error:function(xhr, status, error) {
-			console.log("에러발생");
-		}
-	});
-}
+// 		// 응답코드
+// 		success:function(data, satatus, xhr) { 
+// 			console.log("성공");
+// 		},
+// 		error:function(xhr, status, error) {
+// 			console.log("에러발생");
+// 		}
+// 	});
+// }
 
 </script>
 

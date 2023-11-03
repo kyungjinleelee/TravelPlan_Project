@@ -71,8 +71,8 @@
 	<insert id="saveSchedule" parameterType="arraylist">
 		insert all
 		<foreach item="item" collection="list">
-			into plan (travelID, day_num, item, item_add, time)
-	  	        values (#{item.travelID},#{item.day_num},#{item.item},#{item.item_add},#{item.time})
+			into plan (travelID, day_num, item, item_add, time, mapx, mapy)
+	  	        values (#{item.travelID},#{item.day_num},#{item.item},#{item.item_add},#{item.time},#{item.mapx},#{item.mapy})
 		</foreach>
 		select * from dual
 	</insert>

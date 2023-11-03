@@ -77,7 +77,9 @@ function save() {
 			list.push({"day_num":$('.currentBtn_hidden').eq(i).val().substr(6,1),
 					   "item":$('.stitle').eq(i).text(),
 					   "time_text":$('.time_text').eq(i).val(),
-					   "item_add":$('.saddr1').eq(i).text()})
+					   "item_add":$('.saddr1').eq(i).text(),
+					   "mapx":$('.mapx').eq(i).val(),
+					   "mapy":$('.mapy').eq(i).val()})
 		}
 		console.log(JSON.stringify(list));
 		

@@ -155,11 +155,13 @@ public class TravelController {
 		for(int i=0;i<jsonArray.size();i++){
 			JSONObject ele = (JSONObject)jsonArray.get(i);
 			       
-			System.out.println(ele.get("day_num"));
-			System.out.println(ele.get("item"));
-			System.out.println(ele.get("time_text"));
-			System.out.println(ele.get("item_add"));
-			PlanDTO dto = new PlanDTO(Integer.parseInt(travelID), Integer.parseInt((String)ele.get("day_num")), (String)ele.get("item"), (String)ele.get("item_add"), (String)ele.get("time_text"));
+//			System.out.println(ele.get("day_num"));
+//			System.out.println(ele.get("item"));
+//			System.out.println(ele.get("time_text"));
+//			System.out.println(ele.get("item_add"));
+			System.out.println("saveScheduleData");
+			System.out.println(Float.parseFloat((String)ele.get("mapx"))); 
+			PlanDTO dto = new PlanDTO(Integer.parseInt(travelID), Integer.parseInt((String)ele.get("day_num")), (String)ele.get("item"), (String)ele.get("item_add"), (String)ele.get("time_text"),Float.parseFloat((String)ele.get("mapx")), Float.parseFloat((String)ele.get("mapy")));
 			if(dto!=null) {
 				list.add(dto);
 			}
