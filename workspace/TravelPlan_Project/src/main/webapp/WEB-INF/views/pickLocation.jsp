@@ -35,6 +35,7 @@
 <meta name="theme-color" content="#712cf9">
 
  <style>
+ 	* { font-family: 'SUIT-Medium'; }
 	 @font-face {
 	    font-family: 'SUIT-Bold';
 	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Bold.woff2') format('woff2');

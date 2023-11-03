@@ -33,7 +33,7 @@ public class TravelListController {
 //	PlanServiceImpl planservice;
 	
 	// 일정보관함 (페이징 처리)
-	@GetMapping("/travelList")
+	@GetMapping("/loginCheck/travelList")
 	public String list(HttpSession session, HttpServletRequest request, Model m) {
 		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 		
@@ -64,7 +64,7 @@ public class TravelListController {
 //	}	
 	
 	// 일정 상세보기 => TravelListDTO, PlanDTO
-	@GetMapping("/travelRetrieve")
+	@GetMapping("/loginCheck/travelRetrieve")
 	public String travelRetrieve(@RequestParam int travelID, Model m, HttpSession session) {
 		
 		session.setAttribute("client_id", info.getKakaoMapId());
@@ -81,7 +81,7 @@ public class TravelListController {
 	}	
 	
 	// 일정 삭제하기
-	@GetMapping("/travelDel")
+	@GetMapping("/loginCheck/travelDel")
 	public String travelDel(@RequestParam("travelID") int travelID) {
 		service.travelDel(travelID);
 		return "redirect:travelList";

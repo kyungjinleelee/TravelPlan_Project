@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 <style>
-   * { box-sizing:border-box; }
+   * { box-sizing:border-box; font-family: 'SUIT-Medium'; }
    a { 
    		text-decoration: none;
    		color: black;
@@ -88,8 +88,8 @@
        <input type="password" name="passwd" id="passwd" placeholder="비밀번호">
        <button id="login">로그인</button>
        <div>
-           <a href="findIdForm">아이디 찾기</a> |
-           <a href="findPwForm">비밀번호 찾기</a> |
+           <a href="findIdForm">아이디 찾기</a>&nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp
+           <a href="findPwForm">비밀번호 찾기</a>&nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp
            <a href="memberUI">회원가입</a>
        </div>
 </form>

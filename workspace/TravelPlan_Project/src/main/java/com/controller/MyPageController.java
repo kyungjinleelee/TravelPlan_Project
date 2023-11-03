@@ -27,14 +27,14 @@ public class MyPageController {
 	@Autowired
 	MyPageService service;
 	
-	// 마이페이지
-	@GetMapping("/loginCheck/mypage")
-	public String mypage() {
-		return "mypage";
-	}
+    // 마이페이지
+    @GetMapping("/loginCheck/mypage")
+    public String mypage() {
+        return "mypage";
+    }
 	
 	// 회원 정보 확인
-	@GetMapping("/memberInfo")
+	@GetMapping("/loginCheck/memberInfo")
 	public String memberInfo(HttpSession session) {
 	    MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 	    if (loginInfo != null) {
@@ -46,13 +46,13 @@ public class MyPageController {
 	}
 	
 	// 회원 정보 수정 화면 요청
-	@GetMapping("/MemberUpdateForm")
+	@GetMapping("/loginCheck/MemberUpdateForm")
 	public String memberUpdateForm() {
 		return "mypage/memberUpdateForm";
 	}
 	
 	// 회원 정보 수정
-	@PostMapping("/memberUpdate")
+	@PostMapping("/loginCheck/memberUpdate")
 	public String memberUpdate(HttpSession session, MemberDTO updatedDTO) {
 	  MemberDTO currentDTO = (MemberDTO) session.getAttribute("loginInfo"); //현재 로그인 정보 가져와 currentDTO에 저장
 	  updatedDTO.setUserID(currentDTO.getUserID());    //currentDTO에서 가져온 정보를 updatedDTO에 업데이트
@@ -74,7 +74,7 @@ public class MyPageController {
 //	}	
 	
 	// 좋아요 목록
-		@GetMapping("/likeList")
+		@GetMapping("/loginCheck/likeList")
 		public String likeList(HttpSession session ,Model m) {
 			MemberDTO dto = (MemberDTO)session.getAttribute("login");
 			String userid = dto.getUserID();
@@ -87,7 +87,7 @@ public class MyPageController {
 		}
 	
 	// 내가 쓴 글 목록
-		@GetMapping("/writeList")
+		@GetMapping("/loginCheck/writeList")
 		public String writeList(HttpSession session ,Model m) {
 			//MemberDTO dto = (MemberDTO)session.getAttribute("login");
 			//String userid = dto.getUserID();
@@ -108,13 +108,13 @@ public class MyPageController {
 		}
 		
 	// 탈퇴페이지 요청
-		@GetMapping("/memberDeleteForm")
+		@GetMapping("/loginCheck/memberDeleteForm")
 		public String delMemberView() {
 			return "mypage/memberDeleteForm";
 		}
 	
 	// 회원 탈퇴
-		@PostMapping("/memberDelete")
+		@PostMapping("/loginCheck/memberDelete")
 		public String memberDelete(MemberDTO dto, HttpSession session, RedirectAttributes rttr) throws Exception {
 			MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");   //세션에 있는 loginInfo 정보를 가져와 loginInfo변수에 넣어줌
 			//loginInfo 객체가 null인지 확인
@@ -137,7 +137,7 @@ public class MyPageController {
 		}
 		
 	//비밀번호 체크
-		@PostMapping("/checkPw")
+		@PostMapping("/loginCheck/checkPw")
 		@ResponseBody
 		public int checkPw(MemberDTO dto) {
 			int result = service.checkPw(dto);

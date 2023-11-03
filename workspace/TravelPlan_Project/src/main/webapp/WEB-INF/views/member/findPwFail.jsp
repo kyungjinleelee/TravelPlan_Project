@@ -13,6 +13,7 @@
 			location.href="findPwForm";
 		</script> -->
 	<style>
+		* { font-family: 'SUIT-Medium'; }
 		.alert {
 			width:800px;
 			height:75px;

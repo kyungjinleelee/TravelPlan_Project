@@ -27,14 +27,10 @@ import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 import com.info.Info;
 import com.service.MakeTravelService;
-import com.service.TravelService;
 
 @Controller
 public class TravelController {
 	private Info info = new Info();
-	
-	@Autowired
-	TravelService service;
 	
 	@Autowired
 	MakeTravelService MTService;
