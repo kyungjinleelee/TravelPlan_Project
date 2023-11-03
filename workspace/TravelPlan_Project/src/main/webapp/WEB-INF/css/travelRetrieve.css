@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+/* styles.css */
+
+   .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh; /* 화면 높이의 100%로 설정하여 수직 가운데 정렬합니다 */
+        }
+        
+ .table5_9 {
+            width: 50%; /* 테이블 너비를 조절하세요 (예: 80%) */
+            border-collapse: collapse;
+            margin: 0 auto; /* 수평 가운데 정렬 */
+        }        
+
+.table5_9 table {
+    width: 100%;
+    margin: 15px 0;
+    border: 0;
+}
+
+.table5_9 tr:first-child th {
+    background-color: #0064FF;
+    color: #FFFFFF;
+    font-size: 1.5em;
+}
+
+.table5_9, .table5_9 th, .table5_9 td {
+    font-size: 0.95em;
+    text-align: center;
+    padding: 4px;
+    border-collapse: collapse;
+}
+
+.table5_9 th, .table5_9 td {
+    border: 1px solid #ffffff;
+    border-width: 1px 0 1px 0;
+    border-left: 1px solid #ccc; /* 왼쪽 세로 줄 */
+    border-right: 1px solid #ccc; /* 오른쪽 세로 줄 */
+}
+
+.table5_9 tr {
+    border: 1px solid #ffffff;
+    height: 50px;
+}
+
+.table5_9 tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table5_9 tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+
