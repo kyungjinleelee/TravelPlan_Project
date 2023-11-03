@@ -107,4 +107,46 @@
 		from user_like_list
 		where user_like_list.userID =#{userID} and user_like_list.tcontentid =#{contentNum}
 	</select>
+	
+	<!-- 검색  -->
+	<select id="searchSelectPage" parameterType="SearchCondition" resultType="BoardDTO">
+	select contentNum, userID, title, boardDate, views, mainText, likeContent
+	from board
+	<where>
+	<choose>
+	 <when test='keyword != null and option=="T"' >
+		 title like '%'||#{keyword, jdbcType=VARCHAR}||'%'
+	 </when>
+	  <when test='keyword != null and option=="W"'>
+		 userID like '%'||#{keyword, jdbcType=VARCHAR}||'%'
+	 </when>
+	 <otherwise>
+		 title like '%'||#{keyword , jdbcType=VARCHAR}||'%'
+		or mainText like '%'||#{keyword, jdbcType=VARCHAR}||'%'
+	 </otherwise>
+	</choose>
+	</where>
+	order by contentNum DESC
+	</select>
+	
+	<select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+	select count(*)
+	from board
+	<where>
+	<choose>
+	 <when test='option=="T"'>
+		title like '%'||#{keyword}||'%' 
+	 </when>
+	  <when test='option=="W"'>
+		userID like '%'||#{keyword}||'%'
+	 </when>
+	 <otherwise>
+		title like '%'||#{keyword}||'%'
+		or mainText like '%'||#{keyword}||'%'
+	 </otherwise>
+	</choose>
+	</where>
+	</select>
+	
+	
 </mapper>

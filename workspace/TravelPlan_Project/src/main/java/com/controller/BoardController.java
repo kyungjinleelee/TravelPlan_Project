@@ -23,6 +23,7 @@ import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.MemberDTO;
 import com.dto.PageDTO;
+import com.dto.SearchCondition;
 import com.service.BoardServiceImpl;
 import com.service.MyPageServiceImpl;
 import com.service.SharedBoardService;
@@ -47,19 +48,19 @@ public class BoardController {
 	
 	}
 	@GetMapping("/Board")
-	public String selectList(HttpServletRequest request, Model m) {
+	public String selectList(SearchCondition sc, HttpServletRequest request, Model m) { 
+		System.out.println(sc); 
 		String curPage = request.getParameter("curPage");
 		//int로 바꾸는게 더 나을수도 있음.
 		if(curPage == null) {
 			curPage = "1";
 		}
 		
-		PageDTO Dto = service.selectList(Integer.parseInt(curPage));
+		PageDTO Dto = service.selectList(Integer.parseInt(curPage), sc);
 		//m.addAttribute("PageDTO", pageDTO);
 		
 		
 		//List<BoardDTO> Dto = service.selectList();
-		
 		m.addAttribute("content", Dto);
 		return "board/Board";
 	

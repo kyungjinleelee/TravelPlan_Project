@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.PageDTO;
+import com.dto.SearchCondition;
 @Repository
 public class BoardDAO {
 	@Autowired
@@ -62,19 +63,28 @@ public class BoardDAO {
 	
 	
 	//페이징 처리
-	public PageDTO list(int curPage) {
+	public PageDTO list(int curPage, SearchCondition sc) {
 		PageDTO pageDTO = new PageDTO();
 		
 		int offset = (curPage-1)*pageDTO.getPerPage();//이게 옛날거부터 보게 되는건가 이러면
 		int limit = pageDTO.getPerPage();
 	
-		List<BoardDTO> list = session.selectList("BoardMapper.findAll", null, new RowBounds(offset, limit));
+		List<BoardDTO> list = session.selectList("BoardMapper.searchSelectPage", sc, new RowBounds(offset, limit));
 
 		pageDTO.setList(list);
 		pageDTO.setCurPage(curPage);
-		int totalCount = session.selectOne("BoardMapper.totalCnt");
+		
+		int totalCount = 0; // 초기화
+		if(sc.getOption()==null) { 
+			// 검색을 안 한 경우 
+			totalCount = session.selectOne("BoardMapper.totalCnt");
+		}else {
+			// 검색을 한 경우 
+			totalCount = session.selectOne("BoardMapper.searchResultCnt", sc);
+		}
+//		int totalCount = session.selectOne("BoardMapper.totalCnt");
 		pageDTO.setTotalCount(totalCount);
-
+		
 		return pageDTO;
 	}
 	// 좋아요 수 증가
@@ -112,6 +122,15 @@ public class BoardDAO {
 		map.put("contentNum", contentNum);
 		return session.selectOne("BoardMapper.likeDuplicateCheck", map);
 	}
+	
+	// 검색
+	public List<BoardDTO> searchSelectPage(SearchCondition sc) throws Exception{
+		return session.selectList("BoardMapper.searchSelectPage", sc);
+	}
 
+	// 검색결과 
+	public int searchResultCnt(SearchCondition sc) throws Exception{
+		return session.selectOne("BoardMapper.searchResultCnt", sc);
+	}
 	 
 }
