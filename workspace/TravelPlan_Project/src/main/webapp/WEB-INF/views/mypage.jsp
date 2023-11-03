@@ -11,7 +11,9 @@
 <body>
 <!-- 헤더 안먹음!!!!!!!!!!! 확인하삼 -->
 <!-- header -->
+<div id=header>
 <jsp:include page="common/top.jsp" flush="true" />
+</div>
 
 <!-- content -->
 <div id='wrapper'>
