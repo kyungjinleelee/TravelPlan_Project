@@ -46,7 +46,6 @@
 				<value>com.dto.TCommentDTO</value>
 				<value>com.dto.TravelListDTO</value>
 				<value>com.dto.UserLikeDTO</value>
-				<value>com.dto.ApiDTO</value>
 				<value>com.dto.SpotDTO</value>
 			</list>
 		</property>
