@@ -183,7 +183,7 @@ console.log(obj);
 		<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 78%;">
 			<!-- 지도API -->
 			<div id="map" style="width:100%;height:100%;"></div>
-			<script src="js/kakaoMap2.js"></script>
+			<script src="../js/kakaoMap2.js"></script>
 	    </div>
 	<!-- 지도 끝 -->		
 		
