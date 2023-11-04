@@ -50,8 +50,8 @@ public class MakeTravelDAO {
 	}
 	
 	// travel 테이블id 조회
-	public int selectTravelId(TravelListDTO dto) {
-		return session.selectOne("MakeTravelMapper.selectTravelId", dto);
+	public List<Integer> selectTravelId(TravelListDTO dto) {
+		return session.selectList("MakeTravelMapper.selectTravelId", dto);
 	}
 	
 	// 여행 계획 제목/날짜 수정 및 저장완료
@@ -65,7 +65,7 @@ public class MakeTravelDAO {
 	}
 	
 	// 일정 만들기 페이지에서 벗어날 경우 travel 테이블에 저장해놓은 데이터 삭제
-	public int deleteTravelData(int travelID) {
-		return session.delete("MakeTravelMapper.deleteTravelData", travelID);
+	public int deleteTravelData(String userID) {
+		return session.delete("MakeTravelMapper.deleteTravelData", userID);
 	}
 }

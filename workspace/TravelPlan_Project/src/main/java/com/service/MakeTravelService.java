@@ -23,7 +23,7 @@ public interface MakeTravelService {
 	public int saveTravel(TravelListDTO dto);
 	
 	// Travel 테이블 ID 조회
-	public int selectTravelId(TravelListDTO dto);
+	public List<Integer> selectTravelId(TravelListDTO dto);
 	
 	// 여행 계획 제목/날짜 수정 및 저장완료
 	public int travelSaveAndUpdate(TravelListDTO dto);
@@ -32,5 +32,5 @@ public interface MakeTravelService {
 	public int saveSchedule(List<PlanDTO> list);
 	
 	// 일정 만들기 페이지에서 벗어날 경우 travel 테이블에 저장해놓은 데이터 삭제
-	public int deleteTravelData(int travelID);
+	public int deleteTravelData(String userID);
 }
