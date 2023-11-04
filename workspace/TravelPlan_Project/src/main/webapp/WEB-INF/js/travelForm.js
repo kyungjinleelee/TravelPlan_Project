@@ -45,7 +45,7 @@ function call() {
 	}
 }//end call
 
-// ------------------------- 저장버튼 ------------------------- //
+// -------------------------------------------------- 저장버튼 -------------------------------------------------- //
 function save() {
 	var region = getRegion();
 	$("#areaCode").val(region);
@@ -69,20 +69,43 @@ function save() {
 		$('#savePlan').submit();
 		// 저장버튼 -> 상세일정 데이터 넘어감
 		list = [];
+		
+		/* dayArr : 상세일정 day마다 idx값 주기위해 만든 리스트
+			- 순서대로 1일,2일,3일,4일,5일,6일,7일,8일,9일
+			- json 배열 만들기 위해 반복문 돌 때, day_num에 해당하는 리스트 요소값 +1
+			- +1된 요소값을 idx에 저장
+			반복문이 끝나면 배열 초기화
+		*/
+		var dayArr = [0,0,0,0,0,0,0,0,0];
+		
+		
 		for(var i=0; i<$('.scheduleList').children().length; i++) {
-//			console.log($('.currentBtn_hidden').eq(i).val());
-//			console.log($('.stitle').eq(i).text());
-//			console.log($('.time_text').eq(i).val());
-//			console.log($('.saddr1').eq(i).text());
-//			alert($('.smapx').eq(i).val());
-//			alert($('.smapy').eq(i).val());
-			list.push({"day_num":$('.currentBtn_hidden').eq(i).val().substr(6,1),
-					   "item":$('.stitle').eq(i).text(),
-					   "time_text":$('.time_text').eq(i).val(),
-					   "item_add":$('.saddr1').eq(i).text(),
-					   "mapx":$('.smapx').eq(i).val(),
-					   "mapy":$('.smapy').eq(i).val()})
+			
+			/* 데이터 확인용 -------------------------------------
+			console.log($('.currentBtn_hidden').eq(i).val());
+			console.log($('.stitle').eq(i).text());
+			console.log($('.time_text').eq(i).val());
+			console.log($('.saddr1').eq(i).text());
+			alert($('.smapx').eq(i).val());
+			alert($('.smapy').eq(i).val());
+			----------------------------------------------- */
+			var day_num = $('.currentBtn_hidden').eq(i).val().substr(6,1); // 며칠자 일정인지 문자열 값에서 숫자만 추출
+			var dayToInt = parseInt(day_num); // day 숫자로 변환
+			dayArr[dayToInt] += 1; // day에 해당되는 요소 +1
+			
+			list.push({"day_num":day_num, // 며칠자 일정인지
+					   "item":$('.stitle').eq(i).text(), // 장소 이름
+					   "time_text":$('.time_text').eq(i).val(), // 적어둔 시간
+					   "item_add":$('.saddr1').eq(i).text(), // 장소 주소
+					   "mapx":$('.smapx').eq(i).val(), // 좌표
+					   "mapy":$('.smapy').eq(i).val(), // 좌표
+					   "idx":dayArr[dayToInt]}) // 일정 순서
 		}
+		alert(dayArr);
+		dayArr = []; // 배열 초기화
+		
+		
+		// 만들어진 json배열 확인
 		console.log(JSON.stringify(list));
 		
 		var travelID = $('#travelID').val();
@@ -108,7 +131,7 @@ function save() {
 	}
 	
 }
-// -------------------------------------------------------- //
+// ---------------------------------------------------------------------------------------------------------- //
 
 // 일 수 만큼 버튼 생성
 function rowAdd() {

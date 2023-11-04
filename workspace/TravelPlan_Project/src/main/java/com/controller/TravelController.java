@@ -154,7 +154,7 @@ public class TravelController {
 		
 		ArrayList<PlanDTO> list = new ArrayList<PlanDTO>();
 		   
-		//------------------------------------------------------------ idx값 수정 필요 ------------------------------------------------------------//
+		// dto 생성, 리스트에 저장
 		for(int i=0;i<jsonArray.size();i++){
 			JSONObject ele = (JSONObject)jsonArray.get(i);
 			       
@@ -163,7 +163,11 @@ public class TravelController {
 //			System.out.println(ele.get("time_text"));
 //			System.out.println(ele.get("item_add"));
 //			System.out.println(Float.parseFloat((String)ele.get("mapx")));
-			PlanDTO dto = new PlanDTO(Integer.parseInt(travelID), Integer.parseInt((String)ele.get("day_num")), (String)ele.get("item"), (String)ele.get("item_add"), (String)ele.get("time_text"),Float.parseFloat((String)ele.get("mapx")), Float.parseFloat((String)ele.get("mapy")), 0);
+
+			PlanDTO dto = new PlanDTO( Integer.parseInt(travelID), Integer.parseInt((String)ele.get("day_num")), 
+									   (String)ele.get("item"), (String)ele.get("item_add"), (String)ele.get("time_text"),
+									   Float.parseFloat((String)ele.get("mapx")), Float.parseFloat((String)ele.get("mapy")), 
+									   Integer.parseInt(String.valueOf(ele.get("idx"))) );
 			if(dto!=null) {
 				list.add(dto);
 			}
@@ -174,6 +178,8 @@ public class TravelController {
 		
 		// 세부 일정 저장
 		MTService.saveSchedule(list);
+		
+		// 세부일정 저장 실패 알림 만들어야함
 	}
 	
 	// travelForm.jsp에서 저장 버튼 클릭시 일정 정보 변경사항 업데이트
@@ -250,4 +256,5 @@ public class TravelController {
 		
 		return areaCode;
 	}
+	
 }
