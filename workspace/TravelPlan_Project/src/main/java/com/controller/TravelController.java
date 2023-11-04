@@ -213,6 +213,9 @@ public class TravelController {
 			return "travel/travelSaveFail";
 		}
 		
+		// save='n'인 travel 데이터 삭제
+		MTService.deleteTravelData(userID);
+		
 		session.removeAttribute("dto");
 		session.removeAttribute("travelID");
 		session.removeAttribute("client_id");
