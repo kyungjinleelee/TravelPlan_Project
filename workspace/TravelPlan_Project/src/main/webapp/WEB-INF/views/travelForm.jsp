@@ -40,40 +40,7 @@
 	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-<!-- 페이지 나가면 초기화 -->
-<script>
-// 새로고침 방지 (메뉴와 도구모음에서 새로고침하는 것은 원천적으로는 막을 수 없음 => 키보드로 새로고침 하는 것은 막아둠)
-function doNotReload(){
-    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
-        event.keyCode = 0;
-        event.cancelBubble = true;
-        event.returnValue = false;
-    } 
-}
-document.onkeydown = doNotReload;
 
-// 페이지 벗어나면 travel 데이터 삭제
-// window.onbeforeunload = function (event) {
-// 	alert("test");
-//     event.preventDefault();
-    
-//     // ajax로 DB 데이터 삭제 처리
-//     $.ajax({
-// 		// 요청코드
-// 		type:"get",
-// 		url:"dropPage",
-		
-// 		// 응답코드
-// 		success:function(data, satatus, xhr) { 
-// 			console.log("성공");
-// 		},
-// 		error:function(xhr, status, error) {
-// 			console.log("에러발생");
-// 		}
-// 	});
-// }
-
-</script>
 <style>
 	* { font-family: 'SUIT-Bold'; }
 </style>
@@ -109,7 +76,7 @@ document.onkeydown = doNotReload;
 		<div class="div_title col-1">
 			<button class="travel-title_submit" onclick="save()">저장</button>
 <!-- 			<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) history.back(); else alert('닫기 취소')">닫기</button> -->
-			<button class="travel-title_close" onclick="event.preventDefault(); if(confirm('그만 만드시겠어요?')) location.href='/app/main'; else alert('닫기 취소')">닫기</button>
+			<button class="travel-title_close" onclick="close()">닫기</button>
 		</div>
 		</form>
 	</div>

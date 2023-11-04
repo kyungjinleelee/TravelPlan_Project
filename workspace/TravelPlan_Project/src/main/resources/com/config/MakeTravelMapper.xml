@@ -71,15 +71,15 @@
 	<insert id="saveSchedule" parameterType="arraylist">
 		insert all
 		<foreach item="item" collection="list">
-			into plan (travelID, day_num, item, item_add, time, mapx, mapy)
-	  	        values (#{item.travelID},#{item.day_num},#{item.item},#{item.item_add},#{item.time},#{item.mapx},#{item.mapy})
+			into plan (travelID, day_num, item, item_add, time, mapx, mapy, idx)
+	  	        values (#{item.travelID},#{item.day_num},#{item.item},#{item.item_add},#{item.time},#{item.mapx},#{item.mapy},#{item.idx})
 		</foreach>
 		select * from dual
 	</insert>
 	
 	<!-- 일정 만들기 페이지에서 벗어날 경우 travel save값을 n에서 y로 변경 -->
-	<delete id="deleteTravelData" parameterType="int">
+	<delete id="deleteTravelData" parameterType="string">
 		delete from travel
-		where travelID=#{travelID}
+		where userID=#{userID} and save='n'
 	</delete>
 </mapper>

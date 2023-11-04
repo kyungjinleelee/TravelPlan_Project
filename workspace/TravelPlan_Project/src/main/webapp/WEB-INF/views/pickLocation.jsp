@@ -7,7 +7,7 @@
 <script>
 	function openBtn(region) {
 		document.getElementById('modalContainer').classList.remove('hidden');
-		$("form").attr("action", "/app/travelUI?region="+region);
+		$("#region").val(region);
 		
 	}
 	function closeBtn() {
@@ -325,12 +325,14 @@
 	  <%
 			Date nowTime = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String region = request.getParameter("region");
+// 			String region = request.getParameter("region");
 	  %>
       <div id="modalContainer" class="hidden">
 			<div id="modalContent">
 			    <p style="font-family: 'SUIT-Bold'; font-size: large; text-align: center;">여행 정보를 입력해주세요.</p><hr>
-			    <form action="/app/travelUI?region=" method="post">
+<!-- 			    <form action="/app/travelUI?region=" method="post"> -->
+			    <form action="../travelUI" method="get">
+			    <input type="hidden" id="region" name="region" value="">
 				    <div class="div_title col-9">
 						<label class="title">여행 제목 : </label>
 						<input class="text" name="travelTitle" id="travelTitle">

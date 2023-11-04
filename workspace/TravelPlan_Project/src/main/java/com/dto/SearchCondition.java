@@ -5,8 +5,8 @@ import org.apache.ibatis.type.Alias;
 @Alias("SearchCondition")
 public class SearchCondition extends PageDTO {
 
-	private String option;
-	private String keyword;
+	private String option ="";
+	private String keyword ="";
 	
 	public SearchCondition() {
 	}

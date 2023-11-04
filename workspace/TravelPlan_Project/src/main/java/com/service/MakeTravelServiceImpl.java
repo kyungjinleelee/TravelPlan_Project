@@ -55,7 +55,7 @@ public class MakeTravelServiceImpl implements MakeTravelService {
 
 	// Travel 테이블 ID 조회
 	@Override
-	public int selectTravelId(TravelListDTO dto) {
+	public List<Integer> selectTravelId(TravelListDTO dto) {
 		return dao.selectTravelId(dto);
 	}
 
@@ -73,8 +73,8 @@ public class MakeTravelServiceImpl implements MakeTravelService {
 
 	// 일정 만들기 페이지에서 벗어날 경우 travel 테이블에 저장해놓은 데이터 삭제
 	@Override
-	public int deleteTravelData(int travelID) {
-		return dao.deleteTravelData(travelID);
+	public int deleteTravelData(String userID) {
+		return dao.deleteTravelData(userID);
 	}
 
 }

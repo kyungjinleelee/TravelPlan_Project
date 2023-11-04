@@ -13,7 +13,7 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous">
 </script>
-<title>main3</title>
+<title>여행을 담다, 여담</title>
 <style>
 	
 </style>
@@ -69,91 +69,13 @@
       </b></p>
   </div>
 
-
-<!-- 카드 부분 : 추후에 좋아요 많은 best3 나오게끔 수정할 것  -->
-  <div class="container">
-    <div class="card-group">
-      <div class="card">
-        <img
-          src="https://images.unsplash.com/photo-1635686692794-b0ce6337386b?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="...">
-        <div class="card-body" style="text-align: center;">
-          <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정1</p>
-        </div>
-        <div class="card-footer" style="text-align: center;">
-          <small style="color: #1E90FF;">서울특별시</small>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA5MjBfMTk2%2FMDAxNjk1MTQ1NTgzODM3.dCa3hCgf41oyRQHnbVCDsl3MmCZXT8EvTR-_d_-ACM0g.ksLiZc_1b3_tREmMj0Igawd1N6tj5RjajbNMPnZNPnQg.JPEG.syoung579%2FIMG_3185.jpg&type=sc960_832"
-          alt="...">
-        <div class="card-body" style="text-align: center;">
-          <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정2</p>
-        </div>
-        <div class="card-footer" style="text-align: center;">
-          <small style="color: #1E90FF;">경상북도 경주</small>
-        </div>
-      </div>
-      <div class="card">
-        <img
-          src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MTVfODEg%2FMDAxNjg0MTA0NTgwMTky.CubejHquZfkow0Wf2AGqqKg-h-lbta7Uu2VwdhiNQuIg.0uSJP15n0gFRhvo5gm60N1u-IQ8tkbQwA-G1yv8XXikg.JPEG.qhfl0802%2F20230502%25A3%25DF120529.jpg&type=sc960_832"
-          alt="...">
-        <div class="card-body" style="text-align: center;">
-          <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정3</p>
-        </div>
-        <div class="card-footer" style="text-align: center;">
-          <small style="color: #1E90FF;"> 전라남도 담양 </small>
-        </div>
-      </div>
-    </div>
-  </div>
-<br>
-<br>
-<br>
-<br>
-<h4 class="font" style="text-align:center">지금 많이 담고 있는 여담 <span class="text-primary">' Top 10 '</span>🚀</h4>
-<!-- 게시판  -->
-<div style="text-align:center">
-  <div class="board-container">
-    <table>
-      <tr>
-        <th class="no">번호</th>
-        <th class="title">제목</th>
-        <th class="writer">이름</th>
-        <th class="viewcnt">조회수</th>
-        <th class="viewcnt">좋아요</th>
-        <th class="regdate">등록일</th>
-    </tr>
-      <c:forEach var="boardDto" items="">
-        <tr>
-          <td class="contentNum">1</td>
-          <td class="title"><a href="#">오래 남을 2023 홀로 제주</a></td>
-          <td class="userID">이지은</td>
-          <td class="viewcnt">350</td>
-          <td class="likeContent">200</td>
-          <c:choose>
-            <c:when test="">
-              <td class="boardDate"><fmt:formatDate value="" pattern="HH:mm" type="time"/></td>
-            </c:when>
-            <c:otherwise>
-              <td class="boardDate"><fmt:formatDate value="" pattern="yyyy-MM-dd" type="date"/></td>
-            </c:otherwise>
-          </c:choose>
-        </tr>
-      </c:forEach>
-    </table>
-    <br>
-  </div>
-</div> <!-- 게시판 끝 -->
-
 <!-- 일정 만들기 카드  -->
  <div class="album py-5 bg-white">
         <div class="container">
           
           <!-- 글 -->
           <div class="py-5 text-center container col-lg-6 col-md-8 mx-auto">
-              <h3 class="fw-bold">어디로 떠나볼까요?</h3>
+              <h3 class="fw-bold">어디로 떠나볼까요?🥰</h3>
           </div>
 
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3"> <!-- row-cols-**:작아지면 1개 좀 커지면 2개, 중간부터 5개씩 카드 위치함 / g:카드간 간격 -->
@@ -270,6 +192,85 @@
         </div>
       </div>
 <!-- 일정 만들기 끝 -->
+<br>
+<br>
+<h4 class="font" style="text-align:center">지금 많이 담고 있는 여담 <span class="text-primary">' Top 5 '</span>🚀</h4>
+<!-- 게시판  -->
+<div style="text-align:center">
+  <div class="board-container">
+    <table>
+      <tr>
+        <th class="no">번호</th>
+        <th class="title">제목</th>
+        <th class="writer">이름</th>
+        <th class="viewcnt">조회수</th>
+        <th class="viewcnt">좋아요</th>
+        <th class="regdate">등록일</th>
+    </tr>
+      <c:forEach var="boardDto" items="">
+        <tr>
+          <td class="contentNum">1</td>
+          <td class="title"><a href="#">오래 남을 2023 홀로 제주</a></td>
+          <td class="userID">이지은</td>
+          <td class="viewcnt">350</td>
+          <td class="likeContent">200</td>
+          <c:choose>
+            <c:when test="">
+              <td class="boardDate"><fmt:formatDate value="" pattern="HH:mm" type="time"/></td>
+            </c:when>
+            <c:otherwise>
+              <td class="boardDate"><fmt:formatDate value="" pattern="yyyy-MM-dd" type="date"/></td>
+            </c:otherwise>
+          </c:choose>
+        </tr>
+      </c:forEach>
+    </table>
+    <br>
+  </div>
+</div> <!-- 게시판 끝 -->
+
+<!-- 카드 부분 : 추후에 좋아요 많은 best3 나오게끔 수정할 것  -->
+<h4 class="font" style="text-align:center">- 여담 추천 일정 -</h4>
+<br>
+  <div class="container">
+    <div class="card-group">
+      <div class="card">
+        <img
+          src="https://images.unsplash.com/photo-1635686692794-b0ce6337386b?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="...">
+        <div class="card-body" style="text-align: center;">
+          <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정1</p>
+        </div>
+        <div class="card-footer" style="text-align: center;">
+          <small style="color: #1E90FF;">서울특별시</small>
+        </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA5MjBfMTk2%2FMDAxNjk1MTQ1NTgzODM3.dCa3hCgf41oyRQHnbVCDsl3MmCZXT8EvTR-_d_-ACM0g.ksLiZc_1b3_tREmMj0Igawd1N6tj5RjajbNMPnZNPnQg.JPEG.syoung579%2FIMG_3185.jpg&type=sc960_832"
+          alt="...">
+        <div class="card-body" style="text-align: center;">
+          <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정2</p>
+        </div>
+        <div class="card-footer" style="text-align: center;">
+          <small style="color: #1E90FF;">경상북도 경주</small>
+        </div>
+      </div>
+      <div class="card">
+        <img
+          src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MTVfODEg%2FMDAxNjg0MTA0NTgwMTky.CubejHquZfkow0Wf2AGqqKg-h-lbta7Uu2VwdhiNQuIg.0uSJP15n0gFRhvo5gm60N1u-IQ8tkbQwA-G1yv8XXikg.JPEG.qhfl0802%2F20230502%25A3%25DF120529.jpg&type=sc960_832"
+          alt="...">
+        <div class="card-body" style="text-align: center;">
+          <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정3</p>
+        </div>
+        <div class="card-footer" style="text-align: center;">
+          <small style="color: #1E90FF;"> 전라남도 담양 </small>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
 <!-- footer -->
 <footer>
   <div class="jumbotron text-center mt-5 mb-0">

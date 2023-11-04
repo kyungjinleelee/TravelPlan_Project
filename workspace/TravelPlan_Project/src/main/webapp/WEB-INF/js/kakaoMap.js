@@ -16,55 +16,55 @@ var ps = new kakao.maps.services.Places();
 ////////////////////////////////test(완)////////////////////////////////
 var points;
 // 장소별 초기 위치 변경
-if(window.location.search == "?region=seoul"){
+if(window.location.search.includes('?region=seoul')){ // seoul
 	points = new kakao.maps.LatLng(37.566662, 126.978372); // 지도의 중심좌표
 	var bounds = new kakao.maps.LatLngBounds();
 	bounds.extend(points);
 	map.setBounds(bounds);
 }
-else if(window.location.search == "?region=incheon"){
+else if(window.location.search.includes('?region=incheon')){ // incheon
 	points = new kakao.maps.LatLng(37.456191, 126.705243); // 지도의 중심좌표
 	var bounds = new kakao.maps.LatLngBounds();
 	bounds.extend(points);
 	map.setBounds(bounds);
 }
-else if(window.location.search == "?region=daejeon"){
+else if(window.location.search.includes('?region=daejeon')){ // daejeon
 	points = new kakao.maps.LatLng(36.350411, 127.384547); // 지도의 중심좌표
 	var bounds = new kakao.maps.LatLngBounds();
 	bounds.extend(points);
 	map.setBounds(bounds);
 }
-else if(window.location.search == "?region=daegu"){
+else if(window.location.search.includes('?region=daegu')){ // daegu
 	points = new kakao.maps.LatLng(35.8714354, 128.601445); // 지도의 중심좌표
 	var bounds = new kakao.maps.LatLngBounds();
 	bounds.extend(points);
 	map.setBounds(bounds);
 }
-else if(window.location.search == "?region=gwangju"){
+else if(window.location.search.includes('?region=gwangju')){ // gwangju
 	points = new kakao.maps.LatLng(35.159545, 126.852601); // 지도의 중심좌표
 	var bounds = new kakao.maps.LatLngBounds();
 	bounds.extend(points);
 	map.setBounds(bounds);
 }
-else if(window.location.search == "?region=busan"){
+else if(window.location.search.includes('?region=busan')){ // busan
 	points = new kakao.maps.LatLng(35.153233, 129.118306); // 지도의 중심좌표
 	var bounds = new kakao.maps.LatLngBounds();
 	bounds.extend(points);
 	map.setBounds(bounds);
 }
-else if(window.location.search == "?region=ulsan"){
+else if(window.location.search.includes('?region=ulsan')){ // ulsan
 	points = new kakao.maps.LatLng(35.539613, 129.311533); // 지도의 중심좌표
 	var bounds = new kakao.maps.LatLngBounds();
 	bounds.extend(points);
 	map.setBounds(bounds);
 }
-else if(window.location.search == "?region=gangwon"){
+else if(window.location.search.includes('?region=gangwon')){ // gangwon
 	points = new kakao.maps.LatLng(37.751853, 128.876057); // 지도의 중심좌표
 	var bounds = new kakao.maps.LatLngBounds();
 	bounds.extend(points);
 	map.setBounds(bounds);
 }
-else if(window.location.search == "?region=jeju"){
+else if(window.location.search.includes('?region=jeju')){ // jeju
 	points = new kakao.maps.LatLng(33.499621, 126.531188); // 지도의 중심좌표
 	var bounds = new kakao.maps.LatLngBounds();
 	bounds.extend(points);
