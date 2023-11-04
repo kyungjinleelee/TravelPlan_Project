@@ -19,7 +19,7 @@
 
         form {
             width:700px;
-            height:850px;
+            height:920px;
             display : flex;
             flex-direction: column;
             align-items:center;
@@ -117,6 +117,10 @@
             color:red;
             margin-bottom: 1px;
         }
+        #pwcheck{
+        	font-size: 13px;
+        	color:red;
+        }
     </style>
     
 </head>
@@ -135,7 +139,9 @@
     </div>
 	</div>
     <label for="">비밀번호</label>
-    <input class="input-field" type="text" name="passwd" placeholder="7자 이상의 문자">
+    <input class="input-field" type="password" name="passwd" id="passwd" placeholder="7자 이상의 문자">
+    <label for="">비밀번호 확인</label>
+    <input class="input-field" type="password" name="passwd2" id="passwd2" placeholder="비밀번호 확인"><span id="pwcheck"></span>
     <label for="">이름</label>
     <input class="input-field" type="text" name="name" placeholder="홍길동">
     <label for="">이메일</label>
@@ -152,7 +158,7 @@
 	<input class="input-field" type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소">
     <span id="guide" style="color:#999"></span>
     <label for="">전화번호</label>
-    <input class="input-field" type="text" name="phone" placeholder="010-1234-5678">
+    <input class="input-field" type="text" name="phone" placeholder="01012341234"> 
     <button type="submit" id="sbtn">회원 가입</button>
    </form> 
    <script>
@@ -170,15 +176,23 @@
                 return false;
             }
             if($("#result").text().length == 0) {
-            	setMessage('id 중복 여부를 확인해 주세요.', frm.phone);
+            	setMessage('id 중복 여부를 확인해 주세요.', frm.userID);
 				return false;
 			}
             if($("#result").text() == '중복된 아이디입니다.') {
-            	setMessage('중복된 아이디는 사용할 수 없습니다.', frm.phone);
+            	setMessage('중복된 아이디는 사용할 수 없습니다.', frm.userID);
 				return false;
 			}
             if(frm.passwd.value.length<7) {
                 setMessage('pwd의 길이는 7자 이상이어야 합니다.', frm.passwd);
+                return false;
+            }
+            if($("#pwcheck").text() == '비번 불일치') {
+                setMessage('비밀번호가 일치되어야합니다.', frm.passwd);
+                return false;
+            }
+            if($("#pwcheck").text().length == 0) {
+                setMessage('비밀번호가 일치 여부를 확인해 주세요.', frm.passwd);
                 return false;
             }
             if(frm.name.value.length ==0){
@@ -220,14 +234,16 @@
        // 비번 일치/불일치 확인 작업
        $(document).ready(function(){
        $("#passwd2").on("keyup", function(){
+    //	   console.log("keyup");
 			var passwd = $("#passwd").val();
 			var passwd2 = $("#passwd2").val();
 			var msg="비번 일치";
 			if(passwd != passwd2){
 				msg="비번 불일치";
 			}
-			$("#idcheck").text(msg);
+			$("#pwcheck").text(msg);
 		});
+  		
        
        // id 중복 체크
        $("#idDuplicatedcheck").on("click",function(){

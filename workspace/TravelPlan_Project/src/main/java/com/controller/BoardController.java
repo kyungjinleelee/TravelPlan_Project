@@ -177,7 +177,7 @@ public class BoardController {
 	}
 	
 	//내가 좋아요 한 게시판 처리
-	@GetMapping("/UlList")
+	@GetMapping("/loginCheck/UlList")
 	public String UlList(HttpServletRequest request, HttpSession session, Model m) {
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");//로그인 아이디 확인.
 		String curPage = request.getParameter("curPage");

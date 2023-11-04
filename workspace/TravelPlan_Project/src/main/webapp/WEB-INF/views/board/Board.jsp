@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 화면</title>
+<title>게시판</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -21,7 +21,12 @@
 
 
 <style>
-	
+	@font-face {
+    	font-family: 'SUIT-Medium';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
+    	font-weight: normal;
+    	font-style: normal;
+	}
 	.container{
 		width: 100%;
 		font-size: 14px;
@@ -33,6 +38,7 @@
 	.paging{
 		text-align: center; /* 셀 내의 텍스트를 수평 가운데 정렬 */
 		font-size: 14px;
+		font-family: 'SUIT-Medium';
 	}
 	
 	.paging-container {
@@ -41,6 +47,7 @@
       display: flex;
       margin-top: 50px;
       margin : auto;
+      font-family: 'SUIT-Medium';
     }
     .paging2 {
       color: black;
@@ -80,9 +87,10 @@
       
       background-color:#3563E9;
       color: white;
+      font-family: 'SUIT-Medium';
     	
     }
-    <!-- 글쓰기 버튼 스타일 -->
+    /* 글쓰기 버튼 스타일 */
 	.btnWrite {
        /* Set a font size */
       
@@ -92,14 +100,17 @@
       text-decoration: underline;
     }
 
-	<!-- 소거법으로 하나씩 지워보자.-->
+	/* 소거법으로 하나씩 지워보자.*/
 	
     table{
       border-top: 2px solid rgb(39, 39, 39);
       width: 100%;
       border-top: 2px solid rgb(39, 39, 39);
+      font-family: 'SUIT-Medium';
     }
-    
+    .text-center{
+    	font-weight: bold;
+    }
    
 
 </style>
@@ -149,7 +160,7 @@
 	<!--{SbDTOList}from model ==> SbDTOList  -->
 
 	<div class="container">
-		<h2 class="text-center">게시판 화면</h2>
+		<h2 class="text-center">여담 게시판✨</h2><br>
 		<table class="table">
 			<thead>
 				<tr>
@@ -161,8 +172,8 @@
 					<th>좋아요</th>
 					<th>조회수</th>
 					<th>작성일</th>
-					<th>작성일</th>
-					<th>작성일</th>
+					<th>수정</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -175,7 +186,7 @@
 						<td>${DTO.likeContent}</td>
 						<td>${DTO.views}</td>
 						<td >${DTO.boardDate}</td>
-						<td ><button onclick="go_update(${DTO.contentNum},'${DTO.userID}')" class="rounded">수정3</button></td>
+						<td ><button onclick="go_update(${DTO.contentNum},'${DTO.userID}')" class="rounded">수정</button></td>
 						<!-- ${DTO.contentNum} ${DTO.userID}->
 						<!-- <td><a href="delete?no=${list.no}">삭제</a></td> -->
 						<td><button onclick="askYesNo(${DTO.contentNum})" class="rounded">
