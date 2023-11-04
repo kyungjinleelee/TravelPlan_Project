@@ -55,7 +55,7 @@
  			}
  			
  			$.ajax({
- 				url : "http://localhost:8091/app/checkPw",
+ 				url : "checkPw",
  				type : "POST",
  				dataType : "json",
  				data : $("#delForm").serializeArray(),

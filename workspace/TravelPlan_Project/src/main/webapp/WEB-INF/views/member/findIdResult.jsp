@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <title>여담: 아이디 찾기</title>
 <style>
-   * { box-sizing:border-box; }
+
+   * { box-sizing:border-box; font-family: 'SUIT-Medium'; }
    a { text-decoration: none; }
     #border {
         width:700px;

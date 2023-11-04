@@ -11,6 +11,7 @@
 			location.href="/app/loginForm"
 		</script> -->
 	<style>
+		* { font-family: 'SUIT-Bold'; }
 		.alert {
 			width:800px;
 			height:75px;

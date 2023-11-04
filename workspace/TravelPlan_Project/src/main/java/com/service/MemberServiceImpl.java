@@ -101,12 +101,21 @@ public class MemberServiceImpl implements MemberService {
 		// 랜덤 문자열 생성 후 mail_key 컬럼에 넣기
 		String mail_key = new TempKey().getKey(30, false); // 랜덤 키 길이
 		dto.setMail_key(mail_key);
-
+		
 		dao.updateMailKey(dto);
+		
+		// 이메일, 아이디 일치 여부 확인
 		int num = dao.findPw_email(dto);
 		if(num==0) { // 이메일, 아이디 일치 X
 			return 0;
 		}
+		
+		// 이메일 인증 여부 확인
+		int num2 = dao.emailAuthFail(dto.getUserID());
+		if(num2==0) { // 이메일 인증 X
+			return 1;
+		}
+		
 		// 비밀번호 재설정용 이메일 전송
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[TravelPlan 비밀번호 재설정]"); // 메일 제목
@@ -119,7 +128,7 @@ public class MemberServiceImpl implements MemberService {
 		sendMail.setFrom("pjtravelplan@gmail.com", "TravelPlan"); // 보내는 사람
 		sendMail.setTo(dto.getEmail()); // 받는 사람
 		sendMail.send(); // 메일 보내기
-		return 1;
+		return 2;
 	}
 
 	// 인증키 확인

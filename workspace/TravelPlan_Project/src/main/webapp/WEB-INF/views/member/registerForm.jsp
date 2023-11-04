@@ -15,7 +15,7 @@
     <title>여담: 회원가입</title>
     
     <style >
-    	* { box-sizing:border-box; }
+    	* { box-sizing:border-box; font-family: 'SUIT-Medium'; }
 
         form {
             width:700px;
@@ -156,14 +156,27 @@
     <button type="submit" id="sbtn">회원 가입</button>
    </form> 
    <script>
-       function formCheck(frm) {  // 유효성 검사
+	   // 아이디값 입력시 result값 초기화
+	   $("#userID").on("keydown", function() {
+			   $("#result").text("");
+	   });
+	   
+	   // 유효성 검사
+       function formCheck(frm) {
             let msg ='';
-
+            
             if(frm.userID.value.length<7) {
                 setMessage('id의 길이는 7자 이상이어야 합니다.', frm.userID);
                 return false;
             }
-
+            if($("#result").text().length == 0) {
+            	setMessage('id 중복 여부를 확인해 주세요.', frm.phone);
+				return false;
+			}
+            if($("#result").text() == '중복된 아이디입니다.') {
+            	setMessage('중복된 아이디는 사용할 수 없습니다.', frm.phone);
+				return false;
+			}
             if(frm.passwd.value.length<7) {
                 setMessage('pwd의 길이는 7자 이상이어야 합니다.', frm.passwd);
                 return false;
@@ -192,6 +205,7 @@
             	setMessage('전화번호는 숫자만 입력가능합니다.', frm.phone);
             	return false;
             }
+            
            return true;
        }
 

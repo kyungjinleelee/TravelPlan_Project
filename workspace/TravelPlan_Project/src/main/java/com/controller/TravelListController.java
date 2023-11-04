@@ -29,11 +29,8 @@ public class TravelListController {
 	@Autowired
 	TravelListServiceImpl service;
 	
-//	@Autowired
-//	PlanServiceImpl planservice;
-	
 	// 일정보관함 (페이징 처리)
-	@GetMapping("/travelList")
+	@GetMapping("/loginCheck/travelList")
 	public String list(HttpSession session, HttpServletRequest request, Model m) {
 		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
 		
@@ -55,33 +52,23 @@ public class TravelListController {
 		 return "redirect:/loginForm";
 	}
 	
-	// 일정 상세보기 => TravelListDTO만
-//	@GetMapping("/travelRetrieve")
-//	public String travelRetrieve(@RequestParam int travelID, Model m) {
-//		TravelListDTO dto = service.travelRetrieve(travelID);
-//		m.addAttribute("TravelListDTO", dto);
-//		return "travel/travelRetrieve";
-//	}	
-	
 	// 일정 상세보기 => TravelListDTO, PlanDTO
-	@GetMapping("/travelRetrieve")
+	@GetMapping("/loginCheck/travelRetrieve")
 	public String travelRetrieve(@RequestParam int travelID, Model m, HttpSession session) {
 		
 		session.setAttribute("client_id", info.getKakaoMapId());
 		
 		TravelListDTO travelRetrieve = service.travelRetrieve(travelID);  
 		List<PlanDTO> planList = service.planList(travelID);  
-		PlanDTO plan = service.plan(travelID);    
 		
 		m.addAttribute("travelListDTO", travelRetrieve);  //모델에 TravelListDTO 객체 추가
 		m.addAttribute("planList", planList);  //모델에 PlanDTO 객체 추가
-		m.addAttribute("planDTO", plan);
 		
 		return "travel/travelRetrieve";
 	}	
 	
 	// 일정 삭제하기
-	@GetMapping("/travelDel")
+	@GetMapping("/loginCheck/travelDel")
 	public String travelDel(@RequestParam("travelID") int travelID) {
 		service.travelDel(travelID);
 		return "redirect:travelList";

@@ -26,11 +26,13 @@ public class registerController {
 	// 신규 회원 등록
 	@PostMapping("/register")
 	public String register(MemberDTO dto) throws Exception {
+		// 이메일당 가입 계정 개수 확인
 		if(service.idPerEmailCount(dto.getEmail()) == 0) {
-			return "member/registerFail_email";
+			// 세개 이상이면 회원가입 방지
+			return "member/registerFail_email"; 
 		}
 		service.register(dto);
-		return "redirect:loginForm";
+		return "member/emailAuthInfo";
 	}
 	
 	// 회원가입시 이메일 인증

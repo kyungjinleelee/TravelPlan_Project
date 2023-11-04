@@ -74,7 +74,9 @@ document.onkeydown = doNotReload;
 // }
 
 </script>
-
+<style>
+	* { font-family: 'SUIT-Bold'; }
+</style>
 </head>
 <body style="height: 100%" oncontextmenu="return false">
 <c:set var="areaCode" value="getRegion()"/>
@@ -92,7 +94,7 @@ document.onkeydown = doNotReload;
 			<label class="title">여행 제목 : </label>
 			<input type="hidden" id="areaCode" name="areaCode" value="">
 			<input type="hidden" id="travelID" name="travelID" value="${travelID}">
-			<input class="text" name="travelTitle" id="travelTitle" value="${dto.travelTitle}">
+			<input class="text" name="travelTitle" id="travelTitle" value="${dto.travelTitle}" style="font-family: 'SUIT-Bold';">
 			<div class="calendar">
 				<label class="calendar_sdate">여행 시작일 : </label>
 				<input class="input-date" type="date" name="SDate" id="SDate" value="${dto.SDate}" min="<%= sdf.format(nowTime) %>">

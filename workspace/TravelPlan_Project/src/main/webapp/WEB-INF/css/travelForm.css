@@ -7,6 +7,10 @@
     font-style: normal;
 }
 
+input {
+	font-family: 'SUIT-Medium';
+}
+
 /* travel-title (header) */
 .travel-title{
 	width: 100%;
