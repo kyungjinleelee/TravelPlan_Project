@@ -29,9 +29,6 @@ public class TravelListController {
 	@Autowired
 	TravelListServiceImpl service;
 	
-//	@Autowired
-//	PlanServiceImpl planservice;
-	
 	// 일정보관함 (페이징 처리)
 	@GetMapping("/loginCheck/travelList")
 	public String list(HttpSession session, HttpServletRequest request, Model m) {
@@ -55,14 +52,6 @@ public class TravelListController {
 		 return "redirect:/loginForm";
 	}
 	
-	// 일정 상세보기 => TravelListDTO만
-//	@GetMapping("/travelRetrieve")
-//	public String travelRetrieve(@RequestParam int travelID, Model m) {
-//		TravelListDTO dto = service.travelRetrieve(travelID);
-//		m.addAttribute("TravelListDTO", dto);
-//		return "travel/travelRetrieve";
-//	}	
-	
 	// 일정 상세보기 => TravelListDTO, PlanDTO
 	@GetMapping("/loginCheck/travelRetrieve")
 	public String travelRetrieve(@RequestParam int travelID, Model m, HttpSession session) {
@@ -71,11 +60,9 @@ public class TravelListController {
 		
 		TravelListDTO travelRetrieve = service.travelRetrieve(travelID);  
 		List<PlanDTO> planList = service.planList(travelID);  
-		PlanDTO plan = service.plan(travelID);    
 		
 		m.addAttribute("travelListDTO", travelRetrieve);  //모델에 TravelListDTO 객체 추가
 		m.addAttribute("planList", planList);  //모델에 PlanDTO 객체 추가
-		m.addAttribute("planDTO", plan);
 		
 		return "travel/travelRetrieve";
 	}	

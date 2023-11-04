@@ -17,7 +17,6 @@ public interface TravelListService {
 	//일정 상세 보기
 	public TravelListDTO travelRetrieve(int travelID);
 	public List<PlanDTO> planList(int travelID);
-	public PlanDTO plan(int travelID);
 	
 	//일정 삭제하기
 	public int travelDel(int travelID);

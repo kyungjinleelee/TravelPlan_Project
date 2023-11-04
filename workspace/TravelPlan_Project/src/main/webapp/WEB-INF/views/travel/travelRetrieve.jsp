@@ -32,30 +32,80 @@
 	
 	<!-- day 버튼 이벤트-->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    function createButtons(dayNum) {
-        for (var trCnt = 1; trCnt <= dayNum; trCnt++) {
-            if (trCnt < 10) {
-                var innerHtml = '<tr><td style="text-align:center;">';
-                innerHtml += '<button class="bttn list-bttn" id="daybtn' + trCnt + '" ';
-                innerHtml += 'value="daybtn' + trCnt + '"  onclick="javascript: day_filter(value);">DAY' + trCnt + '</button></td></tr>';
-                $('#myTable > tbody:last').append(innerHtml);
-            } else {
-                alert("최대 9일까지만 생성 가능합니다.");
-                return false;
-            }
-        }
-    }
+    
+    <style>
+    .plan-days {
+    background-color: #B7E1F5;
+    border: none;
+    cursor: pointer;
+    padding: 25px 0;
+    font-size: 22px;
+    border-bottom: 1px solid white;
+    width: 100%;
+    margin-bottom: 0px;
+    color: #0c3b54;
+    font-family: 'SUIT-Bold';
+}
 
-    // PlanDTO의 day_num 값을 가져와서 버튼을 생성
-    var dayNum = ${planDTO.day_num}; // PlanDTO의 day_num 값
-    createButtons(dayNum);
+    </style>
+    
+    <script>
+
+    
+   $(function(){
+ 
+ var obj = {};
+    <c:forEach items="${planList}" var="plan" varStatus="status">
+    
+        if(!obj["${plan.day_num}"]){
+            obj["${plan.day_num}"] = [];
+        }
+        obj["${plan.day_num}"].push({
+            item: "${plan.item}",
+            item_add: "${plan.item_add}",
+            time: "${plan.time}",
+            time: "${plan.time}",
+            mapy: "${plan.mapy}",
+            idx: "${plan.idx}",
+        })
+    </c:forEach>
+
+    var days = '';
+    
+    Object.keys(obj).forEach(function(e){
+    	 //TODO: html 수정  
+        days += '<button class="btn btn-primary plan-days" data-day='+e+'>DAY '+e+'</button>';
+    });
+
+    $('#test-days tbody').html(days);
+    
+    $(".plan-days").on("click", function(){
+    	var day = $(this).data("day");
+    	var planList = obj[day];
+    	
+    	$("#test-plan-item").empty();
+    	
+    	planList.forEach(function(plan){	
+		    
+    		// TODO html 수정
+		    var html = ' <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">';
+		    html+='<div class="d-flex w-100 align-items-center justify-content-between">';
+		    html+=' <p> <strong class="mb-1">'+plan.item+'</strong> </p>';
+		    html+='<small class="text-body-secondary">'+plan.time+'</small>';
+		    html+='</div>';
+		    html+='<div class="col-10 mb-1 small">'+plan.item_add+'</div>';
+		    html+='</a>';
+	
+    		$("#test-plan-item").append(html);
+    	});
+    	
+    })
+   
+console.log(obj);
+
+   });
+
 	</script>
-	
-	
-	
-	
-	
 	
 </head>
 <body style="height: 100%">
@@ -91,17 +141,7 @@
 	<div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 140px;">
 		<div class="plan-daysbox nav nav-pills nav-flush flex-column mb-auto text-center">
 			<div class="plan-daysboxtitle">일정</div>
-			
-			<!-- 유저가 저장한 만큼 day 버튼 나오게 해라 -->
-			 <%-- <c:forEach var="day" begin="1" end="${planDTO.day_num}"> 
-       			 <button type="button" class="btn btn-primary">Day ${day}</button>
-       		</c:forEach> --%>		
-       		<c:forEach var="day" begin="1" end="${planDTO.day_num}">
-            	<button class="btn btn-primary" onclick="day_filter(${day})">DAY ${day}</button>
-       		 </c:forEach>
-       		
-       		
-				<div class="select-job-items1 nav-item">
+				<div id="test-days" class="select-job-items1 nav-item">
 					<div style="text-align: -webkit-center;">
 						<table id="myTable" class="table">
 							<thead>
@@ -110,9 +150,7 @@
 						</table>
 					</div>
 				</div>
-	
 			<input type="hidden" id="day_hidden" value="0">
-	
 		</div>
 	</div>
 	<div class="b-example-divider b-example-vr"></div>
@@ -126,23 +164,15 @@
 		    <span class="fs-5 fw-semibold">세부 일정</span>
 		  </div>
 		  
-
-		      
 		  <!-- 세부 일정 : c:foreach 사용하기  : 일정만들기 토대로 추후 다시 수정 / 일정마다 누르면 지도 표시되게 수정하기 -->
-		  <div class="list-group list-group-flush border-bottom scrollarea">
+		  <div id="test-plan-item" class="list-group list-group-flush border-bottom scrollarea">
 		    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
 		      <div class="d-flex w-100 align-items-center justify-content-between">
-		      
-		      
 		       <p> <strong class="mb-1">${planDTO.item}</strong> </p>
-		        
 		        <small class="text-body-secondary">${planDTO.time}</small>
 		      </div>
 		      <div class="col-10 mb-1 small">${planDTO.item_add}</div>
 		    </a>
-		
-		   
-		
 		  </div>
 		</div>
 

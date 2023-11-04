@@ -31,8 +31,7 @@ import com.dto.TravelListDTO;
 		return dto;
 	}
 	
-	// 일정 상세보기 -> 트랜잭션 맞는지 확신 x
-//	@Transactional
+	// 일정 상세보기
 	@Override
 	public TravelListDTO travelRetrieve(int travelID) {
 		TravelListDTO dto = dao.travelRetrieve(travelID);
@@ -45,12 +44,6 @@ import com.dto.TravelListDTO;
 		return list;
 	}
 	
-	@Override
-	public PlanDTO plan(int travelID) {
-		PlanDTO dto = dao.plan(travelID);
-		return dto;
-	}
-
 	// 일정 삭제하기
 	@Override
 	public int travelDel(int travelID) {
