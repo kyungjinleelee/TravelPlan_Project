@@ -58,9 +58,9 @@
     <c:forEach items="${planList}" var="plan" varStatus="status">
     
         if(!obj["${plan.day_num}"]){
-            obj["${plan.day_num}"] = [];
+            obj["${plan.day_num}"] = [];  //day_num에 해당하는 키 없을 시, 새로운 배열 생성하여 obj 객체에 담음
         }
-        obj["${plan.day_num}"].push({
+        obj["${plan.day_num}"].push({   //day_num을 키로 하고 해당 날짜에 대한 일정 목록을 값으로 가짐
             item: "${plan.item}",
             item_add: "${plan.item_add}",
             time: "${plan.time}",
@@ -70,16 +70,18 @@
         })
     </c:forEach>
 
-    var days = '';
+    var days = '';  //days 초기화. 일정 버튼 저장할 HTML 문자열 가짐.
     
-    Object.keys(obj).forEach(function(e){
+    Object.keys(obj).forEach(function(e){  //obj객체의 키를 반복하면서 day_num에 대한 버튼 생성
     	 //TODO: html 수정  
         days += '<button class="btn btn-primary plan-days" data-day='+e+'>DAY '+e+'</button>';
     });
 
-    $('#test-days tbody').html(days);
+    $('#test-days tbody').html(days);  //test-days 테이블의 tbody에 일정 버튼 추가
     
-    $(".plan-days").on("click", function(){
+  	//plan-days 버튼 클릭 이벤트
+  	// 버튼 클릭시 해당 날짜의 일정 항목이 test-plan-item에 동적으로 생성됨
+    $(".plan-days").on("click", function(){  
     	var day = $(this).data("day");
     	var planList = obj[day];
     	
