@@ -2,11 +2,16 @@ package com.dto;
 
 import java.util.List;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("PageDTO")
 public class PageDTO {
 	int perPage = 10;
 	int totalCount;
 	int curPage;
 	List<BoardDTO> list;
+	String searchName;	// 검색을 위한 searchName, searchValue 저장
+	String searchValue;
 
 	public List<BoardDTO> getList() {
 		return list;
@@ -31,6 +36,18 @@ public class PageDTO {
 	}
 	public void setCurPage(int curPage) {
 		this.curPage = curPage;
+	}
+	public String getSearchName() {
+		return searchName;
+	}
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
+	public String getSearchValue() {
+		return searchValue;
+	}
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
 	}
 	
 }

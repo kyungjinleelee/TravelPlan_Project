@@ -5,9 +5,23 @@
 
 <mapper namespace="BoardMapper">
 	<!--게시글 목록 -->
-	<select id="findAll" resultType="BoardDTO">
+	<select id="findAll" resultType="BoardDTO" parameterType="hashmap">
 		select *
 		from Board
+		<where>
+		<choose>
+	 	<when test='searchValue != null and searchName =="T"' >
+			 title like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
+		 </when>
+	  	<when test='searchValue != null and searchName =="W"'>
+			 userID like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
+	 	</when>
+	 	<otherwise>
+			 title like '%'||#{searchValue , jdbcType=VARCHAR}||'%'
+			or mainText like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
+	 	</otherwise>
+		</choose>
+		</where>
 		order by contentNum DESC
 	</select>
 
@@ -108,45 +122,56 @@
 		where user_like_list.userID =#{userID} and user_like_list.tcontentid =#{contentNum}
 	</select>
 	
-	<!-- 검색  -->
-	<select id="searchSelectPage" parameterType="SearchCondition" resultType="BoardDTO">
+	<!-- 
+	<select id="totalCountSearch" parameterType="hashmap" resultType="int">
 	select contentNum, userID, title, boardDate, views, mainText, likeContent
 	from board
 	<where>
 	<choose>
-	 <when test='keyword != null and option=="T"' >
-		 title like '%'||#{keyword, jdbcType=VARCHAR}||'%'
+	 <when test='searchValue != null and searchName =="T"' >
+		 title like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
 	 </when>
-	  <when test='keyword != null and option=="W"'>
-		 userID like '%'||#{keyword, jdbcType=VARCHAR}||'%'
+	  <when test='searchValue != null and searchName =="W"'>
+		 userID like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
 	 </when>
 	 <otherwise>
-		 title like '%'||#{keyword , jdbcType=VARCHAR}||'%'
-		or mainText like '%'||#{keyword, jdbcType=VARCHAR}||'%'
+		 title like '%'||#{searchValue , jdbcType=VARCHAR}||'%'
+		or mainText like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
 	 </otherwise>
 	</choose>
 	</where>
 	order by contentNum DESC
-	</select>
+	</select> 검색  -->
 	
-	<select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+	<!-- 전체 레코드 개수 2 - 검색 o -->
+	<select id="totalCountSearch" parameterType="hashmap" resultType="int">
 	select count(*)
 	from board
 	<where>
 	<choose>
-	 <when test='option=="T"'>
-		title like '%'||#{keyword}||'%' 
+	 <when test='searchName =="T"'>
+		title like '%'||#{searchValue}||'%' 
 	 </when>
-	  <when test='option=="W"'>
-		userID like '%'||#{keyword}||'%'
+	  <when test='searchName =="W"'>
+		userID like '%'||#{searchValue}||'%'
 	 </when>
 	 <otherwise>
-		title like '%'||#{keyword}||'%'
-		or mainText like '%'||#{keyword}||'%'
+		title like '%'||#{searchValue}||'%'
+		or mainText like '%'||#{searchValue}||'%'
 	 </otherwise>
 	</choose>
 	</where>
-	</select>
+	</select>  
 	
+	<!-- 인기글 -->
+	<select id="bestList" resultType="BoardDTO">
+		select contentNum, title, userID, views, likeContent, boardDate
+		from (
+    	select contentNum, title, userID, views, likeContent, boardDate,
+           ROW_NUMBER() OVER (ORDER BY likeContent DESC, views DESC) as rnk
+    	from board
+		)
+		<![CDATA[where rnk <= 5]]>
+	</select> 
 	
 </mapper>

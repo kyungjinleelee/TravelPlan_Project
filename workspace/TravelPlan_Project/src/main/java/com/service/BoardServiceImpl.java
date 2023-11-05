@@ -12,7 +12,6 @@ import com.dao.BoardDAO;
 import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.PageDTO;
-import com.dto.SearchCondition;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -34,8 +33,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public PageDTO selectList(int curPage, SearchCondition sc) {
-		PageDTO dto =  dao.list(curPage, sc);
+	public PageDTO selectList(Map<String, String> map,int curPage) {
+		PageDTO dto =  dao.list(curPage, map);
 		return dto;
 	}
 	@Override
@@ -85,16 +84,12 @@ public class BoardServiceImpl implements BoardService {
 		return dao.likeDuplicateCheck(userID,contentNum);
 	}
 
-	// 검색 
+	// 베스트 게시글 
 	@Override
-	public List<BoardDTO> searchSelectPage(SearchCondition sc) throws Exception {
-		return dao.searchSelectPage(sc);
+	public List<BoardDTO> bestList() throws Exception {
+		return dao.bestList();
 	}
 
-	@Override
-	public int searchResultCnt(SearchCondition sc) throws Exception {
-		return dao.searchResultCnt(sc);
-	}
 
 	
 	
