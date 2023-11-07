@@ -111,7 +111,7 @@ function save() {
 					   "mapy":$('.smapy').eq(i).val(), // 좌표
 					   "idx":dayArr[dayToInt]}) // 일정 순서
 		}
-		alert(dayArr);
+//		alert(dayArr); // 배열 데이터 확인용
 		dayArr = []; // 배열 초기화
 		
 		
