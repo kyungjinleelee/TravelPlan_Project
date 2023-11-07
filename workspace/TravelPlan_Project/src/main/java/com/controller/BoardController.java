@@ -62,6 +62,7 @@ public class BoardController {
 		
 		//List<BoardDTO> Dto = service.selectList();
 		m.addAttribute("content", Dto);
+		m.addAttribute("sc", sc);
 		return "board/Board";
 	
 	}

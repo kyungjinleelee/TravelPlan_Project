@@ -16,51 +16,57 @@
 
 
 
-	<style>
+<style>
 	
 		.container{
-			width: 100%;
-			font-size: 14px;
+			width: 50%;
 		}
 		
-		.right-button {
-			margin-right: auto;
+		.title{
+		font-size:18px;
+		color:red;
+		color:#3563E9;
 		}
-		
-		textarea{
-		font-size: 20px;
-		}
-		/* height: 6.25em; */
 		.article-info{
-			
 			display: flex;
    			justify-content: space-between;
 			margin-bottom : 10px;
-			
+			font-size:14px;
 		}
 		article-info article-info-section{
 			float:right;
 		}
 		article-info member-info-section{
-			float:left;
-		}
-		
-		.title{
-		font-size:18px;
-		color:#3563E9;
-		}
-		
-		.btn-default{
-			color:#3563E9;
+			float:left;}
 			
+		#TravelTable{font-size:14px;}
+		
+		#mainText{font-size:14px;}
+		
+		.enlarged-button{
+		    /*width: 150px;  원하는 너비로 설정하세요 */
+		    height: 40px; /* 원하는 높이로 설정하세요 */
+		    font-size: 18px; /* 원하는 글꼴 크기로 설정하세요 */
+		}
+		
+		#comment-border{
+		/* 여기서 색깔 설정 잘 충돌했던 것으로 기억*/
+		font-size: 14px;
+		}
+		
+		.control-label{font-size:14px;}
+		#comment{
+		font-size:14px;
+		resize:none;
+		margin-bottom : 10px;
 		}
 		
 		.writeComment{
-		color:#3563E9;
+			color:#3563E9;
 		}
 		
 		  	
-	</style>
+</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
@@ -131,6 +137,14 @@
 		});
 	}
 
+	//테이블 클래스에서 버튼을 누르면 테이블 접었다 폈다하는 함수
+	//요청을 보내지 않는데 이 함수 실행시키면 토글을 한 뒤 요청이 감.
+	
+	function tableToggle(){
+		console.log('버튼 눌림')
+		$("#TravelTable").toggle();
+	}
+	
 	
 </script>
 </head>
@@ -138,10 +152,11 @@
 <jsp:include page="../common/top.jsp" flush="true" /><br>
 
 	<div class="container">
-		<form class="form-horizontal" action="update" method="post">
+	<!-- action="update" method="post // 버튼만 누르면 자꾸 업데이트 요청해서 지웠음 -->
+		<form class="form-horizontal" >
 			<div class="form-group">
 				<div class="col-sm-10">
-					<h2 class="text-center">게시판 자세히 보기 화면</h2>
+					<!-- <h2 class="text-center">게시판 자세히 보기 화면</h2> -->
 				</div>
 			</div>
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
@@ -182,20 +197,44 @@
 				<!-- <label for="content" class="col-sm-2 control-label">내용</label>  -->
 				<div class="col-sm-12">
 					<!-- col 1이  생각보다 크다. -->
-					<textarea class="form-control" rows="10" name="content">${content.mainText}</textarea>
+					
+					<table class="table" id="TravelTable">
+					  <thead>
+					    <tr>
+					      <th>Header 1</th>
+					      <th>Header 2</th>
+					      <th>Header 3</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>Data 1</td>
+					      <td>Data 2</td>
+					      <td>Data 3</td>
+					    </tr>
+					    <!-- 추가 데이터 행들 -->
+					  </tbody>
+					</table>
+					
+					<span><input type="button" value="일정 펼쳐보기" class="btn btn-default btn-primary" id="toggleBtn" style="font-size: 12px;" onclick="tableToggle()" ></span>
+					<br> <!-- 공백 추가 -->
+					<br> <!-- 공백 추가 -->
+					
+					<textarea class="form-control" rows="10" name="content" id="mainText">${content.mainText}</textarea>
 				</div>
+				
 			</div>
-
-			<div class="form-group">
+				
+			<div class="form-group" id="functionBtnGroup">
 				<div ><!-- class="col-sm-offset-1" -->
 					<!-- class="col-sm-offset-2 col-sm-10"
 					<input type="button" value="글수정" class="btn btn-default col-sm-1" onclick="go_update()"> 
 					<input type="button" value="목록" class="btn btn-default col-sm-1" onclick="go_list()">
 					 -->
 				</div>
-				<span><input type="button" value="좋아요(찜)하기" class=" btn-default col-sm-2 btn col-sm-offset-5" onclick="like()" ></span>
-				<span><input type="button" value="글수정" class="btn btn-default col-sm-1 btn col-sm-offset-3" onclick="go_update()"></span>
-				<span><input type="button" value="목록" class="btn btn-default col-sm-1"  onclick="go_list()"></span>
+				<span><input type="button" value="좋아요(찜)하기" class=" btn-default btn-primary col-sm-2 btn col-sm-offset-5" style="font-size: 12px;" onclick="like()" ></span>
+				<span><input type="button" value="글수정" class="btn btn-default btn-primary col-sm-1 btn col-sm-offset-3" style="font-size: 12px;" onclick="go_update()"></span>
+				<span><input type="button" value="목록" class="btn btn-default btn-primary col-sm-1" style="font-size: 12px;" onclick="go_list()"></span>
 				
 			</div>
 		</form>
@@ -203,7 +242,7 @@
 			
 		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 			<tr>
-				<td align="left" colspan="2" bgcolor="beige">댓글</td>
+				<td align="left" colspan="2" style="background-color: #E0E0E0;" id="comment-border">댓글</td>
 			</tr>
 		</table>
 		<c:forEach var="dto" items="${comment}">
@@ -221,19 +260,19 @@
 				</tbody>
 			</table>
 		</c:forEach>
-			
+			<br>
 		<div>
-			<form action = "comment" method="post">
+			<form ><!-- action = "comment" method="post" -->
 				<div class="form-group">
-					<label class="col-sm-5 control-label">댓글 작성하기</label>
+					<label class="col-sm-5  control-label" >댓글 작성하기</label>
 					<!--  <div class="col-sm-15 col-sm-10"> <label for="comment">댓글 내용:</label> class="form-control col-sm-3"   -->
 					<div class="form-group">
            		 	
-						<textarea  rows="4" cols="100" id="comment" name="comment" placeholder='타인을 배려하는 댓글을 작성해 주세요' required></textarea>
+						<textarea  rows="4" cols="100" class="form-control col-sm-3" id="comment" name="comment" placeholder='타인을 배려하는 댓글을 작성해 주세요' required></textarea>
 					</div>
 				</div>
 				<div class="col-sm-offset-11 col-sm-5 ">
-					<input type="button" class="btn btn-default" id="writeComment" onclick ="go_insert()" value="댓글작성">
+					<input type="button" class="btn btn-default btn-primary" id="writeComment" onclick ="go_insert()" style="font-size: 12px;" value="댓글작성">
 					<!-- class right-button -->
 				</div>
 			</form>

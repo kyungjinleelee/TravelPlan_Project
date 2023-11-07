@@ -161,8 +161,6 @@
 					<th>좋아요</th>
 					<th>조회수</th>
 					<th>작성일</th>
-					<th>작성일</th>
-					<th>작성일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -175,11 +173,8 @@
 						<td>${DTO.likeContent}</td>
 						<td>${DTO.views}</td>
 						<td >${DTO.boardDate}</td>
-						<td ><button onclick="go_update(${DTO.contentNum},'${DTO.userID}')" class="rounded">수정3</button></td>
 						<!-- ${DTO.contentNum} ${DTO.userID}->
 						<!-- <td><a href="delete?no=${list.no}">삭제</a></td> -->
-						<td><button onclick="askYesNo(${DTO.contentNum})" class="rounded">
-								삭제</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
