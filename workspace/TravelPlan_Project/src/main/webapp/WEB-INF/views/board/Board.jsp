@@ -217,8 +217,8 @@
 				<c:set var="totalCount" value="${content.totalCount}" />
 				<c:set var="totalNum" value="${totalCount / perPage}" />
      		
-				<c:set var="searchName" value="${PageDTO.searchName}" />
-				<c:set var="searchValue" value="${PageDTO.searchValue}" />
+				<c:set var="searchName" value="${map.searchName}" />
+				<c:set var="searchValue" value="${map.searchValue}" />
 				
 	     		<c:if test="${totalCount % perPage != 0}">
 					<c:set var="totalNum" value="${totalNum+1}" />
@@ -230,7 +230,7 @@
         		<c:if test="${totalCount!=null && totalCount!=0}">
         			<!-- 다음으로 가기 표시 -->
        				<c:if test="${curPage != 1}">
-           		 		<a class="page" href="<c:url value="Board?curPage=${curPage-1}"/>">&lt;이전</a>
+           		 		<a class="page" href="<c:url value="Board?curPage=${curPage-1}&searchName=${searchName}&searchValue=${searchValue}"/>">&lt;이전</a>
           			</c:if>
           			<!-- 페이지 나열 -->
           			<c:forEach var="i" begin="1" end="${totalNum}">
@@ -243,7 +243,7 @@
 			         </c:forEach>
 			         <!-- 이전으로 가기 표시 -->
 			         <c:if test="${curPage < totalNum-1}">
-            		 	<a class="page" href="<c:url value="Board?curPage=${curPage+1}"/>">다음&gt;</a>
+            		 	<a class="page" href="<c:url value="Board?curPage=${curPage+1}&searchName=${searchName}&searchValue=${searchValue}"/>">다음&gt;</a>
           			 </c:if>
         		</c:if>
       		</div>

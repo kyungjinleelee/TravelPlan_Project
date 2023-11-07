@@ -60,16 +60,15 @@ public class BoardController {
 		String searchValue = request.getParameter("searchValue");
 		
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("searchName",searchName);
+		map.put("searchName",searchName);		// 검색값을 map에 넣어주기 
 		map.put("searchValue",searchValue);
 		
 		PageDTO Dto = service.selectList(map, Integer.parseInt(curPage));
-		//m.addAttribute("PageDTO", pageDTO);
+		m.addAttribute("map", map);		// 검색값이 안넘어가다가 Model에 map 값을 넣어주니까 됐다.
 		
 		
 		//List<BoardDTO> Dto = service.selectList();
 		m.addAttribute("content", Dto);
-		//m.addAttribute("sc", sc);
 		return "board/Board";
 	
 	}
