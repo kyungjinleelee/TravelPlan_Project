@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.PageDTO;
-import com.dto.SearchCondition;
 @Repository
 public class BoardDAO {
 	@Autowired
@@ -29,10 +28,10 @@ public class BoardDAO {
 		return dto;
 	}
 
-	public List<BoardDTO> selectList() {//페이징 처리 만들기 이전 사용하던 것.
-		List<BoardDTO> dto = session.selectList("BoardMapper.findAll");
-		return dto;
-	}
+//	public List<BoardDTO> selectList() {//페이징 처리 만들기 이전 사용하던 것.
+//		List<BoardDTO> dto = session.selectList("BoardMapper.findAll");
+//		return dto;
+//	}
 
 	public int update(BoardDTO dto) {
 		int n = session.update("BoardMapper.update", dto);
@@ -63,27 +62,32 @@ public class BoardDAO {
 	
 	
 	//페이징 처리
-	public PageDTO list(int curPage, SearchCondition sc) {
+	public PageDTO list(int curPage, Map<String, String> map) {
 		PageDTO pageDTO = new PageDTO();
-		
+		System.out.println(map);
 		int offset = (curPage-1)*pageDTO.getPerPage();//이게 옛날거부터 보게 되는건가 이러면
 		int limit = pageDTO.getPerPage();
 	
-		List<BoardDTO> list = session.selectList("BoardMapper.searchSelectPage", sc, new RowBounds(offset, limit));
+		List<BoardDTO> list = session.selectList("BoardMapper.findAll", map, new RowBounds(offset, limit));
 
 		pageDTO.setList(list);
 		pageDTO.setCurPage(curPage);
 		
 		int totalCount = 0; // 초기화
-		if(sc.getOption()==null) { 
+		if(map.get("searchValue")==null) { 
 			// 검색을 안 한 경우 
 			totalCount = session.selectOne("BoardMapper.totalCnt");
 		}else {
 			// 검색을 한 경우 
-			totalCount = session.selectOne("BoardMapper.searchResultCnt", sc);
+			totalCount = session.selectOne("BoardMapper.totalCountSearch", map);
 		}
 //		int totalCount = session.selectOne("BoardMapper.totalCnt");
 		pageDTO.setTotalCount(totalCount);
+		
+		/* searchName과 searchValue를 PageDTO에 저장해야 함 -> 그래야 검색했을 때 페이징이 적용된다.
+		searchName과 searchValue 유지를 시켜야 다른 페이지로 이동해도 검색조건이 유지가 된다.*/
+		pageDTO.setSearchName(map.get("searchName"));
+		pageDTO.setSearchValue(map.get("searchValue"));
 		
 		return pageDTO;
 	}
@@ -123,14 +127,8 @@ public class BoardDAO {
 		return session.selectOne("BoardMapper.likeDuplicateCheck", map);
 	}
 	
-	// 검색
-	public List<BoardDTO> searchSelectPage(SearchCondition sc) throws Exception{
-		return session.selectList("BoardMapper.searchSelectPage", sc);
+	// 베스트 게시글 목록 출력
+	public List<BoardDTO> bestList() throws Exception{
+		return session.selectList("BoardMapper.bestList");
 	}
-
-	// 검색결과 
-	public int searchResultCnt(SearchCondition sc) throws Exception{
-		return session.selectOne("BoardMapper.searchResultCnt", sc);
-	}
-	 
 }

@@ -47,7 +47,7 @@
 				<value>com.dto.TravelListDTO</value>
 				<value>com.dto.UserLikeDTO</value>
 				<value>com.dto.SpotDTO</value>
-				<value>com.dto.SearchCondition</value>
+				<value>com.dto.PageDTO</value>
 			</list>
 		</property>
 	</bean>

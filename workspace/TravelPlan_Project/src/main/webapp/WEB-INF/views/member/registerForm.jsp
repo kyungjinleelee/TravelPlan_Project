@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    
+    <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"> <!-- 폰트어썸 코드 -->
     <title>여담: 회원가입</title>
     
     <style >
@@ -19,7 +19,7 @@
 
         form {
             width:700px;
-            height:920px;
+            height:850px;
             display : flex;
             flex-direction: column;
             align-items:center;
@@ -121,6 +121,22 @@
         	font-size: 13px;
         	color:red;
         }
+        div.pw{
+        	position: relative;
+        }
+        div.pw input{
+        	width: 300px;
+        	height:40px;
+        	text-indent:10px;
+        }
+       
+        div.pw i{
+        	position:absolute;
+        	left: 88%;
+        	top: 10px;
+        	color: #3A3A3A;
+        }
+     
     </style>
     
 </head>
@@ -139,9 +155,10 @@
     </div>
 	</div>
     <label for="">비밀번호</label>
+    <div class="pw">
     <input class="input-field" type="password" name="passwd" id="passwd" placeholder="7자 이상의 문자">
-    <label for="">비밀번호 확인</label>
-    <input class="input-field" type="password" name="passwd2" id="passwd2" placeholder="비밀번호 확인"><span id="pwcheck"></span>
+    <i class="fas fa fa-eye fa-lg"></i>
+    </div>
     <label for="">이름</label>
     <input class="input-field" type="text" name="name" placeholder="홍길동">
     <label for="">이메일</label>
@@ -187,14 +204,14 @@
                 setMessage('pwd의 길이는 7자 이상이어야 합니다.', frm.passwd);
                 return false;
             }
-            if($("#pwcheck").text() == '비번 불일치') {
-                setMessage('비밀번호가 일치되어야합니다.', frm.passwd);
-                return false;
-            }
-            if($("#pwcheck").text().length == 0) {
-                setMessage('비밀번호가 일치 여부를 확인해 주세요.', frm.passwd);
-                return false;
-            }
+ //           if($("#pwcheck").text() == '비번 불일치') {
+ //               setMessage('비밀번호가 일치되어야합니다.', frm.passwd);
+ //               return false;
+ //           }
+ //           if($("#pwcheck").text().length == 0) {
+ //               setMessage('비밀번호가 일치 여부를 확인해 주세요.', frm.passwd);
+ //               return false;
+ //           }
             if(frm.name.value.length ==0){
             	setMessage('이름이 누락되었습니다.', frm.name);
             	return false;
@@ -232,18 +249,28 @@
        }
        
        // 비번 일치/불일치 확인 작업
-       $(document).ready(function(){
-       $("#passwd2").on("keyup", function(){
+      $(document).ready(function(){
+//      $("#passwd2").on("keyup", function(){
     //	   console.log("keyup");
-			var passwd = $("#passwd").val();
-			var passwd2 = $("#passwd2").val();
-			var msg="비번 일치";
-			if(passwd != passwd2){
-				msg="비번 불일치";
-			}
-			$("#pwcheck").text(msg);
-		});
-  		
+//			var passwd = $("#passwd").val();
+//			var passwd2 = $("#passwd2").val();
+//			var msg="비번 일치";
+//			if(passwd != passwd2){
+//				msg="비번 불일치";
+//			}
+//			$("#pwcheck").text(msg);
+//		});
+  		// 비밀번호 확인하기
+  		$('.pw i').on('click',function(){
+  			$('input').toggleClass('active');
+  			if($('input').hasClass('active')){
+  				$(this).attr('class',"fas fa fa-eye-slash fa-lg")
+  				.prev('input').attr('type',"text");
+  			}else{
+  				$(this).attr('class',"fas fa fa-eye fa-lg")
+  	            .prev('input').attr('type','password');
+  			}
+  		});
        
        // id 중복 체크
        $("#idDuplicatedcheck").on("click",function(){

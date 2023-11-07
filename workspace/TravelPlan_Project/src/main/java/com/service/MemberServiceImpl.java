@@ -35,10 +35,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 회원가입 완료 후 인증 이메일 발송
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[TravelPlan 인증메일 입니다.]"); // 메일 제목
+		sendMail.setSubject("[여담 인증메일 입니다.]"); // 메일 제목
 		sendMail.setText( // 메일 내용
-				"<h1>TravelPlan 메일 인증</h1>" +
-				"<br>TravelPlan 가입을 환영합니다!" +
+				"<h1>여담 메일 인증</h1>" +
+				"<br>안녕하세요 "+ dto.getUserID() +"님. 여담 가입을 환영합니다!" +
 				"<br>아래 [이메일 인증 확인]을 눌러주세요." +
 				"<br><a href='http://localhost:8091/app/registerEmail?email=" + dto.getEmail() +
 				"&mail_key=" + mail_key +

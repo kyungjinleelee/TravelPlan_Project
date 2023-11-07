@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,7 +25,6 @@ import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.MemberDTO;
 import com.dto.PageDTO;
-import com.dto.SearchCondition;
 import com.service.BoardServiceImpl;
 import com.service.MyPageServiceImpl;
 import com.service.SharedBoardService;
@@ -48,20 +49,27 @@ public class BoardController {
 	
 	}
 	@GetMapping("/Board")
-	public String selectList(SearchCondition sc, HttpServletRequest request, Model m) { 
-		System.out.println(sc); 
+	public String selectList(HttpServletRequest request, Model m) { 
+		
 		String curPage = request.getParameter("curPage");
 		//int로 바꾸는게 더 나을수도 있음.
 		if(curPage == null) {
 			curPage = "1";
 		}
+		String searchName = request.getParameter("searchName");
+		String searchValue = request.getParameter("searchValue");
 		
-		PageDTO Dto = service.selectList(Integer.parseInt(curPage), sc);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchName",searchName);
+		map.put("searchValue",searchValue);
+		
+		PageDTO Dto = service.selectList(map, Integer.parseInt(curPage));
 		//m.addAttribute("PageDTO", pageDTO);
 		
 		
 		//List<BoardDTO> Dto = service.selectList();
 		m.addAttribute("content", Dto);
+		//m.addAttribute("sc", sc);
 		return "board/Board";
 	
 	}

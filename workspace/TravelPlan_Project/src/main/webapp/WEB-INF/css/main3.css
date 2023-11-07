@@ -10,69 +10,7 @@
 		font-family: 'SUIT-Medium';
 }
 
-/* 게시판 인기글 */
-* {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    a {
-      text-decoration: none;
-      color: black;
-    }
-    input {
-      border: none;
-      outline: none;
-    }
-    .board-container {
-      width: 60%;
-      height: 1200px;
-      margin: 0 auto;
-      font-family: 'SUIT-Medium';
-      /* border: 1px solid black; */
-    }
-    
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      border-top: 2px solid rgb(39, 39, 39);
-    }
-    tr:nth-child(even) {
-      background-color: #f0f0f070;
-    }
-    th,
-    td {
-      width:300px;
-      text-align: center;
-      padding: 10px 12px;
-      border-bottom: 1px solid #ddd;
-    }
-    td {
-      color: rgb(53, 53, 53);
-    }
-    .no      { width:150px;}
-    .title   { width:50%;  }
-    td.title   { text-align: left;  }
-    td.writer  { text-align: left;  }
-    td.viewcnt { text-align: right; }
-    td.title:hover {
-      text-decoration: underline;
-    }
-    
-    .btn-write {
-      background-color: rgb(236, 236, 236); /* Blue background */
-      border: none; /* Remove borders */
-      color: black; /* White text */
-      padding: 6px 12px; /* Some padding */
-      font-size: 16px; /* Set a font size */
-      cursor: pointer; /* Mouse pointer on hover */
-      border-radius: 5px;
-      margin-left: 30px;
-    }
-    .btn-write:hover {
-      text-decoration: underline;
-    }
-  /* 게시판 인기글 끝 */
+
   
   /* 여행 일정 */
   .bd-placeholder-img {
@@ -120,3 +58,5 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+      
+      

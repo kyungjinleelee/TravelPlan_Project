@@ -172,8 +172,7 @@
 					<th>좋아요</th>
 					<th>조회수</th>
 					<th>작성일</th>
-					<th>수정</th>
-					<th>삭제</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -186,29 +185,29 @@
 						<td>${DTO.likeContent}</td>
 						<td>${DTO.views}</td>
 						<td >${DTO.boardDate}</td>
-						<td ><button onclick="go_update(${DTO.contentNum},'${DTO.userID}')" class="rounded">수정</button></td>
+
 						<!-- ${DTO.contentNum} ${DTO.userID}->
 						<!-- <td><a href="delete?no=${list.no}">삭제</a></td> -->
-						<td><button onclick="askYesNo(${DTO.contentNum})" class="rounded">
-								삭제</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 			
 		</table>
 		<button class="rounded" onclick="go_write()"><i class="fa fa-pencil" ></i>글쓰기</button>
-		<!-- 검색 -->	
+		<!-------------------- 검색 --------------------->	
 		<div class="search-container">
-      		<form action="<c:url value="/Board"/>" class="search-form" method="get">
-        		<select class="search-option" name="option">
-		          <option value="A" ${sc.option == 'A' || sc.option=='' ? "selected" : ""}>제목+내용</option>
-		          <option value="T" ${sc.option == 'T' ? "selected" : ""}>제목만</option>
-		          <option value="W" ${sc.option == 'W' ? "selected" : ""}>작성자</option>
+      	<!-- 	<form action="<c:url value="/Board"/>" class="search-form" method="get">  -->
+      		<form action="Board" class="search-form" method="get">  
+        		<select class="search-option" name="searchName">
+		          <option value="A" ${PageDTO.searchName == 'A' || PageDTO.searchName=='' ? "selected" : ""}>제목+내용</option>
+		          <option value="T" ${PageDTO.searchName == 'T' ? "selected" : ""}>제목만</option>
+		          <option value="W" ${PageDTO.searchName == 'W' ? "selected" : ""}>작성자</option>
 		        </select>
-		        <input type="text" name="keyword" class="search-input" type="text" value="${sc.keyword}" placeholder="검색어를 입력해주세요">
+		        <input type="text" name="searchValue" class="search-input" type="text" value="${PageDTO.searchValue}" placeholder="검색어를 입력해주세요">
 		        <input type="submit" class="search-button" value="검색">
       		</form>
     	</div>
+		<!-------------------- 검색 --------------------->	
       
 		
     	<div class="paging-container">
@@ -218,8 +217,8 @@
 				<c:set var="totalCount" value="${content.totalCount}" />
 				<c:set var="totalNum" value="${totalCount / perPage}" />
      		
-				<c:set var="option" value="${sc.option}" />
-				<c:set var="keyword" value="${sc.keyword}" />
+				<c:set var="searchName" value="${PageDTO.searchName}" />
+				<c:set var="searchValue" value="${PageDTO.searchValue}" />
 				
 	     		<c:if test="${totalCount % perPage != 0}">
 					<c:set var="totalNum" value="${totalNum+1}" />
@@ -239,7 +238,7 @@
 							${i}
 						</c:if>
 						<c:if test="${curPage != i}">
-							<a href=" <c:url value='Board?curPage=${i}&option=${option}&keyword=${keyword}'/> "> ${i} </a> <!-- curpage에 url 따라댕겨야 나타낼수잇음 -->
+							<a href=" <c:url value='Board?curPage=${i}&searchName=${searchName}&searchValue=${searchValue}'/> "> ${i} </a> <!-- curpage에 url 따라댕겨야 나타낼수잇음 -->
 						</c:if>
 			         </c:forEach>
 			         <!-- 이전으로 가기 표시 -->
