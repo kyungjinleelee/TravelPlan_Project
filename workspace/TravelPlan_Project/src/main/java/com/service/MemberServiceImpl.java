@@ -1,5 +1,8 @@
 package com.service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +27,12 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public void register(MemberDTO dto) throws Exception {
+		
+		// 단방향 암호화 알고리즘
+		String salt = getSalt();
+		dto.setSalt(salt);
+		String newPw = getEncrypt(dto.getPasswd(), dto.getSalt());
+		dto.setPasswd(newPw);
 		
 		// 랜덤 문자열 생성 -> mail_key 컬럼에 넣기
 		String mail_key = new TempKey().getKey(30, false); // 랜덤 키 길이
@@ -65,9 +74,18 @@ public class MemberServiceImpl implements MemberService {
 		return dao.idCheck(userID);
 	}
 	// 로그인
+	@Transactional
 	@Override
 	public MemberDTO login(HashMap<String, String> map) {
-		return dao.login(map);
+		String userID = map.get("userID");
+		String salt = dao.selectSalt(userID);
+		String newPw = getEncrypt(map.get("passwd"), salt);
+		
+		HashMap<String, String> resultMap = new HashMap<String, String>();
+		resultMap.put("userID", userID);
+		resultMap.put("passwd", newPw);
+		
+		return dao.login(resultMap);
 	}
 
 	// 이메일 인증을 위한 랜덤번호 저장
@@ -141,15 +159,82 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public int newPw(MemberDTO dto) {
-		int num = dao.newPw(dto);
-		int num2 = dao.resetMailKey(dto);
+		String salt = getSalt(); // salt 생성
+		dto.setSalt(salt); // dto에 salt 저장
+		String newPw = getEncrypt(dto.getPasswd(), salt); // 입력받은 pw 암호화
+		dto.setPasswd(newPw); // 암호화 된 비밀번호 저장
+		
+		int num = dao.newPw(dto); // 비밀번호 재설정
+		int num2 = dao.resetMailKey(dto); // 메일 인증키 만료
+		
 		if(num == 0 || num2 == 0) {
 			return 0;
 		}
 		return 1;
 	}
+	
+	// 회원탈퇴 - 비밀번호 일치 확인
+	@Transactional
+	@Override
+	public String checkPw(HashMap<String, String> map) {
+		String userID = map.get("userID");
+		String salt = dao.selectSalt(userID);
+		
+		String inputPw = getEncrypt(map.get("inputPw"), salt);
+		
+		HashMap<String, String> resultMap = new HashMap<String, String>();
+		resultMap.put("userID", userID);
+		resultMap.put("inputPw", inputPw);
+		String pw = dao.checkPw(resultMap);
+		
+		return pw;
+	}
 
+	// 단방향 암호화 - salt값 생성
+	public String getSalt() {
+		// 1. Random, slat 생성
+		SecureRandom sr = new SecureRandom();
+		byte[] salt = new byte[20];
+		
+		// 2. 난수 생성
+		sr.nextBytes(salt);
+		
+		// 3. byte To String (10진수 문자열로 변경)
+		StringBuffer sb = new StringBuffer();
+		for(byte b : salt) {
+			sb.append(String.format("%02x", b));
+		}
+		
+		return sb.toString();
+	}
+	
+	// 단방향 암호화 - SHA-256 알고리즘 적용
+	public String getEncrypt(String pw, String salt) {
+		String result = "";
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
 
+			// pwd+salt 적용 전
+//			System.out.println("PWD+slat 적용 전 : "+pw+salt);
+			
+			md.update((pw+salt).getBytes());
+			byte[] pwSalt = md.digest();
+			
+			StringBuffer sb = new StringBuffer();
+			for(byte b : pwSalt) {
+				sb.append(String.format("%02x", b));
+			}
+			
+			result = sb.toString();
+			
+			// pwd+salt 적용 후
+//			System.out.println("PWD+slat 적용 후 : "+result);
+		} catch(NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+//		System.out.println("result : "+result);
+		return result;
+	}
 
 
 }

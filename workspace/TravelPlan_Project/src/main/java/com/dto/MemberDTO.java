@@ -15,13 +15,14 @@ public class MemberDTO {
 	private String phone;
 	private int mail_auth;
 	private String mail_key;
+	private String salt;
 	
 	public MemberDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public MemberDTO(String userID, String passwd, String name, String email, String post, String addr1, String addr2,
-			String phone, int mail_auth, String mail_key) {
+			String phone, int mail_auth, String mail_key, String salt) {
 		this.userID = userID;
 		this.passwd = passwd;
 		this.name = name;
@@ -32,6 +33,7 @@ public class MemberDTO {
 		this.phone = phone;
 		this.mail_auth = mail_auth;
 		this.mail_key = mail_key;
+		this.salt = salt;
 	}
 
 	public String getUserID() {
@@ -114,11 +116,19 @@ public class MemberDTO {
 		this.mail_key = mail_key;
 	}
 
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberDTO [userID=" + userID + ", passwd=" + passwd + ", name=" + name + ", email=" + email + ", post="
 				+ post + ", addr1=" + addr1 + ", addr2=" + addr2 + ", phone=" + phone + ", mail_auth=" + mail_auth
-				+ ", mail_key=" + mail_key + "]";
+				+ ", mail_key=" + mail_key + ", salt=" + salt + "]";
 	}
 	
 }
