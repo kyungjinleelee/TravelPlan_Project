@@ -50,11 +50,11 @@
     </style>
     
     <script>
+    var markers = []; // 마커 배열 (전역 변수)
+    
     $(function(){
-    	 var markers = []; // 마커 배열
-    	 var obj = {};
+    	 var obj = {};  // day버튼
     	    <c:forEach items="${planList}" var="plan" varStatus="status">
-    	    
     	        if(!obj["${plan.day_num}"]){
     	            obj["${plan.day_num}"] = [];  //day_num에 해당하는 키 없을 시, 새로운 배열 생성하여 obj 객체에 담음
     	        }
@@ -78,7 +78,10 @@
 
     	    $('#test-days tbody').html(days);  //test-days 테이블의 tbody에 일정 버튼 추가
     	    
-    	  	//plan-days 버튼 클릭 이벤트
+    	    	// 마커 초기화
+	 	    	clearMarkers(); 
+    	    
+    	  	//-----------plan-days 버튼 클릭 이벤트 시작------------
     	  	// 버튼 클릭시 해당 날짜의 일정 항목이 test-plan-item에 동적으로 생성됨
     	    $(".plan-days").on("click", function(){  
     	    	var day = $(this).data("day");
@@ -90,11 +93,7 @@
     	    	 var dayPlans = [];
     	    	    planList.forEach(function(plan) {
     	    	      dayPlans.push({ mapx: plan.mapx, mapy: plan.mapy });
-    	    	    });
-    	    	
-    	    	
-    	    	planList.forEach(function(plan){	
-    			    
+    	    	    
     	    		// TODO html 수정
     			    var html = ' <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">';
     			    html+='<div class="d-flex w-100 align-items-center justify-content-between">';
@@ -105,58 +104,74 @@
     			    html+='</a>';
     		
     	    		$("#test-plan-item").append(html);  //html을 추가하여 세부 일정에 표시
-    	    		
-    	    		// 테스트
-    	    		console.log(plan.item);
-    	    		console.log(plan.mapx);
-    	    		console.log(plan.mapy);
-    	    		
+    	    	
+    	    		// 테스트 코드
+//     	    		console.log(plan.item);
+//   	    		console.log(plan.mapx);
+//    	    		console.log(plan.mapy); 
+    	    	});
+    	    
     	    		// 마커 추가
     	    		addMarkers(dayPlans);
-    	    	});
-    	    	
+    	    		
     	    });
-    	   
     	    
-    	    // 마커 추가 함수
-    	    function addMarkers(dayPlans) {
-    	        // 마커 초기화
+    	    //-----------plan-days 버튼 클릭 이벤트 끝------------
+    	    
+    	    
+    	    // 초기화 함수
+    	    function clearMarkers() {
     	        markers.forEach(function(marker) {
-    	          marker.setMap(null);
+    	            marker.setMap(null);
     	        });
     	        markers = [];
+    	    }
+    	    	
+    	    	
+    	    });  
+    	  //---------------------------------- function() 끝 ----------------------------------
+    	   
+    	    // 마커 추가 함수
+    	    function addMarkers(dayPlans) {
+    		  
+    	    	// 마커 이미지의 이미지 크기입니다
+    	    	var imageSize = new kakao.maps.Size(50, 50);
 
-    	        // 마커 추가
-    	        dayPlans.forEach(function(plan) {
-    	          var mapx = plan.mapx;
-    	          var mapy = plan.mapy;
+    	    	// 마커 이미지를 생성합니다
+    	    	var imageSrc = 'https://cdn-icons-png.flaticon.com/512/5860/5860579.png'; // 사용할 마커 이미지 파일 경로를 지정해야 합니다
+    	    	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
     	          // Kakao Map
     	          kakao.maps.load(function() {
     	            var container = document.getElementById('map');
     	            var options = {
-    	              center: new kakao.maps.LatLng(mapy, mapx),
+    	              center: new kakao.maps.LatLng(dayPlans[0].mapy, dayPlans[0].mapx),  //첫 번째 마커 위치를 기준으로 중심 위치 설정
     	              level: 3
     	            };
 
     	            var map = new kakao.maps.Map(container, options);
 
-    	            // 마커 생성
-    	            var markerPosition = new kakao.maps.LatLng(mapy, mapx);
-    	            var marker = new kakao.maps.Marker({
-    	              position: markerPosition
-    	            });
-
-    	            // 지도에 마커 출력
-    	            marker.setMap(map);
-    	            markers.push(marker);
-    	            
-    	            console.log(markers);
-    	          });
-    	        });
+	    	        // 마커 생성하고 추가
+	    	        dayPlans.forEach(function(plan) {
+		    	        var mapx = plan.mapx;
+		    	        var mapy = plan.mapy;
+	    	          
+	    	            // 마커 생성
+	    	            var markerPosition = new kakao.maps.LatLng(mapy, mapx);
+	    	            var marker = new kakao.maps.Marker({
+	    	                position: markerPosition,
+	    	                image: markerImage // 마커 이미지 설정
+	    	            });
+	
+	    	            // 지도에 마커 출력
+	    	            marker.setMap(map);
+	    	            markers.push(marker);
+	    	            
+	    	            // 테스트 코드
+	    	            console.log(markers);
+	    	          });
+	    	      });
     	      }
-    	    });
-
 
 	</script>
 	
