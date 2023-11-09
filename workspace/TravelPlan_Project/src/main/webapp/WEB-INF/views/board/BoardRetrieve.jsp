@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -55,6 +54,8 @@
 		}
 		
 		.control-label{font-size:14px;}
+		
+		#CommentTable tr{font-size:14px;}
 		#comment{
 		font-size:14px;
 		resize:none;
@@ -65,7 +66,64 @@
 			color:#3563E9;
 		}
 		
-		  	
+		
+		.testTable{
+		width: 50%;
+		
+		max-width: 400px; 
+		font-size:14px;
+		border: 2px solid black; /* 원하는 굵기와 색상으로 변경 */
+		}
+		
+		.detail-info-head{
+			width: 100%;
+		}
+		
+		.bold-text {
+		    font-weight: bold;
+		}
+		
+		
+		.date-cell{
+		color:white;
+		font-size:20px;
+		border: 2px solid gray;
+		 
+		}
+		
+		.single-schedule{
+			padding:0px;
+		}
+		.single-plan-container{
+			 border-bottom: 1px solid lightgray;
+		}
+		
+		.plan-cell{
+		min-width: 200px;
+		max-width: 300px;
+		width: 100%;
+		
+		
+		}
+		
+		/* border: 2px solid lightgray; */
+		/* textarea 들어 있는 컨테이너, 테이블 밑, 테이블과 별개 */
+		.textarea-container {
+		  /*  width: 90%; */
+		  font-size:14px;
+		  
+		}
+		
+		.textarea-container textarea {
+		  /* 여기서 100%이면 90의 100을 다 쓴다는 식. */
+		  resize:none;
+		}
+		
+		.hidden {
+	    display: none;
+		}
+		
+		
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -138,12 +196,25 @@
 	}
 
 	//테이블 클래스에서 버튼을 누르면 테이블 접었다 폈다하는 함수
-	//요청을 보내지 않는데 이 함수 실행시키면 토글을 한 뒤 요청이 감.
+	//요청을 보내지 않는데 이 함수 실행시키면 토글을 한 뒤 요청이 감. f(${empty comment})
 	
 	function tableToggle(){
 		console.log('버튼 눌림')
 		$("#TravelTable").toggle();
 	}
+	
+	
+	$(document).ready(
+			function(){
+			    // comment가 비어있을 때
+			    if(${empty comment}){
+			        $("#toggleBtn").addClass("hidden"); // 버튼을 숨깁니다.
+			    }
+			    if(${empty comment}){
+			        $("#TravelTable").addClass("hidden"); // 버튼을 숨깁니다.
+			    }
+			}
+		);
 	
 	
 </script>
@@ -196,29 +267,50 @@
 			<div class="form-group">
 				<!-- <label for="content" class="col-sm-2 control-label">내용</label>  -->
 				<div class="col-sm-12">
-					<!-- col 1이  생각보다 크다. -->
+					<!-- col 1이  생각보다 크다. // id TravelTable -->
+						
+						<!--testTable : 아마 3개 일의 일정들이 저장되는 테이블 하나  single-dayX3
+							single-day : 하루, 하루 일정 이 안에 그 날의 여행 계획들이 들어감
+								date-cell : n일차 텍스트 출력됨.이 셀 옆에 컨테이너가 있고, 그 안에 세로로 일정들을 배치함
+								single-schedule : 그 날 하루의 여러 일정들이 들어가는 td
+									single-plan-container : 단일 일정 하나가 들어가는 컨테이너. 이 안에 텍스트들이 들어가고, 이 컨테이너를 세로로 쌓음
+										plan-cell : 일정(장소) 정보 들어가는 테이블
+						-->	
 					
-					<table class="table" id="TravelTable">
-					  <thead>
-					    <tr>
-					      <th>Header 1</th>
-					      <th>Header 2</th>
-					      <th>Header 3</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr>
-					      <td>Data 1</td>
-					      <td>Data 2</td>
-					      <td>Data 3</td>
-					    </tr>
-					    <!-- 추가 데이터 행들 -->
-					  </tbody>
+					
+					<table class="table testTable" id="TravelTable">
+						<tbody>
+							 <c:forEach begin="1" end="1" step="1" varStatus="loop">
+							 <!--  2중 포문 형태여야함, 겉 n일차, 안 n일차의 일정들-->
+								<tr class = "single-day"><!-- 이 tr 하나가 하나의 일정-->
+									<td class = "date-cell bold-text" style="text-align: center; background-color: #3563E9; color:white;">${loop.index} 일차</td>
+									<td class="single-schedule"> <!-- 테이블 1, 하나의 세부일정, 이걸 반복. -->
+										<!-- comment 갖고 2중포문 구현하려면 에러남. -->
+										<c:forEach items="${comment}" var="item">
+											<div class="single-plan-container">
+												<table class="plan-cell">
+													<tr class="detail-info-head" >
+											          	<td  align="left">${item.userID}</td>
+														<td  align="right">${item.commentdate}</td>
+											        </tr>
+											        <tr class="detail-info-head">
+											        	<td align="left">${item.comments}</td>
+												    </tr>
+												</table> 
+											</div>
+										</c:forEach>	
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
 					</table>
 					
-					<span><input type="button" value="일정 펼쳐보기" class="btn btn-default btn-primary" id="toggleBtn" style="font-size: 12px;" onclick="tableToggle()" ></span>
-					<br> <!-- 공백 추가 -->
-					<br> <!-- 공백 추가 -->
+					
+					<span><input type="button" value="일정 펼쳐보기" class="btn btn-default btn-primary" id="toggleBtn" style="font-size: 12px;" onclick="tableToggle()">
+					</span>
+					
+					<br></br>
+
 					
 					<textarea class="form-control" rows="10" name="content" id="mainText">${content.mainText}</textarea>
 				</div>
@@ -238,15 +330,20 @@
 				
 			</div>
 		</form>
+				
+		
+		
+		
+
 		<!--<table class="table table-striped table-bordered table-hover"> ulList_seq -->
-			
+		<!-- 여기는 댓글 들어가는 테이블 -->	
 		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 			<tr>
 				<td align="left" colspan="2" style="background-color: #E0E0E0;" id="comment-border">댓글</td>
 			</tr>
 		</table>
 		<c:forEach var="dto" items="${comment}">
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+			<table class="table table-striped" style="text-align: center;" id="CommentTable" border="1px solid #dddddd;">
 				<tbody>
 					<tr>
 						<td align="left">${dto.userID}</td>

@@ -215,7 +215,7 @@
         		<c:if test="${totalCount!=null && totalCount!=0}">
         			<!-- 다음으로 가기 표시 -->
        				<c:if test="${curPage != 1}">
-           		 		<a class="page" href="<c:url value="Board?curPage=${curPage-1}"/>">&lt;이전</a>
+           		 		<a class="page" href="<c:url value="Board?curPage=${curPage-1}&option=${option}&keyword=${keyword}"/>">&lt;이전</a>
           			</c:if>
           			<!-- 페이지 나열 -->
           			<c:forEach var="i" begin="1" end="${totalNum}">
@@ -228,7 +228,7 @@
 			         </c:forEach>
 			         <!-- 이전으로 가기 표시 -->
 			         <c:if test="${curPage < totalNum-1}">
-            		 	<a class="page" href="<c:url value="Board?curPage=${curPage+1}"/>">다음&gt;</a>
+            		 	<a class="page" href="<c:url value="Board?curPage=${curPage+1}&option=${option}&keyword=${keyword}"/>">다음&gt;</a>
           			 </c:if>
         		</c:if>
       		</div>
