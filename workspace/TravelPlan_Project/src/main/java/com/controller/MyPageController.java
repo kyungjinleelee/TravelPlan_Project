@@ -1,6 +1,8 @@
 package com.controller;
 
+import java.util.HashMap;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dto.BoardDTO;
 import com.dto.MemberDTO;
-import com.dto.PlanDTO;
-import com.dto.TravelListDTO;
 import com.dto.UserLikeDTO;
+import com.service.MemberService;
 import com.service.MyPageService;
 
 @Controller
@@ -26,6 +24,9 @@ public class MyPageController {
 	
 	@Autowired
 	MyPageService service;
+	
+	@Autowired
+	MemberService memberService;
 	
     // 마이페이지
     @GetMapping("/loginCheck/mypage")
@@ -113,34 +114,46 @@ public class MyPageController {
 			return "mypage/memberDeleteForm";
 		}
 	
-	// 회원 탈퇴
+	// 회원 탈퇴 // 비밀번호 비교하는게 중복해서 또 들어감..
 		@PostMapping("/loginCheck/memberDelete")
 		public String memberDelete(MemberDTO dto, HttpSession session, RedirectAttributes rttr) throws Exception {
 			MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");   //세션에 있는 loginInfo 정보를 가져와 loginInfo변수에 넣어줌
 			//loginInfo 객체가 null인지 확인
-		    if (loginInfo != null) {
-				String sessionPasswd = loginInfo.getPasswd();  //세션에 있는 비밀번호
-				String dtoPasswd = dto.getPasswd();  //dto로 들어오는 비밀번호
-			
-				if (!sessionPasswd.equals(dtoPasswd)) { //두 개의 비밀번호를 비교
+//				String sessionPasswd = loginInfo.getPasswd();  //세션에 있는 비밀번호
+//				String dtoPasswd = dto.getPasswd();  //dto로 들어오는 비밀번호
+		    	
+		    	HashMap<String, String> map = new HashMap<String,String>();
+		    	map.put("userID", loginInfo.getUserID()); // 로그중인 id값
+		    	map.put("inputPw", dto.getPasswd()); // 입력한 비밀번호
+		    	String pw = memberService.checkPw(map); // 입력 비밀번호와 DB에 저장된 비밀번호를 비교 (같으면 암호화된 pw 반환 / 다르면 null 반환)
+		    	
+				if (pw == null) { // 입력한 비밀번호와 DB의 비밀번호 불일치
 		            rttr.addFlashAttribute("msg", false); //일치하지 않으면 msg에 false 값을 넣어서 form에 전달
 		            return "redirect:memberDeleteForm";
 		        } else {
+		        	dto.setPasswd(pw); // 암호화된 비밀번호 dto에 저장
 		            service.memberDelete(dto); //일치할 경우 회원 삭제
 		            session.invalidate(); //세션 무효화
 		            return "redirect:main";
 		        }
-		    } else {
-		        //loginInfo 세션 속성이 존재하지 않거나 null일 때 처리
-		        return "redirect:loginForm"; //로그인 페이지로 리다이렉트
-		    }
 		}
 		
 	//비밀번호 체크
 		@PostMapping("/loginCheck/checkPw")
 		@ResponseBody
-		public int checkPw(MemberDTO dto) {
-			int result = service.checkPw(dto);
+		public int checkPw(MemberDTO dto, HttpSession session) {
+//			int result = service.checkPw(dto);
+			MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+			HashMap<String, String> map = new HashMap<String,String>();
+	    	map.put("userID", loginInfo.getUserID()); // 로그인 하고있는 id값
+	    	map.put("inputPw", dto.getPasswd()); // 입력한 비밀번호
+	    	
+			int result = 0;
+			if(memberService.checkPw(map) == null) {
+				result = 0;
+			} else {
+				result = 1;
+			}
 			return result;    // 일치한다면 1 반환
 		}
 		
@@ -152,6 +165,5 @@ public class MyPageController {
 	        session.setAttribute("userId", user.getId());
 	        session.setMaxInactiveInterval(1800); // Session이 30분동안 유지
 		 */
-	
 
 }

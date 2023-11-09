@@ -237,7 +237,8 @@
             	return false;
             }
             
-           return true;
+            document.getElementById("sbtn").disabled = true; // 버튼 비활성화 - 한번만 눌러지도록
+           	return true;
        }
 
        function setMessage(msg, element){
@@ -294,6 +295,9 @@
 
              });
 		});
+       
+       // submit 버튼 한번 클릭하면 비활성화
+       
        });
    </script>
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>

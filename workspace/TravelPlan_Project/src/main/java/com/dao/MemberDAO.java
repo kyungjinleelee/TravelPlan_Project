@@ -75,4 +75,14 @@ public class MemberDAO {
 		return session.update("MemberMapper.resetMailKey", dto);
 	}
 	
+	// salt값 가져오기
+	public String selectSalt(String userID) {
+		return session.selectOne("MemberMapper.selectSalt", userID);
+	}
+	
+	// 회원탈퇴 - 비밀번호 일치 확인
+	public String checkPw(HashMap<String, String> map) {
+		return session.selectOne("MemberMapper.checkPw", map);
+	}
+	
 }

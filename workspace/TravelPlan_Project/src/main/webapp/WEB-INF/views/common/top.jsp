@@ -117,7 +117,7 @@
 <main>
   <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between py-3 mb-4 border-bottom">
-      <a href="main" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+      <a href="/app/main" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
         <image class="bi" src="/app/images/logo_roof.png" style="width: 40; height: 32;"/> <!-- 로고 -->
       </a>
 

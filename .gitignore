@@ -2,6 +2,7 @@ workspace/TravelPlan_Project/src/main/java/com/info/
 workspace/TravelPlan_Project/src/main/webapp/META-INF/MANIFEST.MF
 workspace/TravelPlan_Project/src/main/webapp/META-INF/maven/com.myproject/app/pom.properties
 workspace/TravelPlan_Project/target/
+testkey.pem
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,java
 
