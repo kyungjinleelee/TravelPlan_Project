@@ -31,7 +31,7 @@
 	
 	<!-- 메일 인증 후 mail_auto 0 -> 1 변경 -->
 	<update id="updateMailAuth" parameterType="MemberDTO">
-	    update member set mail_auth=1 where email=#{email} and mail_key=#{mail_key}
+	    update member set mail_auth=1 where userID=#{userID} and email=#{email}
 	</update>
 	
 	<!-- 로그인 시 인증 유무 체크 -->

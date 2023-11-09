@@ -5,12 +5,15 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.config.RedisConfig;
 import com.dao.MemberDAO;
 import com.dto.MemberDTO;
 import com.mail.MailHandler;
@@ -23,10 +26,14 @@ public class MemberServiceImpl implements MemberService {
 	MemberDAO dao;
 	@Autowired
 	JavaMailSender mailSender;
+	@Autowired
+	private RedisConfig redis;
+	
 	
 	@Transactional
 	@Override
 	public void register(MemberDTO dto) throws Exception {
+		RedisTemplate<String, Object> redisTemplate = redis.getRedisTemplate();
 		
 		// 단방향 암호화 알고리즘
 		String salt = getSalt();
@@ -35,12 +42,14 @@ public class MemberServiceImpl implements MemberService {
 		dto.setPasswd(newPw);
 		
 		// 랜덤 문자열 생성 -> mail_key 컬럼에 넣기
-		String mail_key = new TempKey().getKey(30, false); // 랜덤 키 길이
-		dto.setMail_key(mail_key);
+		String mail_key = new TempKey().getKey(30, false); // 랜덤 키 길이 30
+//		dto.setMail_key(mail_key);
+		
+		redisTemplate.opsForValue().set(dto.getUserID(), mail_key, 3, TimeUnit.MINUTES); // 유효시간 3분인 키값 생성
 		
 		// 회원가입
 		dao.register(dto);
-		dao.updateMailKey(dto);
+//		dao.updateMailKey(dto);
 		
 		// 회원가입 완료 후 인증 이메일 발송
 		MailHandler sendMail = new MailHandler(mailSender);
@@ -49,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
 				"<h1>여담 메일 인증</h1>" +
 				"<br>안녕하세요 "+ dto.getUserID() +"님. 여담 가입을 환영합니다!" +
 				"<br>아래 [이메일 인증 확인]을 눌러주세요." +
-				"<br><a href='http://localhost:8091/app/registerEmail?email=" + dto.getEmail() +
+				"<br><a href='http://localhost:8091/app/registerEmail?userID="+dto.getUserID()+"&email=" + dto.getEmail() +
 				"&mail_key=" + mail_key +
 				"' target='_black'>이메일 인증 확인</a>");
 		sendMail.setFrom("pjtravelplan@gmail.com", "TravelPlan"); // 보내는 사람
@@ -88,15 +97,29 @@ public class MemberServiceImpl implements MemberService {
 		return dao.login(resultMap);
 	}
 
-	// 이메일 인증을 위한 랜덤번호 저장
+	// 이메일 인증을 위한 랜덤번호 저장 - redis로 대체
 	@Override
 	public int updateMailKey(MemberDTO dto) throws Exception {
-		return dao.updateMailKey(dto);
+//		return dao.updateMailKey(dto); redis로 대체
+		return 0;
 	}
 
 	// 메일 인증 후 mail_auto 0 -> 1 변경
 	@Override
 	public int updateMailAuth(MemberDTO dto) throws Exception {
+		RedisTemplate<String, Object> redisTemplate = redis.getRedisTemplate();
+		
+		// 인증 키 확인
+		String mail_key = (String) redisTemplate.opsForValue().get("passwdtest");
+		
+		if(mail_key == null) { // 인증키 timeout
+			return 0;
+		}
+		if(!mail_key.equals(dto.getMail_key())) { // DB에 저장된 인증키와 url에 전달된 인증키가 다름
+			return 0;
+		}
+		
+		redisTemplate.delete(dto.getUserID()); // 인증 후 키값 초기화
 		return dao.updateMailAuth(dto);
 	}
 
@@ -116,11 +139,13 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public int findPw_email(MemberDTO dto) throws Exception {
+		RedisTemplate<String, Object> redisTemplate = redis.getRedisTemplate();
 		// 랜덤 문자열 생성 후 mail_key 컬럼에 넣기
 		String mail_key = new TempKey().getKey(30, false); // 랜덤 키 길이
-		dto.setMail_key(mail_key);
+//		dto.setMail_key(mail_key);
 		
-		dao.updateMailKey(dto);
+//		dao.updateMailKey(dto);
+		redisTemplate.opsForValue().set(dto.getUserID(), mail_key, 3, TimeUnit.MINUTES); // 유효시간 3분인 키값 생성
 		
 		// 이메일, 아이디 일치 여부 확인
 		int num = dao.findPw_email(dto);
@@ -152,7 +177,21 @@ public class MemberServiceImpl implements MemberService {
 	// 인증키 확인
 	@Override
 	public int checkKey(MemberDTO dto) {
-		return dao.checkKey(dto);
+//		return dao.checkKey(dto);
+		RedisTemplate<String, Object> redisTemplate = redis.getRedisTemplate();
+		
+		// redis로 변경
+		String mail_key = (String) redisTemplate.opsForValue().get(dto.getUserID());
+		
+		if(mail_key == null) { // 인증키 timeout
+			return 0; 
+		}
+		if(!mail_key.equals(dto.getMail_key())) { // 저장된 인증키와 메일에 포함된 인증키가 다를 때
+			return 0;
+		}
+		
+		redisTemplate.delete(dto.getUserID()); // 인증 후 키값 초기화
+		return 1;
 	}
 	
 	// 비밀번호 재설정
@@ -165,9 +204,10 @@ public class MemberServiceImpl implements MemberService {
 		dto.setPasswd(newPw); // 암호화 된 비밀번호 저장
 		
 		int num = dao.newPw(dto); // 비밀번호 재설정
-		int num2 = dao.resetMailKey(dto); // 메일 인증키 만료
+//		int num2 = dao.resetMailKey(dto); // 메일 인증키 만료
 		
-		if(num == 0 || num2 == 0) {
+//		if(num == 0 || num2 == 0) {
+		if(num == 0) { // 비밀번호 재설정 실패
 			return 0;
 		}
 		return 1;
