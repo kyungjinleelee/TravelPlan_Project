@@ -12,6 +12,10 @@
     <!-- 부트스트랩 CSS 추가 -->
   	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- alert 커스텀 -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
     <style>
                 * {
             box-sizing: border-box;
@@ -154,8 +158,14 @@
 	<script>
         <!--저장 버튼 클릭 시 실행-->
         document.getElementById("saveButton").addEventListener("click", function() {
-            alert("회원 정보가 성공적으로 수정되었습니다.");   // 서버로 데이터 전송 후, 성공 시 알림 표시
-            window.location.href = "mypage"; // memberInfo.jsp로 리디렉션
+        	// 졸라 빨리 끝남
+        	Swal.fire({ 
+        	     icon: 'success', // Alert 타입
+        		 title: '회원 정보가 성공적으로 수정되었습니다.', // Alert 제목
+        	     text: ' ' // Alert 내용
+        		});
+        //	alert("회원 정보가 성공적으로 수정되었습니다.");   // 서버로 데이터 전송 후, 성공 시 알림 표시
+            window.location.href = "mypage"; // memberInfo.jsp
         }); 
     </script>
     

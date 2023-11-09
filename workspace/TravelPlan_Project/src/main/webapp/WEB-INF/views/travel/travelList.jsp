@@ -11,11 +11,48 @@
     <title>여 담; 여행을 담다</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"></script> 
+    <!-- alert 커스텀 -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
+	<style>
+		.card-text {
+    	margin-bottom: 1px; 
+    	font-family: Gothic;
+    	color: #808080;
+    	font-size: 12px;
+		}
+	</style>
    <script>
-     $(document).ready(function() {
+	   $(document).ready(function() {
+		    $(".deleteBtn").on("click", function() {
+		        var travelID = $(this).attr("data-travelID");
+	
+		        // SweetAlert2 대화상자 표시
+		        Swal.fire({
+		            title: '정말 삭제하시겠습니까?',
+		            text: '다시 되돌릴 수 없습니다. 신중하세요.',
+		            icon: 'warning',
+		            showCancelButton: true,
+		            confirmButtonColor: '#3085d6',
+		            cancelButtonColor: '#d33',
+		            confirmButtonText: '삭제',
+		            cancelButtonText: '취소',
+		            reverseButtons: true,
+		        }).then((result) => {
+		            if (result.isConfirmed) {
+		                // 사용자가 확인을 클릭한 경우에만 삭제 요청
+		                location.href = "travelDel?travelID=" + travelID;
+		            }
+		        });
+		    });
+		});
+   
+   
+     /* $(document).ready(function() {
         $(".deleteBtn").on("click", function() {
             var travelID = $(this).attr("data-travelID");
             var confirmed = confirm("정말 삭제하시겠습니까?");   //확인 메세지 표시. true or false 값을 반환.
@@ -23,64 +60,12 @@
          	   location.href="travelDel?travelID="+travelID;
             }
         });
-    }); 
+    });  */
    </script>	
 </head>
 
 <body>
-<!-- top2.jsp -->
-<!--     <nav class="navbar navbar-light bg-light"> -->
-<!--         <div class="container-fluid"> -->
-<!--             <a class="navbar-brand" href="#"> -->
-<!--                 <img src=""> -->
-<!--                 <span style="color: #1E90FF"> <b style="font-size: 25px">여 담; 여행을 담다</b></span> -->
-<!--             </a> -->
-<!--             <div class="d-grid gap-2 d-md-flex justify-content-md-end"> -->
-<!--                 <button type="button" class="btn btn-outline-primary">회원가입</button> -->
-<!--                 <button class="btn btn-primary" type="button">로그인</button> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </nav> -->
 
-<!--     <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
-<!--         <div class="container-fluid"> -->
-<!--             <a class="navbar-brand" href="#" style="color: #1E90FF">Best일정</a> -->
-<!--             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" -->
-<!--                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-<!--                 <span class="navbar-toggler-icon"></span> -->
-<!--             </button> -->
-<!--             <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-<!--                 <ul class="navbar-nav me-auto mb-2 mb-lg-0"> -->
-<!--                     <li class="nav-item"> -->
-<!--                         <a class="nav-link" aria-current="page" href="#">일정 만들기</a> -->
-<!--                     </li> -->
-<!--                     <li class="nav-item"> -->
-<!--                         <a class="nav-link" href="travelList">일정 보관함</a> -->
-<!--                     </li> -->
-<!--                     <li class="nav-item dropdown"> -->
-<!--                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" -->
-<!--                             data-bs-toggle="dropdown" aria-expanded="false"> -->
-<!--                             		게시판 -->
-<!--                         </a> -->
-<!--                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
-<!--                             <li><a class="dropdown-item" href="#">여담 게시판</a></li> -->
-<!--                             <li><a class="dropdown-item" href="#">일반 게시판</a></li> -->
-<!--                             <li> -->
-<!--                                 <hr class="dropdown-divider"> -->
-<!--                             </li> -->
-<!--                             <li><a class="dropdown-item" href="#">Something else here</a></li> -->
-<!--                         </ul> -->
-<!--                     </li> -->
-<!--                 </ul> -->
-<!--                 <form class="d-flex"> -->
-<!--                     <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search"> -->
-<!--                     <button type="button" class="btn btn-outline-info">Search</button> -->
-<!--                 </form> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </nav> -->
-
-<!-- top.jsp -->
 	<div id="header">
 		<jsp:include page="../common/top.jsp" flush="true" />
 	</div>
@@ -89,19 +74,14 @@
   
     <br>
     <br>
-    <br>
     <div class="centered-title text-center">
         <h1 style="font-weight: 600;">일정 보관함</h1>
     </div>
     <br>
-    <br>
-    <br>
-    <br>
     
 <div class="container">
     <div class="d-flex justify-content-between mt-5">
-    	<!-- 경로 설정 나중에 다시 확인 -->
-        <button type="button" class="btn btn-outline-primary" onclick="window.location.href='/app/travelUI'">새 일정 만들기</button>
+        <button type="button" class="btn btn-outline-primary" onclick="window.location.href='/app/loginCheck/pickLocation'">새 일정 만들기</button>
         <button type="button" class="btn btn-primary">게시판 등록</button>
     </div>
     <br>
@@ -109,13 +89,16 @@
     <div class="container" style="min-height: 70vh;">
         <div class="row justify-content-center">
             <c:forEach var="travel" items="${pageDTO2.list}" varStatus="status">
-          	  <div class="col-md-3">  <!-- col-md-4 로 할지 고민중 -->
+          	  <div class="col-md-3">  
                 <div class="card text-center mb-5" style="width: 18rem;">
                	 <!-- 여기서 이미지를 동적으로 설정할 방법을 추가 -->
-                      <img src="..." class="card-img-top" alt="...">    <!-- 지역에 따른 이미지 사진 추가해주기 -->
+                      <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbnjbwp%2FbtszYEixOm6%2F3lBILaQDzfOVTTRSFUfZw0%2Fimg.png" class="card-img-top" alt="...">    <!-- 지역에 따른 이미지 사진 추가해주기 -->
                     <div class="card-body">
                         <h5 class="card-title" style="font-weight:800;">${travel.travelTitle}</h5>
-                        <p class="card-text">${travel.writedate}</p>
+                        <p class="card-text">여행 시작   ${travel.SDate}</p>
+                        <p class="card-text">여행 끝   ${travel.EDate}</p>
+                        <%-- <p class="card-text">작성일 : ${travel.writedate}</p> --%>
+                        <br>
                         <a href="travelRetrieve?travelID=${travel.travelID}" class="btn btn-primary btn-sm">일정 보러가기</a>
                    		<button type="button" class="deleteBtn btn-danger btn-sm" data-travelID="${travel.travelID}">삭제</button>
                     </div>
