@@ -5,6 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!-- jquery CDN -->   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!-- JQuery UI -->
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto" style="height: 100%">
 <head>
@@ -119,20 +121,10 @@
 		    <span class="fs-5 fw-semibold">세부 일정</span>
 		  </div>
 		
-		  <!-- 세부 일정 : c:foreach 사용하기 -->
-		  <div class="scheduleList list-group list-group-flush border-bottom scrollarea">
-		    
-<!-- 세부일정 항목 양식 -->
-<!-- 		    <div class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true"> -->
-<!-- 		      <div class="d-flex w-100 align-items-center justify-content-between"> -->
-<!-- 		        <strong class="mb-1">List group item heading</strong> -->
-<!-- 		        <input type="text" class="time_text small" style="width: 45px;" placeholder="12:00">  -->
-<!-- 		      </div> -->
-<!-- 		      <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div> -->
-<!-- 			  <button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button> -->
-<!-- 		    </div> -->
-		    
-		  </div>
+		  <!-- 세부 일정 목록 -->
+		  <!-- 수정(2023.11.07) jqueryUI의 리스트 순서 변경 함수 사용하기 위해 div를 ul로 변경 -->
+		  <ul class="scheduleList list-group list-group-flush border-bottom scrollarea" id="scheduleList_sortable">
+		  </ul>
 		</div>
 
 <!-- 세부 일정 끝 -->

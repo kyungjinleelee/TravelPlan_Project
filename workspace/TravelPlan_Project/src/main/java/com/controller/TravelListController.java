@@ -56,13 +56,13 @@ public class TravelListController {
 	@GetMapping("/loginCheck/travelRetrieve")
 	public String travelRetrieve(@RequestParam int travelID, Model m, HttpSession session) {
 		
-		session.setAttribute("client_id", info.getKakaoMapId());
-		
-		TravelListDTO travelRetrieve = service.travelRetrieve(travelID);  
-		List<PlanDTO> planList = service.planList(travelID);  
+		session.setAttribute("client_id", info.getKakaoMapId());  //세션에 client_id 속성 설정, 이 속성에 info.getKakaoMapId()의 반환값 할당
+																  //세션에 클라이언트id와 관련된 지도 정보를 저장함
+		TravelListDTO travelRetrieve = service.travelRetrieve(travelID);  //travelID 전달하여 일정 정보 가져와 travelRetrieve 변수에 할당
+		List<PlanDTO> planList = service.planList(travelID);  //travelID 전달하여 일정 세부 정보 가져와  planList 변수에 할당
 		
 		m.addAttribute("travelListDTO", travelRetrieve);  //모델에 TravelListDTO 객체 추가
-		m.addAttribute("planList", planList);  //모델에 PlanDTO 객체 추가
+		m.addAttribute("planList", planList);  //모델에 planList 객체 추가
 		
 		return "travel/travelRetrieve";
 	}	
