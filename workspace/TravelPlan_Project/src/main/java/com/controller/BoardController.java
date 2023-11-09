@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,9 @@ import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.MemberDTO;
 import com.dto.PageDTO;
+import com.dto.PlanDTO;
 import com.dto.SearchCondition;
+import com.dto.TravelListDTO;
 import com.service.BoardServiceImpl;
 import com.service.MyPageServiceImpl;
 import com.service.SharedBoardService;
@@ -43,6 +46,17 @@ public class BoardController {
 		List<CommentDTO> contentDto = service.selectCommentList(contentNum);
 		m.addAttribute("content", dto);//dto
 		m.addAttribute("comment", contentDto);//dto
+		
+		//여행일정 가져오기
+		HashMap<String, Object>map = new HashMap<>();
+		TravelListDTO TravelDto = service.findOneTravel(dto.getTravelID());
+		List<PlanDTO> PlanDto = service.findAllPlan(dto.getTravelID());
+		//map.put("content", dto);
+		//map.put("comment", contentDto);
+		map.put("travel", TravelDto);
+		map.put("plan", PlanDto);
+		m.addAllAttributes(map);
+		
 		return "board/BoardRetrieve";
 		
 	

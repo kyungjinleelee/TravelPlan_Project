@@ -207,10 +207,11 @@
 	$(document).ready(
 			function(){
 			    // comment가 비어있을 때
-			    if(${empty comment}){
+			    if(${emptyplan}){
 			        $("#toggleBtn").addClass("hidden"); // 버튼을 숨깁니다.
 			    }
-			    if(${empty comment}){
+			    
+			    if(${emptyplan}){
 			        $("#TravelTable").addClass("hidden"); // 버튼을 숨깁니다.
 			    }
 			}
@@ -275,7 +276,13 @@
 								single-schedule : 그 날 하루의 여러 일정들이 들어가는 td
 									single-plan-container : 단일 일정 하나가 들어가는 컨테이너. 이 안에 텍스트들이 들어가고, 이 컨테이너를 세로로 쌓음
 										plan-cell : 일정(장소) 정보 들어가는 테이블
+										
+										<div>${travel.travelTitle}</div>
 						-->	
+					
+					
+					
+					 
 					
 					
 					<table class="table testTable" id="TravelTable">
@@ -286,15 +293,15 @@
 									<td class = "date-cell bold-text" style="text-align: center; background-color: #3563E9; color:white;">${loop.index} 일차</td>
 									<td class="single-schedule"> <!-- 테이블 1, 하나의 세부일정, 이걸 반복. -->
 										<!-- comment 갖고 2중포문 구현하려면 에러남. -->
-										<c:forEach items="${comment}" var="item">
+										<c:forEach items="${plan}" var="plan">
 											<div class="single-plan-container">
 												<table class="plan-cell">
 													<tr class="detail-info-head" >
-											          	<td  align="left">${item.userID}</td>
-														<td  align="right">${item.commentdate}</td>
+											          	<td  align="left">${plan.item}</td>
+														<td  align="right">${plan.item_add}</td>
 											        </tr>
 											        <tr class="detail-info-head">
-											        	<td align="left">${item.comments}</td>
+											        	<td align="left">${plan.item_add}</td>
 												    </tr>
 												</table> 
 											</div>
@@ -332,6 +339,8 @@
 		</form>
 				
 		
+				
+		
 		
 		
 
@@ -340,6 +349,7 @@
 		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 			<tr>
 				<td align="left" colspan="2" style="background-color: #E0E0E0;" id="comment-border">댓글</td>
+				
 			</tr>
 		</table>
 		<c:forEach var="dto" items="${comment}">

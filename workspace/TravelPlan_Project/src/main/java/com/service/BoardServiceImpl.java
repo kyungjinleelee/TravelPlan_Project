@@ -12,7 +12,9 @@ import com.dao.BoardDAO;
 import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.PageDTO;
+import com.dto.PlanDTO;
 import com.dto.SearchCondition;
+import com.dto.TravelListDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -94,6 +96,17 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int searchResultCnt(SearchCondition sc) throws Exception {
 		return dao.searchResultCnt(sc);
+	}
+	
+	//여행 계획 중에서 제목 등 가져오기.
+	@Override
+	public TravelListDTO findOneTravel(int travelID) {
+		return dao.findOneTravel(travelID);
+	}
+	//세부 계획들 가져오기
+	@Override
+	public List<PlanDTO> findAllPlan(int travelID) {
+		return dao.findAllPlan(travelID);
 	}
 
 	

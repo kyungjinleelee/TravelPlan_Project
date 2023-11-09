@@ -12,7 +12,9 @@ import org.springframework.stereotype.Repository;
 import com.dto.BoardDTO;
 import com.dto.CommentDTO;
 import com.dto.PageDTO;
+import com.dto.PlanDTO;
 import com.dto.SearchCondition;
+import com.dto.TravelListDTO;
 @Repository
 public class BoardDAO {
 	@Autowired
@@ -33,7 +35,20 @@ public class BoardDAO {
 		List<BoardDTO> dto = session.selectList("BoardMapper.findAll");
 		return dto;
 	}
+	//게시글에 여행 일정 통합 후  추가된 내용.
+	//여행
+	public TravelListDTO findOneTravel(int travelID) {
+		TravelListDTO dto = session.selectOne("BoardMapper.findOne_Travel",travelID);
+		return dto;
+	}
 
+	public List<PlanDTO>  findAllPlan(int travelID) {
+		List<PlanDTO> dto = session.selectList("BoardMapper.findAll_Plan",travelID);
+		return dto;
+	}
+	
+	
+	
 	public int update(BoardDTO dto) {
 		int n = session.update("BoardMapper.update", dto);
 		return n;
@@ -132,5 +147,7 @@ public class BoardDAO {
 	public int searchResultCnt(SearchCondition sc) throws Exception{
 		return session.selectOne("BoardMapper.searchResultCnt", sc);
 	}
+
+	
 	 
 }
