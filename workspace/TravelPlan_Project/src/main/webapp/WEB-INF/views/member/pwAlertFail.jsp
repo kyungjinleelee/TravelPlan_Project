@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- jquery CDN -->   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,28 +14,23 @@
 			alert("비밀번호 재설정에 실패했습니다. 다시 시도해주세요.");
 			location.href="findPwForm";
 		</script> -->
-	<style>
-		* { font-family: 'SUIT-Bold'; }
-		.alert {
-			width:800px;
-			height:100px;
-			display : flex;
-			flex-direction: column;
-			align-items:center;
-			position : absolute;
-			top:50%;
-			left:50%;
-			transform: translate(-50%, -50%) ;
-		}	
-	</style>
+	<!-- alert 커스텀 -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			Swal.fire({	
+				icon: 'error',
+				title: '비밀번호 재설정에 실패했습니다.',
+				text: '다시 시도해주세요.'}).then(function(){
+				location.href="findPwForm";
+			});
+		});
+	</script> 
 </head>
 <body>
-	<div class="text-center alert container alert-danger alert-dismissible fade show align-self-center" role="alert">
-	  <strong style="font-size: x-large">비밀번호 재설정에 실패했습니다.</strong> 다시 시도해주세요.
-	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="location.href='/app/loginForm'"></button>
-	</div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
 

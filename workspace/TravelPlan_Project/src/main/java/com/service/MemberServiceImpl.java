@@ -57,11 +57,12 @@ public class MemberServiceImpl implements MemberService {
 		sendMail.setText( // 메일 내용
 				"<h1>여담 메일 인증</h1>" +
 				"<br>안녕하세요 "+ dto.getUserID() +"님. 여담 가입을 환영합니다!" +
-				"<br>아래 [이메일 인증 확인]을 눌러주세요." +
+				"<br>아래 <b>[이메일 인증 확인]</b>을 눌러주세요." +
+				"<br><h3>해당 링크의 유효시간은 3분입니다.</h3>" +
 				"<br><a href='http://localhost:8091/app/registerEmail?userID="+dto.getUserID()+"&email=" + dto.getEmail() +
 				"&mail_key=" + mail_key +
 				"' target='_black'>이메일 인증 확인</a>");
-		sendMail.setFrom("pjtravelplan@gmail.com", "TravelPlan"); // 보내는 사람
+		sendMail.setFrom("pjtravelplan@gmail.com", "여담"); // 보내는 사람
 		sendMail.setTo(dto.getEmail()); // 받는 사람
 		sendMail.send(); // 메일 보내기
 
@@ -161,14 +162,15 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 비밀번호 재설정용 이메일 전송
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[TravelPlan 비밀번호 재설정]"); // 메일 제목
+		sendMail.setSubject("[여담 비밀번호 재설정]"); // 메일 제목
 		sendMail.setText( // 메일 내용
-				"<h1>TravelPlan 비밀번호를 재설정합니다.</h1>" +
-				"<br>TravelPlan 비밀번호 재설정하려면 아래 [비밀번호 재설정]을 눌러주세요." +
+				"<h1>여담 비밀번호를 재설정합니다.</h1>" +
+				"<br>여담의 비밀번호 재설정하려면 아래 <b>[비밀번호 재설정]</b>을 눌러주세요." +
+				"<br><h3>해당 링크의 유효시간은 3분입니다.</h3>" +
 				"<br><br><a href='http://localhost:8091/app/resetPw?email=" + dto.getEmail() +
 				"&mail_key=" + mail_key + "&userID=" + dto.getUserID() +
 				"' target='_black'>비밀번호 재설정</a>");
-		sendMail.setFrom("pjtravelplan@gmail.com", "TravelPlan"); // 보내는 사람
+		sendMail.setFrom("pjtravelplan@gmail.com", "여담"); // 보내는 사람
 		sendMail.setTo(dto.getEmail()); // 받는 사람
 		sendMail.send(); // 메일 보내기
 		return 2;

@@ -32,6 +32,11 @@
 	
 	<!-- day 버튼 이벤트-->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<!-- alert 커스텀 -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
     
     <style>
     .plan-days {
@@ -46,14 +51,14 @@
     color: #0c3b54;
     font-family: 'SUIT-Bold';
 }
-
     </style>
     
     <script>
+    
     var markers = []; // 마커 배열 (전역 변수)
+    var obj = {};  // day버튼
     
     $(function(){
-    	 var obj = {};  // day버튼
     	    <c:forEach items="${planList}" var="plan" varStatus="status">
     	        if(!obj["${plan.day_num}"]){
     	            obj["${plan.day_num}"] = [];  //day_num에 해당하는 키 없을 시, 새로운 배열 생성하여 obj 객체에 담음
@@ -66,7 +71,8 @@
     	            mapx: "${plan.mapx}",
     	            mapy: "${plan.mapy}",
     	            idx: "${plan.idx}"
-    	        })
+    	        });
+    	        
     	    </c:forEach>
 
     	    var days = '';  //days 초기화. 일정 버튼 저장할 HTML 문자열 가짐.
@@ -78,8 +84,8 @@
 
     	    $('#test-days tbody').html(days);  //test-days 테이블의 tbody에 일정 버튼 추가
     	    
-    	    	// 마커 초기화
-	 	    	clearMarkers(); 
+    	    // 마커 초기화
+	 	    clearMarkers(); 
     	    
     	  	//-----------plan-days 버튼 클릭 이벤트 시작------------
     	  	// 버튼 클릭시 해당 날짜의 일정 항목이 test-plan-item에 동적으로 생성됨
@@ -89,10 +95,10 @@
     	    	
     	    	$("#test-plan-item").empty();
     	    	
-    	    	// 선택한 day에 속하는 세부일정의 위치 정보 저장
+    	    	// 선택한 day에 속하는 정보들 저장
     	    	 var dayPlans = [];
     	    	    planList.forEach(function(plan) {
-    	    	      dayPlans.push({ mapx: plan.mapx, mapy: plan.mapy });
+    	    	      dayPlans.push({ mapx: plan.mapx, mapy: plan.mapy, item: plan.item, item_add: plan.item_add });
     	    	    
     	    		// TODO html 수정
     			    var html = ' <a href="#" class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">';
@@ -134,11 +140,11 @@
     	    // 마커 추가 함수
     	    function addMarkers(dayPlans) {
     		  
-    	    	// 마커 이미지의 이미지 크기입니다
+    	    	// 마커 이미지의 이미지 크기
     	    	var imageSize = new kakao.maps.Size(50, 50);
 
-    	    	// 마커 이미지를 생성합니다
-    	    	var imageSrc = 'https://cdn-icons-png.flaticon.com/512/5860/5860579.png'; // 사용할 마커 이미지 파일 경로를 지정해야 합니다
+    	    	// 마커 이미지를 생성
+    	    	var imageSrc = 'https://cdn-icons-png.flaticon.com/512/5860/5860579.png'; // 마커 이미지 파일 경로
     	    	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
     	          // Kakao Map
@@ -146,7 +152,7 @@
     	            var container = document.getElementById('map');
     	            var options = {
     	              center: new kakao.maps.LatLng(dayPlans[0].mapy, dayPlans[0].mapx),  //첫 번째 마커 위치를 기준으로 중심 위치 설정
-    	              level: 3
+    	              level: 5  // 지도 확대 레벨
     	            };
 
     	            var map = new kakao.maps.Map(container, options);
@@ -155,6 +161,8 @@
 	    	        dayPlans.forEach(function(plan) {
 		    	        var mapx = plan.mapx;
 		    	        var mapy = plan.mapy;
+		    	        var item = plan.item;  //인포윈도우 위해 추가
+		    	        var item_add = plan.item_add;  //인포윈도우 위해 추가
 	    	          
 	    	            // 마커 생성
 	    	            var markerPosition = new kakao.maps.LatLng(mapy, mapx);
@@ -167,8 +175,21 @@
 	    	            marker.setMap(map);
 	    	            markers.push(marker);
 	    	            
-	    	            // 테스트 코드
-	    	            console.log(markers);
+	    	            // 인포윈도우 내용
+	    	            var iwContent = '<div style="padding:5px;">' + item + ' <br>' +
+						                '<a href="https://map.kakao.com/link/to/' + item + ',' + mapy + ',' + mapx + '" style="color:blue" target="_blank">길찾기</a></div>';
+	    	            
+						var iwPosition = markerPosition;  // 인포윈도우 위치 
+
+		    	        // 인포윈도우를 생성
+		    	        var infowindow = new kakao.maps.InfoWindow({
+		    	            position : iwPosition, 
+		    	            content : iwContent 
+		    	        });
+		    	          
+		    	        // 마커 위에 인포윈도우를 표시
+		    	        infowindow.open(map, marker); 
+		    	        
 	    	          });
 	    	      });
     	      }
@@ -196,7 +217,26 @@
 			</div>
 		</div>
 		<div class="div_title col-1">
-			<button class="travel-title_close" onclick="if(confirm('현재 일정을 닫을까요?')) history.back();">닫기</button>
+			<button class="travel-title_close" id="closeButton">닫기</button>
+			<script>
+				document.getElementById("closeButton").addEventListener("click", function() {
+				    Swal.fire({
+				        title: '현재 일정을 닫으시겠습니까?',
+				        text: '보관함 목록으로 돌아갑니다.',
+				        icon: 'warning',
+				        showCancelButton: true,
+				        confirmButtonColor: '#3085d6',
+				        cancelButtonColor: '#d33',
+				        confirmButtonText: '닫기',
+				        cancelButtonText: '취소',
+				        reverseButtons: true,
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				            history.back();
+				        }
+				    });
+				});
+			</script>			
 		</div>	
 	</div>
 </div>
