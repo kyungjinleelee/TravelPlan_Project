@@ -59,10 +59,10 @@ public class FindController {
 	public String resetPw(MemberDTO dto, HttpSession session) {
 		session.setAttribute("resetPwInfo", dto); // resetPw.jsp에서 사용하기 위함
 		int num = service.checkKey(dto);
-		if (num == 0) {
+		if (num == 0) { // DB와 키값이 다르면 만료되었다고 알림
 			return "member/checkKeyFail";
 		}
-		return "member/resetPw";
+		return "member/resetPw"; // 정상적이면 비밀번호 재설정
 	}
 	
 	// 비밀번호 재설정 성공 / 실패 alert

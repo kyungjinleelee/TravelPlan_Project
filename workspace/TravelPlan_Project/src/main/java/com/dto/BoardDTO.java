@@ -12,9 +12,12 @@ public class BoardDTO {
 	private String mainText;
 	private int likeContent;
 	
+	private int travelID;
+	
 	public BoardDTO() {
 		// TODO Auto-generated constructor stub
 	}
+	//아래 생성자는 지워도 됨. travelID 유무 차이
 	public BoardDTO(int contentNum, String userID, String title, String boardDate, int views, String mainText,
 			int likeContent) {
 		this.contentNum = contentNum;
@@ -24,6 +27,23 @@ public class BoardDTO {
 		this.views = views;
 		this.mainText = mainText;
 		this.likeContent = likeContent;
+	}
+	public BoardDTO(int contentNum, String userID, String title, String boardDate, int views, String mainText,
+			int likeContent, int travelID) {
+		this.contentNum = contentNum;
+		this.userID = userID;
+		this.title = title;
+		this.boardDate = boardDate;
+		this.views = views;
+		this.mainText = mainText;
+		this.likeContent = likeContent;
+		this.travelID = travelID;
+	}
+	public int getTravelID() {
+		return travelID;
+	}
+	public void setTravelID(int travelID) {
+		this.travelID = travelID;
 	}
 	public int getContentNum() {
 		return contentNum;

@@ -38,7 +38,10 @@ public class registerController {
 	// 회원가입시 이메일 인증
 	@GetMapping("/registerEmail")
 	public String emailConfirm(MemberDTO dto) throws Exception {
-		service.updateMailAuth(dto);
+		int num = service.updateMailAuth(dto);
+		if(num == 0) { // 인증키가 맞지 않음(만료되었거나, 일치하지 않음)
+			return "member/checkKeyFail";
+		}
 		return "member/emailAuthSuccess";
 	}
 	

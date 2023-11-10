@@ -36,6 +36,19 @@
 		from Comments
 		where contentNum=#{contentNum}
 	</select>
+	<!-- 여행 일정 추가로 가져오기 -->
+	<select id="findAll_Plan" parameterType="int" resultType="PlanDTO">
+		select day_num, item, item_add, time, idx
+		from plan
+		where travelid = #{travelID}
+		order by day_num
+	</select>
+	<select id="findOne_Travel" parameterType="int" resultType="com.dto.TravelListDTO">
+		select travelTitle
+		from travel
+		where travelid = #{travelID}
+	</select>
+
 
 	<!--게시글 수정 -->
 	<select id="update" parameterType="BoardDTO">

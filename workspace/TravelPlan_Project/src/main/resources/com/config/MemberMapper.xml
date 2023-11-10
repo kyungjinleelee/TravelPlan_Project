@@ -13,8 +13,8 @@
     
     <!-- 회원가입  -->
     <insert id="register" parameterType="MemberDTO">
-    insert into member(userID, passwd, name, email, post, addr1, addr2, phone )
-    values (#{userID},#{passwd},#{name},#{email},#{post},#{addr1},#{addr2},#{phone})
+    insert into member(userID, passwd, name, email, post, addr1, addr2, phone, salt )
+    values (#{userID},#{passwd},#{name},#{email},#{post},#{addr1},#{addr2},#{phone},#{salt})
     </insert>
     
     <!-- id 중복체크 -->
@@ -31,7 +31,7 @@
 	
 	<!-- 메일 인증 후 mail_auto 0 -> 1 변경 -->
 	<update id="updateMailAuth" parameterType="MemberDTO">
-	    update member set mail_auth=1 where email=#{email} and mail_key=#{mail_key}
+	    update member set mail_auth=1 where userID=#{userID} and email=#{email}
 	</update>
 	
 	<!-- 로그인 시 인증 유무 체크 -->
@@ -70,7 +70,7 @@
 	<!-- 비밀번호 재설정 -->
 	<update id="newPw" parameterType="MemberDTO">
 		update member
-		set passwd = #{passwd}
+		set passwd = #{passwd}, salt=#{salt}
 		where userID = #{userID} and email = #{email}
 	</update>
 	
@@ -80,4 +80,18 @@
 		set mail_key = null
 		where userID = #{userID} and email = #{email}
 	</update>
+	
+	<!-- salt값 가져오기 -->
+	<select id="selectSalt" parameterType="string" resultType="string">
+		select salt
+		from member
+		where userID = #{userID}
+	</select>
+	
+	<!-- 회원탈퇴 - 비밀번호 일치 확인 -->
+	<select id="checkPw" parameterType="hashmap" resultType="string">
+		select passwd
+		from member
+		where userID=#{userID} and passwd=#{inputPw}
+	</select>
 </mapper>

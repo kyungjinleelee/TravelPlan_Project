@@ -22,6 +22,12 @@ public interface BoardService {
 	//댓글 조회
 	public List<CommentDTO> selectCommentList(int contentNum);
 	
+	//여행 계획 조회, 여행계획 제목 가져오기
+	public TravelListDTO findOneTravel(int travelID);
+	
+	//여행 세부 일정 조회
+	public List<PlanDTO> findAllPlan(int travelID);
+	
 	//게시글 수정
 	public int update(BoardDTO dto);
 	

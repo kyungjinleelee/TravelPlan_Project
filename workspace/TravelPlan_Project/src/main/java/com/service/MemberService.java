@@ -31,4 +31,7 @@ public interface MemberService {
 	
 	// 비밀번호 재설정
 	public int newPw(MemberDTO dto);
+	
+	// 회원탈퇴 - 비밀번호 일치 확인
+	public String checkPw(HashMap<String, String> map);
 }

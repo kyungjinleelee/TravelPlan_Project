@@ -6,12 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dao.MemberDAO;
 import com.dao.MyPageDAO;
 import com.dto.BoardDTO;
 import com.dto.MemberDTO;
-import com.dto.PlanDTO;
-import com.dto.TravelListDTO;
 import com.dto.UserLikeDTO;
 
 @Service
