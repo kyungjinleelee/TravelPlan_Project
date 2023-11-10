@@ -25,13 +25,28 @@
     	color: #808080;
     	font-size: 12px;
 		}
+		
+		.card-title {
+		font-family: Gothic;
+		font-weight: 800;
+		}
+		
+		.card {
+		    width: 18rem; /* 카드의 너비를 일정한 값으로 설정 */
+		}
+		
+		.card-img-top {
+		    height: 210px; /* 이미지의 높이를 일정한 값으로 설정 */
+		    object-fit: cover; /* 이미지 비율 유지하며 카드 이미지 영역 가득 채우기 */
+		}
 	</style>
+	
    <script>
 	   $(document).ready(function() {
 		    $(".deleteBtn").on("click", function() {
 		        var travelID = $(this).attr("data-travelID");
 	
-		        // SweetAlert2 대화상자 표시
+		        // SweetAlert2  적용
 		        Swal.fire({
 		            title: '정말 삭제하시겠습니까?',
 		            text: '다시 되돌릴 수 없습니다. 신중하세요.',
@@ -51,7 +66,6 @@
 		    });
 		});
    
-   
      /* $(document).ready(function() {
         $(".deleteBtn").on("click", function() {
             var travelID = $(this).attr("data-travelID");
@@ -61,6 +75,25 @@
             }
         });
     });  */
+    
+    // 지역 이름과 이미지 매핑
+    var wordToImageMapping = {
+    		  "서울": "https://www.agoda.com/wp-content/uploads/2019/03/Seoul-attractions-Changdeokgung.jpg",
+    		  "인천": "https://www.bokjinet.co.kr/wp-content/uploads/2023/10/%EC%98%81%EC%A2%85%EB%8C%80%EA%B5%90-%ED%86%B5%ED%96%89%EB%A3%8C-%EC%9D%B8%ED%95%98.webp",
+    		  "대전": "https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202310/25/speaktravel/20231025205003513hbuj.png",
+    		  "대구": "https://image.여기유.com/content_travel/2020021412202315816504231362.jpg",
+    		  "광주": "https://mblogthumb-phinf.pstatic.net/20160529_42/osgsb_1464525134207VPesj_JPEG/20160506102758_IMG_2168.JPG?type=w800",
+    		  "부산": "https://www.visitbusan.net/uploadImgs/files/cntnts/20191229160530047_oen",
+    		  "울산": "https://blog.kakaocdn.net/dn/buHs0g/btrD5RX38Vz/QSTCK3zqw0KWUn0nn3kjPk/img.jpg",
+    		  "강원": "https://dimg04.c-ctrip.com/images/1mj7212000acoea9nD87E.png",
+    		  "제주": "https://blog.kakaocdn.net/dn/ZQJyI/btsz5n6N3RH/uZwJWi7mkkRfF19e5bd9B0/img.png",
+    		  "전주": "https://blog.kakaocdn.net/dn/bteXTh/btszZGmEXIh/ARFgsNQHLqSxfKh3YO70rk/img.png",
+    		  "경주": "https://blog.kakaocdn.net/dn/4KVTF/btszYFPe79x/vxwIprEpGbkLDIKUZNmE70/img.png",
+    		  "속초": "https://blog.kakaocdn.net/dn/tuUVA/btsz20LXGAq/NuH3rsK8VPdt3Ki7XWSVv0/img.png",
+    		  "강릉": "https://blog.kakaocdn.net/dn/bdrf0F/btsz1utsv6J/gfE1k9W52RIKeMtFHwtXt1/img.png",
+    		  "군산": "https://blog.kakaocdn.net/dn/XMryC/btsz3bGJuoG/Jitcz83AJcXGCwMWrkmv7k/img.png"
+    		};
+    
    </script>	
 </head>
 
@@ -91,23 +124,40 @@
             <c:forEach var="travel" items="${pageDTO2.list}" varStatus="status">
           	  <div class="col-md-3">  
                 <div class="card text-center mb-5" style="width: 18rem;">
-               	 <!-- 여기서 이미지를 동적으로 설정할 방법을 추가 -->
-                      <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbnjbwp%2FbtszYEixOm6%2F3lBILaQDzfOVTTRSFUfZw0%2Fimg.png" class="card-img-top" alt="...">    <!-- 지역에 따른 이미지 사진 추가해주기 -->
+                   <img id="travelImage${travel.travelID}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title" style="font-weight:800;">${travel.travelTitle}</h5>
-                        <p class="card-text">여행 시작   ${travel.SDate}</p>
-                        <p class="card-text">여행 끝   ${travel.EDate}</p>
-                        <%-- <p class="card-text">작성일 : ${travel.writedate}</p> --%>
+                        <h5 class="card-title" id="travelTitle">${travel.travelTitle}</h5>
+                        <p class="card-text">여행 시작&nbsp;&nbsp;&nbsp;${travel.SDate.substring(0, 10)}</p>
+                        <p class="card-text">여행 끝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${travel.EDate.substring(0, 10)}</p>
                         <br>
                         <a href="travelRetrieve?travelID=${travel.travelID}" class="btn btn-primary btn-sm">일정 보러가기</a>
                    		<button type="button" class="deleteBtn btn-danger btn-sm" data-travelID="${travel.travelID}">삭제</button>
                     </div>
                 </div>
               </div>
-            </c:forEach>
-        </div>
-    </div>
-
+            
+    
+    <!-- 카드 부분 -->
+	    <script>
+	    var travelTitle = "${travel.travelTitle}";
+	    var travelImage = document.getElementById("travelImage${travel.travelID}");
+	    var selectedImageUrl = "https://blog.kakaocdn.net/dn/bnjbwp/btszYEixOm6/3lBILaQDzfOVTTRSFUfZw0/img.png"; // 기본 이미지 URL 설정
+	
+	    // 특정 단어에 해당하는 이미지 URL 선택
+	    for (var word in wordToImageMapping) {
+	      if (travelTitle.includes(word)) {
+	        selectedImageUrl = wordToImageMapping[word];
+	        break; // 이미지를 찾았으면 반복 중단
+	      }
+	    }
+	
+	    // 이미지 업데이트
+	    travelImage.src = selectedImageUrl;
+	   </script>
+	 </c:forEach>
+  </div>
+</div>   
+    
 <!-- 페이지네이션 -->
  <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">

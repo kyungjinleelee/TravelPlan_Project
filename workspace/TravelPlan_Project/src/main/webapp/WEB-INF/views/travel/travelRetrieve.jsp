@@ -175,12 +175,11 @@
 	    	            marker.setMap(map);
 	    	            markers.push(marker);
 	    	            
+	    	            // 인포윈도우 내용
 	    	            var iwContent = '<div style="padding:5px;">' + item + ' <br>' +
-						                '<a href="https://map.kakao.com/link/map/' + item + ',' + mapy + ',' + mapx + '" style="color:blue" target="_blank">큰지도보기</a>' 
-						                + '&nbsp;' +
 						                '<a href="https://map.kakao.com/link/to/' + item + ',' + mapy + ',' + mapx + '" style="color:blue" target="_blank">길찾기</a></div>';
 	    	            
-						var iwPosition = markerPosition;
+						var iwPosition = markerPosition;  // 인포윈도우 위치 
 
 		    	        // 인포윈도우를 생성
 		    	        var infowindow = new kakao.maps.InfoWindow({
@@ -218,7 +217,6 @@
 			</div>
 		</div>
 		<div class="div_title col-1">
-			<!-- <button class="travel-title_close" onclick="if(confirm('현재 일정을 닫을까요?')) history.back();">닫기</button> -->
 			<button class="travel-title_close" id="closeButton">닫기</button>
 			<script>
 				document.getElementById("closeButton").addEventListener("click", function() {
