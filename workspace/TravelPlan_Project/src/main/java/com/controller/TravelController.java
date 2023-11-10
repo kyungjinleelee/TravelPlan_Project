@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -15,6 +16,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dto.SpotDTO;
 import com.dto.MemberDTO;
+import com.dto.PageDTO3;
 import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 import com.info.Info;
@@ -127,30 +130,80 @@ public class TravelController {
 		return list;
 	}
 	
-	// 숙박/음식 버튼
+	// 숙박/음식 버튼 (페이징 전)
+//	@GetMapping("/searchBtn")
+//	@ResponseBody
+//	public List<SpotDTO> searchBtn(@RequestParam("region") String region, @RequestParam("contentTypeid") String contentTypeid) {
+//		int areaCode = getAreaCode(region);
+//		
+//		HashMap<String,Object> map = new HashMap<String, Object>();
+//		map.put("areaCode", areaCode);
+//		map.put("contentTypeid", contentTypeid);
+//		
+//		List<SpotDTO> list = MTService.findHotelandFood(map);
+//		return list;
+//	} // 숙박/음식 버튼  (페이징 후)
 	@GetMapping("/searchBtn")
 	@ResponseBody
-	public List<SpotDTO> searchBtn(@RequestParam("region") String region, @RequestParam("contentTypeid") String contentTypeid) {
+	public HashMap<String, Object> searchBtn(@RequestParam("region") String region, @RequestParam("contentTypeid") String contentTypeid,
+			@RequestParam HashMap<String, Object> map, HttpServletRequest request, Model m) {
 		int areaCode = getAreaCode(region);
 		
-		HashMap<String,Object> map = new HashMap<String, Object>();
 		map.put("areaCode", areaCode);
 		map.put("contentTypeid", contentTypeid);
 		
-		List<SpotDTO> list = MTService.findHotelandFood(map);
-		return list;
+		String curPage = request.getParameter("curPage");
+		if(curPage == null) {
+			curPage = "1";
+		}
+		PageDTO3 pageDTO = MTService.list2(Integer.parseInt(curPage), map);
+		
+		System.out.println("<<<<<<<<<<<<<숙박음식버튼" + pageDTO.getList().size()); // List의 size가 뭔지 찍어보는거
+		HashMap<String,Object> x = new HashMap<String, Object>();
+		x.put("list", pageDTO.getList());
+		x.put("curPage", pageDTO.getCurPage());
+		x.put("perPage", pageDTO.getPerPage());
+		x.put("totalCount", pageDTO.getTotalCount());
+		System.out.println("HashMap>>>" + x);
+	//	m.addAttribute("pageDTO", pageDTO);
+	//	m.addAttribute("map", map);
+		return x;
 	}
 	
 	// 관광 버튼
-	@GetMapping("/searchBtn2")
+//	@GetMapping("/searchBtn2")
+//	@ResponseBody
+//	public List<SpotDTO> searchBtn2(@RequestParam("region") String region, @RequestParam HashMap<String, Object> map) {
+//		map.remove("region");
+//		int areaCode = getAreaCode(region);
+//		
+//		map.put("areaCode", areaCode);
+//		List<SpotDTO> list = MTService.findSightseeing(map);
+//		return list;
+//	}
+	@GetMapping("/searchBtn2")	// 관광버튼 (페이징)
 	@ResponseBody
-	public List<SpotDTO> searchBtn2(@RequestParam("region") String region, @RequestParam HashMap<String, Object> map) {
+	public HashMap<String, Object> searchBtn2(@RequestParam("region") String region, @RequestParam HashMap<String, Object> map, HttpServletRequest request, Model m) {
 		map.remove("region");
 		int areaCode = getAreaCode(region);
 		
 		map.put("areaCode", areaCode);
-		List<SpotDTO> list = MTService.findSightseeing(map);
-		return list;
+//		List<SpotDTO> list = MTService.findSightseeing(map);
+		
+		String curPage = request.getParameter("curPage");
+		if(curPage == null) {
+			curPage = "1"; //첫 화면 요청 시 curPage를 1로 초기화
+		}
+		PageDTO3 pageDTO = MTService.list(Integer.parseInt(curPage), map); // map을 전달하여 페이징된 데이터 가져오기 (정수)
+		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<" + pageDTO.getList().size()); // List의 size가 뭔지 찍어봐서 페이징 처리 잘 되나 확인
+
+		HashMap<String, Object> x = new HashMap<String, Object>();
+		x.put("list", pageDTO.getList()); // 페이징 정보 따로따로 hash map에 저장 (m.addAttribute("pageDTO", pageDTO); 이 작업)
+		x.put("curPage", pageDTO.getCurPage());
+		x.put("perPage", pageDTO.getPerPage());
+		x.put("totalCount", pageDTO.getTotalCount());
+		System.out.println("HashMap>>>" + x);
+		return x;  // hashmap 리턴
 	}
 	
 	// travelForm.jsp에서 저장 버튼 클릭시 세부일정 저장

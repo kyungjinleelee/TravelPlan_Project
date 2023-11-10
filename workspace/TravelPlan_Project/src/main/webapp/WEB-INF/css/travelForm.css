@@ -57,6 +57,7 @@ input {
 	font-size: 22px;
 	font-family: 'SUIT-Bold';
 }
+
 /* 날짜 받아오기 */
 #days{
 	width: 30px;
@@ -68,7 +69,9 @@ input {
  
 .calendar{
 	right:1100px;
-	top: 0px
+	top: 0px;
+	display: flex;			/*반응형때매 넣은거 */
+	flex-direction: column; /*반응형때매 넣은거 */
 }
 .calendar_sdate{
 	position:absolute;

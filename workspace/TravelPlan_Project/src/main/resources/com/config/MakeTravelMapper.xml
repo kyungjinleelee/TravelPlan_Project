@@ -39,12 +39,25 @@
 		where areaCode=#{areaCode} and contentTypeid=#{contentTypeid}
 	</select>
 	
+	<!-- 숙박/음식 갯수 세기 -->
+	<select id="totalCount2" parameterType="map" resultType="int">
+		select count(*)
+		from spot
+		where areaCode=#{areaCode} and contentTypeid=#{contentTypeid}
+	</select>
+	
 	<!-- 관광정보 찾기 -->
 	<select id="findSightseeing" parameterType="map" resultType="SpotDTO">
 		select *
 		from spot
 		where areaCode=#{areaCode} and contentTypeid=#{contentTypeid3}
 <!-- 		where areaCode=#{areaCode} and (contentTypeid=#{contentTypeid1} or contentTypeid=#{contentTypeid2} or contentTypeid=#{contentTypeid3} or contentTypeid=#{contentTypeid4} or contentTypeid=#{contentTypeid5}) -->
+	</select>
+	<!-- 관광정보 갯수 세기 -->
+	<select id="totalCount" parameterType="map" resultType="int"> <!-- dao에서 map으로 넘겼으니까 parameterType을 map이나 hashmap으로 받아줘야함 -->
+		select count(*)
+		from spot
+		where areaCode=#{areaCode} and contentTypeid=#{contentTypeid3}
 	</select>
 	
 	<!-- 일정만들기 저장 - travel테이블 -->

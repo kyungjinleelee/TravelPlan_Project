@@ -297,7 +297,10 @@ function hotelBtnclick() {
 
         // 응답코드
         success:function(data, satatus, xhr) { 
-        	displayPlaces_btn(data)
+        	
+        	var xxx = page_link(data);
+        	$("#pagination_page").html(xxx);
+        	displayPlaces_btn(data.list)
         },
         error:function(xhr, status, error) {
             console.log("에러발생");
@@ -323,7 +326,10 @@ function foodBtnclick() {
 		
 		// 응답코드
 		success:function(data, satatus, xhr) { 
-			displayPlaces_btn(data)
+			
+			var xxx = page_link(data);
+			$("#pagination_page").html(xxx);
+			displayPlaces_btn(data.list)
 		},
 		error:function(xhr, status, error) {
 			console.log("에러발생");
@@ -352,13 +358,44 @@ function sightseeingBtnclick() {
 		},
 		
 		// 응답코드
-		success:function(data, satatus, xhr) { 
-			displayPlaces_btn(data)
+		success:function(data, satatus, xhr) {
+			
+			var xxx = page_link(data); // 받아온 data들을 메서드로 따로 분리
+			$("#pagination_page").html(xxx);
+			
+			////////////////////////////////
+			displayPlaces_btn(data.list)
 		},
 		error:function(xhr, status, error) {
 			console.log("에러발생");
 		}
 	});
+} // end sightseeingBtnclick() 
+function page_link(data){
+	console.log(data);
+	console.log("list>>", data.list);
+	console.log("perPage>>",data.perPage);
+	console.log("totalCount>>",data.totalCount);
+	console.log("curPage>>",data.curPage);
+	var link = "";
+//	for(var i=1; i < data.list.length; i++){
+//		if( data.curPage == i){ 
+//			i;
+//		}else{
+//			location.href = 
+//		}
+//		link += i +"&nbsp";
+//	}
+	var pageHtml ="";
+	for(var i=1; i < data.list.length; i++){
+		if( data.curPage == i){ 
+			pageHtml += "<span>" + i + "</span>";
+		}else{
+			pageHtml += "<a href='/searchBtn2?contentTypeid1=12&curPage='>" + i + "</a>";
+		}
+		link += i +"&nbsp";
+	}
+	return link;
 }
 
 //검색 결과 목록과 마커를 표출하는 함수입니다

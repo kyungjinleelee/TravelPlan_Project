@@ -75,49 +75,20 @@ function setScheduleMarker(stitle, smapx, smapy) { // setScheduleMarker start
 	var imageSize = new kakao.maps.Size(50, 50); 
 	
 	// 마커 이미지를 생성합니다    
-
 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-	var markerPosition = new kakao.maps.LatLng(mapy, mapx);
+	
 	// 마커를 생성합니다
 	var marker2 = new kakao.maps.Marker({
 		map: map, // 마커를 표시할 지도
-		position: markerPosition, // 마커를 표시할 위치
+		position: new kakao.maps.LatLng(mapy, mapx), // 마커를 표시할 위치
 		title : title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
 		image : markerImage // 마커 이미지 
 	});
-	/////////////////여기서부터 인포윈도우
-	// 마커가 지도 위에 표시되도록 설정합니다
-	marker2.setMap(map);
 	
-	var iwPosition = new kakao.maps.LatLng(mapy, mapx); // 인포윈도우 위치
-	var iwContent = '<div style="padding:5px;">' + title + ' <br>' +
-    '<a href="https://map.kakao.com/link/to/' + title + ',' + mapy + ',' + mapx + '" style="color:blue" target="_blank">길찾기</a></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
-	// 인포윈도우를 생성합니다
-	var infowindow2 = new kakao.maps.InfoWindow({
-	    position : iwPosition, 
-	    content : iwContent 
-	});
-	console.log(infowindow2);
-	  
-	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-	infowindow2.open(map, marker2); 
-
-	/////////////////////인포윈도우 끝
 	// 생성된 마커를 배열(markers)에 추가합니다.
-	markers.push(marker2);
-	
-	// 지도에 표시되고 있는 마커를 제거합니다
-//    removeMarker2();
+	markers2.push(marker2);
 } // setScheduleMarker end
 
-//지도 위에 표시되고 있는 마커를 모두 제거합니다 (마커 제거함수 일단 만들어놈 ..)
-function removeMarker2() {
-    for ( var i = 0; i < markers.length; i++ ) {
-        markers2[i].setMap(null);
-    }   
-    markers2 = [];
-}
 //------------------------- 세부일정 마커 end -------------------------//
 
 // 리스트 추가

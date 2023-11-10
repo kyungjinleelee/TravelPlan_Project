@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.MakeTravelDAO;
 import com.dto.SpotDTO;
+import com.dto.PageDTO3;
 import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 
@@ -35,18 +36,29 @@ public class MakeTravelServiceImpl implements MakeTravelService {
 		return dao.findSpot(map);
 	}
 
-	// 지역별 숙박시설 찾기
+	// 지역별 숙박시설 찾기 - 페이징 전 ///////////////////
+//	@Override
+//	public List<SpotDTO> findHotelandFood(HashMap<String, Object> map) {
+//		return dao.findHotelandFood(map);
+//	}
+	// 지역별 숙박/음식시설 찾기 - 페이징 후
 	@Override
-	public List<SpotDTO> findHotelandFood(HashMap<String, Object> map) {
-		return dao.findHotelandFood(map);
+	public PageDTO3 list2(int curPage, HashMap<String, Object> map) {
+		PageDTO3 dto = dao.list2(curPage, map);
+		return dto;
 	}
-
-	// 지역별 관광시설 찾기
+	// 지역별 관광시설 찾기 (페이징 전) //////////////////////
+//	@Override
+//	public List<SpotDTO> findSightseeing(HashMap<String, Object> map) {
+//		return dao.findSightseeing(map);
+//	}
+	// 지역별 관광시설 찾기 - 페이징 후 
 	@Override
-	public List<SpotDTO> findSightseeing(HashMap<String, Object> map) {
-		return dao.findSightseeing(map);
+	public PageDTO3 list(int curPage, HashMap<String, Object> map) {
+		PageDTO3 dto = dao.list(curPage, map);
+		return dto;
 	}
-
+////////////////////////////////////////////////////
 	// 일정만들기(TravelDTO) 저장
 	@Override
 	public int saveTravel(TravelListDTO dto) {
@@ -76,5 +88,8 @@ public class MakeTravelServiceImpl implements MakeTravelService {
 	public int deleteTravelData(String userID) {
 		return dao.deleteTravelData(userID);
 	}
+
+
+
 
 }

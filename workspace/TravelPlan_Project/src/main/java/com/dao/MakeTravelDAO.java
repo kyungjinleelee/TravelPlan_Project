@@ -3,11 +3,13 @@ package com.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dto.SpotDTO;
+import com.dto.PageDTO3;
 import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 
@@ -34,16 +36,47 @@ public class MakeTravelDAO {
 		return session.selectList("MakeTravelMapper.findSpot", map);
 	}
 	
-	// 지역별 숙박/음식 시설 찾기
-	public List<SpotDTO> findHotelandFood(HashMap<String, Object> map) {
-		return session.selectList("MakeTravelMapper.findHotelandFood", map);
+	// 지역별 숙박/음식 시설 찾기 (페이징 처리 이전) ///////////
+//	public List<SpotDTO> findHotelandFood(HashMap<String, Object> map) {
+//		return session.selectList("MakeTravelMapper.findHotelandFood", map);
+//	}
+	// 지역별 숙박/음식 페이징 처리 이후 
+	public PageDTO3 list2(int curPage, HashMap<String, Object> map) {
+		PageDTO3 pageDTO = new PageDTO3();
+		
+		int offset = (curPage-1)*pageDTO.getPerPage();
+		int limit = pageDTO.getPerPage();
+		List<SpotDTO> list = session.selectList("MakeTravelMapper.findHotelandFood", map, new RowBounds(offset, limit));
+		
+		pageDTO.setList(list);
+		pageDTO.setCurPage(curPage);
+		int totalCount = session.selectOne("MakeTravelMapper.totalCount2", map);
+		pageDTO.setTotalCount(totalCount);
+		return pageDTO;
 	}
 	
-	// 지역별 관광시설 찾기
-	public List<SpotDTO> findSightseeing(HashMap<String, Object> map) {
-		return session.selectList("MakeTravelMapper.findSightseeing", map);
-	}
+//	// 지역별 관광시설 찾기  (페이징 처리 이전) //////////////////////////
+//	public List<SpotDTO> findSightseeing(HashMap<String, Object> map) {
+//		return session.selectList("MakeTravelMapper.findSightseeing", map);
+//	}
 	
+	// 지역별 관광시설 찾기 페이징 처리 
+	public PageDTO3 list(int curPage, HashMap<String, Object> map) {
+		PageDTO3 pageDTO = new PageDTO3();
+		
+		int offset = (curPage-1)*pageDTO.getPerPage();
+		int limit = pageDTO.getPerPage();
+		
+		List<SpotDTO> list = session.selectList("MakeTravelMapper.findSightseeing", map, new RowBounds(offset, limit) );
+		
+		pageDTO.setList(list);
+		pageDTO.setCurPage(curPage); // 현재 페이지 번호 저장
+		int totalCount = session.selectOne("MakeTravelMapper.totalCount", map);  // error. 
+		pageDTO.setTotalCount(totalCount); // 전체 레코드 갯수 저장
+		
+		return pageDTO;
+	}
+//////////////////////////////////////////////////	
 	// 일정만들기(TravelDTO) 저장
 	public int saveTravel(TravelListDTO dto) {
 		return session.insert("MakeTravelMapper.saveTravel", dto);
@@ -68,4 +101,5 @@ public class MakeTravelDAO {
 	public int deleteTravelData(String userID) {
 		return session.delete("MakeTravelMapper.deleteTravelData", userID);
 	}
+
 }

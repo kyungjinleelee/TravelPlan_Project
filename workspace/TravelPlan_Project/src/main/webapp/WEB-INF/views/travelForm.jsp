@@ -53,11 +53,11 @@
     <image class="bi" src="https://cdn-icons-png.flaticon.com/512/7893/7893979.png" style="width: 30; height: 24;"/>
   </symbol>
 </svg>
-<!-- header - tramvelForm -->
-<div class="travel-title">
+ <!-- header - tramvelForm -->
+ <div class="travel-title">
 	<div class="row">
 		<form action="saveBtn" method="get">
-		<div class="div_title col-9">
+		<div class="div_title col-lg-9 col-md-8 col-12">
 			<label class="title">여행 제목 : </label>
 			<input type="hidden" id="areaCode" name="areaCode" value="">
 			<input type="hidden" id="travelID" name="travelID" value="${travelID}">
@@ -70,18 +70,18 @@
 				<input class="input-date" type="date" name="EDate" id="EDate" value="${dto.EDate}" min="<%= sdf.format(nowTime) %>">
 			</div>
 		</div>
-  		<div class="region div_title col-2" style="white-space:nowrap;">
+  		<div class="region div_title col-lg-2 col-md-3 col-12" style="white-space:nowrap;">
 			<jsp:include page="travel/region.jsp" flush="false" />
 		</div>
-		<div class="div_title col-1">
+		<div class="div_title col-lg-1 col-md-1 col-12">
 			<button class="travel-title_submit" onclick="save()">저장</button>
 <!-- 			<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) history.back(); else alert('닫기 취소')">닫기</button> -->
 			<button class="travel-title_close" onclick="close()">닫기</button>
 		</div>
 		</form>
 	</div>
-</div>
-<!-- header - tramvelForm 끝 -->
+</div> 
+<!-- header - tramvelForm 끝 --> 
 	
 	
 	
@@ -163,11 +163,15 @@
 		      </div>
 	      
 	      <!-- 검색결과-kakao -->
-			  <div>
+			 <div>
 			  	<div class="list-group list-group-flush border-bottom scrollarea" id="placesList"></div>
-		        <div id="pagination"></div>
-			  </div>
-		  
+			  <!-- 페이징 시작  -->
+		        <div id="pagination">
+		        	<div id="pagination_page" onclick="sightseeingBtnclick()"></div> <!-- 페이징 들어갈 자리 만들어줌 -->
+		        </div>
+			</div> 
+			 <!-- 페이징 끝 -->
+		  	
 		  </div>
 		  
 	    </div>

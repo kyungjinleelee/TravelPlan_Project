@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.dto.SpotDTO;
+import com.dto.PageDTO3;
 import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 
@@ -14,10 +15,15 @@ public interface MakeTravelService {
 	public List<SpotDTO> findSpot(HashMap<String, String> map);
 	
 	// 지역별 숙박시설 찾기
-	public List<SpotDTO> findHotelandFood(HashMap<String, Object> map);
-
+//	public List<SpotDTO> findHotelandFood(HashMap<String, Object> map);
+	// 숙박시설 찾기 페이징 처리
+	public PageDTO3 list2(int curPage, HashMap<String, Object> map);
+	
 	// 지역별 관광시설 찾기
-	public List<SpotDTO> findSightseeing(HashMap<String, Object> map);
+//	public List<SpotDTO> findSightseeing(HashMap<String, Object> map);
+	
+	// 관광시설 찾기 페이징 처리 
+	public PageDTO3 list(int curPage, HashMap<String, Object> map);
 	
 	// 일정만들기(TravelDTO) 저장
 	public int saveTravel(TravelListDTO dto);
