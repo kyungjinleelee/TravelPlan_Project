@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -49,12 +52,42 @@ public class BoardController {
 		//여행일정 가져오기
 		HashMap<String, Object>map = new HashMap<>();
 		TravelListDTO TravelDto = service.findOneTravel(dto.getTravelID());
-		List<PlanDTO> PlanDto = service.findAllPlan(dto.getTravelID());
+		List<PlanDTO> PlanDtoList = service.findAllPlan(dto.getTravelID());
 		//map.put("content", dto);
 		//map.put("comment", contentDto);
 		map.put("travel", TravelDto);
-		map.put("plan", PlanDto);
-		m.addAllAttributes(map);
+		map.put("PlanDtoList", PlanDtoList);
+		if(map!=null) {
+			m.addAllAttributes(map);
+		}
+		
+		
+		//어레이 리스트 안에 같은 day 끼리 묶인 리스트
+		//PlanDto 를 같은 dayNum 끼리 분류해서 append
+		List<List<PlanDTO>> PlanDto2dLists = new ArrayList<>(); 
+		
+		Set<Integer> IntSet = new LinkedHashSet<>();
+		for (PlanDTO dto1 : PlanDtoList ) {
+			IntSet.add( dto1.getDay_num() );
+		}
+		
+		for (int i = 0; i < IntSet.size(); i++) { //2차원 리스트 만들고
+			PlanDto2dLists.add(new ArrayList<>());
+		}   
+		
+		for (PlanDTO plan : PlanDtoList) {//거기다가 집어넣기
+			PlanDto2dLists.get(plan.getDay_num() - 1).add(plan);
+		} 
+		if(PlanDto2dLists!=null) {
+			m.addAllAttributes(PlanDto2dLists);
+		}
+		
+		
+		m.addAttribute("PlanDto2dLists", PlanDto2dLists);
+		m.addAttribute("day_num", IntSet);
+		//System.out.println(PlanDto2dList);
+		//System.out.println(PlanDto2dLists.get(0));
+		
 		
 		return "board/BoardRetrieve";
 		

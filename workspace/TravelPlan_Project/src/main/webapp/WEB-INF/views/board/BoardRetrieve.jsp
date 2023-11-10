@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -130,6 +131,7 @@
 
 
 
+
 <script type="text/javascript">
 	//var target = document.getElementById('writeComment');
 
@@ -198,24 +200,40 @@
 	//테이블 클래스에서 버튼을 누르면 테이블 접었다 폈다하는 함수
 	//요청을 보내지 않는데 이 함수 실행시키면 토글을 한 뒤 요청이 감. f(${empty comment})
 	
-	function tableToggle(){
+	function tableToggle(){	
 		console.log('버튼 눌림')
+		
 		$("#TravelTable").toggle();
+		
+		var toggleBtnValue = $("#toggleBtn").val();
+
+	    if(toggleBtnValue === "일정 펼쳐보기"){
+	    	$("#toggleBtn").val("일정 접기");
+	        console.log("ToggleBtn의 값은 일정 펼쳐보기 입니다.");
+	    }else{
+	    	$("#toggleBtn").val("일정 펼쳐보기");
+	    }
+		
+		
+		
 	}
 	
 	
-	$(document).ready(
-			function(){
-			    // comment가 비어있을 때
-			    if(${emptyplan}){
-			        $("#toggleBtn").addClass("hidden"); // 버튼을 숨깁니다.
-			    }
-			    
-			    if(${emptyplan}){
-			        $("#TravelTable").addClass("hidden"); // 버튼을 숨깁니다.
-			    }
-			}
-		);
+	
+	//window.onload = document.getElementById("toggleBtn").addEventListener("click", tableToggle); 
+	window.onload = function(){ 
+		const button = document.getElementById("toggleBtn");
+		
+		const buttonClickHandler = () =>{
+		  //alert('Button clicked!');
+		  tableToggle()
+		  
+		};
+		 
+		button.onclick = buttonClickHandler;
+	};
+	
+	
 	
 	
 </script>
@@ -284,27 +302,39 @@
 					
 					 
 					
+					<!-- PlanDto2dList 안의 리스트 PlanDto2dList_e -->
+					<!-- PlanDto2dList_e 안의 요소들 planDTO -->
 					
 					<table class="table testTable" id="TravelTable">
 						<tbody>
-							 <c:forEach begin="1" end="1" step="1" varStatus="loop">
+							 <c:forEach items="${PlanDto2dLists}" var = "PlanDtoLists"  varStatus="loop" >
 							 <!--  2중 포문 형태여야함, 겉 n일차, 안 n일차의 일정들-->
 								<tr class = "single-day"><!-- 이 tr 하나가 하나의 일정-->
-									<td class = "date-cell bold-text" style="text-align: center; background-color: #3563E9; color:white;">${loop.index} 일차</td>
+									<td class = "date-cell bold-text" style="text-align: center; background-color: #3563E9; color:white;">${loop.index +1 } 일차</td>
 									<td class="single-schedule"> <!-- 테이블 1, 하나의 세부일정, 이걸 반복. -->
-										<!-- comment 갖고 2중포문 구현하려면 에러남. -->
-										<c:forEach items="${plan}" var="plan">
+										
+										<c:forEach items="${PlanDtoLists}"  var="plan">	
+											<!-- <div>${PlanDto2dList_e}</div>  
+											"${fn : split( PlanDto2dList_e, ',' )}
+											<div>"${plan}"</div>
+											-->
+											
+											
+											
 											<div class="single-plan-container">
 												<table class="plan-cell">
 													<tr class="detail-info-head" >
 											          	<td  align="left">${plan.item}</td>
-														<td  align="right">${plan.item_add}</td>
+											          	
+														<td  align="right">${plan.time}</td>
 											        </tr>
 											        <tr class="detail-info-head">
 											        	<td align="left">${plan.item_add}</td>
 												    </tr>
 												</table> 
 											</div>
+											
+											
 										</c:forEach>	
 									</td>
 								</tr>
@@ -313,7 +343,7 @@
 					</table>
 					
 					
-					<span><input type="button" value="일정 펼쳐보기" class="btn btn-default btn-primary" id="toggleBtn" style="font-size: 12px;" onclick="tableToggle()">
+					<span><input type="button" value="일정 접기" class="btn btn-default btn-primary" id='toggleBtn' style="font-size: 12px;">
 					</span>
 					
 					<br></br>
