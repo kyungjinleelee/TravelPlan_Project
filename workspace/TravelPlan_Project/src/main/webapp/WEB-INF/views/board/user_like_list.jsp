@@ -7,20 +7,44 @@
 <meta charset="UTF-8">
 <title>내가 좋아요 한 게시글</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+<!-- <script -->
+<!-- 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	
 <style>
+	* {
+		font-family: 'SUIT-Medium';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
+    	font-weight: normal;
+    	font-style: normal;
+	}
 	.paging-table{
     width: 100%; /* 테이블이 부모 컨테이너의 100% 가로폭을 차지하도록 설정 */
 	}
 	.paging{
 		text-align: center; /* 셀 내의 텍스트를 수평 가운데 정렬 */
 		font-size: 14px;
+	}
+	
+	a:link {
+	  color : black;
+	  text-decoration: none;
+	}
+	a:visited {
+	  color : black;
+	  text-decoration: none;
+	}
+	a:hover {
+	  color : black;
+	  text-decoration: underline;
+	}
+	a:active {
+	  color : black;
+	  text-decoration: none;
 	}
 
 </style>
@@ -48,12 +72,12 @@
 					<tr>
 						<td>${DTO.contentNum}</td>
 						<td>${DTO.userID}</td>
-						<td><a href="BoardRetrieve?contentNum=${DTO.contentNum}">${DTO.title}</a></td>
+						<td><a href="../BoardRetrieve?contentNum=${DTO.contentNum}">${DTO.title}</a></td>
 						<td>${DTO.likeContent}</td>
 						<td>${DTO.views}</td>
 						<td>${DTO.boardDate}</td>
 
-						<td><button onclick="askYesNo(${DTO.contentNum})">삭제</button></td>
+						<td><button class="btn btn-danger" onclick="askYesNo(${DTO.contentNum})">삭제</button></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -82,6 +106,7 @@
 			</tr>
 		</table>
 </div>
-		
+		<!-- Body 최하단 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

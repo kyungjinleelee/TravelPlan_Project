@@ -4,16 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- jquery CDN -->   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>   
 <meta charset="UTF-8">
 <title>게시판 자세히 보기</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 <!-- 부가적인 테마 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 
 <style>
@@ -122,6 +124,14 @@
 		
 		.hidden {
 	    display: none;
+		}
+		
+		#mainText {
+	    	font-family: 'SUIT-Medium';
+		    width: 100%;
+ 		    height: 10px;
+		    border: none;
+		    resize: none;
 		}
 		
 		
@@ -234,6 +244,15 @@
 	};
 	
 	
+	// 내용 높이만큼 textarea 높이 설정
+	$(document).ready(function(){
+		var ta = document.querySelector('#mainText');
+// 		ta.style.height = 'auto';
+		var height = ta.scrollHeight;
+		console.log(height);
+// 		ta.style.height = `${height + 8}px`;
+		ta.style.height = height+'px';
+	});
 	
 	
 </script>
@@ -283,7 +302,7 @@
 				</div>	
 			
 			</div>
-			<div class="form-group">
+			<div class="form-group mb-4">
 				<!-- <label for="content" class="col-sm-2 control-label">내용</label>  -->
 				<div class="col-sm-12">
 					<!-- col 1이  생각보다 크다. // id TravelTable -->
@@ -343,29 +362,38 @@
 					</table>
 					
 					
-					<span><input type="button" value="일정 접기" class="btn btn-default btn-primary" id='toggleBtn' style="font-size: 12px;">
+					<span><input type="button" value="일정 접기" class="btn btn-outline-primary" id='toggleBtn' style="font-size: 12px;">
 					</span>
+					<hr>
 					
-					<br></br>
-
-					
-					<textarea class="form-control" rows="10" name="content" id="mainText">${content.mainText}</textarea>
+					<textarea class="form-control" rows="10" name="content" id="mainText" style="resize: none;">${content.mainText}</textarea>
 				</div>
 				
 			</div>
-				
-			<div class="form-group" id="functionBtnGroup">
-				<div ><!-- class="col-sm-offset-1" -->
+				 
+			<div class="mb-1 d-grid gap-2 col-3 mx-auto" id="functionBtnGroup">
+			<!----------------------------------------------------------------- 혁민 ------------------------------------------------------------------>
+<!-- 				<div >class="col-sm-offset-1" -->
 					<!-- class="col-sm-offset-2 col-sm-10"
 					<input type="button" value="글수정" class="btn btn-default col-sm-1" onclick="go_update()"> 
 					<input type="button" value="목록" class="btn btn-default col-sm-1" onclick="go_list()">
 					 -->
-				</div>
-				<span><input type="button" value="좋아요(찜)하기" class=" btn-default btn-primary col-sm-2 btn col-sm-offset-5" style="font-size: 12px;" onclick="like()" ></span>
-				<span><input type="button" value="글수정" class="btn btn-default btn-primary col-sm-1 btn col-sm-offset-3" style="font-size: 12px;" onclick="go_update()"></span>
-				<span><input type="button" value="목록" class="btn btn-default btn-primary col-sm-1" style="font-size: 12px;" onclick="go_list()"></span>
-				
+<!-- 				</div> -->
+<!-- 				<span><input type="button" value="좋아요(찜)하기" class=" btn-default btn-primary col-sm-2 btn col-sm-offset-5" style="font-size: 12px;" onclick="like()" ></span> -->
+<!-- 				<span><input type="button" value="글수정" class="btn btn-default btn-primary col-sm-1 btn col-sm-offset-3" style="font-size: 12px;" onclick="go_update()"></span> -->
+<!-- 				<span><input type="button" value="목록" class="btn btn-default btn-primary col-sm-1" style="font-size: 12px;" onclick="go_list()"></span> -->
+			<!---------------------------------------------------------------------------------------------------------------------------------------->
+			<!------------------------------------------------------------------ 설아 수정 --------------------------------------------------------------->
+<!-- 				<button class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()">좋아요(찜)하기</button> -->
+				<input type="button" value="좋아요(찜)하기" class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()">
 			</div>
+			<div class="mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
+<!-- 				<button class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">글수정</button> -->
+<!-- 				<button class="btn btn-secondary" style="font-size: 12px;" onclick="go_list()">목록</button> -->
+				<input type="button" value="글수정" class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">
+				<input type="button" value="목록" class="btn btn-secondary" style="font-size: 12px;" onclick="go_list()">
+			</div>
+			<!---------------------------------------------------------------------------------------------------------------------------------------->
 		</form>
 				
 		
@@ -408,7 +436,7 @@
 						<textarea  rows="4" cols="100" class="form-control col-sm-3" id="comment" name="comment" placeholder='타인을 배려하는 댓글을 작성해 주세요' required></textarea>
 					</div>
 				</div>
-				<div class="col-sm-offset-11 col-sm-5 ">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					<input type="button" class="btn btn-default btn-primary" id="writeComment" onclick ="go_insert()" style="font-size: 12px;" value="댓글작성">
 					<!-- class right-button -->
 				</div>
