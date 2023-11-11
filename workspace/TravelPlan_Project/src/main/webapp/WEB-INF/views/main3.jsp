@@ -187,6 +187,12 @@
     .btn-write:hover {
       text-decoration: underline;
     }
+    
+    .title a {
+	   text-decoration: none; 
+	   color: black; 
+	 }
+    
   /* 게시판 인기글 끝 */
 </style>
 <title>여행을 담다, 여담</title>
@@ -455,9 +461,9 @@ function save() {
 <!-- ------------게시판 시작 ----------------- -->
 <h4 class="font" style="text-align:center">지금 많이 담고 있는 여담 <span class="text-primary">' Top 5 '</span>🚀</h4>
 
-<div style="text-align:center">
+<div style="text-align:center; margin: auto;">
   <div class="board-container">
-    <table>
+    <table style="width: 100%;">
       <tr>
         <th class="contentNum">번호</th>
         <th class="title1">제목</th>
@@ -473,7 +479,7 @@ function save() {
           <td class="userID">${DTO.userID }</td>
           <td class="views">${DTO.views }</td>
           <td class="likeContent">${DTO.likeContent }</td>
-          <td class="boardDate">${DTO.boardDate }</td>
+          <td class="boardDate">${DTO.boardDate.substring(0, 10)}</td>
         </tr>
       </c:forEach>
     </table>
