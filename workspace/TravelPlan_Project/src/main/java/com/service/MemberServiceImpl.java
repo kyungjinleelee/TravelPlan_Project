@@ -111,8 +111,7 @@ public class MemberServiceImpl implements MemberService {
 		RedisTemplate<String, Object> redisTemplate = redis.getRedisTemplate();
 		
 		// 인증 키 확인
-		String mail_key = (String) redisTemplate.opsForValue().get("passwdtest");
-		
+		String mail_key = (String) redisTemplate.opsForValue().get(dto.getUserID());
 		if(mail_key == null) { // 인증키 timeout
 			return 0;
 		}
