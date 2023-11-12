@@ -19,7 +19,9 @@
 
 
 <style>
-	
+		* {
+			font-family: 'SUIT-Medium';
+		}
 		.container{
 			width: 50%;
 		}
@@ -426,7 +428,7 @@
 			</table>
 		</c:forEach>
 			<br>
-		<div>
+		<div class="mb-5">
 			<form ><!-- action = "comment" method="post" -->
 				<div class="form-group">
 					<label class="col-sm-5  control-label" >댓글 작성하기</label>

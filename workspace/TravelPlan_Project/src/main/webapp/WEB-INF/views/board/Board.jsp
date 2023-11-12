@@ -27,6 +27,9 @@
     	font-weight: normal;
     	font-style: normal;
 	}
+	* {
+		font-family: 'SUIT-Medium';
+	}
 	.boardContainer{
 		width: 100%;
 		font-size: 14px;
@@ -74,19 +77,19 @@
       
     }
     
-    a:link {
+    .table_a:link {
 	  color : black;
 	  text-decoration: none;
 	}
-	a:visited {
+	.table_a:visited {
 	  color : black;
 	  text-decoration: none;
 	}
-	a:hover {
+	.table_a:hover {
 	  color : black;
 	  text-decoration: underline;
 	}
-	a:active {
+	.table_a:active {
 	  color : black;
 	  text-decoration: none;
 	}
@@ -200,8 +203,8 @@
       		</form>
     	</div>
 		<!-------------------- 검색 --------------------->	
-		<table class="table">
-			<thead>
+		<table class="table table-hover">
+			<thead class="fs-6">
 				<tr>
 			    </tr>
 				<tr>
@@ -214,13 +217,13 @@
 
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="fs-6">
 				<c:forEach var="DTO" items="${content.list}">
 					<!--  -->
 					<tr>
 						<td>${DTO.contentNum}</td>
 						<td>${DTO.userID}</td>
-						<td class="col-sm-7 col-sm-offset-3"><a href="BoardRetrieve?contentNum=${DTO.contentNum}">${DTO.title}</a></td>
+						<td class="col-sm-7 col-sm-offset-3"><a class="table_a" href="BoardRetrieve?contentNum=${DTO.contentNum}">${DTO.title}</a></td>
 						<td>${DTO.likeContent}</td>
 						<td>${DTO.views}</td>
 						<td >${DTO.boardDate}</td>
@@ -232,47 +235,81 @@
 			</tbody>
 			
 		</table>
-		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-5">
 			<button class="rounded btn btn-primary" onclick="go_write()"><i class="fa fa-pencil" ></i>글쓰기</button>
       	</div>
 		
-    	<div class="paging-container">
-     		<div class="paging2">
-	     		<c:set var="perPage" value="${content.perPage}" />
-				<c:set var="curPage" value="${content.curPage}" />
-				<c:set var="totalCount" value="${content.totalCount}" />
-				<c:set var="totalNum" value="${totalCount / perPage}" />
-     		
-				<c:set var="searchName" value="${map.searchName}" />
-				<c:set var="searchValue" value="${map.searchValue}" />
-				
-	     		<c:if test="${totalCount % perPage != 0}">
-					<c:set var="totalNum" value="${totalNum+1}" />
-				</c:if>
-        		<c:if test="${totalCount==null || totalCount==0}">
-          			<div> 게시물이 없습니다. </div>
-        		</c:if>
-        		<!-- 페이지 표시 -->
-        		<c:if test="${totalCount!=null && totalCount!=0}">
-        			<!-- 다음으로 가기 표시 -->
-       				<c:if test="${curPage != 1}">
-           		 		<a class="page" href="<c:url value="Board?curPage=${curPage-1}&searchName=${searchName}&searchValue=${searchValue}"/>">&lt;이전</a>
-          			</c:if>
-          			<!-- 페이지 나열 -->
-          			<c:forEach var="i" begin="1" end="${totalNum}">
-	          			<c:if test="${curPage == i}">
-							${i}
-						</c:if>
-						<c:if test="${curPage != i}">
-							<a href=" <c:url value='Board?curPage=${i}&searchName=${searchName}&searchValue=${searchValue}'/> "> ${i} </a> <!-- curpage에 url 따라댕겨야 나타낼수잇음 -->
-						</c:if>
-			         </c:forEach>
-			         <!-- 이전으로 가기 표시 -->
-			         <c:if test="${curPage < totalNum-1}">
-            		 	<a class="page" href="<c:url value="Board?curPage=${curPage+1}&searchName=${searchName}&searchValue=${searchValue}"/>">다음&gt;</a>
-          			 </c:if>
-        		</c:if>
-      		</div>
+    	<div class="paging-container justify-content-center mx-auto">
+	    	<nav aria-label="Page navigation example">
+			  <ul class="paging2 pagination">
+<!-- 	     		<div class="paging2"> -->
+		     		<c:set var="perPage" value="${content.perPage}" />
+					<c:set var="curPage" value="${content.curPage}" />
+					<c:set var="totalCount" value="${content.totalCount}" />
+					<c:set var="totalNum" value="${totalCount / perPage}" />
+	     		
+					<c:set var="searchName" value="${map.searchName}" />
+					<c:set var="searchValue" value="${map.searchValue}" />
+					
+		     		<c:if test="${totalCount % perPage != 0}">
+						<c:set var="totalNum" value="${totalNum+1}" />
+					</c:if>
+	        		<c:if test="${totalCount==null || totalCount==0}">
+	          			<div> 게시물이 없습니다. </div>
+	        		</c:if>
+	        		<!-- 페이지 표시 -->
+	        		<c:if test="${totalCount!=null && totalCount!=0}">
+	        			<!-- 다음으로 가기 표시 -->
+	       				<c:if test="${curPage != 1}">
+<%-- 	           		 		<a class="page" href="<c:url value="Board?curPage=${curPage-1}&searchName=${searchName}&searchValue=${searchValue}"/>">&lt;이전</a> --%>
+						    <li class="page page-item">
+						    	<a class="page-link" href="<c:url value='Board?curPage=${curPage-1}&searchName=${searchName}&searchValue=${searchValue}'/>">
+						    		<span aria-hidden="true">&laquo;</span>
+						    	</a>
+						    </li>
+	          			</c:if>
+	       				<c:if test="${curPage == 1}">
+<%-- 	           		 		<a class="page" href="<c:url value="Board?curPage=${curPage-1}&searchName=${searchName}&searchValue=${searchValue}"/>">&lt;이전</a> --%>
+						    <li class="page page-item">
+						    	<a class="page-link" href="">
+						    		<span aria-hidden="true">&laquo;</span>
+						    	</a>
+						    </li>
+	          			</c:if>
+	          			<!-- 페이지 나열 -->
+	          			<c:forEach var="i" begin="1" end="${totalNum}">
+		          			<c:if test="${curPage == i}">
+<%-- 								${i} --%>
+							    <li class="page-item active">
+						        	<span class="page-link">${i}</span>
+						        </li>
+							</c:if>
+							<c:if test="${curPage != i}">
+<%-- 								<a href=" <c:url value='Board?curPage=${i}&searchName=${searchName}&searchValue=${searchValue}'/> "> ${i} </a> <!-- curpage에 url 따라댕겨야 나타낼수잇음 --> --%>
+							    <li class="page-item"><a class="page-link" href="<c:url value='Board?curPage=${i}&searchName=${searchName}&searchValue=${searchValue}'/>">${i}</a></li>
+							</c:if>
+				         </c:forEach>
+				         <!-- 이전으로 가기 표시 -->
+				         <c:if test="${curPage < totalNum-1}">
+<%-- 	            		 	<a class="page" href="<c:url value="Board?curPage=${curPage+1}&searchName=${searchName}&searchValue=${searchValue}"/>">다음&gt;</a> --%>
+						    <li class="page page-item">
+							    <a class="page-link" href="<c:url value='Board?curPage=${curPage+1}&searchName=${searchName}&searchValue=${searchValue}'/>">
+							    	<span aria-hidden="true">&raquo;</span>
+							    </a>
+						    </li>
+	          			 </c:if>
+				         <c:if test="${curPage >= totalNum-1}">
+<%-- 	            		 	<a class="page" href="<c:url value="Board?curPage=${curPage+1}&searchName=${searchName}&searchValue=${searchValue}"/>">다음&gt;</a> --%>
+						    <li class="page page-item">
+							    <a class="page-link" href="">
+							    	<span aria-hidden="true">&raquo;</span>
+							    </a>
+						    </li>
+	          			 </c:if>
+	        		</c:if>
+<!-- 	      		</div> -->
+			  </ul>
+			</nav>
     	</div>
 	</div>
 </div>

@@ -14,6 +14,9 @@
     	font-weight: normal;
     	font-style: normal;
 	}
+	* {
+		font-family: 'SUIT-Medium';
+	}
 	.writeContainer{
 		width: 100%;
 		font-size: 14px;

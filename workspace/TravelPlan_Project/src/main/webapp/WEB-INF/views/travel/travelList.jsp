@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
 	<style>
+		* {
+			font-family: 'SUIT-Medium';
+		}
 		.card-text {
     	margin-bottom: 1px; 
     	font-family: Gothic;
@@ -104,13 +107,10 @@
 	</div>
 
 <!-- contents -->  
-  
-    <br>
-    <br>
-    <div class="centered-title text-center">
-        <h1 style="font-weight: 600;">일정 보관함</h1>
+
+    <div class="centered-title text-center mt-5">
+        <h2 style="font-weight: 600;">일정 보관함</h2>
     </div>
-    <br>
     
 <div class="container">
     <div class="d-flex justify-content-between mt-5">
@@ -131,7 +131,7 @@
                         <p class="card-text">여행 끝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${travel.EDate.substring(0, 10)}</p>
                         <br>
                         <a href="travelRetrieve?travelID=${travel.travelID}" class="btn btn-primary btn-sm">일정 보러가기</a>
-                   		<button type="button" class="deleteBtn btn-danger btn-sm" data-travelID="${travel.travelID}">삭제</button>
+                   		<button type="button" class="deleteBtn btn btn-danger btn-sm" data-travelID="${travel.travelID}">삭제</button>
                     </div>
                 </div>
               </div>

@@ -6,6 +6,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- alert 커스텀 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
+
 	<!-- 참조  css, js 코드 -->
 	<link rel="stylesheet" href="<c:url value='/css/main3.css'/>">
 <meta charset="UTF-8">
@@ -17,8 +22,11 @@
 	function service(){ // 모달창에서 로그인 되면 넘어가게
 		let signIn = "${loginInfo}";
 		if(signIn == ""){
-			alert("로그인 후 이용하실 수 있는 페이지입니다.");
-			location.href="loginForm";
+			Swal.fire({	
+				icon: 'error',
+				text: '로그인 후 이용하실 수 있는 페이지입니다.' }).then(function(){
+				location.href="/app/loginForm";
+			});
 		}else{
 			openBtn();
 		}
@@ -37,6 +45,9 @@
 	}
 </script>
 <style>
+	* {
+		font-family: 'SUIT-Medium';
+	}
 /* 모달  */
       #modalOpenButton, #modalCloseButton {
 		  cursor: pointer;
@@ -67,12 +78,12 @@
 		}
 		
  		/* 여행정보창  */
-		.title {
+		.ttitle {
 			width: 70px;
 		    height: 50px;
 		    top:20px;
 		    left:27px;
-		    font-family: 'SUIT-Bold';
+		    font-family: 'SUIT-Medium';
 		}
 		#travelTitle{
 			width: 250px;
@@ -115,12 +126,12 @@
 		.calendar_sdate{
 			left:400px;
 			top:20px;
-			font-family: 'SUIT-Bold';
+			font-family: 'SUIT-Medium';
 		}
 		.calendar_edate{
 			left:682px;
 			top:20px;
-			font-family: 'SUIT-Bold';
+			font-family: 'SUIT-Medium';
 		}
 		#btnList {
 			float: right;
@@ -245,12 +256,12 @@
   <div class="text-center mt-5 mb-5" >
     <p><b>
         <h3 style="color: #00BFFF;"> Travel far, travel often, and travel without regrets </h3>
-        <h5 class="font" style="font-weight:bold";> Let's Begin!</h5>
+        <h5 class="font" style="font-weight:bold;"> Let's Begin!</h5>
       </b></p>
   </div>
 
 <!-------------일정 만들기 시작 ------------ -->
-      <div class="album py-5 bg-white">
+      <div class="album py-5 bg-white mb-5">
         <div class="container">
           
           <!-- 글 -->
@@ -383,18 +394,18 @@
 	  %>
       <div id="modalContainer" class="hidden">
 			<div id="modalContent">
-			    <p style="font-family: 'SUIT-Bold'; font-size: large; text-align: center;">여행 정보를 입력해주세요.</p><hr>
+			    <p style="font-family: 'SUIT-Medium'; font-size: large; text-align: center; font-weight: bold;">여행 정보를 입력해주세요.</p><hr>
 <!-- 			    <form action="/app/travelUI?region=" method="post"> -->
 			    <form action="<c:url value="/travelUI" />" method="get">
 			    <input type="hidden" id="region" name="region" value="">
 				    <div class="div_title col-9">
-						<label class="title">여행 제목 : </label>
+						<label class="ttitle" style="font-family: 'SUIT-Medium'; font-weight: bold;">여행 제목 : </label>
 						<input class="text" name="travelTitle" id="travelTitle">
 						<div class="calendar">
-							<label class="calendar_sdate">여행 시작일 : </label>
+							<label class="calendar_sdate" style="font-family: 'SUIT-Medium'; font-weight: bold;">여행 시작일 : </label>
 							<input class="input-date" type="date" name="SDate" id="SDate" value="" min="<%= sdf.format(nowTime) %>">
 							<br><br>
-							<label class="calendar_edate">여행 종료일 : </label>
+							<label class="calendar_edate" style="font-family: 'SUIT-Medium'; font-weight: bold;">여행 종료일 : </label>
 							<input class="input-date" type="date" name="EDate" id="EDate" value="" min="<%= sdf.format(nowTime) %>">
 							<br><br>
 						</div>
@@ -407,7 +418,6 @@
 			</div>
 		</div>
     
- </main>
 <script>
 function save() {
 	if($('#travelTitle').val()==''){
@@ -459,9 +469,9 @@ function save() {
 <br>
 <!-- ------------일정만들기 끝 --------------- -->
 <!-- ------------게시판 시작 ----------------- -->
-<h4 class="font" style="text-align:center">지금 많이 담고 있는 여담 <span class="text-primary">' Top 5 '</span>🚀</h4>
+<h3 class="fw-bold mb-5" style="text-align:center;">지금 많이 담고 있는 여담 <span class="text-primary">' Top 5 '</span>🚀</h3>
 
-<div style="text-align:center; margin: auto;">
+<div class="mb-5" style="text-align:center; margin: auto;">
   <div class="board-container">
     <table style="width: 100%;">
       <tr>
@@ -488,9 +498,8 @@ function save() {
 </div> <!-- 게시판 끝 -->
 
 <!-- 카드 부분 : 추후에 좋아요 많은 best3 나오게끔 수정할 것  -->
-<h4 class="font" style="text-align:center">- 여담 추천 일정 -</h4>
-<br>
-  <div class="container">
+<h3 class="fw-bold mb-5" style="text-align:center;">여담 추천 일정 🚀</h3>
+  <div class="container mb-5">
     <div class="card-group">
       <div class="card">
         <img
@@ -511,7 +520,7 @@ function save() {
           <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정2</p>
         </div>
         <div class="card-footer" style="text-align: center;">
-          <small style="color: #1E90FF;">경상북도 경주</small>
+          <small style="color: #1E90FF;">제주특별자치도</small>
         </div>
       </div>
       <div class="card">
@@ -522,14 +531,14 @@ function save() {
           <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정3</p>
         </div>
         <div class="card-footer" style="text-align: center;">
-          <small style="color: #1E90FF;"> 전라남도 담양 </small>
+          <small style="color: #1E90FF;">부산광역시</small>
         </div>
       </div>
     </div>
   </div>
-<br>
-<br>
 <!-- footer -->
+<br>
+<br>
 <footer>
   <div class="jumbotron text-center mt-5 mb-0">
     <h3 class="text-secondary">여 담;</h3>
