@@ -50,7 +50,14 @@ public class BoardServiceImpl implements BoardService {
 		return dao.write(dto);
 	}
 	@Override
+	public int write2(BoardDTO dto) {
+		
+		return dao.write2(dto);
+	}
+	@Override
+	@Transactional
 	public int delete(int contentNum) {
+		dao.delete_comment(contentNum);
 		dao.delete(contentNum);
 		return 0;
 	}

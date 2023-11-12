@@ -63,7 +63,7 @@
 		<div>
 			<h2 class="text-center">여행 공유하기</h2><br>
 		</div>
-		<form class="" action="write" method="post">
+		<form class="" action="write2" method="post">
 			<div class="form-group mb-3">
 				<div class="input-group flex-nowrap input-group-lg">
 					<span class="input-group-text" id="addon-wrapping">제목</span>

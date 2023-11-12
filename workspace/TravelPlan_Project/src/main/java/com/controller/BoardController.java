@@ -154,7 +154,7 @@ public class BoardController {
 		        Dto.setUserID(userID);
 		        //session.setAttribute("loginInfo", memberInfo);
 		       
-		        System.out.println(Dto.getBoardDate());
+//		        System.out.println(Dto.getBoardDate());
 //		        m.addAttribute("content", Dto);
 		    }else {//현재는 로그인 안했으면 글 작성 불가. (유동 할지 생각중)
 		    	return "board/accessDenied";
@@ -189,10 +189,23 @@ public class BoardController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedTime = krTime.format(formatter);
         dto.setBoardDate(formattedTime);
-		System.out.println(dto.getBoardDate());
+//		System.out.println(dto.getBoardDate());
 		service.write(dto);
 		return "redirect:Board";
 	
+	}
+	
+	@PostMapping("/write2")
+	public String write2(BoardDTO dto, Model m) {
+		ZoneId zid = ZoneId.of("Asia/Seoul");
+		ZonedDateTime krTime = ZonedDateTime.now().withZoneSameInstant(zid);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String formattedTime = krTime.format(formatter);
+		dto.setBoardDate(formattedTime);
+//		System.out.println(dto.getBoardDate());
+		service.write2(dto);
+		return "redirect:Board";
+		
 	}
 	
 	@GetMapping("/delete")

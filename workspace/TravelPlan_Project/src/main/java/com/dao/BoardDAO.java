@@ -58,10 +58,20 @@ public class BoardDAO {
 		int n = session.insert("BoardMapper.write", dto);
 		return n;
 	}
+	
+	public int write2(BoardDTO dto) {
+		int n = session.insert("BoardMapper.write2", dto);
+		return n;
+	}
 
 	public int delete(int contentNum) {
 		return session.delete("BoardMapper.delete",contentNum);
 		
+	}
+	
+	// 게시물에 대한 댓글 삭제
+	public int delete_comment(int contentNum) {
+		return session.delete("BoardMapper.delete_comment", contentNum);
 	}
 	
 	public int writeComment(CommentDTO dto) {

@@ -61,6 +61,12 @@
 	
 	<!--게시글 작성 -->
 	<insert id="write" parameterType="BoardDTO">
+		insert into board (CONTENTNUM,userid ,TITLE,MAINTEXT, boarddate )
+		values (board_seq.nextval,#{userID}, #{title}, #{mainText}, TO_DATE(#{boardDate},'yyyy-MM-dd HH24:MI:ss') )
+	</insert>
+	
+	<!--게시글 작성 - 일정공유용-->
+	<insert id="write2" parameterType="BoardDTO">
 		insert into board (CONTENTNUM,userid ,TITLE,MAINTEXT, boarddate, travelID )
 		values (board_seq.nextval,#{userID}, #{title}, #{mainText}, TO_DATE(#{boardDate},'yyyy-MM-dd HH24:MI:ss'), #{travelID} )
 	</insert>
@@ -69,6 +75,12 @@
 	<delete id="delete" parameterType="int">
 		delete from board
 		where contentnum=#{contentNum}
+	</delete>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete_comment" parameterType="int">
+		delete from comments
+		where contentNum=#{contentNum}
 	</delete>
 	
 	<!--댓글 작성 -->

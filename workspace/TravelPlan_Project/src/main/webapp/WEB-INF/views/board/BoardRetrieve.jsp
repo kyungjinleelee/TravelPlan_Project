@@ -165,6 +165,11 @@
 				+ "&comment="+textAreaContent;
 	}
 	
+	function go_delete() {
+		alert("삭제되었습니다.");
+		location.href = "delete?contentNum=${content.contentNum}";
+	}
+	
 	
 	//사용하지 않음
 	function likeDupCheck(){//비동기 요청이기 때문에 이 함수 호출이후 값을 받아오기 전 like() 내부의 코드가 별도로 계속 도는듯한 모습이 보임. 
@@ -251,7 +256,7 @@
 		var ta = document.querySelector('#mainText');
 // 		ta.style.height = 'auto';
 		var height = ta.scrollHeight;
-		console.log(height);
+// 		console.log(height);
 // 		ta.style.height = `${height + 8}px`;
 		ta.style.height = height+'px';
 	});
@@ -261,7 +266,6 @@
 </head>
 <body>
 <jsp:include page="../common/top.jsp" flush="true" /><br>
-
 	<div class="container">
 	<!-- action="update" method="post // 버튼만 누르면 자꾸 업데이트 요청해서 지웠음 -->
 		<form class="form-horizontal" >
@@ -392,7 +396,11 @@
 			<div class="mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
 <!-- 				<button class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">글수정</button> -->
 <!-- 				<button class="btn btn-secondary" style="font-size: 12px;" onclick="go_list()">목록</button> -->
-				<input type="button" value="글수정" class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">
+				<!-- 글 쓴 사람이면 수정/삭제버튼 나타남  -->
+				<c:if test="${loginInfo.userID == content.userID}"> 
+					<input type="button" value="글수정" class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">
+					<input type="button" value="글삭제" class="btn btn-danger" style="font-size: 12px;" onclick="go_delete()">
+				</c:if>
 				<input type="button" value="목록" class="btn btn-secondary" style="font-size: 12px;" onclick="go_list()">
 			</div>
 			<!---------------------------------------------------------------------------------------------------------------------------------------->
