@@ -155,12 +155,31 @@ public class BoardController {
 		        //session.setAttribute("loginInfo", memberInfo);
 		       
 		        System.out.println(Dto.getBoardDate());
-		        m.addAttribute("content", Dto);
+//		        m.addAttribute("content", Dto);
 		    }else {//현재는 로그인 안했으면 글 작성 불가. (유동 할지 생각중)
 		    	return "board/accessDenied";
 		    }
 		
 		return "board/Write";
+	}
+	
+	// 여행 일정 공유하기 버튼 클릭시 요청
+	@GetMapping("/WriteTravel")
+	public String write_travel(HttpSession session, Model m, BoardDTO Dto) {
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		//로그인 상태를 확인하고 (유동 아직 없음) 작성자 아이디만 초기값 형태로 
+		//응답 전송하고, 아이디는 다시 요청으로 받음 
+		if (loginInfo != null) {
+			String userID = loginInfo.getUserID();
+			Dto.setUserID(userID);
+			//session.setAttribute("loginInfo", memberInfo);
+//			System.out.println(Dto.getBoardDate());
+			m.addAttribute("content", Dto);
+		}else {//현재는 로그인 안했으면 글 작성 불가. (유동 할지 생각중)
+			return "board/accessDenied";
+		}
+		
+		return "board/WriteTravel";
 	}
 	
 	@PostMapping("/write")
@@ -172,7 +191,6 @@ public class BoardController {
         dto.setBoardDate(formattedTime);
 		System.out.println(dto.getBoardDate());
 		service.write(dto);
-		
 		return "redirect:Board";
 	
 	}

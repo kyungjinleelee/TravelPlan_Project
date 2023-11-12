@@ -42,6 +42,30 @@
 		    height: 210px; /* 이미지의 높이를 일정한 값으로 설정 */
 		    object-fit: cover; /* 이미지 비율 유지하며 카드 이미지 영역 가득 채우기 */
 		}
+		
+		.card-footer {
+			font-weight: bold;
+		}
+		.card-footer:link {
+		  color : black;
+		  text-decoration: none;
+		  transition: background 0.5s ease-in-out;
+		}
+		.card-footer:visited {
+		  color : black;
+		  text-decoration: none;
+		  transition: background 0.5s ease-in-out;
+		}
+		.card-footer:hover {
+		  color : black;
+		  text-decoration: none;
+		  background: #D9D9D9;
+		}
+		.card-footer:active {
+		  color : black;
+		  text-decoration: none;
+		  transition: background 0.1s ease-in-out;
+		}
 	</style>
 	
    <script>
@@ -113,9 +137,8 @@
     </div>
     
 <div class="container">
-    <div class="d-flex justify-content-between mt-5">
+    <div class="d-flex justify-content-end mt-5">
         <button type="button" class="btn btn-outline-primary" onclick="window.location.href='/app/loginCheck/pickLocation'">새 일정 만들기</button>
-        <button type="button" class="btn btn-primary">게시판 등록</button>
     </div>
     <br>
     <br>
@@ -133,6 +156,9 @@
                         <a href="travelRetrieve?travelID=${travel.travelID}" class="btn btn-primary btn-sm">일정 보러가기</a>
                    		<button type="button" class="deleteBtn btn btn-danger btn-sm" data-travelID="${travel.travelID}">삭제</button>
                     </div>
+                    <a href="../WriteTravel?travelID=${travel.travelID}" class="card-footer">
+						게시판 등록
+                    </a>
                 </div>
               </div>
             
