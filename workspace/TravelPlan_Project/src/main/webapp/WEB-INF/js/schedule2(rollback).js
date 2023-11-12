@@ -92,7 +92,7 @@ function setScheduleMarker(stitle, smapx, smapy) { // setScheduleMarker start
 		imageSrc = "/app/images/marker9.png";
 	}
 	// 마커 이미지의 이미지 크기 입니다
-	var imageSize = new kakao.maps.Size(50, 50); 
+	var imageSize = new kakao.maps.Size(20, 30); 
 	
 	// 마커 이미지를 생성합니다    
 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
