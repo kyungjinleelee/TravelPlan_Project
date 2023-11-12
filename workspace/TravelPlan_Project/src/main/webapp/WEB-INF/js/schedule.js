@@ -129,12 +129,17 @@ function getScheduleList(title, addr1, mapx, mapy) {
 					'<input type="hidden" class="currentBtn_hidden" value="'+currentBtn.id+'">' +
 					'<div class="d-flex w-100 align-items-center justify-content-between">' +
 					'  <strong class="sTitle mb-1">'+title+'</strong>' + 
-					'  <input type="text" class="time_text small" style="width: 45px;" placeholder="12:00">' +
 					'</div>' +
 					'<div class="saddr1 col-10 mb-1 small">'+addr1+'</div>'+
 					'<input type="hidden" class="smapx" value="'+mapx+'">' +
 					'<input type="hidden" class="smapy" value="'+mapy+'">' +
-					'<button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
+					'<div class="d-flex w-100 align-items-center justify-content-between">' +
+					'  <div>' +
+					'    <label>시간&nbsp:&nbsp</label>' +
+					'    <input type="time" class="time_text small" style="width: 110px;" placeholder="12:00">' +
+					'  </div>' +
+					'  <button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
+					'</div>' +
 //				'</div>' +
 				'</li>';
 
@@ -143,7 +148,7 @@ function getScheduleList(title, addr1, mapx, mapy) {
 
 // 삭제버튼
 $(document).on("click", ".removeBtn", function(){
-	this.parentNode.remove(); // 해당 버튼의 부모 찾아서 삭제
+	this.parentNode.parentNode.remove(); // 해당 버튼의 부모 찾아서 삭제
 	
 //------------------------ 세부일정 마커 start ------------------------//
 	// 너무 하드코딩인 느낌..

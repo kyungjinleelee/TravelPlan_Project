@@ -94,24 +94,31 @@ function setScheduleMarker(stitle, smapx, smapy) { // setScheduleMarker start
 // 리스트 추가
 // 수정 : 버튼값 보내주기 위해 input hidden 추가 / day 버튼별 리스트 출력하기 위해 클래스 수정(scList추가) + dataset추가
 function getScheduleList(title, addr1, mapx, mapy) {
-	var inHtml ='<div class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
+	var inHtml ='<li class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
+			//	'<div class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
 					'<input type="hidden" class="currentBtn_hidden" value="'+currentBtn.id+'">' +
 					'<div class="d-flex w-100 align-items-center justify-content-between">' +
 					'  <strong class="sTitle mb-1">'+title+'</strong>' + 
-					'  <input type="text" class="time_text small" style="width: 45px;" placeholder="12:00">' +
 					'</div>' +
 					'<div class="saddr1 col-10 mb-1 small">'+addr1+'</div>'+
 					'<input type="hidden" class="smapx" value="'+mapx+'">' +
 					'<input type="hidden" class="smapy" value="'+mapy+'">' +
-					'<button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
-				'</div>';
+					'<div class="d-flex w-100 align-items-center justify-content-between">' +
+					'  <div>' +
+					'    <label>시간&nbsp:&nbsp</label>' +
+					'    <input type="time" class="time_text small" style="width: 110px;" placeholder="12:00">' +
+					'  </div>' +
+					'  <button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
+					'</div>' +
+			//	'</div>' +
+				'</li>';
 
 	$('.scheduleList').append(inHtml);
 }
 
 // 삭제버튼
 $(document).on("click", ".removeBtn", function(){
-	this.parentNode.remove(); // 해당 버튼의 부모 찾아서 삭제
+	this.parentNode.parentNode.remove(); // 해당 버튼의 부모 찾아서 삭제
 	
 //------------------------ 세부일정 마커 start ------------------------//
 	// 너무 하드코딩인 느낌..
@@ -149,3 +156,9 @@ function day_filter(value) {
 
 	}
 }
+
+//세부 일정 드래그로 순서 변경하기 - jQuery UI 라이브러리 사용
+$(function() {
+	$("#scheduleList_sortable").sortable(); // 해당 태그 내부에 포함된 태그를 사용해 드래그 가능한 리스트를 만듦
+	$("#scheduleList_sortable").disableSelection(); // 아이템 내부 글자를 드래그해서 선택하지 못하도록 방지
+});
