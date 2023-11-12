@@ -71,6 +71,26 @@ function setScheduleMarker(stitle, smapx, smapy) { // setScheduleMarker start
 	var title = stitle
 	
 	// 마커 생성
+	// day 버튼마다 이미지 설정
+	if(currentBtn.value == 'daybtn1') {
+		imageSrc = "/app/images/marker1.png";
+	} else if(currentBtn.value == 'daybtn2') {
+		imageSrc = "/app/images/marker2.png";
+	} else if(currentBtn.value == 'daybtn3') {
+		imageSrc = "/app/images/marker3.png";
+	} else if(currentBtn.value == 'daybtn4') {
+		imageSrc = "/app/images/marker4.png";
+	} else if(currentBtn.value == 'daybtn5') {
+		imageSrc = "/app/images/marker5.png";
+	} else if(currentBtn.value == 'daybtn6') {
+		imageSrc = "/app/images/marker6.png";
+	} else if(currentBtn.value == 'daybtn7') {
+		imageSrc = "/app/images/marker7.png";
+	} else if(currentBtn.value == 'daybtn8') {
+		imageSrc = "/app/images/marker8.png";
+	} else if(currentBtn.value == 'daybtn9') {
+		imageSrc = "/app/images/marker9.png";
+	}
 	// 마커 이미지의 이미지 크기 입니다
 	var imageSize = new kakao.maps.Size(50, 50); 
 	
