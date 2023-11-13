@@ -39,6 +39,15 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
     
     <style>
+    @font-face {
+    	font-family: 'SUIT-Medium';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
+    	font-weight: normal;
+    	font-style: normal;
+	}
+	* {
+		font-family: 'SUIT-Medium';
+	}
     .plan-days {
     background-color: #B7E1F5;
     border: none;
