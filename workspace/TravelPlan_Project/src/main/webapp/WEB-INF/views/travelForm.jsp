@@ -158,9 +158,16 @@
 			 <div>
 			  	<div class="list-group list-group-flush border-bottom scrollarea" id="placesList"></div>
 			  <!-- 페이징 시작  -->
-		        <div id="pagination">
-		        	<div id="pagination_page"></div> <!-- 페이징 들어갈 자리 만들어줌 -->
-		        </div>
+<!-- 		        <div id="pagination"> -->
+				<div class="d-flex justify-content-center mx-auto">
+		        	<nav aria-label="Page navigation example">
+					  <ul class="pagination" id="pagination_page">
+					    
+					  </ul>
+					</nav>
+				</div>
+<!-- 					<div id="pagination_page"></div> 페이징 들어갈 자리 만들어줌 -->
+<!-- 		        </div> -->
 			</div> 
 			 <!-- 페이징 끝 -->
 		  	

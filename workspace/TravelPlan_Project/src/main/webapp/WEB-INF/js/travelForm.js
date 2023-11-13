@@ -376,7 +376,7 @@ function sightseeingBtnclick(curPage) {
 } // end sightseeingBtnclick() 
 
 //------------------------------------ page_link ------------------------------------//
-// 음식/숙박용
+// 숙박용
 function page_link_hotel(data){
 //	console.log(data);
 //	console.log(region);
@@ -398,12 +398,47 @@ function page_link_hotel(data){
 //	console.log("totalNum>>",totalNum);
 
 	var pageHtml ="";
+	// 이전 페이지로 이동
+	if(curPage != 1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='hotelBtnclick("+(curPage-1)+")'>" +
+					"        <span aria-hidden='true'>&laquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='hotelBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&laquo;</span>" +
+		"    </a>" +
+		"</li>"
+	}
+	
+	// 페이징
 	for(var i=1; i <= totalNum; i++){
-		if( data.curPage == i){ 
-			pageHtml += "<span>" + i + "</span>";
-		}else{
-			pageHtml += "<a href='#' onclick='hotelBtnclick("+i+")'>"+i+"</a>";
+		if(i < curPage+5 && i >= curPage) { // 아니면 5개씩 나눠서 출력
+			if( curPage == i){ 
+	//			pageHtml += "<span>" + i + "</span>";
+				pageHtml += "<li class='page-item'><span class='page-link active'>" + i + "</span></li>";
+			}else{
+	//			pageHtml += "<a href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a>";
+				pageHtml += "<li class='page-item'><a class='page-link' href='#' onclick='hotelBtnclick("+i+")'>"+i+"</a></li>";
+			}
 		}
+	}
+	
+	// 다음 페이지로 이동
+	if(curPage < totalNum-1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='hotelBtnclick("+(curPage+1)+")'>" +
+					"        <span aria-hidden='true'>&raquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='hotelBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&raquo;</span>" +
+		"    </a>" +
+		"</li>"
 	}
 	return pageHtml;
 }
@@ -429,12 +464,47 @@ function page_link_food(data){
 //	console.log("totalNum>>",totalNum);
 		
 	var pageHtml ="";
+	// 이전 페이지로 이동
+	if(curPage != 1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='foodBtnclick("+(curPage-1)+")'>" +
+					"        <span aria-hidden='true'>&laquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='foodBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&laquo;</span>" +
+		"    </a>" +
+		"</li>"
+	}
+	
+	// 페이징
 	for(var i=1; i <= totalNum; i++){
-		if(data.curPage == i){ 
-			pageHtml += "<span>" + i + "</span>";
-		}else{
-			pageHtml += "<a href='#' onclick='foodBtnclick("+i+")'>"+i+"</a>";
+		if(i < curPage+5 && i >= curPage) { // 아니면 5개씩 나눠서 출력
+			if( curPage == i){ 
+	//			pageHtml += "<span>" + i + "</span>";
+				pageHtml += "<li class='page-item'><span class='page-link active'>" + i + "</span></li>";
+			}else{
+	//			pageHtml += "<a href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a>";
+				pageHtml += "<li class='page-item'><a class='page-link' href='#' onclick='foodBtnclick("+i+")'>"+i+"</a></li>";
+			}
 		}
+	}
+	
+	// 다음 페이지로 이동
+	if(curPage < totalNum-1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='foodBtnclick("+(curPage+1)+")'>" +
+					"        <span aria-hidden='true'>&raquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='foodBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&raquo;</span>" +
+		"    </a>" +
+		"</li>"
 	}
 	return pageHtml;
 }
@@ -458,14 +528,65 @@ function page_link_ss(data){
 //	console.log("totalCount>>",totalCount);
 //	console.log("curPage>>",curPage);
 //	console.log("totalNum>>",totalNum);
-			
+	
+//		<li class="page-item">
+//		  <a class="page-link" href="#" aria-label="Previous">
+//		      <span aria-hidden="true">&laquo;</span>
+//		  </a>
+//		</li>
+//		
+//		<li class="page-item"><a class="page-link" href="#">1</a></li>
+//		<li class="page-item"><a class="page-link" href="#">2</a></li>
+//		<li class="page-item"><a class="page-link" href="#">3</a></li>
+//		
+//		<li class="page-item">
+//		  <a class="page-link" href="#" aria-label="Next">
+//		      <span aria-hidden="true">&raquo;</span>
+//		  </a>
+//		</li>
+	
 	var pageHtml ="";
+	// 이전 페이지로 이동
+	if(curPage != 1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='sightseeingBtnclick("+(curPage-1)+")'>" +
+					"        <span aria-hidden='true'>&laquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='sightseeingBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&laquo;</span>" +
+		"    </a>" +
+		"</li>"
+	}
+	
+	// 페이징
 	for(var i=1; i <= totalNum; i++){
-		if( data.curPage == i){ 
-			pageHtml += "<span>" + i + "</span>";
-		}else{
-			pageHtml += "<a href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a>";
+		if(i < curPage+5 && i >= curPage) { // 아니면 5개씩 나눠서 출력
+			if( curPage == i){ 
+	//			pageHtml += "<span>" + i + "</span>";
+				pageHtml += "<li class='page-item'><span class='page-link active'>" + i + "</span></li>";
+			}else{
+	//			pageHtml += "<a href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a>";
+				pageHtml += "<li class='page-item'><a class='page-link' href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a></li>";
+			}
 		}
+	}
+	
+	// 다음 페이지로 이동
+	if(curPage < totalNum-1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='sightseeingBtnclick("+(curPage+1)+")'>" +
+					"        <span aria-hidden='true'>&raquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='sightseeingBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&raquo;</span>" +
+		"    </a>" +
+		"</li>"
 	}
 	return pageHtml;
 }
