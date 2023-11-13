@@ -9,7 +9,7 @@
 <html style="height: 100%">
 <head>
 	<meta charset="utf-8">
-	    <title>Travel Details</title>
+	    <title>일정 보관함</title>
 	    
 	<!-- ------------------------------------------------------------------------------------------------------------- -->
 	<!-- kakao Map API -->
@@ -74,6 +74,20 @@
 	font-size: 22px;
 	font-family: 'SUIT-Bold';
 	}
+	.copy-url-button{
+	width: 75px;
+	height: 35px;
+	position: absolute;
+	top: 15px;
+	right: 140px;
+	cursor: pointer;
+	background-color: #3563E9;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 3px;
+	font-size: 14px;
+	font-family: 'SUIT-Bold';
+}
     </style>
     
     <script>
@@ -229,7 +243,7 @@
 	    	        
 	    	      });
     	      }
-
+   
 	</script>
 	<%
 		String region = request.getParameter("region");
@@ -258,6 +272,7 @@
 			<jsp:include page="../travel/region2.jsp" flush="false" />
 		</div>
 		<div class="div_title col-1">
+			 <button class="copy-url-button" id="copyUrlButton">URL복사</button>
 			<button class="travel-title_close" id="closeButton">닫기</button>
 			<script>
 				document.getElementById("closeButton").addEventListener("click", function() {
@@ -277,6 +292,23 @@
 				        }
 				    });
 				});
+				// url복사버튼
+				document.getElementById("copyUrlButton").addEventListener("click", function() {
+                    // Copy the current URL to the clipboard
+                    var dummy = document.createElement("input");
+                    document.body.appendChild(dummy);
+                    dummy.setAttribute("id", "dummy_id");
+                    document.getElementById("dummy_id").value = window.location.href;
+                    dummy.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(dummy);
+
+                    // 확인 alert 코드
+                    Swal.fire({
+                        title: 'URL이 복사되었습니다 :)',
+                        icon: 'success'
+                    });
+                });
 			</script>			
 		</div>	
 	</div>
