@@ -449,7 +449,7 @@ function save() {
 	var da1 = new Date(ar1[0], ar1[1], ar1[2]);
 	var da2 = new Date(ar2[0], ar2[1], ar2[2]);
 	var dif = da2 - da1;
-	var cDay = 24 * 60 * 60 * 1000;
+	var cDay = 24 * 60 * 600* 1000;
 	var days = parseInt(dif / cDay);
 	
 	if (days <= 0) {
@@ -514,8 +514,8 @@ function save() {
       </div>
       <div class="card">
         <img
-          src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA5MjBfMTk2%2FMDAxNjk1MTQ1NTgzODM3.dCa3hCgf41oyRQHnbVCDsl3MmCZXT8EvTR-_d_-ACM0g.ksLiZc_1b3_tREmMj0Igawd1N6tj5RjajbNMPnZNPnQg.JPEG.syoung579%2FIMG_3185.jpg&type=sc960_832"
-          alt="...">
+          src="https://blog.kakaocdn.net/dn/vXgel/btsAfBDS7Pz/120zjNUpERKdli2Hc6Kvm1/img.png"
+          alt="..." style="height: 82%;">
         <div class="card-body" style="text-align: center;">
           <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정2</p>
         </div>
