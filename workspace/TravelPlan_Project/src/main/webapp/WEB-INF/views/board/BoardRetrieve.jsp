@@ -127,9 +127,8 @@
 		.hidden {
 	    display: none;
 		}
-		#toggleBtn.hidden {
-	    display: none;
-		}
+		
+		
 		#mainText {
 	    	font-family: 'SUIT-Medium';
 		    width: 100%;
@@ -232,8 +231,8 @@
 	    }else{
 	    	$("#toggleBtn").val("일정 펼쳐보기");
 	    }
-		
-		
+	    var plan = "(${PlanDtoLists})";
+	    console.log("plan :"+plan);
 		
 	}
 	
@@ -241,6 +240,7 @@
 	
 	//window.onload = document.getElementById("toggleBtn").addEventListener("click", tableToggle); 
 	window.onload = function(){ 
+		
 		const button = document.getElementById("toggleBtn");
 		
 		const buttonClickHandler = () =>{
@@ -248,16 +248,17 @@
 		  tableToggle()
 		  
 		};
-		 
-		button.onclick = buttonClickHandler;
+		
+		//실행에 문제는 없는데 Uncaught 뜨는게 나중에라도 문제가 될까봐
+		if(button!=null){
+			button.onclick = buttonClickHandler;
+		}
+		
 	};
 	
 	
 	// 내용 높이만큼 textarea 높이 설정
 	$(document).ready(function(){
-		var plan = document.getElementById('PlanDto2dLists');
-		//const button = document.getElementById("toggleBtn");
-		console.log(plan);
 		
 		var ta = document.querySelector('#mainText');
 // 		ta.style.height = 'auto';
@@ -265,13 +266,7 @@
 // 		console.log(height);
 // 		ta.style.height = `${height + 8}px`;
 		ta.style.height = height+'px';
-		//.classList.add('hidden');
-		if (plan == null) {
-			$("#toggleBtn").addClass("hidden");
-			//button.classList.add('hidden');
-		    console.log(" plan is null");
-		}
-		//
+		
 	});
 	
 	
@@ -380,9 +375,12 @@
 						</tbody>
 					</table>
 					
+						<c:if test="${not empty PlanDto2dLists}">
+							<span><input type="button" value="일정 접기" class="btn btn-outline-primary" id='toggleBtn' style="font-size: 12px;">
+							</span>
+						</c:if>
+						
 					
-					<span><input type="button" value="일정 접기" class="btn btn-outline-primary" id='toggleBtn' style="font-size: 12px;">
-					</span>
 					<hr>
 					
 					<textarea class="form-control" rows="10" name="content" id="mainText" style="resize: none;">${content.mainText}</textarea>
