@@ -38,19 +38,21 @@ function call() {
 	//		document.getElementById('days').value = days;  
 	//	}
 	if (days <= 0) {
-		alert("여행 종료일이 시작일보다 이전입니다.");
-		$('#EDate').val('');
-		$('#SDate').val('');
+		Swal.fire({	
+			icon: 'error',
+			title: '여행 종료일이 시작일보다 이전입니다.' }).then(function(){
+				$('#EDate').val('');
+				$('#SDate').val('');
+		});
 		return;
 	}
 }//end call
 
-// -------------------------------------------------- 닫기버튼 -------------------------------------------------- //
+// -------------------------------------------------- 닫기버튼(작동안함..) -------------------------------------------------- //
 function close() {
 	event.preventDefault(); 
 	if(confirm('그만 만드시겠어요?')) {
-		location.href='loginCheck/dropPage'; 
-		
+		location.href='loginCheck/dropPage';
 	}
 	else alert('닫기 취소');
 }
@@ -62,18 +64,30 @@ function save() {
 	// 아이디(타이틀)이 공백이라면 오류 출력
 	if($('#travelTitle').val()==''){
 		event.preventDefault();
-		alert("여행 제목을 채워주세요 :)");
-		$('#travelTitle').focus();
+//		alert("여행 제목을 채워주세요 :)");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행 제목을 채워주세요.' }).then(function(){
+				$('#travelTitle').focus();
+		});
 	}
 	if($('#SDate').val() == '') {
 		event.preventDefault();
-		alert("여행 시작일을 입력해주세요.");
-		$('#SDate').focus();
+//		alert("여행 시작일을 입력해주세요.");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행 시작일을 입력해주세요.' }).then(function(){
+				$('#SDate').focus();
+		});
 	}
 	if($('#EDate').val() == '') {
 		event.preventDefault();
-		alert("여행  종료일을 입력해주세요.");
-		$('#EDate').focus();
+//		alert("여행  종료일을 입력해주세요.");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행  종료일을 입력해주세요.' }).then(function(){
+				$('#EDate').focus();
+		});
 	}
 	else{
 		$('#savePlan').submit();
@@ -159,8 +173,11 @@ function rowAdd() {
 		////////////////////////////////////////////////////////////////////
 		$('#myTable > tbody:last').append(innerHtml);
 	} else {
-		alert("최대 9일까지만 생성 가능합니다.");
-		return false;
+		Swal.fire({	
+			icon: 'error',
+			title: '최대 9일까지 생성 가능합니다.' }).then(function(){
+				return false;
+		});
 	}
 }//end rowAdd
 
@@ -376,7 +393,7 @@ function sightseeingBtnclick(curPage) {
 } // end sightseeingBtnclick() 
 
 //------------------------------------ page_link ------------------------------------//
-// 음식/숙박용
+// 숙박용
 function page_link_hotel(data){
 //	console.log(data);
 //	console.log(region);
@@ -398,12 +415,47 @@ function page_link_hotel(data){
 //	console.log("totalNum>>",totalNum);
 
 	var pageHtml ="";
+	// 이전 페이지로 이동
+	if(curPage != 1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='hotelBtnclick("+(curPage-1)+")'>" +
+					"        <span aria-hidden='true'>&laquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='hotelBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&laquo;</span>" +
+		"    </a>" +
+		"</li>"
+	}
+	
+	// 페이징
 	for(var i=1; i <= totalNum; i++){
-		if( data.curPage == i){ 
-			pageHtml += "<span>" + i + "</span>";
-		}else{
-			pageHtml += "<a href='#' onclick='hotelBtnclick("+i+")'>"+i+"</a>";
+		if(i < curPage+5 && i >= curPage) { // 아니면 5개씩 나눠서 출력
+			if( curPage == i){ 
+	//			pageHtml += "<span>" + i + "</span>";
+				pageHtml += "<li class='page-item'><span class='page-link active'>" + i + "</span></li>";
+			}else{
+	//			pageHtml += "<a href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a>";
+				pageHtml += "<li class='page-item'><a class='page-link' href='#' onclick='hotelBtnclick("+i+")'>"+i+"</a></li>";
+			}
 		}
+	}
+	
+	// 다음 페이지로 이동
+	if(curPage < totalNum-1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='hotelBtnclick("+(curPage+1)+")'>" +
+					"        <span aria-hidden='true'>&raquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='hotelBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&raquo;</span>" +
+		"    </a>" +
+		"</li>"
 	}
 	return pageHtml;
 }
@@ -429,12 +481,47 @@ function page_link_food(data){
 //	console.log("totalNum>>",totalNum);
 		
 	var pageHtml ="";
+	// 이전 페이지로 이동
+	if(curPage != 1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='foodBtnclick("+(curPage-1)+")'>" +
+					"        <span aria-hidden='true'>&laquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='foodBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&laquo;</span>" +
+		"    </a>" +
+		"</li>"
+	}
+	
+	// 페이징
 	for(var i=1; i <= totalNum; i++){
-		if(data.curPage == i){ 
-			pageHtml += "<span>" + i + "</span>";
-		}else{
-			pageHtml += "<a href='#' onclick='foodBtnclick("+i+")'>"+i+"</a>";
+		if(i < curPage+5 && i >= curPage) { // 아니면 5개씩 나눠서 출력
+			if( curPage == i){ 
+	//			pageHtml += "<span>" + i + "</span>";
+				pageHtml += "<li class='page-item'><span class='page-link active'>" + i + "</span></li>";
+			}else{
+	//			pageHtml += "<a href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a>";
+				pageHtml += "<li class='page-item'><a class='page-link' href='#' onclick='foodBtnclick("+i+")'>"+i+"</a></li>";
+			}
 		}
+	}
+	
+	// 다음 페이지로 이동
+	if(curPage < totalNum-1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='foodBtnclick("+(curPage+1)+")'>" +
+					"        <span aria-hidden='true'>&raquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='foodBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&raquo;</span>" +
+		"    </a>" +
+		"</li>"
 	}
 	return pageHtml;
 }
@@ -458,14 +545,65 @@ function page_link_ss(data){
 //	console.log("totalCount>>",totalCount);
 //	console.log("curPage>>",curPage);
 //	console.log("totalNum>>",totalNum);
-			
+	
+//		<li class="page-item">
+//		  <a class="page-link" href="#" aria-label="Previous">
+//		      <span aria-hidden="true">&laquo;</span>
+//		  </a>
+//		</li>
+//		
+//		<li class="page-item"><a class="page-link" href="#">1</a></li>
+//		<li class="page-item"><a class="page-link" href="#">2</a></li>
+//		<li class="page-item"><a class="page-link" href="#">3</a></li>
+//		
+//		<li class="page-item">
+//		  <a class="page-link" href="#" aria-label="Next">
+//		      <span aria-hidden="true">&raquo;</span>
+//		  </a>
+//		</li>
+	
 	var pageHtml ="";
+	// 이전 페이지로 이동
+	if(curPage != 1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='sightseeingBtnclick("+(curPage-1)+")'>" +
+					"        <span aria-hidden='true'>&laquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='sightseeingBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&laquo;</span>" +
+		"    </a>" +
+		"</li>"
+	}
+	
+	// 페이징
 	for(var i=1; i <= totalNum; i++){
-		if( data.curPage == i){ 
-			pageHtml += "<span>" + i + "</span>";
-		}else{
-			pageHtml += "<a href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a>";
+		if(i < curPage+5 && i >= curPage) { // 아니면 5개씩 나눠서 출력
+			if( curPage == i){ 
+	//			pageHtml += "<span>" + i + "</span>";
+				pageHtml += "<li class='page-item'><span class='page-link active'>" + i + "</span></li>";
+			}else{
+	//			pageHtml += "<a href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a>";
+				pageHtml += "<li class='page-item'><a class='page-link' href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a></li>";
+			}
 		}
+	}
+	
+	// 다음 페이지로 이동
+	if(curPage < totalNum-1) {
+		pageHtml += "<li class='page-item'>" +
+					"	<a class='page-link' href='#' onclick='sightseeingBtnclick("+(curPage+1)+")'>" +
+					"        <span aria-hidden='true'>&raquo;</span>" +
+					"    </a>" +
+					"</li>"
+	} else {
+		pageHtml += "<li class='page-item'>" +
+		"	<a class='page-link' href='#' onclick='sightseeingBtnclick("+curPage+")'>" +
+		"        <span aria-hidden='true'>&raquo;</span>" +
+		"    </a>" +
+		"</li>"
 	}
 	return pageHtml;
 }

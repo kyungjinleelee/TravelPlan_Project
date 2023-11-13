@@ -54,10 +54,13 @@ public class BoardServiceImpl implements BoardService {
 		
 		return dao.write2(dto);
 	}
+	
+	// 게시물 삭제
 	@Override
 	@Transactional
 	public int delete(int contentNum) {
 		dao.delete_comment(contentNum);
+		dao.delete_like(contentNum);
 		dao.delete(contentNum);
 		return 0;
 	}

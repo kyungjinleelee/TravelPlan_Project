@@ -73,19 +73,21 @@ public class BoardDAO {
 	public int delete_comment(int contentNum) {
 		return session.delete("BoardMapper.delete_comment", contentNum);
 	}
+
+	// 게시물 관련된 좋아요 삭제
+	public int delete_like(int contentNum) {
+		return session.delete("BoardMapper.delete_like", contentNum);
+	}
 	
 	public int writeComment(CommentDTO dto) {
 		int n = session.insert("BoardMapper.writeComment", dto);
 		return n;
 	}
 	
-// 조회수 증가
+	// 조회수 증가
 	public int viewCntUp(int contentNum) {
 		return session.update("BoardMapper.viewCntUp", contentNum);
 	}
-		
-
-	
 	
 	//페이징 처리
 	public PageDTO list(int curPage, Map<String, String> map) {
@@ -157,5 +159,5 @@ public class BoardDAO {
 	public List<BoardDTO> bestList() throws Exception{
 		return session.selectList("BoardMapper.bestList");
 	}
-
+	
 }
