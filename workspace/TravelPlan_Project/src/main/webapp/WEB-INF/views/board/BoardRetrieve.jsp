@@ -127,7 +127,9 @@
 		.hidden {
 	    display: none;
 		}
-		
+		#toggleBtn.hidden {
+	    display: none;
+		}
 		#mainText {
 	    	font-family: 'SUIT-Medium';
 		    width: 100%;
@@ -253,12 +255,23 @@
 	
 	// 내용 높이만큼 textarea 높이 설정
 	$(document).ready(function(){
+		var plan = document.getElementById('PlanDto2dLists');
+		//const button = document.getElementById("toggleBtn");
+		console.log(plan);
+		
 		var ta = document.querySelector('#mainText');
 // 		ta.style.height = 'auto';
 		var height = ta.scrollHeight;
 // 		console.log(height);
 // 		ta.style.height = `${height + 8}px`;
 		ta.style.height = height+'px';
+		//.classList.add('hidden');
+		if (plan == null) {
+			$("#toggleBtn").addClass("hidden");
+			//button.classList.add('hidden');
+		    console.log(" plan is null");
+		}
+		//
 	});
 	
 	
