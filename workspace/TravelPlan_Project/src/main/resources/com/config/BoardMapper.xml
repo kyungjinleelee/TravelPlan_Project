@@ -199,4 +199,9 @@
 		<![CDATA[where rnk <= 5]]>
 	</select> 
 	
+	<!-- 좋아요 삭제 -->
+	<delete id="delete_like" parameterType="int">
+		delete from user_like_list
+		where tContentID=#{contentNum}
+	</delete>
 </mapper>
