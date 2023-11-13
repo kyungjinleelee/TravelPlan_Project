@@ -127,7 +127,9 @@
 		.hidden {
 	    display: none;
 		}
-		
+		#toggleBtn.hidden {
+	    display: none;
+		}
 		#mainText {
 	    	font-family: 'SUIT-Medium';
 		    width: 100%;
@@ -192,7 +194,7 @@
 		//그 유저의 보관함에 그 글이 몇개 있는지 확인
 		$.get('likeDupCheck?contentNum=${content.contentNum}').done(function(data){
   			console.log('get 이후 data 출력(조건 체크 전)' + data)
-  			
+  			alert("좋아요!");
   			if(data == 1 ){//요청한 유저가 이미 보관함에 이 글을 보관했을 시 
   				alert('이미 좋아요 한 게시물입니다.')
   			}else if(data==404){//로그인 하지 않은 상황에서 요청 시 => 컨트롤러에서 404 반환, 여기로 옴
@@ -253,12 +255,23 @@
 	
 	// 내용 높이만큼 textarea 높이 설정
 	$(document).ready(function(){
+		var plan = document.getElementById('PlanDto2dLists');
+		//const button = document.getElementById("toggleBtn");
+		console.log(plan);
+		
 		var ta = document.querySelector('#mainText');
 // 		ta.style.height = 'auto';
 		var height = ta.scrollHeight;
 // 		console.log(height);
 // 		ta.style.height = `${height + 8}px`;
 		ta.style.height = height+'px';
+		//.classList.add('hidden');
+		if (plan == null) {
+			$("#toggleBtn").addClass("hidden");
+			//button.classList.add('hidden');
+		    console.log(" plan is null");
+		}
+		//
 	});
 	
 	

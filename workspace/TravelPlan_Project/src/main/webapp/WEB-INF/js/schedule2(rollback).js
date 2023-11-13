@@ -71,28 +71,8 @@ function setScheduleMarker(stitle, smapx, smapy) { // setScheduleMarker start
 	var title = stitle
 	
 	// 마커 생성
-	// day 버튼마다 이미지 설정
-	if(currentBtn.value == 'daybtn1') {
-		imageSrc = "/app/images/marker1.png";
-	} else if(currentBtn.value == 'daybtn2') {
-		imageSrc = "/app/images/marker2.png";
-	} else if(currentBtn.value == 'daybtn3') {
-		imageSrc = "/app/images/marker3.png";
-	} else if(currentBtn.value == 'daybtn4') {
-		imageSrc = "/app/images/marker4.png";
-	} else if(currentBtn.value == 'daybtn5') {
-		imageSrc = "/app/images/marker5.png";
-	} else if(currentBtn.value == 'daybtn6') {
-		imageSrc = "/app/images/marker6.png";
-	} else if(currentBtn.value == 'daybtn7') {
-		imageSrc = "/app/images/marker7.png";
-	} else if(currentBtn.value == 'daybtn8') {
-		imageSrc = "/app/images/marker8.png";
-	} else if(currentBtn.value == 'daybtn9') {
-		imageSrc = "/app/images/marker9.png";
-	}
 	// 마커 이미지의 이미지 크기 입니다
-	var imageSize = new kakao.maps.Size(20, 30); 
+	var imageSize = new kakao.maps.Size(50, 50); 
 	
 	// 마커 이미지를 생성합니다    
 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
@@ -114,31 +94,24 @@ function setScheduleMarker(stitle, smapx, smapy) { // setScheduleMarker start
 // 리스트 추가
 // 수정 : 버튼값 보내주기 위해 input hidden 추가 / day 버튼별 리스트 출력하기 위해 클래스 수정(scList추가) + dataset추가
 function getScheduleList(title, addr1, mapx, mapy) {
-	var inHtml ='<li class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
-			//	'<div class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
+	var inHtml ='<div class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
 					'<input type="hidden" class="currentBtn_hidden" value="'+currentBtn.id+'">' +
 					'<div class="d-flex w-100 align-items-center justify-content-between">' +
 					'  <strong class="sTitle mb-1">'+title+'</strong>' + 
+					'  <input type="text" class="time_text small" style="width: 45px;" placeholder="12:00">' +
 					'</div>' +
 					'<div class="saddr1 col-10 mb-1 small">'+addr1+'</div>'+
 					'<input type="hidden" class="smapx" value="'+mapx+'">' +
 					'<input type="hidden" class="smapy" value="'+mapy+'">' +
-					'<div class="d-flex w-100 align-items-center justify-content-between">' +
-					'  <div>' +
-					'    <label>시간&nbsp:&nbsp</label>' +
-					'    <input type="time" class="time_text small" style="width: 110px;" placeholder="12:00">' +
-					'  </div>' +
-					'  <button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
-					'</div>' +
-			//	'</div>' +
-				'</li>';
+					'<button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
+				'</div>';
 
 	$('.scheduleList').append(inHtml);
 }
 
 // 삭제버튼
 $(document).on("click", ".removeBtn", function(){
-	this.parentNode.parentNode.remove(); // 해당 버튼의 부모 찾아서 삭제
+	this.parentNode.remove(); // 해당 버튼의 부모 찾아서 삭제
 	
 //------------------------ 세부일정 마커 start ------------------------//
 	// 너무 하드코딩인 느낌..
@@ -176,7 +149,6 @@ function day_filter(value) {
 
 	}
 }
-
 //세부 일정 드래그로 순서 변경하기 - jQuery UI 라이브러리 사용
 $(function() {
 	$("#scheduleList_sortable").sortable(); // 해당 태그 내부에 포함된 태그를 사용해 드래그 가능한 리스트를 만듦
