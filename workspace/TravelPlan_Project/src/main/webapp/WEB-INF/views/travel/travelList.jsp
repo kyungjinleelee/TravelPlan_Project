@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
 	<style>
+		* {
+			font-family: 'SUIT-Medium';
+		}
 		.card-text {
     	margin-bottom: 1px; 
     	font-family: Gothic;
@@ -38,6 +41,30 @@
 		.card-img-top {
 		    height: 210px; /* 이미지의 높이를 일정한 값으로 설정 */
 		    object-fit: cover; /* 이미지 비율 유지하며 카드 이미지 영역 가득 채우기 */
+		}
+		
+		.card-footer {
+			font-weight: bold;
+		}
+		.card-footer:link {
+		  color : black;
+		  text-decoration: none;
+		  transition: background 0.5s ease-in-out;
+		}
+		.card-footer:visited {
+		  color : black;
+		  text-decoration: none;
+		  transition: background 0.5s ease-in-out;
+		}
+		.card-footer:hover {
+		  color : black;
+		  text-decoration: none;
+		  background: #D9D9D9;
+		}
+		.card-footer:active {
+		  color : black;
+		  text-decoration: none;
+		  transition: background 0.1s ease-in-out;
 		}
 	</style>
 	
@@ -104,18 +131,14 @@
 	</div>
 
 <!-- contents -->  
-  
-    <br>
-    <br>
-    <div class="centered-title text-center">
-        <h1 style="font-weight: 600;">일정 보관함</h1>
+
+    <div class="centered-title text-center mt-5">
+        <h2 style="font-weight: 600;">일정 보관함</h2>
     </div>
-    <br>
     
 <div class="container">
-    <div class="d-flex justify-content-between mt-5">
+    <div class="d-flex justify-content-end mt-5">
         <button type="button" class="btn btn-outline-primary" onclick="window.location.href='/app/loginCheck/pickLocation'">새 일정 만들기</button>
-        <button type="button" class="btn btn-primary">게시판 등록</button>
     </div>
     <br>
     <br>
@@ -131,8 +154,11 @@
                         <p class="card-text">여행 끝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${travel.EDate.substring(0, 10)}</p>
                         <br>
                         <a href="travelRetrieve?travelID=${travel.travelID}" class="btn btn-primary btn-sm">일정 보러가기</a>
-                   		<button type="button" class="deleteBtn btn-danger btn-sm" data-travelID="${travel.travelID}">삭제</button>
+                   		<button type="button" class="deleteBtn btn btn-danger btn-sm" data-travelID="${travel.travelID}">삭제</button>
                     </div>
+                    <a href="../WriteTravel?travelID=${travel.travelID}" class="card-footer">
+						게시판 등록
+                    </a>
                 </div>
               </div>
             

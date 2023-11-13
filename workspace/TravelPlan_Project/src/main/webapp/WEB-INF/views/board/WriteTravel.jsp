@@ -1,30 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>여담: 공유 일정 상세보기</title>
-<title>게시글 수정하기</title>
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-<!-- 부가적인 테마 -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<!-- <script -->
-<!-- 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+<title>게시판 자세히 보기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
-<script type="text/javascript">
-	function go_list() {
-		location.href = "Board";
-	}
-</script>
 <style>
-	@font-face {
+		@font-face {
     	font-family: 'SUIT-Medium';
     	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
     	font-weight: normal;
@@ -61,37 +45,38 @@
 		font-family: 'SUIT-Medium';
 	}
 </style>
+
+<script type="text/javascript">
+	function go_list(){
+		location.href="Board";
+	}
+	
+	
+</script>	
 </head>
 <body>
 <!-- header -->
 <jsp:include page="../common/top.jsp" flush="true" /><br>	
 
 <!-- content -->
-	<div class="writeContainer container">
+	<div class="writeContainer container align-items-center justify-content-center">
 		<div>
-			<h2 class="text-center">게시글 수정</h2><br>
+			<h2 class="text-center">여행 공유하기</h2><br>
 		</div>
-		
-		<form class="" action="update" method="post">
-			
+		<form class="" action="write2" method="post">
 			<div class="form-group mb-3">
-<!-- 				<label for="title" class="col-sm-2 control-label">제목</label> -->
-<!-- 				<div class="col-sm-10"> -->
-<!-- 					<input type="text" class="form-control" name="title" -->
-<%-- 						value="${content.title}"> --%>
-<!-- 				</div> -->
-<!-- 				<label for="title" class="col-sm-2 control-label">글번호</label> -->
-<!-- 				<div class="col-sm-10"> -->
-<%-- 					<input type="hidden" name="contentNum" value="${content.contentNum}"> --%>
-<!-- 				</div> -->
 				<div class="input-group flex-nowrap input-group-lg">
 					<span class="input-group-text" id="addon-wrapping">제목</span>
 					<input type="text" class="form-control" name="title" value="${content.title}">
-					<span class="input-group-text" id="addon-wrapping">${content.contentNum}</span> <!-- 글번호 -->
-					<input type="hidden" name="contentNum" value="${content.contentNum}">
+					<input type="hidden" class="form-control" name="userID" value="${content.userID}" >
+					<input type="hidden" name="travelID" value="${content.travelID}">
 				</div>
+<!-- 				<div class="col-sm-10"> -->
+<%-- 					<input type="text" class="form-control" name="title" value="${content.title}" > --%>
+<%-- 					<input type="hidden" class="form-control" name="userID" value="${content.userID}" > --%>
+					
+<!-- 				</div> -->
 			</div>
-
 			<div class="form-group mb-3">
 <!-- 				<label for="content" class="col-sm-2 control-label">내용</label> -->
 <!-- 				<div class="col-sm-10"> -->
@@ -102,20 +87,16 @@
 				  <textarea class="form-control" rows="3" name="mainText" style="resize: none; font-size: 15px;">${content.mainText}</textarea>
 				</div>
 			</div>
-
-			<div class="form-group d-grid gap-2 d-md-flex justify-content-md-end">
-<!-- 				<div class="col-sm-offset-2 col-sm-10"> -->
-<!-- 					<button type="submit" class="btn btn-default">저장하기</button> -->
-<!-- 					<input type="button" value="목록" class="btn btn-default" -->
-<!-- 						onclick="go_list()"> -->
-<!-- 				</div> -->
+			
+			<div class="form-group d-grid gap-2 d-md-flex justify-content-md-end" >
 				<div>
 					<button type="submit" class="btn btn-primary">저장하기</button>
 					<input type="button" value="목록" class="btn btn-secondary" onclick="go_list()">
 				</div>
 			</div>
 		</form>
-
+		
+		
 	</div>
 	
 	<!-- Body 최하단 -->

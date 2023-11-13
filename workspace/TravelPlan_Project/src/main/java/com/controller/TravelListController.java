@@ -17,6 +17,7 @@ import com.dto.PageDTO2;
 import com.dto.PlanDTO;
 import com.dto.TravelListDTO;
 import com.info.Info;
+import com.service.MakeTravelService;
 import com.service.PlanService;
 import com.service.PlanServiceImpl;
 import com.service.TravelListService;
@@ -29,13 +30,19 @@ public class TravelListController {
 	@Autowired
 	TravelListServiceImpl service;
 	
+	@Autowired
+	MakeTravelService MTService;
+	
 	// 일정보관함 (페이징 처리)
 	@GetMapping("/loginCheck/travelList")
 	public String list(HttpSession session, HttpServletRequest request, Model m) {
 		MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
-		
+				
 		if (dto != null) { // Null 체크를 수행
 			String userID = dto.getUserID();
+			
+			// save='n'인 travel 데이터 삭제
+			MTService.deleteTravelData(userID);
 		    
 		    String curPage = request.getParameter("curPage");
 			if(curPage == null) {  

@@ -19,7 +19,9 @@
 
 
 <style>
-	
+		* {
+			font-family: 'SUIT-Medium';
+		}
 		.container{
 			width: 50%;
 		}
@@ -125,7 +127,9 @@
 		.hidden {
 	    display: none;
 		}
-		
+		#toggleBtn.hidden {
+	    display: none;
+		}
 		#mainText {
 	    	font-family: 'SUIT-Medium';
 		    width: 100%;
@@ -161,6 +165,11 @@
 		//alert('click' + textAreaContent)
 		location.href = "comment?contentNum=${content.contentNum}"
 				+ "&comment="+textAreaContent;
+	}
+	
+	function go_delete() {
+		alert("삭제되었습니다.");
+		location.href = "delete?contentNum=${content.contentNum}";
 	}
 	
 	
@@ -246,12 +255,23 @@
 	
 	// 내용 높이만큼 textarea 높이 설정
 	$(document).ready(function(){
+		var plan = document.getElementById('PlanDto2dLists');
+		//const button = document.getElementById("toggleBtn");
+		console.log(plan);
+		
 		var ta = document.querySelector('#mainText');
 // 		ta.style.height = 'auto';
 		var height = ta.scrollHeight;
-		console.log(height);
+// 		console.log(height);
 // 		ta.style.height = `${height + 8}px`;
 		ta.style.height = height+'px';
+		//.classList.add('hidden');
+		if (plan == null) {
+			$("#toggleBtn").addClass("hidden");
+			//button.classList.add('hidden');
+		    console.log(" plan is null");
+		}
+		//
 	});
 	
 	
@@ -259,7 +279,6 @@
 </head>
 <body>
 <jsp:include page="../common/top.jsp" flush="true" /><br>
-
 	<div class="container">
 	<!-- action="update" method="post // 버튼만 누르면 자꾸 업데이트 요청해서 지웠음 -->
 		<form class="form-horizontal" >
@@ -390,7 +409,11 @@
 			<div class="mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
 <!-- 				<button class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">글수정</button> -->
 <!-- 				<button class="btn btn-secondary" style="font-size: 12px;" onclick="go_list()">목록</button> -->
-				<input type="button" value="글수정" class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">
+				<!-- 글 쓴 사람이면 수정/삭제버튼 나타남  -->
+				<c:if test="${loginInfo.userID == content.userID}"> 
+					<input type="button" value="글수정" class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">
+					<input type="button" value="글삭제" class="btn btn-danger" style="font-size: 12px;" onclick="go_delete()">
+				</c:if>
 				<input type="button" value="목록" class="btn btn-secondary" style="font-size: 12px;" onclick="go_list()">
 			</div>
 			<!---------------------------------------------------------------------------------------------------------------------------------------->
@@ -426,7 +449,7 @@
 			</table>
 		</c:forEach>
 			<br>
-		<div>
+		<div class="mb-5">
 			<form ><!-- action = "comment" method="post" -->
 				<div class="form-group">
 					<label class="col-sm-5  control-label" >댓글 작성하기</label>

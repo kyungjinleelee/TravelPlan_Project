@@ -14,6 +14,9 @@
     	font-weight: normal;
     	font-style: normal;
 	}
+	* {
+		font-family: 'SUIT-Medium';
+	}
 	.writeContainer{
 		width: 100%;
 		font-size: 14px;
@@ -65,7 +68,8 @@
 				<div class="input-group flex-nowrap input-group-lg">
 					<span class="input-group-text" id="addon-wrapping">제목</span>
 					<input type="text" class="form-control" name="title" value="${content.title}">
-					<input type="hidden" class="form-control" name="userID" value="${content.userID}" >
+<%-- 					<input type="hidden" class="form-control" name="userID" value="${content.userID}" > <!-- 왜때문인지 content.userID가 전달이 안됨.. --> --%>
+					<input type="hidden" class="form-control" name="userID" value="${loginInfo.userID}" >
 				</div>
 <!-- 				<div class="col-sm-10"> -->
 <%-- 					<input type="text" class="form-control" name="title" value="${content.title}" > --%>

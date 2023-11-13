@@ -51,7 +51,7 @@ $(document).on("click", ".addBtn", function(){
 //        		console.log(value.title); 
 //        		console.log(value.addr1); 
 //        		console.log(value.addr2);
-        		getScheduleList(title, addr1, value.mapx, value.mapy);
+        		getScheduleList(title, addr1, value.mapx, value.mapy, value.contentTypeid);
         		setScheduleMarker(title, value.mapx, value.mapy);
         	});
         	
@@ -71,71 +71,77 @@ function setScheduleMarker(stitle, smapx, smapy) { // setScheduleMarker start
 	var title = stitle
 	
 	// 마커 생성
+	// day 버튼마다 이미지 설정
+	if(currentBtn.value == 'daybtn1') {
+		imageSrc = "/app/images/marker1.png";
+	} else if(currentBtn.value == 'daybtn2') {
+		imageSrc = "/app/images/marker2.png";
+	} else if(currentBtn.value == 'daybtn3') {
+		imageSrc = "/app/images/marker3.png";
+	} else if(currentBtn.value == 'daybtn4') {
+		imageSrc = "/app/images/marker4.png";
+	} else if(currentBtn.value == 'daybtn5') {
+		imageSrc = "/app/images/marker5.png";
+	} else if(currentBtn.value == 'daybtn6') {
+		imageSrc = "/app/images/marker6.png";
+	} else if(currentBtn.value == 'daybtn7') {
+		imageSrc = "/app/images/marker7.png";
+	} else if(currentBtn.value == 'daybtn8') {
+		imageSrc = "/app/images/marker8.png";
+	} else if(currentBtn.value == 'daybtn9') {
+		imageSrc = "/app/images/marker9.png";
+	}
 	// 마커 이미지의 이미지 크기 입니다
-	var imageSize = new kakao.maps.Size(50, 50); 
+	var imageSize = new kakao.maps.Size(35, 48); 
 	
 	// 마커 이미지를 생성합니다    
-
 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-	var markerPosition = new kakao.maps.LatLng(mapy, mapx);
+	
 	// 마커를 생성합니다
 	var marker2 = new kakao.maps.Marker({
 		map: map, // 마커를 표시할 지도
-		position: markerPosition, // 마커를 표시할 위치
+		position: new kakao.maps.LatLng(mapy, mapx), // 마커를 표시할 위치
 		title : title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
 		image : markerImage // 마커 이미지 
 	});
-	/////////////////여기서부터 인포윈도우
-	// 마커가 지도 위에 표시되도록 설정합니다
-	marker2.setMap(map);
 	
-	var iwPosition = new kakao.maps.LatLng(mapy, mapx); // 인포윈도우 위치
-	var iwContent = '<div style="padding:5px;">' + title + ' <br>' +
-    '<a href="https://map.kakao.com/link/to/' + title + ',' + mapy + ',' + mapx + '" style="color:blue" target="_blank">길찾기</a></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-
-	// 인포윈도우를 생성합니다
-	var infowindow2 = new kakao.maps.InfoWindow({
-	    position : iwPosition, 
-	    content : iwContent 
-	});
-	console.log(infowindow2);
-	  
-	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-	infowindow2.open(map, marker2); 
-
-	/////////////////////인포윈도우 끝
 	// 생성된 마커를 배열(markers)에 추가합니다.
-	markers.push(marker2);
-	
-	// 지도에 표시되고 있는 마커를 제거합니다
-//    removeMarker2();
+	markers2.push(marker2);
 } // setScheduleMarker end
 
-//지도 위에 표시되고 있는 마커를 모두 제거합니다 (마커 제거함수 일단 만들어놈 ..)
-function removeMarker2() {
-    for ( var i = 0; i < markers.length; i++ ) {
-        markers2[i].setMap(null);
-    }   
-    markers2 = [];
-}
 //------------------------- 세부일정 마커 end -------------------------//
 
 // 리스트 추가
 // 수정 : 버튼값 보내주기 위해 input hidden 추가 / day 버튼별 리스트 출력하기 위해 클래스 수정(scList추가) + dataset추가
-// 수정(2023.11.07) jqueryUI의 리스트 순서 변경 함수 사용하기 위해 div를 li로 변경
-function getScheduleList(title, addr1, mapx, mapy) {
+function getScheduleList(title, addr1, mapx, mapy, contentTypeid) {
 	var inHtml ='<li class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
-//				'<div class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
+			//	'<div class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
 					'<input type="hidden" class="currentBtn_hidden" value="'+currentBtn.id+'">' +
 					'<div class="d-flex w-100 align-items-center justify-content-between">' +
-					'  <strong class="sTitle mb-1">'+title+'</strong>' + 
-					'  <input type="text" class="time_text small" style="width: 45px;" placeholder="12:00">' +
+					'  <strong class="sTitle mb-1">'+title;
+	if(contentTypeid == 32) { // 숙박
+		inHtml += '&nbsp<i class="fa-solid fa-hotel" style="color: mediumslateblue;"></i>';
+	}
+	else if(contentTypeid == 39) { // 음식
+		inHtml += '&nbsp<i class="fa-solid fa-utensils" style="color: lightcoral;"></i>';
+	}
+	else if(contentTypeid == 12 || contentTypeid == 14 || contentTypeid == 15 || contentTypeid == 28 || contentTypeid == 38) {
+		inHtml += '&nbsp<i class="fa-solid fa-mountain-sun" style="color: darkseagreen;"></i>';
+	}
+	
+	inHtml +=		'</strong>' +
 					'</div>' +
 					'<div class="saddr1 col-10 mb-1 small">'+addr1+'</div>'+
 					'<input type="hidden" class="smapx" value="'+mapx+'">' +
 					'<input type="hidden" class="smapy" value="'+mapy+'">' +
-					'<button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
-//				'</div>' +
+					'<div class="d-flex w-100 align-items-center justify-content-between">' +
+					'  <div>' +
+					'    <label>시간&nbsp:&nbsp</label>' +
+					'    <input type="time" class="time_text small" style="width: 110px;" placeholder="12:00">' +
+					'  </div>' +
+					'  <button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
+					'</div>' +
+			//	'</div>' +
 				'</li>';
 
 	$('.scheduleList').append(inHtml);
@@ -143,7 +149,7 @@ function getScheduleList(title, addr1, mapx, mapy) {
 
 // 삭제버튼
 $(document).on("click", ".removeBtn", function(){
-	this.parentNode.remove(); // 해당 버튼의 부모 찾아서 삭제
+	this.parentNode.parentNode.remove(); // 해당 버튼의 부모 찾아서 삭제
 	
 //------------------------ 세부일정 마커 start ------------------------//
 	// 너무 하드코딩인 느낌..
@@ -182,9 +188,8 @@ function day_filter(value) {
 	}
 }
 
-// 세부 일정 드래그로 순서 변경하기 - jQuery UI 라이브러리 사용
+//세부 일정 드래그로 순서 변경하기 - jQuery UI 라이브러리 사용
 $(function() {
 	$("#scheduleList_sortable").sortable(); // 해당 태그 내부에 포함된 태그를 사용해 드래그 가능한 리스트를 만듦
 	$("#scheduleList_sortable").disableSelection(); // 아이템 내부 글자를 드래그해서 선택하지 못하도록 방지
 });
-

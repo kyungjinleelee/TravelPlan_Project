@@ -21,6 +21,12 @@
 		//location.href="write"; // write or 글 상세보기 페이지로 이동. 현재는 구현 x
 	}
 </script>
+<style>
+	* {
+		font-family: 'SUIT-Medium';
+	}
+</style>
+
 </head>
 <!-- 
 /*
