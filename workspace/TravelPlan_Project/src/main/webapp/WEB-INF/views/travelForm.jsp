@@ -159,7 +159,7 @@
 			  	<div class="list-group list-group-flush border-bottom scrollarea" id="placesList"></div>
 			  <!-- 페이징 시작  -->
 		        <div id="pagination">
-		        	<div id="pagination_page" onclick="sightseeingBtnclick()"></div> <!-- 페이징 들어갈 자리 만들어줌 -->
+		        	<div id="pagination_page"></div> <!-- 페이징 들어갈 자리 만들어줌 -->
 		        </div>
 			</div> 
 			 <!-- 페이징 끝 -->
@@ -193,6 +193,6 @@
 
 	<!-- Custom JS -->
 	<script src="js/travelForm.js"></script> <!-- DAY? 만들기 -->
-	<script src="js/schedule2(rollback).js"></script> <!-- 세부 일정 추가 -->
+	<script src="js/schedule.js"></script> <!-- 세부 일정 추가 -->
 </body>
 </html>

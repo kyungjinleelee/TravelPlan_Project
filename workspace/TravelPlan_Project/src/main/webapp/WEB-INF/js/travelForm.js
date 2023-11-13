@@ -280,7 +280,7 @@ function dayDelete() {
 }
 
 // 숙박 버튼
-function hotelBtnclick() {
+function hotelBtnclick(curPage) {
 	var region = getRegion();
 //	var query = window.location.search;
 //	var param = new URLSearchParams(query);
@@ -292,13 +292,14 @@ function hotelBtnclick() {
         url:"searchBtn", // 버튼 눌렀을 때 이동할 곳 정하기
         data:{ // searchBtn 으로 넘겨줄 값
         	region:region,
-        	contentTypeid:32
+        	contentTypeid:32,
+        	curPage:curPage
         },
 
         // 응답코드
         success:function(data, satatus, xhr) { 
         	
-        	var xxx = page_link(data);
+        	var xxx = page_link_hotel(data);
         	$("#pagination_page").html(xxx);
         	displayPlaces_btn(data.list)
         },
@@ -309,7 +310,7 @@ function hotelBtnclick() {
 }
 
 // 음식 버튼
-function foodBtnclick() {
+function foodBtnclick(curPage) {
 	var region = getRegion();
 //	var query = window.location.search;
 //	var param = new URLSearchParams(query);
@@ -321,13 +322,14 @@ function foodBtnclick() {
 		url:"searchBtn", // 버튼 눌렀을 때 이동할 곳 정하기
 		data:{ // hotelBtn 으로 넘겨줄 값
 			region:region,
-			contentTypeid:39
+			contentTypeid:39,
+			curPage:curPage
 		},
 		
 		// 응답코드
 		success:function(data, satatus, xhr) { 
 			
-			var xxx = page_link(data);
+			var xxx = page_link_food(data);
 			$("#pagination_page").html(xxx);
 			displayPlaces_btn(data.list)
 		},
@@ -338,7 +340,7 @@ function foodBtnclick() {
 }
 
 // 관광 버튼
-function sightseeingBtnclick() {
+function sightseeingBtnclick(curPage) {
 	var region = getRegion();
 //	var query = window.location.search;
 //	var param = new URLSearchParams(query);
@@ -355,12 +357,13 @@ function sightseeingBtnclick() {
 			contentTypeid3:15,
 			contentTypeid4:28,
 			contentTypeid5:38,
+			curPage:curPage
 		},
 		
 		// 응답코드
 		success:function(data, satatus, xhr) {
 			
-			var xxx = page_link(data); // 받아온 data들을 메서드로 따로 분리
+			var xxx = page_link_ss(data); // 받아온 data들을 메서드로 따로 분리
 			$("#pagination_page").html(xxx);
 			
 			////////////////////////////////
@@ -371,32 +374,103 @@ function sightseeingBtnclick() {
 		}
 	});
 } // end sightseeingBtnclick() 
-function page_link(data){
-	console.log(data);
-	console.log("list>>", data.list);
-	console.log("perPage>>",data.perPage);
-	console.log("totalCount>>",data.totalCount);
-	console.log("curPage>>",data.curPage);
-	var link = "";
-//	for(var i=1; i < data.list.length; i++){
-//		if( data.curPage == i){ 
-//			i;
-//		}else{
-//			location.href = 
-//		}
-//		link += i +"&nbsp";
-//	}
+
+//------------------------------------ page_link ------------------------------------//
+// 음식/숙박용
+function page_link_hotel(data){
+//	console.log(data);
+//	console.log(region);
+//	console.log(contentTypeid);
+//	
+	var list = data.list;
+	var perPage = data.perPage; // 페이지당 몇개의 데이터 보여줄지?
+	var totalCount = data.totalCount; // 전체 데이터 수
+	var curPage = data.curPage; // 현재 페이지 번호
+	var totalNum = parseInt(totalCount / perPage); // 페이지 개수
+	
+	if(totalCount % perPage != 0) {
+		totalNum += 1;
+	}
+//	console.log("list>>", list);
+//	console.log("perPage>>",perPage);
+//	console.log("totalCount>>",totalCount);
+//	console.log("curPage>>",curPage);
+//	console.log("totalNum>>",totalNum);
+
 	var pageHtml ="";
-	for(var i=1; i < data.list.length; i++){
+	for(var i=1; i <= totalNum; i++){
 		if( data.curPage == i){ 
 			pageHtml += "<span>" + i + "</span>";
 		}else{
-			pageHtml += "<a href='/searchBtn2?contentTypeid1=12&curPage='>" + i + "</a>";
+			pageHtml += "<a href='#' onclick='hotelBtnclick("+i+")'>"+i+"</a>";
 		}
-		link += i +"&nbsp";
 	}
-	return link;
+	return pageHtml;
 }
+// 음식용
+function page_link_food(data){
+//	console.log(data);
+//	console.log(region);
+//	console.log(contentTypeid);
+//	
+	var list = data.list;
+	var perPage = data.perPage; // 페이지당 몇개의 데이터 보여줄지?
+	var totalCount = data.totalCount; // 전체 데이터 수
+	var curPage = data.curPage; // 현재 페이지 번호
+	var totalNum = parseInt(totalCount / perPage); // 페이지 개수
+	
+	if(totalCount % perPage != 0) {
+		totalNum += 1;
+	}
+//	console.log("list>>", list);
+//	console.log("perPage>>",perPage);
+//	console.log("totalCount>>",totalCount);
+//	console.log("curPage>>",curPage);
+//	console.log("totalNum>>",totalNum);
+		
+	var pageHtml ="";
+	for(var i=1; i <= totalNum; i++){
+		if(data.curPage == i){ 
+			pageHtml += "<span>" + i + "</span>";
+		}else{
+			pageHtml += "<a href='#' onclick='foodBtnclick("+i+")'>"+i+"</a>";
+		}
+	}
+	return pageHtml;
+}
+// 관광용
+function page_link_ss(data){
+//	console.log(data);
+//	console.log(region);
+//	console.log(contentTypeid);
+//	
+	var list = data.list;
+	var perPage = data.perPage; // 페이지당 몇개의 데이터 보여줄지?
+	var totalCount = data.totalCount; // 전체 데이터 수
+	var curPage = data.curPage; // 현재 페이지 번호
+	var totalNum = parseInt(totalCount / perPage); // 페이지 개수
+	
+	if(totalCount % perPage != 0) {
+		totalNum += 1;
+	}
+//	console.log("list>>", list);
+//	console.log("perPage>>",perPage);
+//	console.log("totalCount>>",totalCount);
+//	console.log("curPage>>",curPage);
+//	console.log("totalNum>>",totalNum);
+			
+	var pageHtml ="";
+	for(var i=1; i <= totalNum; i++){
+		if( data.curPage == i){ 
+			pageHtml += "<span>" + i + "</span>";
+		}else{
+			pageHtml += "<a href='#' onclick='sightseeingBtnclick("+i+")'>"+i+"</a>";
+		}
+	}
+	return pageHtml;
+}
+
+//-------------------------------------------------------------------------//
 
 //검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces_btn(value, pagination) {

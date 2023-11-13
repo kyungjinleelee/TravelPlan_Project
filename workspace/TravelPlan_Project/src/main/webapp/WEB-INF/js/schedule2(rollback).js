@@ -94,17 +94,35 @@ function setScheduleMarker(stitle, smapx, smapy) { // setScheduleMarker start
 // 리스트 추가
 // 수정 : 버튼값 보내주기 위해 input hidden 추가 / day 버튼별 리스트 출력하기 위해 클래스 수정(scList추가) + dataset추가
 function getScheduleList(title, addr1, mapx, mapy) {
-	var inHtml ='<div class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
-					'<input type="hidden" class="currentBtn_hidden" value="'+currentBtn.id+'">' +
-					'<div class="d-flex w-100 align-items-center justify-content-between">' +
-					'  <strong class="sTitle mb-1">'+title+'</strong>' + 
-					'  <input type="text" class="time_text small" style="width: 45px;" placeholder="12:00">' +
-					'</div>' +
-					'<div class="saddr1 col-10 mb-1 small">'+addr1+'</div>'+
-					'<input type="hidden" class="smapx" value="'+mapx+'">' +
-					'<input type="hidden" class="smapy" value="'+mapy+'">' +
-					'<button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
-				'</div>';
+	var inHtml ='<li class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
+	//	'<div class="scList list-group-item list-group-item-action py-3 lh-sm" aria-current="true" data-value="'+currentBtn.id+'">'+
+			'<input type="hidden" class="currentBtn_hidden" value="'+currentBtn.id+'">' +
+			'<div class="d-flex w-100 align-items-center justify-content-between">' +
+			'  <strong class="sTitle mb-1">'+title;
+	if(contentTypeid == 32) { // 숙박
+	inHtml += '&nbsp<i class="fa-solid fa-hotel" style="color: mediumslateblue;"></i>';
+	}
+	else if(contentTypeid == 39) { // 음식
+	inHtml += '&nbsp<i class="fa-solid fa-utensils" style="color: lightcoral;"></i>';
+	}
+	else if(contentTypeid == 12 || contentTypeid == 14 || contentTypeid == 15 || contentTypeid == 28 || contentTypeid == 38) {
+	inHtml += '&nbsp<i class="fa-solid fa-mountain-sun" style="color: darkseagreen;"></i>';
+	}
+	
+	inHtml +=		'</strong>' +
+				'</div>' +
+				'<div class="saddr1 col-10 mb-1 small">'+addr1+'</div>'+
+				'<input type="hidden" class="smapx" value="'+mapx+'">' +
+				'<input type="hidden" class="smapy" value="'+mapy+'">' +
+				'<div class="d-flex w-100 align-items-center justify-content-between">' +
+				'  <div>' +
+				'    <label>시간&nbsp:&nbsp</label>' +
+				'    <input type="time" class="time_text small" style="width: 110px;" placeholder="12:00">' +
+				'  </div>' +
+				'  <button class="removeBtn btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">삭제</button>' +
+				'</div>' +
+		//	'</div>' +
+			'</li>';
 
 	$('.scheduleList').append(inHtml);
 }

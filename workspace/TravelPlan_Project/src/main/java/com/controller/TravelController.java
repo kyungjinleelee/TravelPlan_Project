@@ -147,24 +147,28 @@ public class TravelController {
 	@ResponseBody
 	public HashMap<String, Object> searchBtn(@RequestParam("region") String region, @RequestParam("contentTypeid") String contentTypeid,
 			@RequestParam HashMap<String, Object> map, HttpServletRequest request, Model m) {
+//		System.out.println("SB1");
 		int areaCode = getAreaCode(region);
 		
 		map.put("areaCode", areaCode);
 		map.put("contentTypeid", contentTypeid);
+//		System.out.println("areaCode : "+map.get("areaCode"));
+//		System.out.println("contentTypeid : "+map.get("contentTypeid"));
+//		System.out.println("curpage : "+map.get("curPage"));
 		
-		String curPage = request.getParameter("curPage");
+		String curPage = (String)map.get("curPage");
 		if(curPage == null) {
 			curPage = "1";
 		}
 		PageDTO3 pageDTO = MTService.list2(Integer.parseInt(curPage), map);
 		
-		System.out.println("<<<<<<<<<<<<<숙박음식버튼" + pageDTO.getList().size()); // List의 size가 뭔지 찍어보는거
+//		System.out.println("<<<<<<<<<<<<<숙박음식버튼" + pageDTO.getList().size()); // List의 size가 뭔지 찍어보는거
 		HashMap<String,Object> x = new HashMap<String, Object>();
 		x.put("list", pageDTO.getList());
 		x.put("curPage", pageDTO.getCurPage());
 		x.put("perPage", pageDTO.getPerPage());
 		x.put("totalCount", pageDTO.getTotalCount());
-		System.out.println("HashMap>>>" + x);
+//		System.out.println("HashMap>>>" + x);
 	//	m.addAttribute("pageDTO", pageDTO);
 	//	m.addAttribute("map", map);
 		return x;
@@ -184,25 +188,26 @@ public class TravelController {
 	@GetMapping("/searchBtn2")	// 관광버튼 (페이징)
 	@ResponseBody
 	public HashMap<String, Object> searchBtn2(@RequestParam("region") String region, @RequestParam HashMap<String, Object> map, HttpServletRequest request, Model m) {
+//		System.out.println("SB2");
 		map.remove("region");
 		int areaCode = getAreaCode(region);
 		
 		map.put("areaCode", areaCode);
 //		List<SpotDTO> list = MTService.findSightseeing(map);
 		
-		String curPage = request.getParameter("curPage");
+		String curPage = (String)map.get("curPage");
 		if(curPage == null) {
 			curPage = "1"; //첫 화면 요청 시 curPage를 1로 초기화
 		}
 		PageDTO3 pageDTO = MTService.list(Integer.parseInt(curPage), map); // map을 전달하여 페이징된 데이터 가져오기 (정수)
-		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<" + pageDTO.getList().size()); // List의 size가 뭔지 찍어봐서 페이징 처리 잘 되나 확인
+//		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<" + pageDTO.getList().size()); // List의 size가 뭔지 찍어봐서 페이징 처리 잘 되나 확인
 
 		HashMap<String, Object> x = new HashMap<String, Object>();
 		x.put("list", pageDTO.getList()); // 페이징 정보 따로따로 hash map에 저장 (m.addAttribute("pageDTO", pageDTO); 이 작업)
 		x.put("curPage", pageDTO.getCurPage());
 		x.put("perPage", pageDTO.getPerPage());
 		x.put("totalCount", pageDTO.getTotalCount());
-		System.out.println("HashMap>>>" + x);
+//		System.out.println("HashMap>>>" + x);
 		return x;  // hashmap 리턴
 	}
 	
