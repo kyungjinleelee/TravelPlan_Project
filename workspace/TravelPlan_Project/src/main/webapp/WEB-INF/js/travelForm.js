@@ -45,12 +45,11 @@ function call() {
 	}
 }//end call
 
-// -------------------------------------------------- 닫기버튼 -------------------------------------------------- //
+// -------------------------------------------------- 닫기버튼(작동안함..) -------------------------------------------------- //
 function close() {
 	event.preventDefault(); 
 	if(confirm('그만 만드시겠어요?')) {
-		location.href='loginCheck/dropPage'; 
-		
+		location.href='loginCheck/dropPage';
 	}
 	else alert('닫기 취소');
 }

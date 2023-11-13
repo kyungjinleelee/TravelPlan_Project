@@ -78,7 +78,11 @@
 		<div class="div_title col-lg-1 col-md-1 col-12">
 			<button class="travel-title_submit" onclick="save()">저장</button>
 <!-- 			<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) history.back(); else alert('닫기 취소')">닫기</button> -->
-			<button class="travel-title_close" onclick="close()">닫기</button>
+			<button class="travel-title_close" onclick="event.preventDefault(); 
+				if(confirm('그만 만드시겠어요?')) {
+					location.href='loginCheck/dropPage';
+				}
+				else alert('닫기 취소');">닫기</button>
 		</div>
 		</form>
 	</div>
