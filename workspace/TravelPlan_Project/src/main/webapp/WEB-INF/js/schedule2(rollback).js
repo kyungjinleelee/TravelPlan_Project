@@ -149,3 +149,8 @@ function day_filter(value) {
 
 	}
 }
+//세부 일정 드래그로 순서 변경하기 - jQuery UI 라이브러리 사용
+$(function() {
+	$("#scheduleList_sortable").sortable(); // 해당 태그 내부에 포함된 태그를 사용해 드래그 가능한 리스트를 만듦
+	$("#scheduleList_sortable").disableSelection(); // 아이템 내부 글자를 드래그해서 선택하지 못하도록 방지
+});

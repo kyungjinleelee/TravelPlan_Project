@@ -10,7 +10,10 @@
 		font-family: 'SUIT-Medium';
 }
 
-
+#cardtxt{
+	font-family: 'MaruBuriSemiBold';
+	letter-spacing: 8px
+}
   
   /* 여행 일정 */
   .bd-placeholder-img {
