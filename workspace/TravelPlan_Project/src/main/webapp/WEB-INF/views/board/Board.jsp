@@ -7,6 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 이모티콘 코드 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
 <title>게시판</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -211,8 +213,8 @@
 					<th class="no">번호</th>
 					<th>작성자</th>
 					<th>제목</th>
-					<th>좋아요</th>
-					<th>조회수</th>
+					<th><i class="fas fa-solid fa-heart"></i>&nbsp; 좋아요</th>
+					<th><i class="fas fa-regular fa-eye"></i>&nbsp;조회수</th>
 					<th>작성일</th>
 
 				</tr>

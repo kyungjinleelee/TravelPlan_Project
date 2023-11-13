@@ -6,6 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 이모티콘 코드 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- alert 커스텀 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
@@ -478,8 +480,8 @@ function save() {
         <th class="contentNum">번호</th>
         <th class="title1">제목</th>
         <th class="userID">이름</th>
-        <th class="views">조회수</th>
-        <th class="likeContent">좋아요</th>
+        <th class="views"><i class="fas fa-regular fa-eye"></i>&nbsp; 조회수</th>
+        <th class="likeContent"><i class="fas fa-solid fa-heart"></i>&nbsp; 좋아요</th>
         <th class="boardDate">등록일</th>
     </tr>
       <c:forEach var="DTO" items="${list }">

@@ -6,6 +6,8 @@
 <head>
 <!-- jquery CDN -->   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>   
+<!-- 이모티콘 코드 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
 <title>게시판 자세히 보기</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -193,13 +195,13 @@
 		//그 유저의 보관함에 그 글이 몇개 있는지 확인
 		$.get('likeDupCheck?contentNum=${content.contentNum}').done(function(data){
   			console.log('get 이후 data 출력(조건 체크 전)' + data)
-  			alert("좋아요!");
   			if(data == 1 ){//요청한 유저가 이미 보관함에 이 글을 보관했을 시 
   				alert('이미 좋아요 한 게시물입니다.')
   			}else if(data==404){//로그인 하지 않은 상황에서 요청 시 => 컨트롤러에서 404 반환, 여기로 옴
   				alert('로그인 한 유저만 사용할 수 있는기능입니다.')
   			}else{//문제가 없다면 0일 경우
   				//요청 - 이 글을 유저의 보관함에 저장
+  			alert("좋아요!");
   				$.get('UserLike?contentNum=${content.contentNum}').done(function(data){
   		  			console.log('아마도 성공')
   				});
@@ -243,7 +245,7 @@
 		
 		const button = document.getElementById("toggleBtn");
 		
-		const buttonClickHandler = () =>{
+		const buttonClickHandler = () => {
 		  //alert('Button clicked!');
 		  tableToggle()
 		  
@@ -268,8 +270,7 @@
 		ta.style.height = height+'px';
 		
 	});
-	
-	
+
 </script>
 </head>
 <body>
@@ -402,7 +403,7 @@
 			<!---------------------------------------------------------------------------------------------------------------------------------------->
 			<!------------------------------------------------------------------ 설아 수정 --------------------------------------------------------------->
 <!-- 				<button class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()">좋아요(찜)하기</button> -->
-				<input type="button" value="좋아요(찜)하기" class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()">
+				<input type="button" value="♥ &nbsp 좋아요(찜)하기" class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()" id="likeBtn">
 			</div>
 			<div class="mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
 <!-- 				<button class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">글수정</button> -->

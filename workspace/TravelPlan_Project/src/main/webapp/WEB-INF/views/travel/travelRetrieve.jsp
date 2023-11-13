@@ -55,6 +55,16 @@
 	.btn-active {
 		background-color: #3563E9;
 	}
+	
+	.region{
+	margin-bottom: 0;
+	margin-top: 8px;
+	position:absolute;
+	right: 270px;
+	color: #3563E9;
+	font-size: 22px;
+	font-family: 'SUIT-Bold';
+	}
     </style>
     
     <script>
@@ -212,7 +222,9 @@
     	      }
 
 	</script>
-	
+	<%
+		String region = request.getParameter("region");
+	%>
 </head>
 <body style="height: 100%">
 
@@ -232,6 +244,9 @@
 				<input class="input-date" name="EDate" id="EDate" value="${travelListDTO.EDate.substring(0, 10)}"  disabled>
 				<%-- <input class="input-date" type="date" id="EDate" value="EDate" min="<%= sdf.format(nowTime) %>"> --%> 
 			</div>
+		</div>
+		<div class="region div_title col-lg-2 col-md-3 col-12" style="white-space:nowrap;">
+			<jsp:include page="../travel/region2.jsp" flush="false" />
 		</div>
 		<div class="div_title col-1">
 			<button class="travel-title_close" id="closeButton">닫기</button>
