@@ -13,6 +13,7 @@
 
 	<!-- 참조  css, js 코드 -->
 	<link rel="stylesheet" href="<c:url value='/css/main3.css'/>">
+	<link href="https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css" rel="stylesheet"> <!-- 마루부리 글꼴 url -->
 <meta charset="UTF-8">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -215,43 +216,42 @@
 
 
 <!-- 대문 -->
- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-        aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-        aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-        aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img
-          src="https://blog.kakaocdn.net/dn/vxaQH/btsz6lOTB96/2Q7rvZC2aQImDch69C02z1/img.png"
-          class="d-block w-100 " alt="...">
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://blog.kakaocdn.net/dn/beLN4E/btsz5qpz6yE/KcWDPM6mtG6bhQ6wyrzjh1/img.png"
-          class="d-block w-100 " alt="...">
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://blog.kakaocdn.net/dn/c1WiSD/btsz6hZ2bwf/QJAJnBUmOmn1doJyBCejXK/img.png"
-          class="d-block w-100 " alt="...">
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-      data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-      data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+ <div id="carouselExampleCaptions" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://blog.kakaocdn.net/dn/vxaQH/btsz6lOTB96/2Q7rvZC2aQImDch69C02z1/img.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h3 id="cardtxt">여행을 담다; 여 담</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://blog.kakaocdn.net/dn/beLN4E/btsz5qpz6yE/KcWDPM6mtG6bhQ6wyrzjh1/img.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+       <h3 id="cardtxt">여행을 담다; 여 담</h3>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://blog.kakaocdn.net/dn/c1WiSD/btsz6hZ2bwf/QJAJnBUmOmn1doJyBCejXK/img.png" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+       <h3 id="cardtxt">여행을 담다; 여 담</h3>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<!-- 캐러셀 끝 -->
 
   <div class="text-center mt-5 mb-5" >
     <p><b>
@@ -449,7 +449,7 @@ function save() {
 	var da1 = new Date(ar1[0], ar1[1], ar1[2]);
 	var da2 = new Date(ar2[0], ar2[1], ar2[2]);
 	var dif = da2 - da1;
-	var cDay = 24 * 60 * 60 * 1000;
+	var cDay = 24 * 60 * 600* 1000;
 	var days = parseInt(dif / cDay);
 	
 	if (days <= 0) {
@@ -514,8 +514,8 @@ function save() {
       </div>
       <div class="card">
         <img
-          src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA5MjBfMTk2%2FMDAxNjk1MTQ1NTgzODM3.dCa3hCgf41oyRQHnbVCDsl3MmCZXT8EvTR-_d_-ACM0g.ksLiZc_1b3_tREmMj0Igawd1N6tj5RjajbNMPnZNPnQg.JPEG.syoung579%2FIMG_3185.jpg&type=sc960_832"
-          alt="...">
+          src="https://blog.kakaocdn.net/dn/vXgel/btsAfBDS7Pz/120zjNUpERKdli2Hc6Kvm1/img.png"
+          alt="..." style="height: 82%;">
         <div class="card-body" style="text-align: center;">
           <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정2</p>
         </div>

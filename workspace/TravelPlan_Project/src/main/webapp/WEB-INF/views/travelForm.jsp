@@ -193,6 +193,6 @@
 
 	<!-- Custom JS -->
 	<script src="js/travelForm.js"></script> <!-- DAY? 만들기 -->
-	<script src="js/schedule.js"></script> <!-- 세부 일정 추가 -->
+	<script src="js/schedule2(rollback).js"></script> <!-- 세부 일정 추가 -->
 </body>
 </html>
