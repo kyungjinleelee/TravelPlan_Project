@@ -25,6 +25,11 @@
   <meta name="generator" content="Hugo 0.104.2">
   <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<!-- alert 커스텀 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
+
 <!-- Favicons -->
 <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -358,21 +363,33 @@
 function save() {
 	if($('#travelTitle').val()==''){
 		event.preventDefault();
-		alert("여행 제목을 채워주세요 :)");
-		$('#travelTitle').focus();
-		return;
+// 		alert("여행 제목을 채워주세요 :)");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행 제목을 채워주세요.' }).then(function(){
+				$('#travelTitle').focus();
+				return;
+		});
 	}
 	if($('#SDate').val() == '') {
 		event.preventDefault();
-		alert("여행 시작일을 입력해주세요.");
-		$('#SDate').focus();
-		return;
+// 		alert("여행 시작일을 입력해주세요.");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행 시작일을 입력해주세요.' }).then(function(){
+				$('#SDate').focus();
+				return;
+		});
 	}
 	if($('#EDate').val() == '') {
 		event.preventDefault();
-		alert("여행  종료일을 입력해주세요.");
-		$('#EDate').focus();
-		return;
+// 		alert("여행  종료일을 입력해주세요.");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행  종료일을 입력해주세요.' }).then(function(){
+				$('#EDate').focus();
+				return;
+		});
 	}
 	
 	// 종료일이 시작일 이전일 때
@@ -390,12 +407,20 @@ function save() {
 	
 	if (days <= 0) {
 		event.preventDefault();
-		alert("여행 종료일이 시작일보다 이전입니다.");
-		$('#EDate').focus();
+// 		alert("여행 종료일이 시작일보다 이전입니다.");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행 종료일이 시작일보다 이전입니다.' }).then(function(){
+				$('#EDate').focus();
+		});
 	}
 	if (days >= 9) {
 		event.preventDefault();
-		alert("최대 9일까지만 생성 가능합니다.");
+		Swal.fire({	
+			icon: 'error',
+			title: '최대 9일까지만 생성 가능합니다.' }).then(function(){
+		});
+// 		alert("최대 9일까지만 생성 가능합니다.");
 	}
 	
 	$('#saveBtn').submit();

@@ -38,9 +38,12 @@ function call() {
 	//		document.getElementById('days').value = days;  
 	//	}
 	if (days <= 0) {
-		alert("여행 종료일이 시작일보다 이전입니다.");
-		$('#EDate').val('');
-		$('#SDate').val('');
+		Swal.fire({	
+			icon: 'error',
+			title: '여행 종료일이 시작일보다 이전입니다.' }).then(function(){
+				$('#EDate').val('');
+				$('#SDate').val('');
+		});
 		return;
 	}
 }//end call
@@ -61,18 +64,30 @@ function save() {
 	// 아이디(타이틀)이 공백이라면 오류 출력
 	if($('#travelTitle').val()==''){
 		event.preventDefault();
-		alert("여행 제목을 채워주세요 :)");
-		$('#travelTitle').focus();
+//		alert("여행 제목을 채워주세요 :)");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행 제목을 채워주세요.' }).then(function(){
+				$('#travelTitle').focus();
+		});
 	}
 	if($('#SDate').val() == '') {
 		event.preventDefault();
-		alert("여행 시작일을 입력해주세요.");
-		$('#SDate').focus();
+//		alert("여행 시작일을 입력해주세요.");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행 시작일을 입력해주세요.' }).then(function(){
+				$('#SDate').focus();
+		});
 	}
 	if($('#EDate').val() == '') {
 		event.preventDefault();
-		alert("여행  종료일을 입력해주세요.");
-		$('#EDate').focus();
+//		alert("여행  종료일을 입력해주세요.");
+		Swal.fire({	
+			icon: 'error',
+			title: '여행  종료일을 입력해주세요.' }).then(function(){
+				$('#EDate').focus();
+		});
 	}
 	else{
 		$('#savePlan').submit();
@@ -158,8 +173,11 @@ function rowAdd() {
 		////////////////////////////////////////////////////////////////////
 		$('#myTable > tbody:last').append(innerHtml);
 	} else {
-		alert("최대 9일까지만 생성 가능합니다.");
-		return false;
+		Swal.fire({	
+			icon: 'error',
+			title: '최대 9일까지 생성 가능합니다.' }).then(function(){
+				return false;
+		});
 	}
 }//end rowAdd
 
