@@ -39,4 +39,9 @@
 		where travelID = #{travelID}
 	</delete>
 	
+	<select id="getContentNum" parameterType="int" resultType="int">
+		select contentNum
+		from board
+		where travelID = #{travelID}
+	</select>
 </mapper>
