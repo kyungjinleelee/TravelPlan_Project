@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dao.BoardDAO;
 import com.dao.TravelListDAO;
 import com.dto.PageDTO2;
 import com.dto.PlanDTO;
@@ -16,6 +17,9 @@ import com.dto.TravelListDTO;
 
 	@Autowired
 	TravelListDAO dao;
+	
+	@Autowired
+	BoardDAO boardDao;
 	
 	//일정보관함
 	@Override
@@ -46,7 +50,16 @@ import com.dto.TravelListDTO;
 	
 	// 일정 삭제하기
 	@Override
+	@Transactional
 	public int travelDel(int travelID) {
+		List<Integer> contentNumList = dao.getContentNum(travelID);
+		if(contentNumList != null) {
+			for(int i=0; i<contentNumList.size(); i++) {
+				boardDao.delete_like(contentNumList.get(i));
+				boardDao.delete_comment(contentNumList.get(i));
+				boardDao.delete(contentNumList.get(i));
+			}
+		}
 		int n = dao.travelDel(travelID);
 		return n;
 	}
