@@ -176,7 +176,7 @@
     <span id="guide" style="color:#999"></span>
     <label for="">전화번호</label>
     <input class="input-field" type="text" name="phone" placeholder="01012341234"> 
-    <button type="submit" id="sbtn">회원 가입</button>
+    <button type="submit" id="sbtn">회원 가입&nbsp;🎉</button>
    </form> 
    <script>
 	   // 아이디값 입력시 result값 초기화

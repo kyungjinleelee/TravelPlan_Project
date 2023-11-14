@@ -77,9 +77,10 @@
 		.testTable{
 		width: 50%;
 		
-		max-width: 400px; 
+		max-width: 600px; 
 		font-size:14px;
 		border: 2px solid black; /* 원하는 굵기와 색상으로 변경 */
+		text-align: center;
 		}
 		
 		.detail-info-head{
@@ -103,6 +104,10 @@
 		}
 		.single-plan-container{
 			 border-bottom: 1px solid lightgray;
+		}
+		
+		.single-plan-container{
+			 border-bottom: none;
 		}
 		
 		.plan-cell{
@@ -358,9 +363,10 @@
 											<div class="single-plan-container">
 												<table class="plan-cell">
 													<tr class="detail-info-head" >
-											          	<td  align="left">${plan.item}</td>
-											          	
-														<td  align="right">${plan.time}</td>
+											          	<td align="left"
+											          	class="bold-text">
+											          	${plan.item}</td>
+														<td  align="right" >${plan.time}</td>
 											        </tr>
 											        <tr class="detail-info-head">
 											        	<td align="left">${plan.item_add}</td>
@@ -403,7 +409,7 @@
 			<!---------------------------------------------------------------------------------------------------------------------------------------->
 			<!------------------------------------------------------------------ 설아 수정 --------------------------------------------------------------->
 <!-- 				<button class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()">좋아요(찜)하기</button> -->
-				<input type="button" value="♥ &nbsp 좋아요(찜)하기" class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()" id="likeBtn">
+				<input type="button" value="❤️ &nbsp 좋아요(찜)하기" class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()" id="likeBtn">
 			</div>
 			<div class="mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
 <!-- 				<button class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">글수정</button> -->
