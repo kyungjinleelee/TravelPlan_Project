@@ -60,7 +60,7 @@ public class TravelListController {
 	}
 	
 	// 일정 상세보기 => TravelListDTO, PlanDTO
-	@GetMapping("/loginCheck/travelRetrieve")
+	@GetMapping("/travelRetrieve")
 	public String travelRetrieve(@RequestParam int travelID, Model m, HttpSession session) {
 		
 		session.setAttribute("client_id", info.getKakaoMapId());  //세션에 client_id 속성 설정, 이 속성에 info.getKakaoMapId()의 반환값 할당

@@ -206,6 +206,11 @@
 	   text-decoration: none; 
 	   color: black; 
 	 }
+	
+	.besta {
+		text-decoration: none; 
+	   color: black; 
+	}
     
   /* 게시판 인기글 끝 */
 </style>
@@ -508,7 +513,7 @@ function save() {
           src="https://images.unsplash.com/photo-1635686692794-b0ce6337386b?auto=format&fit=crop&q=80&w=1470&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="...">
         <div class="card-body" style="text-align: center;">
-          <p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정1</p>
+          <a class="besta" href="/app/travelRetrieve?travelID=698"><p style="font-size: 18px !important; font-weight: 700 !important;" class="card-text">Best 일정1</p></a>
         </div>
         <div class="card-footer" style="text-align: center;">
           <small style="color: #1E90FF;">서울특별시</small>
