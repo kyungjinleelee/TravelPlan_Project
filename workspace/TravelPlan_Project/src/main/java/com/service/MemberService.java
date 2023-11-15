@@ -17,6 +17,21 @@ public interface MemberService {
 	public int updateMailAuth(MemberDTO dto) throws Exception;
 	public int emailAuthFail(String userID) throws Exception;
 	
+	// 이메일당 가입된 아이디 개수
+	public int idPerEmailCount(String email);
+	
 	// 아이디 찾기
 	public List<MemberDTO> findId(MemberDTO dto);
+	
+	// 인증키 일치 확인
+	public int checkKey(MemberDTO dto);
+		
+	// 비밀번호 찾기
+	public int findPw_email(MemberDTO dto) throws Exception;
+	
+	// 비밀번호 재설정
+	public int newPw(MemberDTO dto);
+	
+	// 회원탈퇴 - 비밀번호 일치 확인
+	public String checkPw(HashMap<String, String> map);
 }

@@ -5,11 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>여담: 비밀번호 찾기</title>
 </head>
 <body>
-<jsp:include page="common/top.jsp" flush="true" /><br>
-<hr>
-<h1>MAIN</h1>
+<!-- header -->
+<jsp:include page="common/top.jsp" flush="true" />
+
+<!-- content -->
+<div id='wrapper'>
+  <div>
+    <jsp:include page="member/findPwForm.jsp" flush="true" />
+  </div>
+</div>
 </body>
 </html>

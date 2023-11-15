@@ -29,6 +29,11 @@
 		<property name="mapperLocations"> <!-- Mapper 등록 -->
 			<list>
 				<value>classpath:com/config/MemberMapper.xml</value> <!-- 수정필요 -->
+				<value>classpath:com/config/MyPageMapper.xml</value> 
+				<value>classpath:com/config/TravelMapper.xml</value> 
+				<value>classpath:com/config/SharedBoardMapper.xml</value> 
+				<value>classpath:com/config/BoardMapper.xml</value> 
+				<value>classpath:com/config/MakeTravelMapper.xml</value> 
 			</list>
 		</property>
 		<property name="typeAliases"> <!-- type설정(Alias는 DTO에서 설정) -->
@@ -39,8 +44,10 @@
 				<value>com.dto.PlanDTO</value>
 				<value>com.dto.SharedBoardDTO</value>
 				<value>com.dto.TCommentDTO</value>
-				<value>com.dto.TravelDTO</value>
+				<value>com.dto.TravelListDTO</value>
 				<value>com.dto.UserLikeDTO</value>
+				<value>com.dto.SpotDTO</value>
+				<value>com.dto.PageDTO</value>
 			</list>
 		</property>
 	</bean>

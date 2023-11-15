@@ -8,13 +8,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-<title>아이디 찾기</title>
+<title>여담: 아이디 찾기</title>
 <style>
-   * { box-sizing:border-box; }
+
+   * { box-sizing:border-box; font-family: 'SUIT-Medium'; }
    a { text-decoration: none; }
     #border {
-        width:400px;
-        height:500px;
+        width:700px;
+        height:600px;
         display : flex;
         flex-direction: column;
         align-items:center;
@@ -25,53 +26,67 @@
         border: 1px solid rgb(158,158,158);
         border-radius: 10px;
     }
-    input[type='text'], input[type='password'] {
-        width: 300px;
-        height: 40px;
-        border : 1px solid rgb(53,99,233);
-        border-radius:5px;
-        padding: 0 10px;
-        margin-bottom: 10px;
-    }
-    button {
+    .class {
         background-color: rgb(53,99,233);
         color : white;
-        width:300px;
+        width:150px;
         height:50px;
         font-size: 17px;
         border : none;
         border-radius: 5px;
-        margin : 20px 0 30px 0;
+        margin : 20px 5px 30px 5px;
     }
     #title {
         font-size : 50px;
-        margin: 40px 0 30px 0;
+        margin: 100px 0 30px 0;
     }
-    #msg {
-        height: 30px;
-        text-align:center;
-        font-size:16px;
-        color:red;
-        margin-bottom: 20px;
-    }
+    #info {
+		height: 30px;
+		text-align:center;
+		font-size:16px;
+		margin-bottom: 70px;
+		color: gray;
+	}
+	#btn {
+		float: left;
+	}
+	label {
+		font-weight: bold;
+	}
+	#list{
+		margin-bottom: 50px
+	}
 </style>
 </head>
 <body>
-	<jsp:include page="../common/top.jsp" flush="true" /><br>
-	<hr>
+
+<!-- header -->
+<jsp:include page="../common/top.jsp" flush="true" />
+
+<!-- content -->
+<div id='wrapper'>
+  <div>
 	<div id="border">
-	<h3 id="title">아이디 찾기 결과입니다.</h3>
-	<div id="msg">
-		<c:if test="${empty idList}">
-			등록된 아이디가 없습니다.
-		</c:if>
+		<h3 id="title">아이디 찾기 결과입니다.</h3>
+		<div id="info">
+			고객님 정보와 일치하는 아이디 목록은 다음과 같습니다.
+		</div>
+		<div id="msg">
+			<c:if test="${empty idList}">
+				등록된 아이디가 없습니다.
+			</c:if>
+		</div>
+		<div id="list">
+			<c:forEach var="idList" items="${idList}" varStatus="status">
+				<label>ID ${status.count}</label>　　　|　　　${idList.userID}<br>
+			</c:forEach>
+		</div>
+		<div id="btn">
+			<button class="class" type="button" onclick="location.href='loginForm'">로그인</button>
+			<button class="class" type="button" onclick="location.href='findPwForm'">비밀번호 찾기</button>
+		</div>
 	</div>
-	<div>
-		<c:forEach var="idList" items="${idList}" varStatus="status">
-			ID${status.count} : ${idList.userID}<br>
-		</c:forEach>
-	</div>
-	<button type="button" onclick="location.href='loginForm'">로그인</button>
-	</div>
+  </div>
+</div>
 </body>
 </html>

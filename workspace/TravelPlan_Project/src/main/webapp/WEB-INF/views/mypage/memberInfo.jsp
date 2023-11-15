@@ -9,6 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
         * {
             box-sizing: border-box;
@@ -118,11 +120,12 @@
             <input class="input-field" type="text" name="addr2" id="addr2" value="${loginInfo.addr2}" readonly>
         </div>
 
+		<!-- 수정하기 버튼 -->
         <button type="button" onclick="location.href='MemberUpdateForm'">수정하기</button>
         
-<!-- 수정버튼으로 해당 아이디를 가지고 수정하기 페이지로 연결 
-<button type="button" id="memberUpdatebtn" onclick="location.href='${contextPath}/member/memberUpdate?id=${login.userID}'">수정 &gt;</button> -->
-
+        <!-- 취소 버튼 (mypage.jsp로 이동) -->
+		<button type="button" onclick="location.href='mypage'" class="btn btn-outline-danger" style="font-size: 20px;">취소</button>
+        
     </form>
 </body>
 </html>

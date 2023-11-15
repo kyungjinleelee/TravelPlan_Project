@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardMapper">
+	<!--게시글 목록 -->
+	<select id="findAll" resultType="BoardDTO" parameterType="hashmap">
+		select *
+		from Board
+		<where>
+		<choose>
+	 	<when test='searchValue != null and searchName =="T"' >
+			 title like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
+		 </when>
+	  	<when test='searchValue != null and searchName =="W"'>
+			 userID like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
+	 	</when>
+	 	<otherwise>
+			 title like '%'||#{searchValue , jdbcType=VARCHAR}||'%'
+			or mainText like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
+	 	</otherwise>
+		</choose>
+		</where>
+		order by contentNum DESC
+	</select>
+
+	<!--게시글 및 댓글 자세히 보기 -->
+	<select id="findOne" parameterType="int" resultType="BoardDTO">
+		select *
+		from Board
+		where contentNum=#{contentNum}
+	</select>
+	<select id="selectCommentList" parameterType="int" resultType="CommentDTO">
+		select *
+		from Comments
+		where contentNum=#{contentNum}
+	</select>
+	<!-- 여행 일정 추가로 가져오기 -->
+	<select id="findAll_Plan" parameterType="int" resultType="PlanDTO">
+		select day_num, item, item_add, time, idx
+		from plan
+		where travelid = #{travelID}
+		order by day_num
+	</select>
+	<select id="findOne_Travel" parameterType="int" resultType="com.dto.TravelListDTO">
+		select travelTitle
+		from travel
+		where travelid = #{travelID}
+	</select>
+
+
+	<!--게시글 수정 -->
+	<select id="update" parameterType="BoardDTO">
+		update Board
+		set title=#{title}, mainText=#{mainText} 
+		where contentNum=#{contentNum}
+	</select>
+	<!-- select userid, sdate, edate, traveltitle, areacode from TRAVEL Tcontentid, 
+		travelid, userid, title, views -->
+	
+	<!--게시글 작성 -->
+	<insert id="write" parameterType="BoardDTO">
+		insert into board (CONTENTNUM,userid ,TITLE,MAINTEXT, boarddate )
+		values (board_seq.nextval,#{userID}, #{title}, #{mainText}, TO_DATE(#{boardDate},'yyyy-MM-dd HH24:MI:ss') )
+	</insert>
+	
+	<!--게시글 작성 - 일정공유용-->
+	<insert id="write2" parameterType="BoardDTO">
+		insert into board (CONTENTNUM,userid ,TITLE,MAINTEXT, boarddate, travelID )
+		values (board_seq.nextval,#{userID}, #{title}, #{mainText}, TO_DATE(#{boardDate},'yyyy-MM-dd HH24:MI:ss'), #{travelID} )
+	</insert>
+	
+	<!--게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from board
+		where contentnum=#{contentNum}
+	</delete>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete_comment" parameterType="int">
+		delete from comments
+		where contentNum=#{contentNum}
+	</delete>
+	
+	<!--댓글 작성 -->
+	<insert id="writeComment" parameterType="CommentDTO">
+		insert into comments (commentid, contentnum, userid, commentdate, comments)
+		values (comment_seq.nextval, #{contentNum}, #{userID}, TO_DATE(#{commentdate},'yyyy-MM-dd HH24:MI:ss') , #{comments})
+	</insert>
+	
+	<!--게시글 갯수 세기 -->
+	<select id="totalCnt" resultType="int">
+		select count(*)
+		from board
+	</select>
+	
+	<!--게시글 조회수 올리기 -->
+	<update id="viewCntUp" parameterType="int">
+		update board
+		set views = views+1
+		where contentNum=#{contentNum}
+	</update>
+	
+	<!--게시글 좋아요 수 올리기 -->
+	<update id="likeCntUp" parameterType="int">
+		update board
+		set likeContent = likeContent+1
+		where contentNum=#{contentNum}
+	</update>
+	
+	<!--좋아요 한 게시글 테이블에 저장 -->
+	<insert id="likeOne" parameterType="HashMap">
+		insert into user_like_list (like_list_id, userid, tcontentid)
+		values(ulList_seq.nextval ,#{Id}, #{Num} )
+	</insert>
+	
+	<!--내 일정 공유 -->
+	
+	<!-- 내가 좋아요 한 여행 목록
+	tcontentid_seq.nextval
+	및 갯수 세기
+	 -->
+	 <select id="findAllUserLike" resultType="BoardDTO">
+		
+		SELECT *
+		FROM board
+		WHERE board.contentNum IN (
+	    SELECT user_like_list.Tcontentid
+	    FROM user_like_list
+	    WHERE user_like_list.userid = #{userID})
+	    order by contentNum DESC
+	</select>
+	
+	<select id="UserLiketotalCnt" resultType="int">
+		select count(*)
+		from user_like_list
+		where user_like_list.userid =#{userID}
+	</select>
+	
+	
+	<!-- 좋아요 중복 확인 -->
+	
+	<select id="likeDuplicateCheck" resultType="int">
+		select count(tcontentid)
+		from user_like_list
+		where user_like_list.userID =#{userID} and user_like_list.tcontentid =#{contentNum}
+	</select>
+	
+	<!-- 
+	<select id="totalCountSearch" parameterType="hashmap" resultType="int">
+	select contentNum, userID, title, boardDate, views, mainText, likeContent
+	from board
+	<where>
+	<choose>
+	 <when test='searchValue != null and searchName =="T"' >
+		 title like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
+	 </when>
+	  <when test='searchValue != null and searchName =="W"'>
+		 userID like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
+	 </when>
+	 <otherwise>
+		 title like '%'||#{searchValue , jdbcType=VARCHAR}||'%'
+		or mainText like '%'||#{searchValue, jdbcType=VARCHAR}||'%'
+	 </otherwise>
+	</choose>
+	</where>
+	order by contentNum DESC
+	</select> 검색  -->
+	
+	<!-- 전체 레코드 개수 2 - 검색 o -->
+	<select id="totalCountSearch" parameterType="hashmap" resultType="int">
+	select count(*)
+	from board
+	<where>
+	<choose>
+	 <when test='searchName =="T"'>
+		title like '%'||#{searchValue}||'%' 
+	 </when>
+	  <when test='searchName =="W"'>
+		userID like '%'||#{searchValue}||'%'
+	 </when>
+	 <otherwise>
+		title like '%'||#{searchValue}||'%'
+		or mainText like '%'||#{searchValue}||'%'
+	 </otherwise>
+	</choose>
+	</where>
+	</select>  
+	
+	<!-- 인기글 -->
+	<select id="bestList" resultType="BoardDTO">
+		select contentNum, title, userID, views, likeContent, boardDate
+		from (
+    	select contentNum, title, userID, views, likeContent, boardDate,
+           ROW_NUMBER() OVER (ORDER BY likeContent DESC, views DESC) as rnk
+    	from board
+		)
+		<![CDATA[where rnk <= 5]]>
+	</select> 
+	
+	<!-- 좋아요 삭제 -->
+	<delete id="delete_like" parameterType="int">
+		delete from user_like_list
+		where tContentID=#{contentNum}
+	</delete>
+</mapper>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dto.MemberDTO;
 
-@Repository("dao")
+@Repository
 public class MemberDAO {
 	
 	@Autowired // SqlSessionTemplate 주입
@@ -45,9 +45,44 @@ public class MemberDAO {
 	    return session.selectOne("MemberMapper.emailAuthFail", userID);
 	}
 	
+	// 이메일당 가입된 아이디 개수
+	public int idPerEmailCount(String email) {
+		return session.selectOne("MemberMapper.idPerEmailCount", email);
+	}
+	
 	// 아이디 찾기
 	public List<MemberDTO> findId(MemberDTO dto) {
 		return session.selectList("MemberMapper.findId", dto);
+	}
+	
+	// 비밀번호 찾기
+	public int findPw_email(MemberDTO dto) {
+		return session.selectOne("MemberMapper.findPw_email", dto);
+	}
+	
+	// 인증키 일치 확인
+	public int checkKey(MemberDTO dto) {
+		return session.selectOne("MemberMapper.checkKey", dto);
+	}
+	
+	// 비밀번호 재설정
+	public int newPw(MemberDTO dto) {
+		return session.update("MemberMapper.newPw", dto);
+	}
+	
+	// 인증키 초기화
+	public int resetMailKey(MemberDTO dto) {
+		return session.update("MemberMapper.resetMailKey", dto);
+	}
+	
+	// salt값 가져오기
+	public String selectSalt(String userID) {
+		return session.selectOne("MemberMapper.selectSalt", userID);
+	}
+	
+	// 회원탈퇴 - 비밀번호 일치 확인
+	public String checkPw(HashMap<String, String> map) {
+		return session.selectOne("MemberMapper.checkPw", map);
 	}
 	
 }

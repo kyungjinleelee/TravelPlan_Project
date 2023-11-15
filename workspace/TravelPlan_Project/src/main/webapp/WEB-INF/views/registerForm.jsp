@@ -5,11 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>여담: 회원가입</title>
 </head>
 <body>
+<!-- header -->
 <jsp:include page="common/top.jsp" flush="true" />
-<hr>
-<jsp:include page="member/registerForm.jsp" flush="true" />
+
+<!-- content -->
+<div id='wrapper'>
+  <div>
+    <jsp:include page="member/registerForm.jsp" flush="true" />
+  </div>
+</div>
 </body>
 </html>

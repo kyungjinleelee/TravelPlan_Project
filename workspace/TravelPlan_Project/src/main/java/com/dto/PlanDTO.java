@@ -4,27 +4,26 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("PlanDTO")
 public class PlanDTO {
-	private int planID;
 	private int travelID;
 	private int day_num;
 	private String item;
 	private String item_add;
+	private String time;
+	private float mapx;
+	private float mapy;
+	private int idx;
 	
 	public PlanDTO() {
-		// TODO Auto-generated constructor stub
 	}
-	public PlanDTO(int planID, int travelID, int day_num, String item, String item_add) {
-		this.planID = planID;
+	public PlanDTO(int travelID, int day_num, String item, String item_add, String time, float mapx, float mapy, int idx) {
 		this.travelID = travelID;
 		this.day_num = day_num;
 		this.item = item;
 		this.item_add = item_add;
-	}
-	public int getPlanID() {
-		return planID;
-	}
-	public void setPlanID(int planID) {
-		this.planID = planID;
+		this.time = time;
+		this.mapx = mapx;
+		this.mapy = mapy;
+		this.idx = idx;
 	}
 	public int getTravelID() {
 		return travelID;
@@ -50,4 +49,34 @@ public class PlanDTO {
 	public void setItem_add(String item_add) {
 		this.item_add = item_add;
 	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public float getMapx() {
+		return mapx;
+	}
+	public void setMapx(float mapx) {
+		this.mapx = mapx;
+	}
+	public float getMapy() {
+		return mapy;
+	}
+	public void setMapy(float mapy) {
+		this.mapy = mapy;
+	}
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+	@Override
+	public String toString() {
+		return "PlanDTO [travelID=" + travelID + ", day_num=" + day_num + ", item=" + item + ", item_add=" + item_add
+				+ ", time=" + time + ", mapx=" + mapx + ", mapy=" + mapy + ", idx=" + idx + "]";
+	}
+	
 }

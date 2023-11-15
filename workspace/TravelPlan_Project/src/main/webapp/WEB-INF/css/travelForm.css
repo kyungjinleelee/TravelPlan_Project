@@ -1,0 +1,294 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'SUIT-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+input {
+	font-family: 'SUIT-Medium';
+}
+
+/* travel-title (header) */
+.travel-title{
+	width: 100%;
+	border-bottom: 2px solid #3563E9;
+	height: 65px;
+	position: relative;
+}
+
+.travel-title_submit{
+	width: 75px;
+	height: 35px;
+	position: absolute;
+	top: 15px;
+	right: 140px;
+	cursor: pointer;
+	background-color: #3563E9;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 3px;
+	font-size: 17px;
+	font-family: 'SUIT-Bold';
+}
+
+.travel-title_close{
+	width: 75px;
+	height: 35px;
+	position: absolute;
+	top: 15px;
+	right: 40px;
+	cursor: pointer;
+	background: #FFFFFF;
+	color: #3563E9;
+	border: 1px solid #3563E9;
+	border-radius: 3px;
+	font-size: 17px;
+	font-family: 'SUIT-Bold';
+}
+.region{
+	margin-bottom: 0;
+	margin-top: 8px;
+	position:absolute;
+	right: 270px;
+	color: #3563E9;
+	font-size: 22px;
+	font-family: 'SUIT-Bold';
+}
+
+/* 날짜 받아오기 */
+#days{
+	width: 30px;
+	height: 30px;
+	left: 930px;
+	position: absolute;
+	top: 13px;
+}
+ 
+.calendar{
+	right:1100px;
+	top: 0px;
+	display: flex;			/*반응형때매 넣은거 */
+	flex-direction: column; /*반응형때매 넣은거 */
+}
+.calendar_sdate{
+	position:absolute;
+	left:400px;
+	top:20px;
+	font-family: 'SUIT-Bold';
+}
+.calendar_edate{
+	position:absolute;
+	left:682px;
+	top:20px;
+	font-family: 'SUIT-Bold';
+}
+#SDate{
+	position:absolute;
+	width: 110px;
+    height: 35px;
+    left:500px;
+    top:10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom : 1px solid black;
+    text-align: center;
+    }
+#EDate{
+	position:absolute;
+	width: 110px;
+    height: 35px;
+    left:786px;
+    top:10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom : 1px solid black;
+    text-align: center;
+    }
+    
+td button{
+	background-color: #B7E1F5;
+    border: none;
+    cursor: pointer;
+    padding: 25px 0;
+    font-size: 22px;
+    border-bottom: 1px solid white;
+    width: 100%;
+    margin-bottom: 0px;
+    color: #0c3b54;
+    font-family: 'SUIT-Bold';
+}
+
+td button:hover{
+	background-color: #3563E9;
+}
+
+.btn-active {
+	background-color: #3563E9;
+}
+    
+#myTable{
+	margin: 0;
+	width: 100%;
+}
+    
+#travelTitle{
+	position:absolute;
+	width: 250px;
+    height: 34px;
+    left:110px;
+    top:10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom : 1px solid black;
+    font-family: 'SUIT-Medium';
+    padding-left: 14px;
+}
+.title{
+	position:absolute;
+	width: 70px;
+    height: 50px;
+    top:20px;
+    left:27px;
+    font-family: 'SUIT-Bold';
+}
+.wave{
+	position:absolute;
+	width: 50px;
+    height: 50px;
+    left:635px;
+    top:5px;
+}
+.select{
+	position: absolute;
+	width: 150px;
+	height: 35px;
+	top: 12px;
+	right: 700px;
+	font-size: 20px;
+	color: #3563E9;
+	font-family: 'SUIT-Bold';
+}
+.select option{
+	background: #C9D7F6;
+	color: black;
+}
+
+/* travel-title (header) 끝 */
+
+ /* DAYS box */
+.plan-daysbox{
+	width: 140px;
+	height: 100%;
+	position: absolute;
+	left: 0px;
+	top: 67px;
+	background: #EFF3FD;
+}
+
+.plan-daysboxtitle{
+	height: 85px;
+	border-bottom: 1px solid #3563E9;
+	color: #3563E9;
+	font-size: 20px;
+	text-align: center;
+	line-height: 80px;
+	font-weight: bold;
+}
+
+/* DAYS box 끝*/
+
+/* 부트스트랩 기본 style */
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.b-example-divider {
+  width: 100%;
+/*   height: 3rem; */
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+/*   height: 2.75rem; */
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.btn-bd-primary {
+  --bd-violet-bg: #712cf9;
+  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bd-violet-bg);
+  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #6528e0;
+  --bs-btn-hover-border-color: #6528e0;
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #5a23c8;
+  --bs-btn-active-border-color: #5a23c8;
+}
+.bd-mode-toggle {
+  z-index: 1500;
+}
+
+.b-example-vr {
+  flex-shrink: 0;
+  width: 0.3rem;
+/*   height: 200vh; */
+  height: 100%;
+}
+/* 부트스트랩 기본 stlye 끝 */
+/* #addBtn{ */
+/* /* 	width: 75px; */ */
+/* /* 	height: 35px; */ */
+/* 	top: 15px; */
+/* 	right: 140px; */
+/* 	cursor: pointer; */
+/* 	background-color: #3563E9; */
+/* 	color: #FFFFFF; */
+/* 	border: none; */
+/* 	border-radius: 3px; */
+/* 	font-size: 15px; */
+/* 	font-family: 'SUIT-Bold'; */
+/* } */

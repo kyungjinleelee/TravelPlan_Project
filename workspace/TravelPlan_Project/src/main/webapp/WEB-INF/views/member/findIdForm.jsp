@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>아이디찾기</title>
+<title>여담: "아이디찾기</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <style>
-	* { box-sizing:border-box; }
+	* { box-sizing:border-box; font-family: 'SUIT-Medium'; }
 	a { text-decoration: none; }
 	form {
-		width:400px;
+		width:600px;
 		height:500px;
 		display : flex;
 		flex-direction: column;
@@ -30,7 +30,7 @@
 		padding: 0 10px;
 		margin-bottom: 10px;
 	}
-	 button {
+	 #sbtn {
 		background-color: rgb(53,99,233);
 		color : white;
 		width:300px;
@@ -56,6 +56,7 @@
 		text-align:center;
 		font-size:16px;
 		margin-bottom: 20px;
+		color: gray;
 	}
 </style>
 
@@ -64,30 +65,43 @@
 	<div id="info">
 		가입 시 등록하신 이름, 이메일, 휴대폰 번호를 입력해주세요.
 	</div>
-	<div id="msg">
-		<c:if test="${not empty param.msg}">
-			<i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
-		</c:if>
-	</div>
-	<input type="text" name="name" id="name" placeholder="2자 이상 입력해주세요. " autofocus>
+	<div id="msg"></div>
+	<input type="text" name="name" id="name" placeholder="이름을 2자 이상 입력해주세요. " autofocus>
 	<input type="text" name="email" id="email" placeholder="이메일 형식으로 입력해주세요.">
-	<input type="text" name="phone" id="phone" placeholder="- 없이 입력하세요.">
-	<button>아이디 찾기</button>
+	<input type="text" name="phone" id="phone" placeholder="전화번호를 - 없이 입력하세요.">
+	<button id="sbtn">아이디 찾기</button>
 	
-	<script>
-		function formCheck(frm) {
-			let msg ='';
-			if(frm.name.value.length<2) {
-			    setMessage('2자 이상 입력해주세요.', frm.name);
-			    return false;
-			}
-			return true;
-			}
-			function setMessage(msg, element){
-				document.getElementById("msg").innerHTML = ` ${'${msg}'}`;
-				if(element) {
-				    element.select();
-			}
-		}
-	</script>
 </form>
+<script>
+$(document).ready(function(){
+	$("form").on("submit", function(){
+		var name = $("#name").val();
+		var email = $("#email").val();
+		var phone = $("#phone").val();
+		var cmsg = "";
+		if(isNaN(phone)){
+			event.preventDefault();
+			cmsg = "전화번호는 숫자만 입력가능합니다.";
+        }
+		if(phone.length < 11) {
+			event.preventDefault();
+			cmsg = "핸드폰 번호를 입력해주세요.";
+		}
+		if(email.includes('@') == false){
+			event.preventDefault();
+			cmsg = "올바른 이메일 형식이 아닙니다.";
+        }
+		if(email.length == 0) {
+			event.preventDefault();
+			cmsg = "이메일을 입력해주세요.";
+		}
+		if(name.length < 2) {
+			event.preventDefault();
+			cmsg = "이름을 2자 이상 입력해주세요.";
+		}
+		if(cmsg.length != 0) {
+			$("#msg").html("<i class='fa fa-exclamation-circle'> "+cmsg);
+		}
+	});
+});
+</script>
