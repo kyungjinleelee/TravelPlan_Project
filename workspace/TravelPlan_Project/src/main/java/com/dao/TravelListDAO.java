@@ -53,4 +53,9 @@ public class TravelListDAO {
 		return session.delete("TravelMapper.travelDel", travelID);
 	}
 	
+	// 여행id로 게시글 찾기
+	public List<Integer> getContentNum(int travelID) {
+		return session.selectList("TravelMapper.getContentNum", travelID);
+	}
+	
 }

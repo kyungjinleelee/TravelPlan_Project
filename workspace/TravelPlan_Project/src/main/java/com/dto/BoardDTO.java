@@ -87,4 +87,10 @@ public class BoardDTO {
 	public void setLikeContent(int likeContent) {
 		this.likeContent = likeContent;
 	}
+	@Override
+	public String toString() {
+		return "BoardDTO [contentNum=" + contentNum + ", userID=" + userID + ", title=" + title + ", boardDate="
+				+ boardDate + ", views=" + views + ", mainText=" + mainText + ", likeContent=" + likeContent
+				+ ", travelID=" + travelID + "]";
+	}
 }

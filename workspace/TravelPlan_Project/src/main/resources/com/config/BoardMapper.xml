@@ -65,10 +65,22 @@
 		values (board_seq.nextval,#{userID}, #{title}, #{mainText}, TO_DATE(#{boardDate},'yyyy-MM-dd HH24:MI:ss') )
 	</insert>
 	
+	<!--게시글 작성 - 일정공유용-->
+	<insert id="write2" parameterType="BoardDTO">
+		insert into board (CONTENTNUM,userid ,TITLE,MAINTEXT, boarddate, travelID )
+		values (board_seq.nextval,#{userID}, #{title}, #{mainText}, TO_DATE(#{boardDate},'yyyy-MM-dd HH24:MI:ss'), #{travelID} )
+	</insert>
+	
 	<!--게시글 삭제 -->
 	<delete id="delete" parameterType="int">
 		delete from board
 		where contentnum=#{contentNum}
+	</delete>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete_comment" parameterType="int">
+		delete from comments
+		where contentNum=#{contentNum}
 	</delete>
 	
 	<!--댓글 작성 -->
@@ -187,4 +199,9 @@
 		<![CDATA[where rnk <= 5]]>
 	</select> 
 	
+	<!-- 좋아요 삭제 -->
+	<delete id="delete_like" parameterType="int">
+		delete from user_like_list
+		where tContentID=#{contentNum}
+	</delete>
 </mapper>

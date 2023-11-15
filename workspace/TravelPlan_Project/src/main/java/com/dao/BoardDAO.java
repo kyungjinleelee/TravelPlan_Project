@@ -58,10 +58,25 @@ public class BoardDAO {
 		int n = session.insert("BoardMapper.write", dto);
 		return n;
 	}
+	
+	public int write2(BoardDTO dto) {
+		int n = session.insert("BoardMapper.write2", dto);
+		return n;
+	}
 
 	public int delete(int contentNum) {
 		return session.delete("BoardMapper.delete",contentNum);
 		
+	}
+	
+	// 게시물에 대한 댓글 삭제
+	public int delete_comment(int contentNum) {
+		return session.delete("BoardMapper.delete_comment", contentNum);
+	}
+
+	// 게시물 관련된 좋아요 삭제
+	public int delete_like(int contentNum) {
+		return session.delete("BoardMapper.delete_like", contentNum);
 	}
 	
 	public int writeComment(CommentDTO dto) {
@@ -69,13 +84,10 @@ public class BoardDAO {
 		return n;
 	}
 	
-// 조회수 증가
+	// 조회수 증가
 	public int viewCntUp(int contentNum) {
 		return session.update("BoardMapper.viewCntUp", contentNum);
 	}
-		
-
-	
 	
 	//페이징 처리
 	public PageDTO list(int curPage, Map<String, String> map) {
@@ -147,5 +159,5 @@ public class BoardDAO {
 	public List<BoardDTO> bestList() throws Exception{
 		return session.selectList("BoardMapper.bestList");
 	}
-
+	
 }

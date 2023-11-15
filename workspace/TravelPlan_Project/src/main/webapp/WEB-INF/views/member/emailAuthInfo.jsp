@@ -17,7 +17,7 @@
 	<script>
 		$(document).ready(function(){
 			Swal.fire({	
-				icon: 'error',
+				icon: 'success',
 				title: '이메일 인증 후 \n로그인 가능합니다.' }).then(function(){
 				location.href='/app/main';
 			});

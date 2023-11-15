@@ -15,6 +15,12 @@
     
     <!-- CSS 파일 경로 -->
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/mypage.css'/>">
+	
+	<style>
+		* {
+			font-family: 'SUIT-Medium';
+		}
+	</style>
 </head>
 <body id="myPageBody">
 

@@ -9,7 +9,7 @@
 <html style="height: 100%">
 <head>
 	<meta charset="utf-8">
-	    <title>Travel Details</title>
+	    <title>일정 보관함</title>
 	    
 	<!-- ------------------------------------------------------------------------------------------------------------- -->
 	<!-- kakao Map API -->
@@ -39,6 +39,15 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
     
     <style>
+    @font-face {
+    	font-family: 'SUIT-Medium';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
+    	font-weight: normal;
+    	font-style: normal;
+	}
+	* {
+		font-family: 'SUIT-Medium';
+	}
     .plan-days {
     background-color: #B7E1F5;
     border: none;
@@ -50,6 +59,34 @@
     margin-bottom: 0px;
     color: #0c3b54;
     font-family: 'SUIT-Bold';
+	}
+	
+	.btn-active {
+		background-color: #3563E9;
+	}
+	
+	.region{
+	margin-bottom: 0;
+	margin-top: 8px;
+	position:absolute;
+	right: 270px;
+	color: #3563E9;
+	font-size: 22px;
+	font-family: 'SUIT-Bold';
+	}
+	.copy-url-button{
+	width: 75px;
+	height: 35px;
+	position: absolute;
+	top: 15px;
+	right: 140px;
+	cursor: pointer;
+	background-color: #3563E9;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 3px;
+	font-size: 14px;
+	font-family: 'SUIT-Bold';
 }
     </style>
     
@@ -57,6 +94,8 @@
     
     var markers = []; // 마커 배열 (전역 변수)
     var obj = {};  // day버튼
+    var map;  // 전역 변수로 지도 선언
+    var dayPlans;  // dayPlans를 전역 변수로 선언 > 지도 두 개가 나오는 것 방지
     
     $(function(){
     	    <c:forEach items="${planList}" var="plan" varStatus="status">
@@ -72,13 +111,11 @@
     	            mapy: "${plan.mapy}",
     	            idx: "${plan.idx}"
     	        });
-    	        
     	    </c:forEach>
 
     	    var days = '';  //days 초기화. 일정 버튼 저장할 HTML 문자열 가짐.
     	    
     	    Object.keys(obj).forEach(function(e){  //obj객체의 키를 반복하면서 day_num에 대한 버튼 생성
-    	    	 //TODO: html 수정  
     	        days += '<button class="btn btn-primary plan-days" data-day='+e+'>DAY '+e+'</button>';
     	    });
 
@@ -96,8 +133,8 @@
     	    	$("#test-plan-item").empty();
     	    	
     	    	// 선택한 day에 속하는 정보들 저장
-    	    	 var dayPlans = [];
-    	    	    planList.forEach(function(plan) {
+    	    	dayPlans = [];
+    	    	planList.forEach(function(plan) {
     	    	      dayPlans.push({ mapx: plan.mapx, mapy: plan.mapy, item: plan.item, item_add: plan.item_add });
     	    	    
     	    		// TODO html 수정
@@ -110,20 +147,26 @@
     			    html+='</a>';
     		
     	    		$("#test-plan-item").append(html);  //html을 추가하여 세부 일정에 표시
+    	  
+    	    	    });
     	    	
-    	    		// 테스트 코드
-//     	    		console.log(plan.item);
-//   	    		console.log(plan.mapx);
-//    	    		console.log(plan.mapy); 
-    	    	});
+	    	    	 // 마커 초기화
+	                clearMarkers();
     	    
     	    		// 마커 추가
     	    		addMarkers(dayPlans);
     	    		
+    	    		// 현재 활성화된 버튼을 비활성화
+    	    	    $(".plan-days.btn-active").removeClass("btn-active");
+
+    	    	    // 현재 클릭한 버튼을 활성화
+    	    	    $(this).addClass("btn-active");
     	    });
     	    
     	    //-----------plan-days 버튼 클릭 이벤트 끝------------
     	    
+    	    // DAY1을 초기에 활성화
+	    	$(".plan-days[data-day='1']").trigger("click"); 
     	    
     	    // 초기화 함수
     	    function clearMarkers() {
@@ -131,10 +174,10 @@
     	            marker.setMap(null);
     	        });
     	        markers = [];
-    	    }
-    	    	
+    	   	  }
     	    	
     	    });  
+    
     	  //---------------------------------- function() 끝 ----------------------------------
     	   
     	    // 마커 추가 함수
@@ -147,15 +190,21 @@
     	    	var imageSrc = 'https://cdn-icons-png.flaticon.com/512/5860/5860579.png'; // 마커 이미지 파일 경로
     	    	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
+    	    	// 이전 지도 파괴
+    	        if (map) {
+    	            map.relayout();
+    	            map = null;
+    	        }
+    	    	
     	          // Kakao Map
     	          kakao.maps.load(function() {
     	            var container = document.getElementById('map');
-    	            var options = {
+   	        	    var options = {
     	              center: new kakao.maps.LatLng(dayPlans[0].mapy, dayPlans[0].mapx),  //첫 번째 마커 위치를 기준으로 중심 위치 설정
     	              level: 5  // 지도 확대 레벨
     	            };
 
-    	            var map = new kakao.maps.Map(container, options);
+    	            map = new kakao.maps.Map(container, options);
 
 	    	        // 마커 생성하고 추가
 	    	        dayPlans.forEach(function(plan) {
@@ -191,11 +240,14 @@
 		    	        infowindow.open(map, marker); 
 		    	        
 	    	          });
+	    	        
 	    	      });
     	      }
-
+   
 	</script>
-	
+	<%
+		String region = request.getParameter("region");
+	%>
 </head>
 <body style="height: 100%">
 
@@ -208,15 +260,19 @@
 			<input class="text" name="travelTitle" id="travelTitle" value="${travelListDTO.travelTitle}" style="font-weight: bold;" disabled>
 			<div class="calendar">
 				<label class="calendar_sdate">여행 시작일 : </label>
-				<input class="input-date" name="SDate" id="SDate" value="${travelListDTO.SDate}"  disabled>
+				<input class="input-date" name="SDate" id="SDate" value="${travelListDTO.SDate.substring(0, 10)}"  disabled>
 				<%-- <input class="input-date" type="date" name="SDate" id="SDate" value="${TravelListDTO.SDate}">  --%>
 				<p class="wave">~</p>
 				<label class="calendar_edate">여행 종료일 : </label>
-				<input class="input-date" name="EDate" id="EDate" value="${travelListDTO.EDate}"  disabled>
+				<input class="input-date" name="EDate" id="EDate" value="${travelListDTO.EDate.substring(0, 10)}"  disabled>
 				<%-- <input class="input-date" type="date" id="EDate" value="EDate" min="<%= sdf.format(nowTime) %>"> --%> 
 			</div>
 		</div>
+		<div class="region div_title col-lg-2 col-md-3 col-12" style="white-space:nowrap;">
+			<jsp:include page="../travel/region2.jsp" flush="false" />
+		</div>
 		<div class="div_title col-1">
+			 <button class="copy-url-button" id="copyUrlButton">URL복사</button>
 			<button class="travel-title_close" id="closeButton">닫기</button>
 			<script>
 				document.getElementById("closeButton").addEventListener("click", function() {
@@ -236,6 +292,23 @@
 				        }
 				    });
 				});
+				// url복사버튼
+				document.getElementById("copyUrlButton").addEventListener("click", function() {
+                    // Copy the current URL to the clipboard
+                    var dummy = document.createElement("input");
+                    document.body.appendChild(dummy);
+                    dummy.setAttribute("id", "dummy_id");
+                    document.getElementById("dummy_id").value = window.location.href;
+                    dummy.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(dummy);
+
+                    // 확인 alert 코드
+                    Swal.fire({
+                        title: 'URL이 복사되었습니다 :)',
+                        icon: 'success'
+                    });
+                });
 			</script>			
 		</div>	
 	</div>
@@ -245,7 +318,6 @@
 <!-- content -->
 <div id='wrapper' style="height: 100%">
 	<main class="d-flex flex-nowrap" style="height: 100%">
-	<!-- DAYS box : 유저가 저장한 만큼 나오게 수정하기 / day마다 클릭하면 저장된 세부일정 나오게 수정하기 -->
 	<div class="d-flex flex-column flex-shrink-0 bg-body-tertiary" style="width: 140px;">
 		<div class="plan-daysbox nav nav-pills nav-flush flex-column mb-auto text-center">
 			<div class="plan-daysboxtitle">일정</div>
@@ -291,7 +363,7 @@
 		<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 78%;">
 			<!-- 지도API -->
 			<div id="map" style="width:100%;height:100%;"></div>
-			<script src="../js/kakaoMap2.js"></script>
+			<!-- <script src="../js/kakaoMap2.js"></script> -->
 	    </div>
 	<!-- 지도 끝 -->		
 		

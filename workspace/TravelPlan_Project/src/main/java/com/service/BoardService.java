@@ -34,6 +34,9 @@ public interface BoardService {
 	//게시글 작성
 	public int write(BoardDTO dto);
 	
+	//게시글 작성 - 일정공유용
+	public int write2(BoardDTO dto);
+	
 	//삭제
 	public int delete(int contentNum);
 	

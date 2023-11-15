@@ -4,20 +4,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- jquery CDN -->   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>   
+<!-- 이모티콘 코드 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
 <title>게시판 자세히 보기</title>
 <!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 <!-- 부가적인 테마 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 
 <style>
-	
+		* {
+			font-family: 'SUIT-Medium';
+		}
 		.container{
 			width: 50%;
 		}
@@ -71,9 +77,10 @@
 		.testTable{
 		width: 50%;
 		
-		max-width: 400px; 
+		max-width: 600px; 
 		font-size:14px;
 		border: 2px solid black; /* 원하는 굵기와 색상으로 변경 */
+		text-align: center;
 		}
 		
 		.detail-info-head{
@@ -99,6 +106,10 @@
 			 border-bottom: 1px solid lightgray;
 		}
 		
+		.single-plan-container{
+			 border-bottom: none;
+		}
+		
 		.plan-cell{
 		min-width: 200px;
 		max-width: 300px;
@@ -122,6 +133,15 @@
 		
 		.hidden {
 	    display: none;
+		}
+		
+		
+		#mainText {
+	    	font-family: 'SUIT-Medium';
+		    width: 100%;
+ 		    height: 10px;
+		    border: none;
+		    resize: none;
 		}
 		
 		
@@ -153,6 +173,11 @@
 				+ "&comment="+textAreaContent;
 	}
 	
+	function go_delete() {
+		alert("삭제되었습니다.");
+		location.href = "delete?contentNum=${content.contentNum}";
+	}
+	
 	
 	//사용하지 않음
 	function likeDupCheck(){//비동기 요청이기 때문에 이 함수 호출이후 값을 받아오기 전 like() 내부의 코드가 별도로 계속 도는듯한 모습이 보임. 
@@ -175,13 +200,13 @@
 		//그 유저의 보관함에 그 글이 몇개 있는지 확인
 		$.get('likeDupCheck?contentNum=${content.contentNum}').done(function(data){
   			console.log('get 이후 data 출력(조건 체크 전)' + data)
-  			
   			if(data == 1 ){//요청한 유저가 이미 보관함에 이 글을 보관했을 시 
   				alert('이미 좋아요 한 게시물입니다.')
   			}else if(data==404){//로그인 하지 않은 상황에서 요청 시 => 컨트롤러에서 404 반환, 여기로 옴
   				alert('로그인 한 유저만 사용할 수 있는기능입니다.')
   			}else{//문제가 없다면 0일 경우
   				//요청 - 이 글을 유저의 보관함에 저장
+  			alert("좋아요!");
   				$.get('UserLike?contentNum=${content.contentNum}').done(function(data){
   		  			console.log('아마도 성공')
   				});
@@ -213,8 +238,8 @@
 	    }else{
 	    	$("#toggleBtn").val("일정 펼쳐보기");
 	    }
-		
-		
+	    var plan = "(${PlanDtoLists})";
+	    console.log("plan :"+plan);
 		
 	}
 	
@@ -222,25 +247,39 @@
 	
 	//window.onload = document.getElementById("toggleBtn").addEventListener("click", tableToggle); 
 	window.onload = function(){ 
+		
 		const button = document.getElementById("toggleBtn");
 		
-		const buttonClickHandler = () =>{
+		const buttonClickHandler = () => {
 		  //alert('Button clicked!');
 		  tableToggle()
 		  
 		};
-		 
-		button.onclick = buttonClickHandler;
+		
+		//실행에 문제는 없는데 Uncaught 뜨는게 나중에라도 문제가 될까봐
+		if(button!=null){
+			button.onclick = buttonClickHandler;
+		}
+		
 	};
 	
 	
-	
-	
+	// 내용 높이만큼 textarea 높이 설정
+	$(document).ready(function(){
+		
+		var ta = document.querySelector('#mainText');
+// 		ta.style.height = 'auto';
+		var height = ta.scrollHeight;
+// 		console.log(height);
+// 		ta.style.height = `${height + 8}px`;
+		ta.style.height = height+'px';
+		
+	});
+
 </script>
 </head>
 <body>
 <jsp:include page="../common/top.jsp" flush="true" /><br>
-
 	<div class="container">
 	<!-- action="update" method="post // 버튼만 누르면 자꾸 업데이트 요청해서 지웠음 -->
 		<form class="form-horizontal" >
@@ -283,7 +322,7 @@
 				</div>	
 			
 			</div>
-			<div class="form-group">
+			<div class="form-group mb-4">
 				<!-- <label for="content" class="col-sm-2 control-label">내용</label>  -->
 				<div class="col-sm-12">
 					<!-- col 1이  생각보다 크다. // id TravelTable -->
@@ -324,9 +363,10 @@
 											<div class="single-plan-container">
 												<table class="plan-cell">
 													<tr class="detail-info-head" >
-											          	<td  align="left">${plan.item}</td>
-											          	
-														<td  align="right">${plan.time}</td>
+											          	<td align="left"
+											          	class="bold-text">
+											          	${plan.item}</td>
+														<td  align="right" >${plan.time}</td>
 											        </tr>
 											        <tr class="detail-info-head">
 											        	<td align="left">${plan.item_add}</td>
@@ -342,30 +382,46 @@
 						</tbody>
 					</table>
 					
+						<c:if test="${not empty PlanDto2dLists}">
+							<span><input type="button" value="일정 접기" class="btn btn-outline-primary" id='toggleBtn' style="font-size: 12px;">
+							</span>
+						</c:if>
+						
 					
-					<span><input type="button" value="일정 접기" class="btn btn-default btn-primary" id='toggleBtn' style="font-size: 12px;">
-					</span>
+					<hr>
 					
-					<br></br>
-
-					
-					<textarea class="form-control" rows="10" name="content" id="mainText">${content.mainText}</textarea>
+					<textarea class="form-control" rows="10" name="content" id="mainText" style="resize: none;">${content.mainText}</textarea>
 				</div>
 				
 			</div>
-				
-			<div class="form-group" id="functionBtnGroup">
-				<div ><!-- class="col-sm-offset-1" -->
+				 
+			<div class="mb-1 d-grid gap-2 col-3 mx-auto" id="functionBtnGroup">
+			<!----------------------------------------------------------------- 혁민 ------------------------------------------------------------------>
+<!-- 				<div >class="col-sm-offset-1" -->
 					<!-- class="col-sm-offset-2 col-sm-10"
 					<input type="button" value="글수정" class="btn btn-default col-sm-1" onclick="go_update()"> 
 					<input type="button" value="목록" class="btn btn-default col-sm-1" onclick="go_list()">
 					 -->
-				</div>
-				<span><input type="button" value="좋아요(찜)하기" class=" btn-default btn-primary col-sm-2 btn col-sm-offset-5" style="font-size: 12px;" onclick="like()" ></span>
-				<span><input type="button" value="글수정" class="btn btn-default btn-primary col-sm-1 btn col-sm-offset-3" style="font-size: 12px;" onclick="go_update()"></span>
-				<span><input type="button" value="목록" class="btn btn-default btn-primary col-sm-1" style="font-size: 12px;" onclick="go_list()"></span>
-				
+<!-- 				</div> -->
+<!-- 				<span><input type="button" value="좋아요(찜)하기" class=" btn-default btn-primary col-sm-2 btn col-sm-offset-5" style="font-size: 12px;" onclick="like()" ></span> -->
+<!-- 				<span><input type="button" value="글수정" class="btn btn-default btn-primary col-sm-1 btn col-sm-offset-3" style="font-size: 12px;" onclick="go_update()"></span> -->
+<!-- 				<span><input type="button" value="목록" class="btn btn-default btn-primary col-sm-1" style="font-size: 12px;" onclick="go_list()"></span> -->
+			<!---------------------------------------------------------------------------------------------------------------------------------------->
+			<!------------------------------------------------------------------ 설아 수정 --------------------------------------------------------------->
+<!-- 				<button class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()">좋아요(찜)하기</button> -->
+				<input type="button" value="❤️ &nbsp 좋아요(찜)하기" class="btn btn-outline-danger" style="font-size: 12px;" onclick="like()" id="likeBtn">
 			</div>
+			<div class="mb-4 d-grid gap-2 d-md-flex justify-content-md-end">
+<!-- 				<button class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">글수정</button> -->
+<!-- 				<button class="btn btn-secondary" style="font-size: 12px;" onclick="go_list()">목록</button> -->
+				<!-- 글 쓴 사람이면 수정/삭제버튼 나타남  -->
+				<c:if test="${loginInfo.userID == content.userID}"> 
+					<input type="button" value="글수정" class="btn btn-primary" style="font-size: 12px;" onclick="go_update()">
+					<input type="button" value="글삭제" class="btn btn-danger" style="font-size: 12px;" onclick="go_delete()">
+				</c:if>
+				<input type="button" value="목록" class="btn btn-secondary" style="font-size: 12px;" onclick="go_list()">
+			</div>
+			<!---------------------------------------------------------------------------------------------------------------------------------------->
 		</form>
 				
 		
@@ -398,7 +454,7 @@
 			</table>
 		</c:forEach>
 			<br>
-		<div>
+		<div class="mb-5">
 			<form ><!-- action = "comment" method="post" -->
 				<div class="form-group">
 					<label class="col-sm-5  control-label" >댓글 작성하기</label>
@@ -408,7 +464,7 @@
 						<textarea  rows="4" cols="100" class="form-control col-sm-3" id="comment" name="comment" placeholder='타인을 배려하는 댓글을 작성해 주세요' required></textarea>
 					</div>
 				</div>
-				<div class="col-sm-offset-11 col-sm-5 ">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					<input type="button" class="btn btn-default btn-primary" id="writeComment" onclick ="go_insert()" style="font-size: 12px;" value="댓글작성">
 					<!-- class right-button -->
 				</div>

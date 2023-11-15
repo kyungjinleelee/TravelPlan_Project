@@ -12,6 +12,11 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- alert 커스텀 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js"></script>
+    
 	<title>여담: 일정 만들기</title>
 	
 	
@@ -78,7 +83,11 @@
 		<div class="div_title col-lg-1 col-md-1 col-12">
 			<button class="travel-title_submit" onclick="save()">저장</button>
 <!-- 			<button class="travel-title_close" onclick="if(confirm('그만 만드시겠어요?')) history.back(); else alert('닫기 취소')">닫기</button> -->
-			<button class="travel-title_close" onclick="close()">닫기</button>
+			<button class="travel-title_close" onclick="event.preventDefault(); 
+				if(confirm('그만 만드시겠어요?')) {
+					location.href='loginCheck/dropPage';
+				}
+				else alert('닫기 취소');">닫기</button>
 		</div>
 		</form>
 	</div>
@@ -158,9 +167,16 @@
 			 <div>
 			  	<div class="list-group list-group-flush border-bottom scrollarea" id="placesList"></div>
 			  <!-- 페이징 시작  -->
-		        <div id="pagination">
-		        	<div id="pagination_page" onclick="sightseeingBtnclick()"></div> <!-- 페이징 들어갈 자리 만들어줌 -->
-		        </div>
+<!-- 		        <div id="pagination"> -->
+				<div class="d-flex justify-content-center mx-auto">
+		        	<nav aria-label="Page navigation example">
+					  <ul class="pagination" id="pagination_page">
+					    
+					  </ul>
+					</nav>
+				</div>
+<!-- 					<div id="pagination_page"></div> 페이징 들어갈 자리 만들어줌 -->
+<!-- 		        </div> -->
 			</div> 
 			 <!-- 페이징 끝 -->
 		  	
